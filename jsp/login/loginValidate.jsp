@@ -31,6 +31,9 @@
 				if(loginCode.equals("10")){
 					json.put("success", false);
 					json.put("msg","用户超出设备邦定数量,请联系管理员。");
+				}else if(loginCode.equals("7")){
+					json.put("success", false);
+					json.put("msg","用户未被授权访问系统,请联系管理员。");
 				}else if(formAction.contains("names.nsf")){
 					json.put("success", false);
 					json.put("msg","用户名和密码错误！");
