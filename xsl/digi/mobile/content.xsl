@@ -39,7 +39,8 @@
 							<![CDATA[
 							//viewfile 附件函数
 							function viewfile(url){
-								$.hori.loadPage(url, $.hori.getconfig().serverBaseUrl+"view/xml/AttachView.xml");
+								localStorage.setItem("attachmentUrl",url);
+								$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
 							}
 							
 							function post(value, flowid, confirmflag, confirmstr){
