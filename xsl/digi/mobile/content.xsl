@@ -74,7 +74,10 @@
 								FlowMindInfo = escape(FlowMindInfo);
 								FlowMindInfo = FlowMindInfo.replace(/%20/g," ");
 
-								FlowMindInfo = encodeURI(FlowMindInfo);
+								
+								if(window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)) {
+									FlowMindInfo = encodeURI(FlowMindInfo);
+								}
 
 								if(confirmflag=="yes"){
 									if(!window.confirm(confirmstr)){
