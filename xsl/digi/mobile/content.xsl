@@ -27,6 +27,15 @@
 						localStorage.setItem("oaAppContentHtml",contentHtml);
 						$.hori.loadPage($.hori.getconfig().serverBaseUrl+"view/html/jq.html");
 					}
+
+					function searchPerson(){						
+						
+						var contentHtml=$("#notice").html();						
+						localStorage.setItem("oaAppContentHtml",contentHtml);
+						$.hori.loadPage($.hori.getconfig().serverBaseUrl+"view/html/searchPerson.html");
+					}
+					
+
 				</script>
 	
 				<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -181,7 +190,8 @@
 					
 						<h3><xsl:value-of select="//title/text()"/></h3>
 						
-
+						<div><a data-role="button" value="reject" onclick="searchPerson();" data-mini='true' data-theme="f">选人</a></div>
+						
 						<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
 							
 							<xsl:if test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
