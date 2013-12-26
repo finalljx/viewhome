@@ -105,7 +105,12 @@
 											var result = response;
 											$.mobile.hidePageLoadingMsg();
 											alert(result);
-											setTimeout("$.hori.backPage(1)",2000);
+											if(result.indexOf("环节处理人为空")){
+												//alert("此处选择处理人");
+												searchPerson();
+											}else{
+												setTimeout("$.hori.backPage(1)",2000);
+											}
 									},
 									error:function(response){
 										$.mobile.hidePageLoadingMsg();
@@ -144,7 +149,12 @@
 									if($("#toflownodeid")){
 										toflownodeid = $("#toflownodeid").val();
 									}
-									
+									if(toflownodeid==""){
+										alert("请选择下一环节");
+										return ;
+									}
+									//存储下一环节到localstorage中 
+									localStorage.setItem("oaNextNodeId",toflownodeid);
 									post(value, toflownodeid);
 								}
 							}
@@ -477,8 +487,8 @@
 			<xsl:if test="contains(@id, 'ToNodeId')">
 				<select id="toflownodeid" name="toflownodeid" onChange='' data-theme="b" >
 					<xsl:call-template name="flownodes">
-						<xsl:with-param name="flows" select="text/."/>
-						<xsl:with-param name="default" select="value/."/>
+						<xsl:with-param name="flows" select="value/text/."/>
+						<xsl:with-param name="default" select="value1/."/>
 					</xsl:call-template>
 				</select>
 			</xsl:if>
