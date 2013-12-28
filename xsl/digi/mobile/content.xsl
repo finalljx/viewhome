@@ -4,6 +4,7 @@
 	
 	<xsl:variable name="appdbpath"><xsl:value-of select="//input[@name='appdbpath']/@value"/></xsl:variable>
 	<xsl:variable name="appformname"><xsl:value-of select="//input[@name='appformname']/@value"/></xsl:variable>
+	<xsl:variable name="flownodeid"><xsl:value-of select="//input[@name='TFCurNodeID']/@value"/></xsl:variable>
 	
 	<xsl:output method="html" indent="yes"/>
 	<xsl:template match="/">
@@ -146,15 +147,17 @@
 								//确定提交或者驳回时
 								if(question){
 									var toflownodeid = "";
-									if($("#toflownodeid")){
+									if($("#toflownodeid").length>0){
 										toflownodeid = $("#toflownodeid").val();
+									
+										if(toflownodeid==""){
+											alert("请选择下一环节");
+											return ;
+										}
+										
+										//存储下一环节到localstorage中 
+										localStorage.setItem("oaNextNodeId",toflownodeid);
 									}
-									if(toflownodeid==""){
-										alert("请选择下一环节");
-										return ;
-									}
-									//存储下一环节到localstorage中 
-									localStorage.setItem("oaNextNodeId",toflownodeid);
 									post(value, toflownodeid);
 								}
 							}
@@ -410,6 +413,7 @@
 
 				<!-- 新加了这个select -->
 				<xsl:when test="@type='select'">
+				<xsl:if test="not(contains(@id, 'ToNodeId'))">
 					<xsl:variable name="selectVal"><xsl:value-of select="concat('|',value/.)" /></xsl:variable>
 					<xsl:variable name="selectTxt"><xsl:value-of select="substring-before(text/., $selectVal)"/></xsl:variable>
 									
@@ -447,15 +451,8 @@
 					</xsl:if>
 					
 					<br/><hr/>
+				</xsl:if>
 				</xsl:when>
-
-				<xsl:when test="@id = 'ToNodeId'">
-					<font  size="3">下一环节不唯一，请选择环节</font>
-				</xsl:when>
-
-				
-
-				
 
 				<xsl:when test="@id='MTTABLE'">
 					<li data-role="list-divider"><xsl:value-of select="@title" /></li>
@@ -485,12 +482,17 @@
 
 			<!-- 处理分支 -->
 			<xsl:if test="contains(@id, 'ToNodeId')">
+			<xsl:if test="@shownodes=$flownodeid">
+				<font  size="3">下一环节不唯一，请选择环节</font>
+				<br/><hr/>
+				
 				<select id="toflownodeid" name="toflownodeid" onChange='' data-theme="b" >
 					<xsl:call-template name="flownodes">
 						<xsl:with-param name="flows" select="value/text/."/>
-						<xsl:with-param name="default" select="value1/."/>
+						<xsl:with-param name="default" select="value123/."/><!-- 无用 -->
 					</xsl:call-template>
 				</select>
+			</xsl:if>
 			</xsl:if>
 	</xsl:template>
 	<xsl:template name="flownodes">
