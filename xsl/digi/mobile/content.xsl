@@ -26,14 +26,14 @@
 						localStorage.setItem("oajqDataSource",url);
 						//jqElement.setAttribute("href", "../html/jq.html");
 						localStorage.setItem("oaAppContentHtml",contentHtml);
-						$.hori.loadPage($.hori.getconfig().serverBaseUrl+"view/html/jq.html");
+						$.hori.loadPage($.hori.getconfig().serverBaseUrl+"viewhome/html/jq.html");
 					}
 
 					function searchPerson(){						
 						
 						var contentHtml=$("#notice").html();						
 						localStorage.setItem("oaAppContentHtml",contentHtml);
-						$.hori.loadPage($.hori.getconfig().serverBaseUrl+"view/html/searchPerson.html");
+						$.hori.loadPage($.hori.getconfig().serverBaseUrl+"viewhome/html/searchPerson.html");
 					}
 					
 
@@ -106,9 +106,10 @@
 											var result = response;
 											$.mobile.hidePageLoadingMsg();
 											alert(result);
-											if(result.indexOf("环节处理人为空")){
+											if(result.indexOf("环节处理人为空")>=0){
 												//alert("此处选择处理人");
 												searchPerson();
+												return false; 
 											}else{
 												setTimeout("$.hori.backPage(1)",2000);
 											}
@@ -206,7 +207,6 @@
 					
 						<h3><xsl:value-of select="//title/text()"/></h3>
 						
-						<div><a data-role="button" value="reject" onclick="searchPerson();" data-mini='true' data-theme="f">选人</a></div>
 						
 						<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
 							
