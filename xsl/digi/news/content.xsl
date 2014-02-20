@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+	<xsl:variable name="data-userstore"><xsl:value-of select="//storeid"/></xsl:variable>
 	<xsl:output method="html" indent="yes"/>
 	<xsl:template match="/">
 		<html lang="zh_cn">
@@ -25,49 +26,99 @@
 			<body>
 				<div id="notice" data-role="page">
 					<div data-role="content" align="center">
-						
-						<div align="center" style="width:100%"><strong><xsl:value-of select="//title/text()"/></strong></div>
+						<script type="text/javascript">
+							function viewfile(url){
+								url=decodeURI(url);
+								localStorage.setItem("attachmentUrl",url);
+								$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
+							}
+						</script>
+						<div align="center" style="width:100%">
+							<strong><xsl:value-of select="//title/text()"/></strong>
+						</div>
 						<div data-role="collapsible-set" data-theme="c" data-content-theme="d">
 							<ul data-role="listview" data-inset="true">
-								<li>
-									<div style="width:100%;word-wrap:word;text-align:left;" align="left">
-										<pre>
-											<xsl:copy-of select="//textarea[@id='FCK_EditorValue']//p" />
-											
-											
-											<xsl:if test="//textarea[@id='FCK_EditorValue']/p[1]/@style">
-												<xsl:copy-of select="//textarea[@id='FCK_EditorValue']//p" />
-											</xsl:if>
-											
-											<xsl:if test="not(//textarea[@id='FCK_EditorValue']/p[1]/@style)">
-												<xsl:value-of select="//textarea[@id='FCK_EditorValue']//p" />
-											</xsl:if>
-											
-										</pre>
-									</div>
-									
-									<div>
-										<xsl:apply-templates select="//img[@src='/icons/fileatt.gif']/.." mode="file"/>
-									</div>
-								</li>
+							<li data-role="list-divider">正文内容</li>
+							<li>
+								<div style="width:100%;text-align:left" align="left">
+										<xsl:apply-templates select="//textarea[@name='Fck_HTML']/."/>
+								</div>
+
+							</li>
+							<li data-role="list-divider">附件信息</li>
+							<li>
+								<xsl:if test="count(//img[@src='/icons/fileatt.gif']/..)=0">
+									无附件
+								</xsl:if>
+								<xsl:if test="count(//img[@src='/icons/fileatt.gif']/..)!=0">
+									<xsl:apply-templates select="//img[@src='/icons/fileatt.gif']/.." mode="file"/>
+								</xsl:if>
+							</li>
 							</ul>
 						</div>
-					</div><!-- /content -->
+					</div>
 				</div>
 			</body>
 		</html>
 	</xsl:template>
-	
 	<xsl:template match="a" mode="file">
-		<xsl:if test="@href='#'">
-			<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/{substring(substring-before(substring-after(@onclick,'('),')'), 2)}');"  data-role="button"><xsl:value-of select="."/></a>
+		<xsl:if test="contains(@onclick, 'JPG')">
+			<xsl:variable name="path" select="substring-before(substring-after(@onclick, '/'), 'JPG')"/>
+			<li><a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/{$path}JPG');" data-role="button"><xsl:value-of select="."/></a></li>	
 		</xsl:if>
+		<xsl:if test="contains(@onclick, 'jpg')">
+			<xsl:variable name="path" select="substring-before(substring-after(@onclick, '/'), 'jpg')"/>
+			<li><a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/{$path}jpg');" data-role="button"><xsl:value-of select="."/></a></li>	
+		</xsl:if>
+		<xsl:if test="contains(@onclick, 'bmp')">
+			<xsl:variable name="path" select="substring-before(substring-after(@onclick, '/'), 'bmp')"/>
+			<li><a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/{$path}bmp');" data-role="button"><xsl:value-of select="."/></a></li>	
+		</xsl:if>
+			<xsl:if test="contains(@onclick, 'docx')">
+			<xsl:variable name="path" select="substring-before(substring-after(@onclick, '/'), 'docx')"/>
+			<li><a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/{$path}docx');" data-role="button"><xsl:value-of select="."/></a></li>	
+		</xsl:if>
+	
+	</xsl:template>
+
+	<xsl:template match="pre">
+		<xsl:apply-templates />
+	</xsl:template>
+	<xsl:template match="br">
+		<br/>
+	</xsl:template>
+
+	<xsl:template match="img">
+		<div style="width:100%" align="center">
+		<xsl:if test="contains(@src, 'Application')">
+			<img src="{translate(@src, '&quot;', '')}?data-result=file&amp;data-userstore={$data-userstore}" width="250"/>
+		</xsl:if>
+		<xsl:if test="not(contains(@src, 'Application'))">
+			<img src="{translate(@src, '&quot;', '')}" width="250"/>
+		</xsl:if>
+		
+			
+		</div>
+	</xsl:template>
+	<xsl:template match="p">
+		<xsl:if test="contains(@style, 'text-indent:')">
+			&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+		</xsl:if>
+		
+		<xsl:choose>
+		<xsl:when test="contains(@style, 'text-align: right')">
+			<div style="%100" align="right"><xsl:apply-templates /></div>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:text></xsl:text><xsl:apply-templates />
+		</xsl:otherwise>
+		</xsl:choose>
+		<br/>
 	</xsl:template>
 
 	
 	
-	<!-- 表单批量格式化模版 -->
-	<!-- variable of $mini and $aliasname at mdp.xsl -->
+	
 	<xsl:template match="table" mode="c1">
 		<xsl:apply-templates mode="c2"/>
 	</xsl:template>
@@ -112,8 +163,19 @@
 	<xsl:template match="text()" mode="c4">
 		<xsl:value-of select="."/>
 	</xsl:template>
+	<xsl:template match="div" mode="c4">
+		<xsl:apply-templates mode="c4"/>
+	</xsl:template>	
 	<xsl:template match="q" mode="c4">
 		<xsl:apply-templates mode="c4"/>
+	</xsl:template>
+	<xsl:template match="p" mode="c4">
+		
+		<xsl:copy-of select="."/>
+	</xsl:template>
+	<xsl:template match="br" mode="c4">
+		
+		<br/>
 	</xsl:template>
 	<xsl:template match="b" mode="c4">
 		<xsl:if test="normalize-space(.)!=''">
@@ -150,9 +212,7 @@
 			</xsl:attribute>
 		</hr>
 	</xsl:template>
-	<xsl:template match="div" mode="c4">
-		<xsl:apply-templates mode="c4" />
-	</xsl:template>
+
 	<xsl:template match="img" mode="c4">
 	</xsl:template>
 	<xsl:template name="color">
@@ -167,3 +227,4 @@
 		</xsl:choose>
 	</xsl:template>
 </xsl:stylesheet>
+			
