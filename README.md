@@ -1,0 +1,2 @@
+viewhome/config/web/config.js 配置本地服务器的域名，在打包到本地的时候需要修改serverBaseUrl为空是指去本地的html资源
+viewer.xml 里配置远程后台服务器地址
