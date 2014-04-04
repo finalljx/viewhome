@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-	<xsl:import href="/xsl/pub/scriptCss.xsl" />
-	
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:dxmlf="http://www.datypic.com/xmlf"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                xmlns:local="http://www.datypic.com/local"
+                 xmlns:functx="http://www.functx.com"  
+                exclude-result-prefixes="dxmlf xs" version="2.0">
+
+	<xsl:function name="functx:trim" as="xs:string" xmlns:functx="http://www.functx.com">
+  		<xsl:param name="arg" as="xs:string?"/>
+  		<xsl:sequence select="  replace(replace($arg,'\s+$',''),'^\s+','') "/>
+  </xsl:function>
+	<!--引入公共的xsl函数库http://www.xsltfunctions.com/xsl/-->
 	<xsl:variable name="appdbpath"><xsl:value-of select="//input[@name='appdbpath']/@value"/></xsl:variable>
 	<xsl:variable name="appformname"><xsl:value-of select="//input[@name='appformname']/@value"/></xsl:variable>
 	<xsl:variable name="flownodeid"><xsl:value-of select="//input[@name='TFCurNodeID']/@value"/></xsl:variable>
@@ -359,14 +369,14 @@
 		<li>
 		<xsl:choose>
 			<xsl:when test="contains($info, ';')">
-				<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{substring-before($info, '(')}');"  data-role="button"><xsl:value-of select="substring-before($info, '(')"/></a>
+				<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{functx:trim(substring-before($info, '(')}'));"  data-role="button"><xsl:value-of select="substring-before($info, '(')"/></a>
 				<xsl:call-template name="file">
 					<xsl:with-param name="info" select="substring-after($info, ';')"/>
 				</xsl:call-template>
 			</xsl:when>
 
 			<xsl:when test="contains($info, '(')">
-				<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{substring-before($info, '(')}');"  data-role="button"><xsl:value-of select="substring-before($info, '(')"/></a>
+				<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{functx:trim(substring-before($info, '(')}'));"  data-role="button"><xsl:value-of select="substring-before($info, '(')"/></a>
 				
 			</xsl:when>
 			<xsl:otherwise>
