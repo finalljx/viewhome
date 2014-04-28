@@ -11,7 +11,12 @@
   		<xsl:param name="arg" as="xs:string?"/>
   		<xsl:sequence select="  replace(replace($arg,'\s+$',''),'^\s+','') "/>
   </xsl:function>
-	<!--引入公共的xsl函数库http://www.xsltfunctions.com/xsl/-->
+  <xsl:function name="functx:left-trim" as="xs:string" xmlns:functx="http://www.functx.com" >
+		<xsl:param name="arg" as="xs:string?"/>
+
+		<xsl:sequence select="replace($arg,'^\s+','')"/>
+
+</xsl:function>
 	<xsl:variable name="appdbpath"><xsl:value-of select="//input[@name='appdbpath']/@value"/></xsl:variable>
 	<xsl:variable name="appformname"><xsl:value-of select="//input[@name='appformname']/@value"/></xsl:variable>
 	<xsl:variable name="flownodeid"><xsl:value-of select="//input[@name='TFCurNodeID']/@value"/></xsl:variable>
@@ -369,14 +374,14 @@
 		<li>
 		<xsl:choose>
 			<xsl:when test="contains($info, ';')">
-				<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{functx:trim(substring-before($info, '(')}'));"  data-role="button"><xsl:value-of select="substring-before($info, '(')"/></a>
+				<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{functx:left-trim(substring-before($info, '(')}'));"  data-role="button"><xsl:value-of select="substring-before($info, '(')"/></a>
 				<xsl:call-template name="file">
 					<xsl:with-param name="info" select="substring-after($info, ';')"/>
 				</xsl:call-template>
 			</xsl:when>
 
 			<xsl:when test="contains($info, '(')">
-				<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{functx:trim(substring-before($info, '(')}'));"  data-role="button"><xsl:value-of select="substring-before($info, '(')"/></a>
+				<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{functx:left-trim(substring-before($info, '(')}'));"  data-role="button"><xsl:value-of select="substring-before($info, '(')"/></a>
 				
 			</xsl:when>
 			<xsl:otherwise>
