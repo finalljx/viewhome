@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <viewers>
 	<viewer id="oa" type="remote" source="http://mobile2.sugon.com" 	encoding="gb2312">
-		<!-- 登陆验证 -->
+		<!-- 登陆验证tset -->
 		<view id="loginvalidate" template="login/loginValidate.jsp"	encoding="gb18030" />
 		
 	
