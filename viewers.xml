@@ -1,30 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <viewers>
-	<viewer id="oa" type="remote" source="http://mobile2.sugon.com" 	encoding="gb2312">
-		<!-- 登陆验证 -->
-		<view id="loginvalidate" template="login/loginValidate.jsp"	encoding="gb18030" />
-		
-	
-		<!-- 代办载入更多 -->
-		<view id="todosmobilesub" template="digi/todosmobilesublist.xsl"
-			encoding="utf-8">
+	<viewer id="oa" type="remote" source="http://webseal.genertec.com.cn" 	encoding="gb2312">
+		<!-- 登陆验证 http://docapp.genertec.com.cn http://webseal.genertec.com.cn/pkmslogin.form-->
+		<view id="loginvalidate" template="login/loginValidate.jsp"	encoding="utf-8" />
+		<view id="loginOut" template="login/loginOut.jsp"	encoding="gb2312" />
+		<view id="loginOut2" template="login/loginOut.jsp"	encoding="utf-8" />
+		<!-- 获取用户 -->
+		<view id="currentuser" template="login/loginUser.jsp" encoding="gb2312"/>
+		<!-- 请示代办列表-->
+		<view id="todos" template="oa/task/todos.xsl" encoding="gb2312">
+			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
+			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
-		<view id="request" template="digi/mobile/request.xsl" encoding="utf-8">
+		<view id="todossub" template="oa/task/sublist.xsl" encoding="gb18030">
+			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
+			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
+		</view>
+		<!-- 请示代办展示内容 -->
+		<view id="todoscontent" template="oa/task/content.xsl" encoding="GBK">
+			<!-- 源数据是符合标签形式的字符串，转换成真正的字符串（把'<','>' 替换成真正的标签） -->
+			
+			<rule mode="replace" regex="&amp;nbsp;" value="" />
+			<rule mode="replace" regex="&lt;!" value="&amp;lt;!" />
+			<rule mode="replace" regex="&lt;/!" value="&amp;lt;/!" />
+			<rule mode="replace" regex="!&gt;" value="!&amp;gt;" />
+			
+			<rule mode="replace" regex="&lt;file_unid&gt;" value="&amp;lt;file_unid&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_unid&gt;" value="&amp;lt;/file_unid&amp;gt;" />
+
+			<rule mode="replace" regex="&lt;file_name&gt;" value="&amp;lt;file_name&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_name&gt;" value="&amp;lt;/file_name&amp;gt;" />
+
+			<rule mode="replace" regex="&lt;file_size&gt;" value="&amp;lt;file_size&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_size&gt;" value="&amp;lt;/file_size&amp;gt;" />
+
+			<rule mode="replace" regex="&lt;file_create&gt;" value="&amp;lt;file_create&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_create&gt;" value="&amp;lt;/file_create&amp;gt;" />
+
+			<rule mode="replace" regex="&lt;file_update&gt;" value="&amp;lt;file_update&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_update&gt;" value="&amp;lt;/file_update&amp;gt;" />
+
+			<rule mode="replace" regex="&lt;file_editmodel&gt;" value="&amp;lt;file_editmodel&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_editmodel&gt;" value="&amp;lt;/file_editmodel&amp;gt;" />
+
+			<rule mode="replace" regex="&lt;doc_unid&gt;" value="&amp;lt;doc_unid&amp;gt;" />
+			<rule mode="replace" regex="&lt;/doc_unid&gt;" value="&amp;lt;/doc_unid&amp;gt;" />
+
+		</view>
+
+		<!-- 流程处理 -->
+		<view id="submit" template="oa/flow/submit.xsl">
+			<rule mode="remove" regex="&amp;nbsp;"/>
+		</view>
+		<view id="responsesubmit" template="oa/flow/result_submit.xsl">
+			<rule mode="remove" regex="&amp;nbsp;"/>
+		</view>
+		<!-- 流程人员选择 -->
+		<view id="userselectorg" template="oa/userselect/listorg.xsl" encoding="gb18030">
+			<rule mode="remove" regex="&amp;nbsp;"/>
+		</view>
+		<view id="userselectuser" template="oa/userselect/listuser.xsl" encoding="utf-8">
+			<rule mode="remove" regex="&amp;nbsp;"/>
+		</view>
+
+		<view id="request" template="oa/task/request.xsl" encoding="utf-8">
 			<rule mode="replace" regex="soap:" value="" />
 			<rule mode="replace" regex="ns1:" value="" />
 		</view>
-		
-		<!-- 已读 -->
-		<view id="messagereadlist" template="digi/message/readlist.xsl"
-			encoding="utf-8" />
-
-
-		<view id="messagesublist" template="digi/message/sublist.xsl"
-			encoding="utf-8" />
-
-		<view id="messagesubreadlist" template="digi/message/subreadlist.xsl"
-			encoding="utf-8" />
-		
+		<!-- 请示查阅内请办理中-->
+		<view id="queryForDoing" template="oa/query/queryForDoing.xsl" encoding="gb2312">
+			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
+			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
+		</view>
 
 		<!-- 企业新闻 -->
 		<view id="newslist" template="news/newsList.jsp" encoding="utf-8" />
@@ -47,61 +94,14 @@
 			<rule mode="remove" regex="height=&amp;quot;179&amp;quot;" />
 			<rule mode="replace" regex="http://oadev.dawning.com.cn/" value="/view/oa/newsfile/" />
 		</view>
-		<!-- 电话查询 -->
-		<view id="phonenumber" template="digi/phonenumber/index.xsl">
-			<rule mode="replace" regex="height:100" value="" />
-		</view>
-		<view id="phonenumberrequest" template="contact.jsp">
-			<rule mode="replace" regex="height:100" value="" />
-			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
-			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
-			<rule mode="replace" regex="&amp;quot;" value="&quot;" />
-		</view>
-
 		<view id="file" template="file.jsp" />
 
 		<view id="newsfile" template="" />
-
 	</viewer>
-	<viewer id="oamobile" type="remote" source="http://mobile2.sugon.com" encoding="gb2312">
-		<!-- 代办条数，气泡显示 -->
-		<view id="todosnum" template="todosNumber.jsp" encoding="utf-8" />
+	<viewer id="oamobile" type="remote" source="http://docapp.genertec.com.cn" encoding="gb2312">
 		<!-- 手机待办列表 -->
 		<view id="todosmobile" template="taskList.jsp" encoding="utf-8" />
-		<!-- 代办展示内容 -->
-		<view id="contentmobile" template="digi/mobile/content.xsl">
-			<!-- 源数据是符合标签形式的字符串，转换成真正的字符串（把'<','>' 替换成真正的标签） -->
-
-			<rule mode="replace" regex="0 " value="0&#160;" />
-			<rule mode="replace" regex="1 " value="1&#160;" />
-			<rule mode="replace" regex="2 " value="2&#160;" />
-			<rule mode="replace" regex="3 " value="3&#160;" />
-			<rule mode="replace" regex="4 " value="4&#160;" />
-			<rule mode="replace" regex="5 " value="5&#160;" />
-			<rule mode="replace" regex="6 " value="6&#160;" />
-			<rule mode="replace" regex="7 " value="7&#160;" />
-			<rule mode="replace" regex="8 " value="8&#160;" />
-			<rule mode="replace" regex="9 " value="9&#160;" />
-
-			<rule mode="replace" regex="approver=" value="approver='" />
-			<rule mode="replace" regex="approver=''" value="approver='" />
-			<rule mode="replace" regex=" approveren=" value="' approveren='" />
-			<rule mode="replace" regex=" approvetime=" value="' approvetime=" />
-
-			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
-			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
-
-			<rule mode="replace" regex="&amp;quot;" value="&quot;" />
-			<rule mode="replace" regex="&amp;amp;nbsp;" value="" />
-			<rule mode="replace" regex="&amp;amp;middot;" value="" />
-			<rule mode="replace" regex="&amp;amp;ldquo;" value="" />
-			<rule mode="replace" regex="&amp;amp;rdquo;" value="" />
-			<rule mode="replace" regex="&lt;textarea name=&quot;Fck_HTML&quot;"
-				value="&lt;div name=&quot;Fck_HTML&quot;" />
-
-			<rule mode="replace" regex="&lt;\!\[CDATA\[" value="" />
-			<rule mode="replace" regex="\]\]&gt;" value="" />
-		</view>
+		
 		<!-- 个人消息 -->
 		<!-- 未读 -->
 		<view id="messagelist" template="unreadList.jsp" encoding="utf-8" />
@@ -155,5 +155,5 @@
 			<rule mode="replace" regex=":" value="_"/>
 		</view>
 	</viewer>
-	<viewer id="oamsg" type="remote" source="http://mobile2.sugon.com"	encoding="gb2312"></viewer>
+	<viewer id="oamsg" type="remote" source="http://docapp.genertec.com.cn"	encoding="gb2312"></viewer>
 </viewers>
