@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jQuery Mobile Demo</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../../lib/jquery-mobile/jquery.mobile.min.css" /> 
+	<link href="../../lib/chart/assets/prettify/prettify.css" rel="stylesheet" type="text/css" />
+  <script src="../../lib/jquery/jquery.min.js"></script>		
+		<script src="../../lib/jquery-cookie/jquery.cookie.js"></script>	
+		<script src="../../lib/encrypt/encrypt.js"></script>
+		<script src="../../lib/json/json2.js"></script>
+		<script src="../../lib/hori/hori.js?tag=21369"></script>
+		
+		<script src="../../lib/jquery-mobile/jquery.mobile.min.js"></script>
+		
+		<script src="../../config/web/config.js"></script>
+		
+		
+		 
+      
+        <script type="text/javascript" src="../../lib/chart/Charts/FusionCharts.js"></script>
+        <script type="text/javascript" src="../../lib/chart/Charts/FusionCharts.HC.js"></script>
+        <script type="text/javascript" src="../../lib/chart/Charts/FusionCharts.HC.Charts.js"></script>
+        
+</head>
+
+<body>
+
+<div data-role="page" id="home">
+
+	<header data-role="header">
+		<h1>jQuery Mobile Demo</h1>
+	</header>
+
+	<div data-role="content">
+		<div class="content-primary">		
+		<p>jQuery Mobile 包含一套基于 CSS3 的转场动画，通过在跳转到相应页面的链接中使用 data-transition 属性可以选择不同的转场效果。下面是 data-transition 的完整可取值及其具体效果。</p> 
+
+			<style>
+				table {width:100%; border-bottom: 1px solid #ccc; border-collapse: collapse; }
+				tr {border-top: 1px solid #CCC; }
+				th {text-align: left; }
+				th h3 {margin: .6em 0; }
+				th, td {vertical-align: top; padding: 1px 3px; }
+				td .ui-btn {margin:.4em 0 .5em 0; }
+				td .ui-btn-inner {padding: .4em 15px; }
+			</style>
+
+		<table margin="0">
+			<tr>
+				<th><h3>fade</h3></th>
+				<td><a href="#page-2" data-role="button" data-rel="dialog" data-transition="fade" data-inline="true">dialog</a></td>
+				<td><a href="#page-3" data-role="button" data-transition="fade" data-inline="true">page</a></td>
+			</tr>
+			<tr>
+				<th><h3>pop</h3></th>
+				<td><a href="#page-2" data-role="button" data-rel="dialog" data-transition="pop" data-inline="true">dialog</a></td>
+				<td><a href="#page-3" data-role="button" data-transition="pop" data-inline="true">page</a></td>
+			</tr>
+			<tr>
+				<th><h3>flip</h3></th>
+				<td><a href="#page-2" data-role="button" data-rel="dialog" data-transition="flip" data-inline="true">dialog</a></td>
+				<td><a href="#page-3" data-role="button" data-transition="flip" data-inline="true">page</a></td>
+			</tr>
+			<tr>
+				<th><h3>turn</h3></th>
+				<td><a href="#page-2" data-role="button" data-rel="dialog" data-transition="turn" data-inline="true">dialog</a></td>
+				<td><a href="#page-3" data-role="button" data-transition="turn" data-inline="true">page</a></td>
+			</tr>
+			<tr>
+				<th><h3>flow</h3></th>
+				<td><a href="#page-2" data-role="button" data-rel="dialog" data-transition="flow" data-inline="true">dialog</a></td>
+				<td><a href="#page-3" data-role="button" data-transition="flow" data-inline="true">page</a></td>
+			</tr>
+			<tr>
+				<th><h3>slidefade</h3></th>
+				<td><a href="#page-2" data-role="button" data-rel="dialog" data-transition="slidefade" data-inline="true">dialog</a></td>
+				<td><a href="#page-3" data-role="button" data-transition="slidefade" data-inline="true">page</a></td>
+			</tr>
+			<tr>
+				<th><h3>slide</h3></th>
+				<td><a href="#page-2" data-role="button" data-rel="dialog" data-transition="slide" data-inline="true">dialog</a></td>
+				<td><a href="#page-3" data-role="button" data-transition="slide" data-inline="true">page</a></td>
+			</tr>
+			<tr>
+				<th><h3>slideup</h3></th>
+				<td><a href="#page-2" data-role="button" data-rel="dialog" data-transition="slideup" data-inline="true">dialog</a></td>
+				<td><a href="#page-3" data-role="button" data-transition="slideup" data-inline="true">page</a></td>
+			</tr>
+			<tr>
+				<th><h3>slidedown</h3></th>
+				<td><a href="#page-2" data-role="button" data-rel="dialog" data-transition="slidedown" data-inline="true">dialog</a></td>
+				<td><a href="#page-3" data-role="button" data-transition="slidedown" data-inline="true">page</a></td>
+			</tr>
+			<tr>
+				<th><h3>none</h3></th>
+				<td><a href="#page-2" data-role="button" data-rel="dialog" data-transition="none" data-inline="true">dialog</a></td>
+				<td><a href="#page-3" data-role="button" data-transition="none" data-inline="true">page</a></td>
+			</tr>
+		</table>
+
+		</div><!--/content-primary -->
+	</div>
+
+	<div data-role="footer">
+		<h2>Demo By <a href="http://kayosite.com" target="_blank" style="text-decoration: none; ">Kayo</a></h2>
+	</div>
+
+</div>
+
+<div data-role="page" id="page-2">
+
+		<div data-role="header" data-theme="e">
+			<h1>Dialog</h1>
+		</div><!-- /header -->
+
+		<div data-role="content" data-theme="e">
+			<p>对话框在样式上会自动增加增加圆角，外边距，阴影，遮罩层。</p>
+			
+			<a href="#home" data-role="button" data-theme="b" data-rel="back">回到首页</a>   
+		</div>
+
+		<div data-role="footer">
+			<h2>Demo By <a href="http://kayosite.com" target="_blank" style="text-decoration: none; ">Kayo</a></h2>
+		</div>
+
+</div>
+
+<div data-role="page" id="page-3">
+
+		<div data-role="header">
+			<h1>Page</h1>
+		</div><!-- /header -->
+
+		<div data-role="content">		
+		 <div id="chartdiv" align="center">正在加载，请稍后</div>
+
+		  <p>&nbsp;</p>
+		  <script>
+		  FusionCharts.setCurrentRenderer('javascript');
+		  var myChart = new FusionCharts( "MSBar2D", "myChartId", "100%", "100%", "0" );
+		  var dataObj={
+			  "chart": {
+				"caption": "利润分析",
+				"subcaption": "2012 v 2013",
+				"yaxisname": "收入 (万)",
+				"showvalues": "0",
+				"useroundedges": "1"
+			  },
+			  "categories": [
+				{
+				  "category": [
+					{
+					  "label": "服务器"
+					},
+					{
+					  "label": "存储产品线"
+					},
+					{
+					  "label": "高性能集群产品线"
+					},
+					{
+					  "label": "其他"
+					}
+				  ]
+				}
+			  ],
+			  "dataset": [
+				{
+				  "seriesname": "2012",
+				  "color": "FDC12E",
+				  "data": [
+					{
+					  "value": "124"
+					},
+					{
+					  "value": "247"
+					},
+					{
+					  "value": "200"
+					},
+					{
+					  "value": "156"
+					}
+				  ]
+				},
+				{
+				  "seriesname": "2013",
+				  "color": "333333",
+				  "data": [
+					{
+					  "value": "156"
+					},
+					{
+					  "value": "277"
+					},
+					{
+					  "value": "210"
+					},
+					{
+					  "value": "123"
+					}
+				  ]
+				}
+			  ]
+			}
+
+		  myChart.setJSONData(dataObj);
+			myChart.render("chartdiv");
+		  </script>
+		</div>
+
+		<div data-role="footer">
+				<a href="#home" data-role="button" data-theme="b" data-rel="back">返回</a>   
+		</div>
+
+</div>
+
+</body> 
+</html>

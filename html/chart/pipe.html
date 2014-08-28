@@ -1,0 +1,118 @@
+<html xmlns="http://www.w3.org/1999/xhtml" encoding="utf-8" >
+    <head>
+        <title>2013业绩分析</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+     <link rel="stylesheet" href="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" /> 
+        <script type="text/javascript" src="../../lib/chart/Charts/jquery.min.js"></script>
+        <script type="text/javascript" src="../../lib/chart/Charts/FusionCharts.js"></script>
+       <script type="text/javascript" src="../../lib/chart/Charts/FusionCharts.HC.js"></script>
+        <script type="text/javascript" src="../../lib/chart/Charts/FusionCharts.HC.Charts.js"></script>
+    		<script src="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
+    </head>
+
+
+    <body>
+    
+        <div id="chartdiv" align="center">正在加载，请稍后</div>
+
+		  <p>&nbsp;</p>
+		  
+		  <script>
+		  FusionCharts.setCurrentRenderer('javascript');
+		  var myChart = new FusionCharts( "MSCombi2D", "myChartId", "100%", "100%", "0" );
+		  var dataObj={
+			  "chart": {
+			    "palette": "2",
+			    "caption": "公司营收",
+			    "subcaption": "2013年 单位(万)",
+			    "showvalues": "0",
+			    "divlinedecimalprecision": "1",
+			    "limitsdecimalprecision": "1",
+			    "pyaxisname": "Amount",
+			    "syaxisname": "Quantity",
+			    "numberprefix": "￥",
+			    "formatnumberscale": "0"
+			  },
+			  "categories": [
+			    {
+			      "category": [
+			        {
+			          "label": "Portal"
+			        },
+			        {
+			          "label": "OA"
+			        },
+			        {
+			          "label": "ERP"
+			        },
+			        {
+			          "label": "BI"
+			        },
+			        {
+			          "label": "移动产品"
+			        },
+			        {
+			          "label": "crm"
+			        }
+			      ]
+			    }
+			  ],
+			  "dataset": [
+			    {
+			      "seriesname": "收入",
+			      "data": [
+			        {
+			          "value": "5854"
+			        },
+			        {
+			          "value": "4171"
+			        },
+			        {
+			          "value": "1375"
+			        },
+			        {
+			          "value": "1875"
+			        },
+			        {
+			          "value": "2246"
+			        },
+			        {
+			          "value": "2696"
+			        }
+			        
+			      ]
+			    },
+			    {
+			      "seriesname": "利润",
+			      "renderas": "Line",
+			      "data": [
+			        {
+			          "value": "3242"
+			        },
+			        {
+			          "value": "3171"
+			        },
+			        {
+			          "value": "700"
+			        },
+			        {
+			          "value": "1287"
+			        },
+			        {
+			          "value": "1856"
+			        },
+			        {
+			          "value": "1126"
+			        }
+			      ]
+			    }
+			  ]
+			}
+		  
+
+		  myChart.setJSONData(dataObj);
+			myChart.render("chartdiv");
+			
+		  </script>
+     </body>
+ </html>

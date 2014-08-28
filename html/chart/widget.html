@@ -1,0 +1,64 @@
+<html xmlns="http://www.w3.org/1999/xhtml" encoding="utf-8" >
+    <head>
+        <title>2014业绩图</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+       
+        <script type="text/javascript" src="../../lib/chart/Charts/jquery.min.js"></script>
+        <script type="text/javascript" src="../../lib/chart/Charts/FusionCharts.js"></script>
+        <script type="text/javascript" src="../../lib/chart/Charts/FusionCharts.HC.js"></script>
+        <script type="text/javascript" src="../../lib/chart/Charts/FusionCharts.HC.Widgets.js"></script>
+      
+    </head>
+
+
+    <body>
+    
+        <div id="chartdiv" align="center">正在加载，请稍后</div>
+
+		  <p>&nbsp;</p>
+		  <script>
+		  FusionCharts.setCurrentRenderer('javascript');
+		  var myChart = new FusionCharts( "AngularGauge", "myChartId", "100%", "100%", "0" );
+		  var dataObj={
+			  "chart": {
+				"lowerlimit": "0",
+				"upperlimit": "100",
+				"lowerlimitdisplay": "Bad",
+				"upperlimitdisplay": "Good",
+				"numbersuffix": "%",
+				"showvalue": "1"
+			  },
+			  "colorrange": {
+				"color": [
+				  {
+					"minvalue": "0",
+					"maxvalue": "75",
+					"code": "FF654F"
+				  },
+				  {
+					"minvalue": "75",
+					"maxvalue": "90",
+					"code": "F6BD0F"
+				  },
+				  {
+					"minvalue": "90",
+					"maxvalue": "100",
+					"code": "8BBA00"
+				  }
+				]
+			  },
+			  "dials": {
+				"dial": [
+				  {
+					"value": "92"
+				  }
+				]
+			  }
+			}
+		  
+
+		  myChart.setJSONData(dataObj);
+			myChart.render("chartdiv");
+		  </script>
+     </body>
+ </html>

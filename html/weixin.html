@@ -1,0 +1,61 @@
+<html>
+<head>
+	<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0">
+
+	<link rel="stylesheet" href="../assets/home/jquery-mobile-home.css">
+
+	<script src="../lib/jquery/jquery.min.js"></script>
+	<script src="../lib/jquery-cookie/jquery.cookie.js"></script>
+	<script src="../lib/encrypt/encrypt.js"></script>
+	<script src="../lib/json/json2.js"></script>
+	<script src="../lib/hori/hori.js?tag=21369"></script>
+
+	<script src="../config/web/config.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+		//alert("weixin");
+			localStorage.setItem("hori_weixin","yes");
+
+			var redType = getUrlParam("redto");
+			if(redType==null || redType=="null") redType="app";
+			
+			var targetURL = "";
+			
+			if(redType=="app"){
+				targetURL = $.hori.getconfig().serverBaseUrl+"viewhome/html/task.html";
+			}else if(redType=="new"){
+				targetURL = $.hori.getconfig().serverBaseUrl+"viewhome/html/newsList.html";
+			}else if(redType=="contact"){
+				targetURL = $.hori.getconfig().serverBaseUrl+"viewhome/html/contact.html";
+			}
+			
+			//targetURL = targetURL + "?data-application="+$.hori.getconfig().applicationKey;
+			
+			//$.hori.loadPage(encodeURI(targetURL));
+			$.hori.loadPage(targetURL);
+		})
+		
+		
+		function getUrlParam(name)
+		{
+			var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+			var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+			if (r!=null) return unescape(r[2]);
+			
+			return null; //返回参数值
+		}
+		
+	</script>
+</head>
+<body>
+	<div id="list" data-role="page" class="type-home">
+		<div data-role="content" align="center" id="contentMain">
+		</div>		
+	</div>
+</body>
+</html>
+

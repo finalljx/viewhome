@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-	<xsl:import href="D:/viewhome/xsl/pub/scriptCss.xsl" />	
 	
 	<xsl:variable name="appdbpath"><xsl:value-of select="//input[@name='appdbpath']/@value"/></xsl:variable>
 	<xsl:variable name="appformname"><xsl:value-of select="//input[@name='appformname']/@value"/></xsl:variable>
@@ -9,7 +8,7 @@
 	<xsl:template match="/">
 		<html lang="zh_cn">
 			<head>							
-				<xsl:apply-imports/>
+				
 				
 				<script src="/view/js/template.js"></script>
 
@@ -22,8 +21,10 @@
 
 					});		
 					function viewfile(url){
-						$.hori.loadPage(url,  $.hori.getconfig().serverBaseUrl+"view/xml/AttachView.xml");
+								localStorage.setItem("attachmentUrl",url);
+								$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
 					}
+							
 				</script>
 				
 				<!-- 在ready时将动态表格HTML写入指定区域 -->
@@ -125,14 +126,14 @@
 								</li>
 							
 								<li data-role="list-divider">流转意见</li>
-								<li><pre style="word-wrap:break-word">
-									<xsl:if test="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo/mindinfo">
+								<li>
+									<xsl:if test="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo">
 										<xsl:apply-templates select="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo/mindinfo" />
 									</xsl:if>
-									<xsl:if test="not(//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo/mindinfo)"></xsl:if>
-									
-									<xsl:apply-templates select="//fieldentry[@id='ThisFlowMindInfoLog']" mode="mind"/>
-								</pre></li>
+									<xsl:if test="not(//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo)">
+										暂无审批意见
+									</xsl:if>
+								</li>
 								
 							</ul>
 							<xsl:apply-templates select="//input[@type='hidden']" mode="hidden"/>
@@ -215,35 +216,34 @@
 		<xsl:param name="names"/>
 
 		<xsl:if test="contains($names,';')">	
-			<li><a href="javascript:void(0)" onclick="viewfile('/view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{substring-before($names, ';')}');" data-role="button"><xsl:value-of select="substring-before($names, ';')"/></a></li>
+			<li><a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{substring-before($names, ';')}');" data-role="button"><xsl:value-of select="substring-before($names, ';')"/></a></li>
 			<xsl:call-template name="files">
 				<xsl:with-param name="names" select="translate(substring-after($names, ';'), ' ', '')"/>
 			</xsl:call-template>
 		</xsl:if>
 		<xsl:if test="not(contains($names, ';'))">
-			<li><a href="javascript:void(0)" onclick="viewfile('/view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{$names}');" data-role="button"><xsl:value-of select="$names"/></a></li>
+			<li><a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{$names}');" data-role="button"><xsl:value-of select="$names"/></a></li>
 		</xsl:if>		
 	</xsl:template>
 
-     <!-- 处理 流转意见 -->
+    <!-- 处理 流转意见 -->
 	<xsl:template match="mindinfo">
-		
-
-					处理人<b>:</b><xsl:value-of select="@approver"/>
-					<br/>
-					审批时间<b>:</b><xsl:value-of select="@approvetime"/>
-					<br/>
-
-					审批环节<b>:</b>
-					<xsl:value-of select="@flownodename"/>
-						<xsl:if test="@optnameinfo !=''">
-							(<xsl:value-of select="@optnameinfo"/>)
-						</xsl:if>
-					
-					<br/>
-					审批意见<b>:</b><xsl:value-of select="text()"/>
-					<br/>
-
+		<div>
+			<div style="width:100%" align="left">
+				<xsl:copy-of select="." />
+			</div>
+			<div style="width:100%" align="left">
+				<!--<xsl:value-of select="translate(@approver, '&quot;', '')"/> -->
+				<label><xsl:value-of select="@approver"/></label>
+				
+				<xsl:value-of select="@flownodename"/>
+					<xsl:if test="@optnameinfo !=''">
+						<xsl:value-of select="@optnameinfo"/>
+					</xsl:if>
+				<br/>
+				<xsl:value-of select="@approvetime"/>
+			</div>
+		</div>
 		<hr/>
 		
 	</xsl:template>

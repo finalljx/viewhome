@@ -1,0 +1,221 @@
+<html>
+<head>
+	<title>代办</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0"/>
+	<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" /> 
+	<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
+	
+	<script src="../lib/jquery/jquery.min.js"></script>		
+	<script src="../lib/jquery-cookie/jquery.cookie.js"></script>	
+	<script src="../lib/encrypt/encrypt.js"></script>
+	<script src="../lib/json/json2.js"></script>
+	<script src="../lib/hori/hori.js?tag=21369"></script>
+	<script src="../config/web/config.js"></script>
+	<script src="../lib/arttemplate/template.js"></script>
+	<script src="../config/web/config.js"></script>
+	<script src="../lib/iscroll.js"></script>
+	<script type="text/javascript">
+var myScroll,
+	pullDownEl, pullDownOffset,
+	pullUpEl, pullUpOffset,
+	generatedCount = 0;
+
+function pullDownAction () {
+	setTimeout(function () {
+		var el, li, i;
+		el = document.getElementById('thelist');
+
+		for (i=0; i<6; i++) {
+			li = document.createElement('li');
+			li.innerText = 'Generated row ' + (++generatedCount);
+			el.insertBefore(li, el.childNodes[0]);
+		}
+		
+		myScroll.refresh();
+	}, 1000);
+}
+var pages=1;
+function pullUpAction () {
+	setTimeout(function () {
+		var hori=$.hori;
+		hori.setHeaderTitle("待办");
+		var config=$.hori.getconfig();
+		var itcode=localStorage.getItem("itcode");
+		var oaMsgServer=config.oaMsgServer;
+		var serverUrl=config.appServerHost;
+		pages=pages+1;
+		var dataSource=
+		serverUrl+'view/oamobile/todosmobile/Produce/DigiFlowMobile.nsf/agGetMsgViewData?openagent&login&server='+oaMsgServer+'&dbpath=DFMessage/dfmsg_'+itcode+'.nsf&view=vwTaskUnDoneForMobile&thclass=&page='+pages+'&count=2';
+		//调用getdata
+		app.getData({
+			"dataSource":dataSource
+		});
+		
+		myScroll.refresh();
+	}, 1000);
+}
+
+function loaded() {
+	pullDownEl = document.getElementById('pullDown');
+	pullDownOffset = pullDownEl.offsetHeight;
+	pullUpEl = document.getElementById('pullUp');	
+	pullUpOffset = pullUpEl.offsetHeight;
+	
+	myScroll = new iScroll('wrapper', {
+		useTransition: true,
+		topOffset: pullDownOffset,
+		onRefresh: function () {
+			if (pullDownEl.className.match('loading')) {
+				pullDownEl.className = '';
+				pullDownEl.querySelector('.pullDownLabel').innerHTML = '上划加载更多...';
+			} else if (pullUpEl.className.match('loading')) {
+				pullUpEl.className = '';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = '上划加载更多...';
+			}
+		},
+		onScrollMove: function () {
+			if (this.y > 5 && !pullDownEl.className.match('flip')) {
+				pullDownEl.className = 'flip';
+				pullDownEl.querySelector('.pullDownLabel').innerHTML = '';
+				this.minScrollY = 0;
+			} else if (this.y < 5 && pullDownEl.className.match('flip')) {
+				pullDownEl.className = '';
+				pullDownEl.querySelector('.pullDownLabel').innerHTML = '上划加载更多...';
+				this.minScrollY = -pullDownOffset;
+			} else if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
+				pullUpEl.className = 'flip';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = '';
+				this.maxScrollY = this.maxScrollY;
+			} else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
+				pullUpEl.className = '';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = '上划加载更多...';
+				this.maxScrollY = pullUpOffset;
+			}
+		},
+		onScrollEnd: function () {
+			if (pullDownEl.className.match('flip')) {
+				pullDownEl.className = 'loading';
+				pullDownEl.querySelector('.pullDownLabel').innerHTML = '加载中...';				
+				pullDownAction();	// Execute custom function (ajax call?)
+			} else if (pullUpEl.className.match('flip')) {
+				pullUpEl.className = 'loading';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = '加载中...';				
+				pullUpAction();	// Execute custom function (ajax call?)
+			}
+		}
+	});
+	setTimeout(function () { document.getElementById('wrapper').style.left = '0'; }, 800);
+}
+document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 200); }, false);
+</script>
+</head>
+<body class="ui-mobile-viewport ui-overlay-c" screen_capture_injected="true">
+	<div id="list" data-role="page" class="type-home ui-page ui-body-c ui-page-active" data-url="list" tabindex="0" style="min-height: 306px; ">
+	</div>
+		<div  id="divDataLoading">
+			<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+				<li class="ui-li ui-li-static ui-btn-up-c ui-first-child ui-last-child">数据加载中……</li>
+			</ul>
+		</div>
+
+	<div id="wrapper">
+		<div id="scroller">
+			<div id="pullDown">
+			</div>
+			<div id="li_list">
+				
+			</div><br/>
+			<div id="pullUp" align="center" style="display:none;">
+				<span class="pullUpLabel">上划加载更多...</span>
+			</div>
+		</div>
+	</div>
+		
+
+<script id="test" type="text/html">
+
+	
+	<ul id="thelist" data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+	{{if count!="0"}}
+		{{each list as value i}}
+			<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li ui-first-child ui-last-child">
+				<div class="ui-btn-inner ui-li"><div class="ui-btn-text">			
+				<a onclick="loadConPage(this);" data-icon="arrow-r" data-iconpos="right" class="ui-link-inherit" data-unid={{value.unid}}> 
+					<h3 class="ui-li-heading">{{value.title}}</h3>
+						<p class="ui-li-desc">时间：{{value.date}}<font color="#0080ff"><span></span></font>状态：<font color="#0080ff"><span>{{value.taskState}}</span></font></p>
+				</a>
+			</li>
+		{{/each}}
+	{{else}}
+		<li class="ui-li ui-li-static ui-btn-up-c ui-first-child ui-last-child"> 无内容</li>
+	{{/if}}
+	</ul>
+
+	
+</script>
+<script>
+	var app=window.app={
+	};
+	$(document).ready(function(){
+		var hori=$.hori;
+		hori.setHeaderTitle("待办");
+		var config=$.hori.getconfig();
+		var itcode=localStorage.getItem("itcode");
+		var oaMsgServer=config.oaMsgServer;
+		var serverUrl=config.appServerHost;
+		var dataSource=
+		serverUrl+'view/oamobile/todosmobile/Produce/DigiFlowMobile.nsf/agGetMsgViewData?openagent&login&server='+oaMsgServer+'&dbpath=DFMessage/dfmsg_'+itcode+'.nsf&view=vwTaskUnDoneForMobile&thclass=&page=1&count=2';
+		//调用getdata
+		app.getData({
+			"dataSource":dataSource
+		});
+	});
+
+	//获取数据
+	app.getData=function(args){
+		var dataSource=args.dataSource;
+		console.log(dataSource+"====================");
+		$.hori.ajax({
+			"type":"post",
+			"url":dataSource,
+			"data":"",
+			"success":function(res){
+				console.log(res);
+				showData(res);
+			},
+			"error":function(res){
+				alert(res);
+			}
+		});
+	};
+	
+	//数据展示
+	function showData(res){
+		
+		var responseData = JSON.parse(res);
+		//alert(responseData.taskCount);
+		var data = {
+			title: '数据列表',
+			count: responseData.taskCount,
+			list: responseData.tasklist,
+			};
+		var html = template('test', data);
+		document.getElementById('divDataLoading').style.display="none";
+		document.getElementById('pullUp').style.display="block";
+		$("#li_list").append(html);
+	}
+	
+	
+	function loadConPage(str){
+		alert($(str).data("unid"));
+		localStorage.setItem("unidStr",$(str).data("unid"));
+		$.hori.showLoading();
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl
+				+ 'viewhome/html/appform.html');
+	}
+</script>
+</body>
+	
+
+</html>

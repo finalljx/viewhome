@@ -1,0 +1,73 @@
+<html>
+<head>
+	<title>申请单</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0"/>
+	<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" /> 
+	<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" /> 
+	<script src="../lib/jquery/jquery.min.js"></script>		
+	<script src="../lib/jquery-mobile/jquery.mobile.min.js"></script>
+	<script src="../lib/template/template.js"></script>
+	<script>
+		var dxTblhtml = "";
+		$(document).ready(function(){
+			initDthml();
+		});
+		function initDthml(){
+			//获取数据
+			var table_data=$("#DynTbl_RtfTableData_json").val();
+			var table_head=$("#DynTbl_RtfTableData_head").val();
+			console.log(table_data);
+			if(table_head!==undefined && table_data!==undefined){
+				table_data=table_data.replace(/\s/g,"");
+				table_head=table_head.replace(/\s/g,"");
+				var jsonObj={};		
+				var table_head_obj=$.parseJSON(table_head);
+				var table_data_obj=$.parseJSON(table_data);
+				jsonObj.head=table_head_obj;
+				jsonObj.data=table_data_obj;
+				console.log(jsonObj);
+				dxTblhtml = template.render("_dxTbl", jsonObj);
+				if(window.console!==undefined){
+					console.log(JSON.stringify(jsonObj));
+				}
+				$("#div_DTblHtml").html( dxTblhtml ).trigger('create');
+			}else{
+				$("#ul_dtable_list").hide();
+			}
+		}
+	</script>
+	<!-- 支持的JSON格式如下，分head和data两部分，data中要对应head中的dataid -->
+	<!-- {head: [{'title':'部门','dataid':'deptName'},{'title':'费用','dataid':'bmoney'},{'title':'申请人','dataid':'deptLeader'}],data: [{'id':1,'deptName':'公安业务部','deptCode':'BM_ZFSYB_GAYWB','bmoney':'444','deptLeader':'田龙岗(田龙岗)'}]} -->
+	<script id="_dxTbl" type="text/html">
+		<% for (var i = 0; i < data.length; i++) { %>
+			<div data-role="collapsible" data-theme="a" data-content-theme="d">
+				<h3>第<%= i+1 %>行</h3>
+				<ul data-role="listview" data-inset="true" data-theme="d">
+					<% for (var j = 0; j < head.length; j ++) { %>
+						<li ><%= head[j].title %> ：<%= data[i][head[j].dataid] %></li>
+					<% } %>
+				</ul>
+			</div>
+		<% } %>
+	</script>
+</head>
+<body>
+	<div id="notice" data-role="page">
+		<div data-role="content" align="center">
+			<ul data-role="listview" data-inset="true" data-theme="d" id="ul_dtable_list">
+				<li data-role="list-divider">动态表格</li>
+				<li id="div_DTblHtml">无数据</li>
+			</ul>
+		</div>
+	</div>
+	<!-- 存放临时测试数据 -->
+	<textarea id="DynTbl_RtfTableData_head" style="display:none">
+	[{"title":"商品名称","dataid":"column1"},{"title":"商品类型 ","dataid":"column2"},{"title":"生产地","dataid":"column3"},{"title":"管理员 ","dataid":"column4"},{"title":"斤数","dataid":"column5"},{"title":"邮寄地址 ","dataid":"column6"},{"title":"备注","dataid":"column7"}]
+	</textarea>
+	<textarea id="DynTbl_RtfTableData_json" style="display:none">
+	[{"column1":"火龙果","column2":"水果","column3":"天津","column4":"admin","column5":"1000斤","column6":"北京市海淀区","column7":"水果保鲜，加快货运速度"},{"column1":"火龙果","column2":"水果","column3":"天津","column4":"admin","column5":"1000斤","column6":"北京市海淀区","column7":"水果保鲜，加快货运速度"}]
+	</textarea>
+</body>
+</html>
+

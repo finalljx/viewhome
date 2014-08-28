@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-	<xsl:variable name="data-userstore"><xsl:value-of select="//storeid"/></xsl:variable>
 	<xsl:output method="html" indent="yes"/>
 	<xsl:template match="/">
 		<html lang="zh_cn">
@@ -41,17 +40,17 @@
 							<li data-role="list-divider">正文内容</li>
 							<li>
 								<div style="width:100%;text-align:left" align="left">
-										<xsl:apply-templates select="//textarea[@name='Fck_HTML']/."/>
+										<xsl:apply-templates select="//div[@name='Fck_HTML']/."/>
 								</div>
 
 							</li>
 							<li data-role="list-divider">附件信息</li>
 							<li>
-								<xsl:if test="count(//img[@src='/icons/fileatt.gif']/..)=0">
+								<xsl:if test="count(//table[@style='height:100%;width2:100%;border:0']/tbody/tr[2]//a)=0">
 									无附件
 								</xsl:if>
-								<xsl:if test="count(//img[@src='/icons/fileatt.gif']/..)!=0">
-									<xsl:apply-templates select="//img[@src='/icons/fileatt.gif']/.." mode="file"/>
+								<xsl:if test="count(//table[@style='height:100%;width2:100%;border:0']/tbody/tr[2]//a)!=0">
+									<xsl:apply-templates select="//table[@style='height:100%;width2:100%;border:0']/tbody/tr[2]//a" mode="file"/>
 								</xsl:if>
 							</li>
 							</ul>
@@ -90,14 +89,7 @@
 
 	<xsl:template match="img">
 		<div style="width:100%" align="center">
-		<xsl:if test="contains(@src, 'Application')">
-			<img src="{translate(@src, '&quot;', '')}?data-result=file&amp;data-userstore={$data-userstore}" width="250"/>
-		</xsl:if>
-		<xsl:if test="not(contains(@src, 'Application'))">
-			<img src="{translate(@src, '&quot;', '')}" width="250"/>
-		</xsl:if>
-		
-			
+			<img src="view/oa/image{translate(@src, '&quot;', '')}" width="80%"/>
 		</div>
 	</xsl:template>
 	<xsl:template match="p">

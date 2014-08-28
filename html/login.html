@@ -1,284 +1,253 @@
 <!DOCTYPE html> 
 <html>
-	<head>
-		<title>移动办公</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0"/>
-
-		<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" /> 
-
-		<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" /> 
-
-		
-		<script src="../lib/jquery/jquery.min.js"></script>		
-		<script src="../lib/jquery-cookie/jquery.cookie.js"></script>	
-		<script src="../lib/encrypt/encrypt.js"></script>
-		<script src="../lib/json/json2.js"></script>
-		<script src="../lib/hori/hori.js?tag=21369"></script>
-		
-		<script src="../lib/jquery-mobile/jquery.mobile.min.js"></script>
-		
-		<script src="../config/web/config.js"></script>
-
-				
-		<style>
-			a{text-decoration:none;}
-		</style>
-		
-
-		<script type="text/javascript">
-			$(document).ready(function(){
-
-				
-
-				if(localStorage.getItem("data-saveusername")=="true"){
-
-					var username=localStorage.getItem("username");
-					if(username!=null){
-
-						
-						username=decrypt($.hori.getconfig().encryptKey,username);
-					}
-					$("#username").attr("value", username);
-					$('#saveusername').attr("checked", true).checkboxradio("refresh");
-				}else{
-					$("#username").attr("value", "用户名/itcode");
-					$("#username").css("color", "#9e9e9e");
-					$('#saveusername').removeAttr("checked").checkboxradio("refresh");
+<head>
+	<title>移动办公</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0"/>
+	<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" /> 
+	<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" /> 
+	<script src="../lib/jquery/jquery.min.js"></script>		
+	<script src="../lib/jquery-cookie/jquery.cookie.js"></script>	
+	<script src="../lib/encrypt/encrypt.js"></script>
+	<script src="../lib/json/json2.js"></script>
+	<script src="../lib/hori/hori.js?tag=21369"></script>
+	<script src="../lib/jquery-mobile/jquery.mobile.min.js"></script>
+	<script src="../config/web/config.js"></script>
+	<style>
+		a{text-decoration:none;}
+	</style>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			if(localStorage.getItem("data-saveusername")=="true"){
+				var username=localStorage.getItem("username");
+				if(username!=null){
+					username=decrypt($.hori.getconfig().encryptKey,username);
 				}
-				if(localStorage.getItem("data-savepassword")=="true"){
-					var password=localStorage.getItem("password");
-					if(password!=null){
-
-						
-						password=decrypt($.hori.getconfig().encryptKey,password);
-					}
-					$("#password").attr("value", password);
-					$('#savepassword').attr("checked", true).checkboxradio("refresh");
-				}else{
-					$("#password").attr("value", "");
-					$('#savepassword').removeAttr("checked").checkboxradio("refresh");
-				}
-			
-				var hori=$.hori;
-				try{
-					hori.setHeaderTitle("登录");
-					/*隐藏后退按钮*/
-				 	hori.hideBackBtn();
-				}catch(e){
-					alert(e.message);
-				}
-				
-				
-				
-
-			});
-			function clearData (){			
-				
-				if($.trim($("#username").val())=="用户名/itcode"){					
-					$("#username").val("");
-					$("#username").css("color", "#0F0E0E");
-				}else{
-					
-				}
-				return false;
-				
+				$("#username").attr("value", username);
+				$('#saveusername').attr("checked", true).checkboxradio("refresh");
+			}else{
+				$("#username").attr("value", "用户名/itcode");
+				$("#username").css("color", "#9e9e9e");
+				$('#saveusername').removeAttr("checked").checkboxradio("refresh");
 			}
-			function showTips(){
-				var userName=$.trim($("#username").val());
-				if($.trim($("#username").val())==""){	
-					$("#username").css("color", "#9e9e9e");				
-					$("#username").attr("value", "用户名/itcode");
-					
-				}else{
-					
-					$("#username").css("color", "#0F0E0E");
+			if(localStorage.getItem("data-savepassword")=="true"){
+				var password=localStorage.getItem("password");
+				if(password!=null){
+					password=decrypt($.hori.getconfig().encryptKey,password);
 				}
-				return false;
-			}	
-			function login(){
-				
-				
-				
-				var username = $.trim($("#username").val());
-				var password = $("#password").val();
-				if(username == ""){
-					alert("请输入用户名!");
-					return;
-				}
-				
-	            
-				if(password == ""){
-					alert("请输入密码!");
-					return;
-				}
-				$.hori.showLoading();
-
-			
-				try{
-					var random = new Date().getTime();
-					var url=$.hori.getconfig().appServerHost+"view/oa/loginvalidate/names.nsf?Login";
-					url = url + "&data-random=" + random;
-				}catch(e){}
-				var data = 'Username='+username+'&Password='+password+'&$PublicAccess=1&ReasonType=0&data-userid=Username&data-password=Password&data-login=true';
-				
-				
-				
-				$.hori.ajax({
-						"type":"post",
-						"url":url,
-						"data":data,
-						"success":function(res){
-								
-
-								var json = JSON.parse(res);
-								if(json.success){
-								
-									//本地存储itcode 和oaServerName
-									localStorage.setItem("oaServerName",$.hori.getconfig().oaServerName)
-									localStorage.setItem("itcode",username);
-									saveUserInfoToLocal(username,password);
-									
-									var targetURL= $.hori.getconfig().serverBaseUrl+"viewhome/html/home.html";	
-									var componentURL="";
-									targetURL=encodeURI(targetURL);
-									
-									if(localStorage.getItem("loginRedirectUrl")!=null){
-										targetURL=localStorage.getItem("loginRedirectUrl");
-										localStorage.removeItem("loginRedirectUrl");
-										
-									}else{
-										componentURL = "viewhome/xml/digihome.xml";
-									}
-									if(localStorage.getItem("loginRedirectXmlUrl")!=null){										
-										componentURL=localStorage.getItem("loginRedirectXmlUrl");
-										localStorage.removeItem("loginRedirectXmlUrl");
-									}						
-										
-									$.hori.loadPage(targetURL, componentURL);			
-									
-									//注册设备
-									registdevice();
-														
-
-								}else{
-									$.hori.hideLoading();
-									alert(json.msg);
-								}
-
-						},
-						"error":function(res){
-							alert(res);
-							$.hori.hideLoading();
-						}
-					})
+				$("#password").attr("value", password);
+				$('#savepassword').attr("checked", true).checkboxradio("refresh");
+			}else{
+				$("#password").attr("value", "");
+				$('#savepassword').removeAttr("checked").checkboxradio("refresh");
 			}
-
-			function showDeviceId(){
-				$.hori.getDeviceId(function(deviceId){
-					alert("deviceId="+deviceId);
-				})
+			var hori=$.hori;
+			try{
+				hori.setHeaderTitle("登录");
+				/*隐藏后退按钮*/
+				hori.hideBackBtn();
+			}catch(e){
+				alert(e.message);
 			}
-			function cancel(){
+			//注销登录
+			loginout();
+		});
+		function clearData (){
+			if($.trim($("#username").val())=="用户名/itcode"){
 				$("#username").val("");
-				$("#password").val("");
+				$("#username").css("color", "#0F0E0E");
+			}else{
+				
 			}
-			function saveUserInfoToLocal(username,password){
-				try{
-					if(document.getElementById("saveusername").checked){
-						localStorage.setItem("data-saveusername", "true");
-						localStorage.setItem("username", encrypt($.hori.getconfig().encryptKey,username));
-					}else{
-						localStorage.setItem("data-saveusername", "false");
+			return false;
+		}
+		function showTips(){
+			var userName=$.trim($("#username").val());
+			if($.trim($("#username").val())==""){	
+				$("#username").css("color", "#9e9e9e");				
+				$("#username").attr("value", "用户名/itcode");
+				
+			}else{
+				$("#username").css("color", "#0F0E0E");
+			}
+			return false;
+		}
+		function login(){
+			var username = $.trim($("#username").val());
+			var password = $("#password").val();
+			if(username == ""){
+				alert("请输入用户名!");
+				return;
+			}
+			if(password == ""){
+				alert("请输入密码!");
+				return;
+			}
+			$.hori.showLoading();
+			try{
+				var random = new Date().getTime();
+				var url=$.hori.getconfig().appServerHost+"view/oa/loginvalidate/pkmslogin.form";
+				url = url + "?data-random="+random;
+			}catch(e){}
+			var data="username="+username+"&password="+password+"&login-form-type=pwd&data-userid="+username+"&data-password=Password&data-login=true";
+			$.hori.ajax({
+				"type":"post",
+				"url":url,
+				"data":data,
+				"success":function(res){
+					var json = JSON.parse(res);
+					if(json.success){
+						//本地存储itcode 和oaServerName
+						localStorage.setItem("oaServerName",$.hori.getconfig().oaServerName)
+						localStorage.setItem("itcode",username);
+						$.cookie("itcode",username,{"expires":360000,path:"/"})
+						saveUserInfoToLocal(username,password);
 						
-					}
-					if(document.getElementById("savepassword").checked){
-						localStorage.setItem("data-savepassword", "true");
-						localStorage.setItem("password", encrypt($.hori.getconfig().encryptKey,password));
-					}else{
-						localStorage.setItem("data-savepassword", "false");
-						localStorage.removeItem("password");
-					}
-				}catch(e){}
-			}
-			function registdevice(){
-				var type = "android";
-				if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)) {
-					type = "iphone";
-				}
-
-				$.hori.getDeviceId(function(resultid){
-						if(resultid == ""){
-						alert("无法获取设备ID");
-						return;
+						var targetURL= $.hori.getconfig().serverBaseUrl+"viewhome/html/home.html";	
+						var componentURL="";
+						targetURL=encodeURI(targetURL);
+						
+						if(localStorage.getItem("loginRedirectUrl")!=null){
+							targetURL=localStorage.getItem("loginRedirectUrl");
+							localStorage.removeItem("loginRedirectUrl");
+							
+						}else{
+							componentURL = "viewhome/xml/digihome.xml";
+						}
+						if(localStorage.getItem("loginRedirectXmlUrl")!=null){										
+							componentURL=localStorage.getItem("loginRedirectXmlUrl");
+							localStorage.removeItem("loginRedirectXmlUrl");
+						}						
+							
+						$.hori.loadPage(targetURL, componentURL);			
+						
+						//注册设备
+						registdevice();
+						}else{
+							$.hori.hideLoading();
+							alert(json.msg+"11111");
 						}
 
-						$.hori.getDeviceToken(function(resulttoken){
-								if(resulttoken == ""){
-								//alert("无法获取设备token");
-								//return;
-								}
-								resulttoken = resulttoken.replace(/\s+/g,"");
-								$.hori.ajax({
-									type: "POST", url:  $.hori.getconfig().appServerHost+"view/oa?data-action=regisdevice&data-device-type="+type+"&data-device-token="+resulttoken+"&data-device-id="+resultid+"&random="+Math.random(),
-									success: function(response){
-									
-									},
-									error:function(response){
-									}
-								});
-						});
-				});
-			}
-		</script>
-	</head>
-	<body>
-        <!-- 登录页面 -->
-		<div data-role="page" id="login" class="login">
-			<div data-role="content" align="center">
-				
-				<ul id="viewBody" data-role="listview" data-theme="c" data-inset="true" style="max-width:400px;" >
-					<li data-role="list-divider" ><a href="javascript:void(0);" data-theme="f" ></a></li>
-					<li data-role="fieldcontain" data-type="horizontal" >
-						<table style="width:100%" cellspaceing="0" cellpadding="0" border="0">
-							<tr><td>
-							<strong>帐&#160;&#160;号:</strong>
-							</td><td>
-							<input type="text" name="username" style="outline:none;width:100%;border:0;background:transparent;" id="username" value="" onfocus ="clearData()" onblur="showTips()"/>
-							</td></tr>
-						</table>
-					</li>
-					<li data-role="fieldcontain">
-						<table style="width:100%" cellspaceing="0" cellpadding="0" border="0">
-							<tr><td>
-							<strong>密&#160;&#160;码:</strong>
-							</td><td>
-							<input type="password" name="password" style="outline:none;width:100%;border:0;background:transparent;" id="password" value=""/>
-							</td></tr>
-						</table>
-					</li>
-					<li data-role="fieldcontain">
-						<fieldset id="rememberme"  data-role="controlgroup" data-type="horizontal" data-mini="true" style="width:100%;" align="center">
-							<input type="checkbox" name="saveusername" id="saveusername" class="custom" data-mini="true"/>
-							<label for="saveusername" data-mini="true">记住帐号</label>
-							<input type="checkbox" name="savepassword" id="savepassword" class="custom" data-mini="true"/>
-							<label for="savepassword" data-mini="true">记住密码</label>
-						</fieldset>
-					</li>
-				</ul>
-				
-				<div class="ui-grid-a">
-					<div class="ui-block-a">
-						
-						<a href="javascript:void(0)" onclick="login()" data-theme="f" data-role="button" data-icon="check" >&nbsp;登&nbsp;录&nbsp;</a>
-					</div>
-					<div class="ui-block-b">
-						<a href="javascript:void(0)" onclick="cancel()" data-theme="f" data-role="button" data-icon="delete" data-iconpos="right">&nbsp;取&nbsp;消&nbsp;</a>
-					</div>
+				},
+				"error":function(res){
+					alert(res+"222");
+					$.hori.hideLoading();
+				}
+			})
+		}
+		
+		//注销登录
+		function loginout(){
+		}
+		function showDeviceId(){
+			$.hori.getDeviceId(function(deviceId){
+				alert("deviceId="+deviceId);
+			})
+		}
+		function cancel(){
+			$("#username").val("");
+			$("#password").val("");
+		}
+		function saveUserInfoToLocal(username,password){
+			try{
+				if(document.getElementById("saveusername").checked){
+					localStorage.setItem("data-saveusername", "true");
+					localStorage.setItem("username", encrypt($.hori.getconfig().encryptKey,username));
+				}else{
+					localStorage.setItem("data-saveusername", "false");
 					
+				}
+				if(document.getElementById("savepassword").checked){
+					localStorage.setItem("data-savepassword", "true");
+					localStorage.setItem("password", encrypt($.hori.getconfig().encryptKey,password));
+				}else{
+					localStorage.setItem("data-savepassword", "false");
+					localStorage.removeItem("password");
+				}
+			}catch(e){}
+		}
+		function registdevice(){
+			var type = "android";
+			if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)) {
+				type = "iphone";
+			}
+			$.hori.getDeviceId(function(resultid){
+				if(resultid == ""){
+				alert("无法获取设备ID");
+				return;
+				}
+				$.hori.getDeviceToken(function(resulttoken){
+					if(resulttoken == ""){
+					//alert("无法获取设备token");
+					//return;
+					}
+					resulttoken = resulttoken.replace(/\s+/g,"");
+					$.hori.ajax({
+						type: "POST", url:  $.hori.getconfig().appServerHost+"view/oa?data-action=regisdevice&data-device-type="+type+"&data-device-token="+resulttoken+"&data-device-id="+resultid+"&random="+Math.random(),
+						success: function(response){
+						},
+						error:function(response){
+						}
+					});
+				});
+			});
+		}
+	</script>
+</head>
+<body>
+	<!-- 登录页面 -->
+	<div data-role="page" id="login" class="login">
+		<div data-role="content" align="center">
+			<ul id="viewBody" data-role="listview" data-theme="c" data-inset="true" style="max-width:400px;" >
+				<li data-role="list-divider" ><a href="javascript:void(0);" data-theme="f" ></a></li>
+				<li data-role="fieldcontain" data-type="horizontal" >
+					<table style="width:100%" cellspaceing="0" cellpadding="0" border="0">
+						<tr><td>
+						<strong>帐&#160;&#160;&#160;&#160;号:</strong>
+						</td><td>
+						<input type="text" name="username" style="outline:none;width:100%;border:0;background:transparent;" id="username" value="" onfocus ="clearData()" onblur="showTips()"/>
+						</td></tr>
+					</table>
+				</li>
+				<li data-role="fieldcontain">
+					<table style="width:100%" cellspaceing="0" cellpadding="0" border="0">
+						<tr><td>
+						<strong>密&#160;&#160;&#160;&#160;码:</strong>
+						</td><td>
+						<input type="password" name="password" style="outline:none;width:100%;border:0;background:transparent;" id="password" value=""/>
+						</td></tr>
+					</table>
+				</li>
+				<li data-role="fieldcontain">
+					<table style="width:100%" cellspaceing="0" cellpadding="0" border="0">
+						<tr><td>
+						<strong>验证码:</strong>
+						</td><td>
+						<input type="text" name="imageCode" id="imageCode" style="width:80px;"/>
+						</td>
+						<td>
+						<a data-role="button" data-theme="f" data-mini="true" onclick="">获取验证码</a>
+						</td></tr>
+					</table>
+				</li>
+				<li data-role="fieldcontain">
+					<fieldset id="rememberme"  data-role="controlgroup" data-type="horizontal" data-mini="true" style="width:100%;" align="center">
+						<input type="checkbox" name="saveusername" id="saveusername" class="custom" data-mini="true"/>
+						<label for="saveusername" data-mini="true">记住帐号</label>
+						<input type="checkbox" name="savepassword" id="savepassword" class="custom" data-mini="true"/>
+						<label for="savepassword" data-mini="true">记住密码</label>
+					</fieldset>
+				</li>
+		</ul>
+			<div class="ui-grid-a">
+				<div class="ui-block-a">
+					<a href="javascript:void(0)" onclick="login()" data-theme="f" data-role="button" data-icon="check" >&nbsp;登&nbsp;录&nbsp;</a>
+				</div>
+				<div class="ui-block-b">
+					<a href="javascript:void(0)" onclick="cancel()" data-theme="f" data-role="button" data-icon="delete" data-iconpos="right">&nbsp;取&nbsp;消&nbsp;</a>
 				</div>
 			</div>
-			
 		</div>
-	</body>
+	</div>
+</body>
 </html>

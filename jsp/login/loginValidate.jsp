@@ -10,58 +10,57 @@
 <%@ page language="java" import="org.dom4j.Element"%>
 <%@ page language="java" import="org.dom4j.Node"%>
 <%@ page language="java" import="org.dom4j.DocumentHelper"%>
-
-
-				<%
-				JSONObject json=new JSONObject();			
-				Query q = Query.getInstance(request);
-			
-				String responseXml = q.getContent();
-				System.out.println(responseXml);
-				Document   doc = DocumentHelper.parseText(responseXml);
-				try{
-					Node actionNode=doc.selectSingleNode("//form//@action");
-					String formAction="";
-					if(actionNode!=null){
-						formAction=actionNode.getStringValue();
-					}
-					
-					Node loginCodeNode = doc.selectSingleNode("//logincode/text()");
-					String loginCode="";
-					if(loginCodeNode!=null){
-						loginCode=loginCodeNode.getStringValue();
-					}
-					if(loginCode.equals("10")){
-						json.put("success", false);
-						json.put("msg","用户超出设备邦定数量,请联系管理员。");
-					}else if(loginCode.equals("7")){
-						json.put("success", false);
-						json.put("msg","用户未被授权访问系统,请联系管理员。");
-					}else if(formAction.contains("names.nsf")){
-						json.put("success", false);
-						json.put("msg","用户名和密码错误！");
-					}else if(formAction.equals("")){
-						json.put("success", false);
-						json.put("msg","登陆异常,请联系管理员！");
-					}else{
-						String itcode=doc.selectSingleNode("//param[@name=\"Username\"]/@value").getStringValue();
-						json.put("success", true);
-						json.put("itcode",itcode);
-						json.put("data-authorize","succeed");
-					}
-				}catch(Exception e){
-					e.printStackTrace();
-							
-					json.put("success", false);
-					json.put("msg","登陆异常,请联系管理员。");
-					out.clear();
-				out.print(json);
-				}
-
-			
-				out.clear();
-				out.print(json);
-				System.out.println(json);
-				
-				%>
-				
+<%
+	JSONObject json=new JSONObject();			
+	Query q = Query.getInstance(request);
+	String responseXml = q.getContent();
+	//System.out.println(responseXml);
+	Document   doc = DocumentHelper.parseText(responseXml);
+	try{
+		Node actionNode=doc.selectSingleNode("//form//@action");
+		String formAction="";
+		if(actionNode!=null){
+			formAction=actionNode.getStringValue();
+		}
+		
+		Node loginCodeNode = doc.selectSingleNode("//logincode/text()");
+		String loginCode="";
+		if(loginCodeNode!=null){
+			loginCode=loginCodeNode.getStringValue();
+		}
+		if(loginCode.equals("9")){
+			json.put("success", false);
+			json.put("msg","用户超出授权数量,请联系管理员。");
+		}else if(loginCode.equals("10")){
+			json.put("success", false);
+			json.put("msg","用户超出设备邦定数量,请联系管理员。");
+		}else if(loginCode.equals("7")){
+			json.put("success", false);
+			json.put("msg","用户未被授权访问系统,请联系管理员。");
+		}else if(doc.selectSingleNode("//statuscode/text()").getStringValue().equals("400")){
+			json.put("success", false);
+			json.put("msg","业务系统异常,请联系管理员。");
+		}else if(formAction.contains("pkmslogin.form")){
+			json.put("success", false);
+			json.put("msg","用户名和密码错误！");
+		}else{
+			Node itcodeNode = doc.selectSingleNode("//param[@name=\"Username\"]/@value");
+			String itcode="";
+			if(itcodeNode!=null){
+				itcode=itcodeNode.getStringValue();
+			}
+			json.put("success", true);
+			json.put("itcode",itcode);
+			json.put("data-authorize","succeed");
+		}
+	}catch(Exception e){
+		e.printStackTrace();
+		json.put("success", false);
+		json.put("msg","登陆异常,请联系管理员11。");
+		out.clear();
+		out.print(json);
+	}
+	out.clear();
+	out.print(json);
+	System.out.println(json);
+%>

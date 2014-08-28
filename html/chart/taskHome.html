@@ -1,0 +1,222 @@
+
+<html>
+<head>
+	<title>申请单</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0"/>
+
+	<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" /> 
+
+	<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" /> 
+
+	<style>
+	.ui-page-theme-a .ui-btn.ui-btn-active{
+		background-color:black;
+		border-color:black;
+	}
+	</style>
+	<script src="../lib/jquery/jquery.min.js"></script>		
+	<script src="../lib/encrypt/encrypt.js"></script>
+	<script src="../lib/json/json2.js"></script>
+	<script src="../lib/hori/hori.js?tag=21369"></script>
+	<script src="../config/web/config.js"></script>
+	<script src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
+	<script>
+		var myStartTaskLoad=false;
+		var myDoingTaskLoad=false;
+		$(document).ready(function(){
+			
+			$("#tabs").tabs({beforeActivate:function(event,ui){
+					//alert(ui.newTab.context.dataset.id);
+					
+					var tabid=ui.newTab.context.dataset.id;
+					//我执行的任务 
+					if(tabid=="myDoingTask" && !myDoingTaskLoad){
+							loadMyDoingTask();
+					}
+					//我发起的
+					if(tabid=="myStartTask" && !myStartTaskLoad){
+						loadMyStartTask();
+					}
+			}})
+			
+			getDraft();
+			
+			$("#ui-id-3").click()	
+		})
+			function getDraft(){
+				var itcode=localStorage.getItem("itcode");
+				var url=$.hori.getconfig().appServerHost+"view/oatask/getDraft/Produce/DigiFlowMobile.nsf/agGetViewData?openagent&login&server=&dbpath=TMS/TaskApprove.nsf&view=TaskApproveDraft&thclass="+itcode+"$&page=1&count=5 ";
+					
+					$.hori.ajax({
+						"type":"post",
+						"url":url,
+						"data":"",
+						"success":function(res){
+							
+							console.log(res);
+							$("#tabDraftList").append(res).listview("refresh");
+
+						},
+						"error":function(res){
+							alert(res);
+							$.hori.hideLoading();
+
+							
+						}
+					});
+			}
+			/*
+			从草稿打开主任务
+			taskfromstatus:稿0/我下达1/我指派的2
+			*/
+			function openMasterTask(element){
+				//alert(element.dataset.unid+"8888");
+				var unid=element.dataset.unid;
+				localStorage.setItem("mainTaskDocUnid",unid);
+				localStorage.setItem("taskfromstatus","0");
+				$.hori.showLoading();
+				$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/task_rootShow.html');
+			}
+			//打开我下达的任务
+			function openMyStartTask(element){
+			
+				var unid=element.dataset.unid;
+				var dbpath=element.dataset.dbpath;
+				//taskType:masterTask 主任务 subTask:子任务
+				var taskType=element.dataset.tasktype;
+				//alert(unid+"dbpath="+dbpath+"taskType="+taskType);				
+				localStorage.setItem("mainTaskDocUnid",unid);
+				localStorage.setItem("mainTaskDBPath",dbpath);
+				localStorage.setItem("taskfromstatus","1");
+				$.hori.showLoading();
+				if(taskType=="masterTask"){
+					alert("这是一个主任务");
+					$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/task_xiadaShow.html');
+				}
+				if(taskType=="subTask"){
+					alert("这是一个子任务");
+					$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/taskxiada_subShow.html');
+				}
+				
+			}
+			//打开我执行的任务
+			function openMyDoingTask(element){
+				
+		
+				var unid=element.dataset.unid;
+				var dbpath=element.dataset.dbpath;
+				//taskType:masterTask 主任务 subTask:子任务
+				var taskType=element.dataset.tasktype;
+				
+				//alert(unid+"dbpath="+dbpath+"taskType="+taskType);return;
+				
+				localStorage.setItem("mainTaskDocUnid",unid);
+				localStorage.setItem("mainTaskDBPath",dbpath);
+				localStorage.setItem("taskfromstatus","2");
+				
+				
+				$.hori.showLoading();
+				
+				if(taskType=="masterTask"){
+					alert("这是一个主任务");
+					$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/taskdo_Show.html');
+				}
+				if(taskType=="subTask"){
+					alert("这是一个子任务");
+					$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/taskdo_subShow.html');
+				}
+				
+			}
+			function startMasterTask(){
+					$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/task_rootNew.html');
+			}
+			//下达的任务
+			function loadMyStartTask(){
+				var itcode=localStorage.getItem("itcode");
+				var url=$.hori.getconfig().appServerHost+"view/oatask/getStartTask/Produce/DigiFlowMobile.nsf/agGetViewData?openagent?login&server=&dbpath=TMS/TaskIndex.nsf&view=VDocIndexByXdrDoneForMobile&thclass="+itcode+"$&page=1&count=5 ";
+					
+					$.hori.ajax({
+						"type":"post",
+						"url":url,
+						"data":"",
+						"success":function(res){
+							
+							console.log(res);
+							$("#myStartTaskList").append(res).listview("refresh");
+							myStartTaskLoad=true;
+
+						},
+						"error":function(res){
+							alert(res);
+							$.hori.hideLoading();
+
+							
+						}
+					});
+			}
+			function loadMyDoingTask(){
+				var itcode=localStorage.getItem("itcode");
+				var url=$.hori.getconfig().appServerHost+"view/oatask/getDoingTask/Produce/DigiFlowMobile.nsf/agGetViewData?openagent?login&server=&dbpath=TMS/TaskIndex.nsf&view=VDocIndexByZxrViewForMobile&thclass="+itcode+"$&page=1&count=5 ";
+					
+					$.hori.ajax({
+						"type":"post",
+						"url":url,
+						"data":"",
+						"success":function(res){
+							
+							console.log(res);
+							myDoingTaskLoad=true;
+							$("#myDoingTaskList").append(res).listview("refresh");
+
+						},
+						"error":function(res){
+							alert(res);
+							$.hori.hideLoading();
+
+							
+						}
+					});
+			}
+			
+	</script>
+
+</head>
+<body>
+	<div data-role="page" style="margin:0px;padding:0px;">
+		<div data-role="content">
+
+			<div data-role="tabs" id="tabs">
+		      	<div data-role="navbar">
+				    <ul>
+				      <li ><a href="#one" data-ajax="false" data-id="draftTaskList">草稿</a></li>
+				      <li><a href="#two" data-ajax="false" data-id="myStartTask">我下达的任务</a></li>
+				      <li><a href="#three" data-ajax="false" data-id="myDoingTask">我执行的任务</a></li>
+				    </ul>
+		      	</div>
+			    <div id="one" class="ui-body-d ui-content">		        
+				      	<div class="ui-grid-a" >
+							<div class="ui-block-a" >
+									
+							</div>
+							<div class="ui-block-b" >
+								<button type="button" data-theme="c" onclick="startMasterTask()">发起任务</button>		
+							</div>
+						</div>	
+			        	<ul id="tabDraftList" data-role="listview" data-inset="true"></ul>
+			    </div>
+			      <div id="two">
+			      	<ul id="myStartTaskList"  data-role="listview" data-inset="true"></ul>
+			      </div>
+			      <div id="three">
+			       <ul id="myDoingTaskList" data-role="listview" data-inset="true"></ul>
+			      </div>
+		    </div>
+		</div>	
+	</div>		
+</body>
+	
+
+</html>
+

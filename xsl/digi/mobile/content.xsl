@@ -1,38 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:dxmlf="http://www.datypic.com/xmlf"
-                xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                xmlns:fn="http://www.w3.org/2005/xpath-functions"
-                xmlns:local="http://www.datypic.com/local"
-                 xmlns:functx="http://www.functx.com"  
-                exclude-result-prefixes="dxmlf xs" version="2.0">
-
-	<xsl:function name="functx:trim" as="xs:string" xmlns:functx="http://www.functx.com">
-  		<xsl:param name="arg" as="xs:string?"/>
-  		<xsl:sequence select="  replace(replace($arg,'\s+$',''),'^\s+','') "/>
-  </xsl:function>
-  <xsl:function name="functx:left-trim" as="xs:string" xmlns:functx="http://www.functx.com" >
-		<xsl:param name="arg" as="xs:string?"/>
-
-		<xsl:sequence select="replace($arg,'^\s+','')"/>
-
-</xsl:function>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+	
+	
 	<xsl:variable name="appdbpath"><xsl:value-of select="//input[@name='appdbpath']/@value"/></xsl:variable>
 	<xsl:variable name="appformname"><xsl:value-of select="//input[@name='appformname']/@value"/></xsl:variable>
-	<xsl:variable name="flownodeid"><xsl:value-of select="//input[@name='TFCurNodeID']/@value"/></xsl:variable>
 	
-	<xsl:output method="html" indent="yes"/>
 	<xsl:template match="/">
 		<html lang="zh_cn">
 			<head>
 			
-
+				
+				
 				<script>
 					$(document).ready(function(){
 						var hori=$.hori;
 						/*设置标题*/
 						//hori.setHeaderTitle("单据");
+						//makejq();
 					});
+					
 					function makejq(){						
 						var jqElement = document.getElementById("jq");
 						var url = $.hori.getconfig().appServerHost+"view/oamobile/operationjq/Produce/DigiFlowMobile.nsf/frmselectpsn?OpenForm&amp;login&amp;selectMode=radio&amp;FieldName=TFTempAuthors&amp;FieldNameCN=TFTempAuthorsCN&amp;FieldNameEN=TFTempAuthorsEN&amp;GroupFlag=no&amp;SelectOrgID=&amp;OptFieldName=&amp;callback=SubmitFlowDoc_JQ";
@@ -43,15 +29,6 @@
 						localStorage.setItem("oaAppContentHtml",contentHtml);
 						$.hori.loadPage($.hori.getconfig().serverBaseUrl+"viewhome/html/jq.html");
 					}
-
-					function searchPerson(){						
-						
-						var contentHtml=$("#notice").html();						
-						localStorage.setItem("oaAppContentHtml",contentHtml);
-						$.hori.loadPage($.hori.getconfig().serverBaseUrl+"viewhome/html/searchPerson.html");
-					}
-					
-
 				</script>
 	
 				<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -60,10 +37,17 @@
 				<div id="notice" data-role="page">
 					
 					<div data-role="content" align="center">
+						<style>
+							.ui-listview {
+								background: #D61800;
+								
+							}
+						</style>
 						<script>
 							<![CDATA[
 							//viewfile 附件函数
 							function viewfile(url){
+								
 								localStorage.setItem("attachmentUrl",url);
 								$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
 							}
@@ -90,21 +74,24 @@
 								FlowMindInfo = escape(FlowMindInfo);
 								FlowMindInfo = FlowMindInfo.replace(/%20/g," ");
 
-								
-								if(window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)) {
-									FlowMindInfo = encodeURI(FlowMindInfo);
-								}
+								FlowMindInfo = encodeURI(FlowMindInfo);
 
 								if(confirmflag=="yes"){
 									if(!window.confirm(confirmstr)){
 										return false;
 									}
 								}
-
-								var toNodeId = "";
+								var toNodeId = $("#defaultToNodeIdValue").val();
 								if(flowid){
 									toNodeId = flowid;
 									$( "#flowpupups" ).popup( "close" );
+								}
+								
+								var UseFlowWS = $("#isUseFlowWS").val();
+								
+								if(UseFlowWS=="yes"){
+									FlowBackTraceForWS(value,toNodeId);
+									return;
 								}
 								
 								
@@ -120,14 +107,8 @@
 									success: function(response){
 											var result = response;
 											$.mobile.hidePageLoadingMsg();
-											alert(result);
-											if(result.indexOf("环节处理人为空")>=0){
-												//alert("此处选择处理人");
-												searchPerson();
-												return false; 
-											}else{
-												setTimeout("$.hori.backPage(1)",2000);
-											}
+											alert(result+"CUCCESS");
+											setTimeout("$.hori.backPage(1)",2000);
 									},
 									error:function(response){
 										$.mobile.hidePageLoadingMsg();
@@ -138,42 +119,40 @@
 							}
 
 							function submit(value){
-								//意见不可为空
+								
 								var sel = $("#FlowMindInfo").val();
 								if(sel == null || sel==""){
 									alert('请填写您的意见');
 									return ;
 								}
+								var toNodeId = $("#defaultToNodeIdValue").val();
+								if($("#toflownodeid").length>0 && toNodeId==""){
+									alert("请选择目标环节");
+									return;
+								}
+
 								//驳回选关
 								if(value=="reject"){
 									var refuse = $("#TFCurNodeRefuseToFlag").val();
-									//如果refuse==yes,当前环节允许驳回选关
+									
 									if(refuse=="yes"){
 										$( "#flowpupups" ).popup( "open" );
 										return;
 									}
 								}
-								
 								//提交
 								if(value=="reject"){
 									var question = window.confirm("确定驳回吗?"); 
 								}else{
 									var question = window.confirm("确定提交吗?"); 
 								}
-								//确定提交或者驳回时
+	
 								if(question){
 									var toflownodeid = "";
-									if($("#toflownodeid").length>0){
+									if($("#toflownodeid")){
 										toflownodeid = $("#toflownodeid").val();
-									
-										if(toflownodeid==""){
-											alert("请选择下一环节");
-											return ;
-										}
-										
-										//存储下一环节到localstorage中 
-										localStorage.setItem("oaNextNodeId",toflownodeid);
 									}
+									
 									post(value, toflownodeid);
 								}
 							}
@@ -186,23 +165,30 @@
 						<div class="ui-grid-b">
 							<div class="ui-block-a" style="padding-bottom:5px;" align="center">
 								<xsl:if test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
+
 								<a data-role="button" value="submit" onclick="submit('submit');" data-mini='true' data-theme="f">提 交</a>
+
 								</xsl:if>
+
 							</div>
 							<div class="ui-block-b" style="padding-bottom:5px;" align="center">
 								<xsl:if test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'reject')]">
+
 								<a data-role="button" value="reject" onclick="submit('reject');" data-mini='true' data-theme="f">驳 回</a>
+
 								</xsl:if>
 							</div>
 							<div class="ui-block-c" style="padding-bottom:5px;" align="center">
 								<xsl:if test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'moreoption')]">
-								<a href="#popupBasic" data-rel="popup" data-role="button" data-mini='true' data-theme="f">高 级</a>
+
+								<a href="#popupBasic" data-rel="popup" data-role="button" data-mini='true' data-theme="f">高 级6</a>
+							
 								</xsl:if>
 								<div data-role="popup" id="popupBasic">
-								<ul data-role="listview" data-inset="true" data-theme="c">
+								<ul data-role="listview" data-inset="true">
 									<li data-role="list-divider"></li>
 									<xsl:if test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@onclick, 'append')]">
-										<li><a href=""  onclick="makejq()" data-rel="page">加 签</a></li>
+										<li><a id="jq" href="" data-rel="page" onclick="makejq()">加 签</a></li>
 									</xsl:if>
 									<li data-role="list-divider"></li>
 								</ul>
@@ -210,7 +196,6 @@
 							</div>
 						</div>
 						
-						<!-- 驳回选关 -->
 						<div data-role="popup" id="flowpupups">
 							<fieldset data-role="controlgroup" data-mini="true">
 								<xsl:call-template name="flows">
@@ -222,7 +207,38 @@
 					
 						<h3><xsl:value-of select="//title/text()"/></h3>
 						
+
+						<div style="display:none">
+							<table>
+								<tr>  
+									<td>
+										<xsl:variable name="Value"><xsl:value-of select="//div"/></xsl:variable>
+										<xsl:variable name="Value2">
+											<xsl:value-of select="substring-after($Value,'应用数据库路径：')"/>
+										</xsl:variable>
+										<textarea name="ISCW" id="ISCW">
+										<xsl:value-of select="substring-before($Value2,'.nsf')"/>
+										</textarea> 
+									</td>
+								</tr>
+								<tr>  
+									<td>			
+										<textarea name="ISCWZC" id="ISCWZC">
+										<xsl:value-of select="//fieldentries/fieldentry[1]"/>
+										</textarea> 
+									</td>
+								</tr>
+								<tr>  
+									<td>			
+										<textarea name="isUseFlowWS" id="isUseFlowWS">
+											<xsl:value-of select="//input[@name='isUseFlowWS']/@value"/>
+										</textarea> 
+									</td>
+								</tr>
+							</table>							
+						</div>
 						
+
 						<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
 							
 							<xsl:if test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
@@ -239,9 +255,9 @@
 														<option selected="unselected">常用语</option>
 														<option value="同意！">同意！</option>
 														<option value="不同意！">不同意！</option>
-														<option value="返回再议!">返回再议!</option>
-														<option value="请尽快处理!">请尽快处理!</option>
-														<option value="请修改后重新提交!">请修改后重新提交!</option>
+														<option value="返回再议。">返回再议。</option>
+														<option value="请尽快处理。">请尽快处理。</option>
+														<option value="请修改后重新提交。">请修改后重新提交。</option>
 													</select>
 												</td>
 											</tr>
@@ -258,7 +274,7 @@
 							
 
 
-							<li data-role="list-divider">基本信息</li>
+							<li data-role="list-divider">基本信息2</li>
 							<li>
 								<xsl:if test="not(//div[@name='Fck_HTML']//fieldentry)">
 									<font color="red" size="3">应用单据被删除或未进行移动审批配置，请联系管理员。</font>
@@ -270,18 +286,16 @@
 
 
 							<li data-role="list-divider">附件信息</li>
-							<!-- select="translate(//input[@name='AttachInfo']/@value, ' ', '')"/> -->
 								<xsl:if test="//input[@name='AttachInfo']/@value =''">
-									<li>
-										无附件
-									</li>	
+								<li>
+									无附件
+								</li>	
 								</xsl:if>
 								<xsl:if test="//input[@name='AttachInfo']/@value !=''">
 									<xsl:call-template name="file">
 										<xsl:with-param name="info" select="translate(//input[@name='AttachInfo']/@value, ' ', '')"/>
 									</xsl:call-template>
-								</xsl:if>
-							
+								</xsl:if>			
 							<li data-role="list-divider">当前环节信息</li>
 							<li>
 								环节名称：<xsl:value-of select="//input[@name='TFCurNodeName']/@value" />
@@ -354,7 +368,7 @@
 			<div style="width:100%" align="left">
 				<!--<xsl:value-of select="translate(@approver, '&quot;', '')"/> -->
 				<label><xsl:value-of select="@approver"/></label>
-				<br/>
+
 				<xsl:value-of select="@flownodename"/>
 					<xsl:if test="@optnameinfo !=''">
 						<xsl:value-of select="@optnameinfo"/>
@@ -374,14 +388,14 @@
 		<li>
 		<xsl:choose>
 			<xsl:when test="contains($info, ';')">
-				<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{functx:left-trim(substring-before($info, '(')}'));"  data-role="button"><xsl:value-of select="substring-before($info, '(')"/></a>
+				<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{substring-before($info, '(')}');"  data-role="button"><xsl:value-of select="substring-before($info, '(')"/></a>
 				<xsl:call-template name="file">
 					<xsl:with-param name="info" select="substring-after($info, ';')"/>
 				</xsl:call-template>
 			</xsl:when>
 
 			<xsl:when test="contains($info, '(')">
-				<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{functx:left-trim(substring-before($info, '(')}'));"  data-role="button"><xsl:value-of select="substring-before($info, '(')"/></a>
+				<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{substring-before($info, '(')}');"  data-role="button"><xsl:value-of select="substring-before($info, '(')"/></a>
 				
 			</xsl:when>
 			<xsl:otherwise>
@@ -391,9 +405,10 @@
 		</li>
 	</xsl:template>
 	
-	<!-- 处理 基本信息 -->
+	<!-- 处理 基本信息12 -->
 	<xsl:template match="fieldentry">	
 	<xsl:variable name="sub">rtfmobile<xsl:value-of select="@name"/></xsl:variable>
+			<xsl:if test="@shownodes='' or contains(@shownodes,//input[@id='TFCurNodeID']/@value)">
 			<xsl:choose>
 				<xsl:when test="@type='table'">				
 					<div style='text-align:center;'><xsl:value-of select="@title" /></div>
@@ -404,6 +419,7 @@
 				<xsl:when test="@type='radio'">
 					<xsl:variable name="radioVal"><xsl:value-of select="concat('|',value/.)" /></xsl:variable>
 					<xsl:variable name="radioTxt"><xsl:value-of select="substring-before(text/., $radioVal)"/></xsl:variable>
+									
 					<xsl:value-of select="@title" />
 					<b>：</b>
 					
@@ -427,15 +443,15 @@
 				</xsl:when>
 
 				<!-- 新加了这个select -->
-				<xsl:when test="@type='select'">
-				<xsl:if test="not(contains(@id, 'ToNodeId'))">
+				<xsl:when test="@type='select' and not(contains(@title,'目标环节'))">
 					<xsl:variable name="selectVal"><xsl:value-of select="concat('|',value/.)" /></xsl:variable>
 					<xsl:variable name="selectTxt"><xsl:value-of select="substring-before(text/., $selectVal)"/></xsl:variable>
 									
 					<xsl:value-of select="@title" />
 					<b>：</b>
-					
-					<xsl:if test="contains($selectTxt, ';')">
+					<xsl:value-of select="$selectTxt"/>
+					<xsl:choose>
+					<xsl:when test="contains($selectTxt, ';')">
 						<xsl:variable name="selectTxt2"><xsl:value-of select="substring-after($selectTxt,';')"/></xsl:variable>
 
 						<xsl:if test="contains($selectTxt2, ';')">
@@ -459,15 +475,22 @@
 						<xsl:if test="not(contains($selectTxt2, ';'))">
 						<xsl:value-of select="$selectTxt2"/>
 						</xsl:if>
-					</xsl:if>
-
-					<xsl:if test="not(contains($selectTxt, ';'))">
+					</xsl:when>
+					<xsl:when test="not(contains($selectTxt, ';'))">
 						<xsl:value-of select="$selectTxt"/>
-					</xsl:if>
+					</xsl:when>
+
+					</xsl:choose>
 					
 					<br/><hr/>
-				</xsl:if>
 				</xsl:when>
+
+				<xsl:when test="@id = 'ToNodeId'">
+				</xsl:when>
+
+				
+
+				
 
 				<xsl:when test="@id='MTTABLE'">
 					<li data-role="list-divider"><xsl:value-of select="@title" /></li>
@@ -494,27 +517,39 @@
 				</xsl:otherwise>
 
 			</xsl:choose>	
+			</xsl:if>
+			<!-- 处理分支  substring-after(substring-before($flows, ';'), '/')-->
+			<xsl:if test="@id='ToNodeId' and contains(//*[@id='ToNodeId']/@shownodes,//input[@id='TFCurNodeID']/@value)">
+				<font  size="3">目标环节</font>
+				<xsl:choose>
+				<xsl:when test="//*[@id='ToNodeId']/text/.!=''">
+					<select id="toflownodeid" name="toflownodeid" onChange='$("#defaultToNodeIdValue").val(this.value);' data-theme="b" >
+						<xsl:call-template name="flownodes">
+							<xsl:with-param name="flows" select="text/."/>
+							<xsl:with-param name="default" select="value/."/>
+						</xsl:call-template>
+					</select>
 
-			<!-- 处理分支 -->
-			<xsl:if test="contains(@id, 'ToNodeId')">
-			<xsl:if test="@shownodes=$flownodeid">
-				<font  size="3">下一环节不唯一，请选择环节</font>
-				<br/><hr/>
-				
-				<select id="toflownodeid" name="toflownodeid" onChange='' data-theme="b" >
-					<xsl:call-template name="flownodes">
-						<xsl:with-param name="flows" select="value/text/."/>
-						<xsl:with-param name="default" select="value123/."/><!-- 无用 -->
-					</xsl:call-template>
-				</select>
+				</xsl:when>
+				<xsl:otherwise>
+					<select id="toflownodeid" name="toflownodeid" onChange='$("#defaultToNodeIdValue").val(this.value);' data-theme="b" >
+						<xsl:call-template name="flownodes">
+							<xsl:with-param name="flows" select="value/."/>
+							<xsl:with-param name="default" select="value/."/>
+						</xsl:call-template>
+					</select>
+
+				</xsl:otherwise>
+				</xsl:choose>
 			</xsl:if>
-			</xsl:if>
+			<input type="hidden" id="defaultToNodeIdValue" name="defaultToNodeIdValue" value=""/>
 	</xsl:template>
 	<xsl:template name="flownodes">
 		<xsl:param name="flows"/>
 		<xsl:param name="default"/>
 		<xsl:if test="substring-after($flows, ';')!=''">
 			<xsl:choose>
+				<xsl:when test="contains(substring-before(substring-before($flows, ';'), '|'), '-')"></xsl:when>
 				<xsl:when test="$default=substring-after(substring-before($flows, ';'), '|')">
 					<option selected="true" value="{substring-after(substring-before($flows, ';'), '|')}"><xsl:value-of select="substring-before(substring-before($flows, ';'), '|')" /></option>
 				</xsl:when>
@@ -529,6 +564,7 @@
 		</xsl:if>
 		<xsl:if test="substring-after($flows, ';')=''">
 			<xsl:choose>
+				<xsl:when test="contains(substring-before($flows, '|'), '-')"></xsl:when>
 				<xsl:when test="$default=substring-after($flows, '|')">
 					<option selected="true" value="{substring-after($flows, '|')}"><xsl:value-of select="substring-before($flows, '|')" /></option>
 				</xsl:when>
@@ -550,9 +586,12 @@
 
 	 <xsl:template match="tr" mode="t1" >
 		<xsl:variable name="num" select="position()"/>
+
 		  <xsl:if test="$num!=1">
 			<li><xsl:apply-templates  mode="t1"/></li>
 		 </xsl:if>
+		
+
 	</xsl:template>
 	
 	 <xsl:template match="td" mode="t1" >	
@@ -569,7 +608,7 @@
 		<xsl:if test="position()=1">		
 		<xsl:apply-templates  mode="bx"/>	
 		</xsl:if>
-	</xsl:template>
+	</xsl:template>	
 
 	<xsl:template match="table" mode="bx" >	
 		<xsl:apply-templates  mode="bx"/>	

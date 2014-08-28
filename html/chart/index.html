@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" /> 
+
+  <script src="../../lib/jquery/jquery.min.js"></script>		
+		<script src="../../lib/jquery-cookie/jquery.cookie.js"></script>	
+		<script src="../../lib/encrypt/encrypt.js"></script>
+		<script src="../../lib/json/json2.js"></script>
+		<script src="../../lib/hori/hori.js?tag=21369"></script>
+		
+		<script src="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
+		
+		<script src="../../config/web/config.js"></script>
+		
+		 <script type="text/javascript" src="../../lib/chart/Charts/FusionCharts.js"></script>
+     <script type="text/javascript" src="../../lib/chart/Charts/FusionCharts.HC.js"></script>
+     <script type="text/javascript" src="../../lib/chart/Charts/FusionCharts.HC.Charts.js"></script>
+			<script>
+				$(document).ready(function(){
+					
+							
+							$("#tabs").tabs({beforeActivate:function(event,ui){
+							//alert(ui.newTab.context.dataset.id);
+							
+							var tabid=ui.newTab.context.dataset.id;
+							
+							//预算对比
+							if(tabid=="column"){
+							
+								loadColumn2d();
+							}
+							//时间分析
+							if(tabid=="line" ){
+								loadLine();
+							}
+							//行业分析
+							if(tabid=="pie" ){
+								loadCombile();
+							}
+							//客户排名
+							if(tabid=="bar" ){
+								loadMSBar2D();
+							}
+					}})
+					
+				$.hori.setHeaderTitle("报表展示");
+			});
+				</script>
+</head>
+<body>
+<div data-role="page" class="jqm-demos" data-quicklinks="true">
+
+	
+
+	<div role="main" class="ui-content jqm-content">
+
+
+		<h2>企业利润分析表</h2>
+		<div >
+			<div data-role="tabs" id="tabs">
+		      <div data-role="navbar">
+			    <ul>
+			      <li><a href="#one" data-ajax="false" data-id="column">预算费用分析</a></li>
+			      <li><a href="#two" data-ajax="false" data-id="line">营收趋势</a></li>
+			      <li><a href="#three" data-ajax="false" data-id="pie">利润分析</a></li>
+			      <li><a href="#four" data-ajax="false" data-id="bar">客户分析</a></li>
+			    </ul>
+		      </div>
+		      <div id="one" class="ui-body-d ui-content">
+		        <div id="chartdivColumn" align="center" >正在加载，请稍后</div>
+		      </div>
+		      <div id="two">
+		      	<div id="chartdivLine" align="center">正在加载，请稍后</div>
+		       	
+		      </div>
+		      <div id="three">
+		       	  <div id="chartdivCombile" align="center">正在加载，请稍后</div>
+		      </div>
+		      <div id="four">
+		       	 <div id="chartdivBar" align="center">正在加载，请稍后</div>
+		      </div>
+		    </div>
+		    
+		   
+
+		 
+		
+		    
+		
+	
+
+		  <script>
+		  	function loadColumn2d(){
+				  FusionCharts.setCurrentRenderer('javascript');
+				  var myChart2 = new FusionCharts( "MSColumn2D", "myChartColumn", "100%", "100%", "0" );
+				  var dataObj2={
+					  "chart": {
+						"palette": "2",
+						"rotatenames": "0",
+						"animation": "1",
+						"numdivlines": "4",
+						"caption": "2013预算分析",
+						"basefont": "Arial",
+						"basefontsize": "12",
+						"useroundedges": "1",
+						"legendborderalpha": "0"
+					  },
+					  "categories": [
+						{
+						  "font": "Arial",
+						  "fontsize": "12",
+						  "category": [
+							{
+							  "label": "华北大区"
+							  
+							},
+							{
+							  "label": "华东大区"
+							},
+							{
+							  "label": "华南大区"
+							},
+							{
+							  "label": "西北大区"
+							},
+							{
+							  "label": "西南大区"
+							}
+						  ]
+						}
+					  ],
+					  "dataset": [
+						{
+						  "seriesname": "预算",
+						  "color": "9ACCF6",
+						  "alpha": "90",
+						  "showvalues": "0",
+						  "data": [
+							{
+							  "value": "300000"
+							},
+							{
+							  "value": "260000"
+							},
+							{
+							  "value": "290000"
+							},
+							{
+							  "value": "310000"
+							},
+							{
+							  "value": "340000"
+							}
+						  ]
+						},
+						{
+						  "seriesname": "费用",
+						  "color": "82CF27",
+						  "showvalues": "0",
+						  "alpha": "90",
+						  "data": [
+							{
+							  "value": "270000"
+							},
+							{
+							  "value": "250000"
+							},
+							{
+							  "value": "280000"
+							},
+							{
+							  "value": "260000"
+							},
+							{
+							  "value": "100000"
+							}
+						  ]
+						}
+					  ],
+					  "trendlines": [
+						{
+						  "line": [
+							{
+							  "startvalue": "300000",
+							  "endvalue": "350000",
+							  "color": "8BBA00",
+							  "thickness": "1",
+							  "alpha": "20",
+							  "showontop": "0",
+							  "displayvalue": "Trend 1",
+							  "istrendzone": "1"
+							}
+						  ]
+						}
+					  ],
+					  "styles": {
+						"definition": [
+						  {
+							"name": "Anim1",
+							"type": "animation",
+							"param": "_xScale",
+							"start": "0",
+							"duration": "1"
+						  },
+						  {
+							"name": "Anim2",
+							"type": "animation",
+							"param": "_alpha",
+							"start": "0",
+							"duration": "1"
+						  },
+						  {
+							"name": "myCaptionFont",
+							"type": "font",
+							"align": "left"
+						  }
+						],
+						"application": [
+						  {
+							"toobject": "TRENDLINES",
+							"styles": "Anim1, Anim2"
+						  },
+						  {
+							"toobject": "Caption",
+							"styles": "myCaptionFont"
+						  }
+						]
+					  }
+				}
+		
+				  myChart2.setJSONData(dataObj2);
+					myChart2.render("chartdivColumn");
+		}
+
+			//加载线图
+		function  loadLine(){
+			FusionCharts.setCurrentRenderer('javascript');
+		  var myChartLine = new FusionCharts( "MSline", "myChartLine", "100%", "100%", "0" );
+		  var dataObjLine={
+			  
+			  "chart": {
+				"palette": "2",
+				"caption": "销售业绩预测",
+				"showvalues": "0",
+				"numvdivlines": "10",
+				"drawanchors": "0",
+				"numberprefix": "￥",
+				"divlinealpha": "30",
+				"alternatehgridalpha": "20",
+				"setadaptiveymin": "1"
+			  },
+			  "categories": [
+				{
+				  "category": [
+					{
+					  "label": "一月"
+					},
+					{
+					  "label": "二月"
+					},
+					{
+					  "label": "三月"
+					},
+					{
+					  "label": "四月"
+					},
+					{
+					  "label": "五月"
+					},
+					{
+					  "label": "六月"
+					},
+					{
+					  "label": "七月"
+					},
+					{
+					  "label": "八月"
+					},
+					{
+					  "label": "九月"
+					},
+					{
+					  "label": "十月"
+					},
+					{
+					  "label": "十一月"
+					},
+					{
+					  "label": "十二月"
+					}
+				  ]
+				}
+			  ],
+			  "dataset": [
+				{
+				  "seriesname": "预计收入",
+				  "color": "A66EDD",
+				  "data": [
+					{
+					  "value": "1127654"
+					},
+					{
+					  "value": "1226234"
+					},
+					{
+					  "value": "1299456"
+					},
+					{
+					  "value": "1311565"
+					},
+					{
+					  "value": "1324454"
+					},
+					{
+					  "value": "1357654"
+					},
+					{
+					  "value": "1296234"
+					},
+					{
+					  "value": "1359456"
+					},
+					{
+					  "value": "1391565"
+					},
+					{
+					  "value": "1414454"
+					},
+					{
+					  "value": "1671565"
+					},
+					{
+					  "value": "1134454"
+					}
+				  ]
+				},
+				{
+				  "seriesname": "实际收入",
+				  "color": "F6BD0F",
+				  "data": [
+					{
+					  "value": "927654"
+					},
+					{
+					  "value": "1126234"
+					},
+					{
+					  "value": "1299456"
+					},
+					{
+					  "value": "1111565"
+					},
+					{
+					  "value": "1124454"
+					},
+					{
+					  "value": "1257654"
+					},
+					{
+					  "value": "1496234"
+					},
+					{
+					  "value": "1559456"
+					},
+					{
+					  "value": "1491565"
+					},
+					{
+					  "value": "1214454"
+					},
+					{
+					  "value": "1371565"
+					},
+					{
+					  "value": "1434454"
+					}
+				  ]
+				}
+			  ],
+			  "styles": {
+				"definition": [
+				  {
+					"name": "XScaleAnim",
+					"type": "ANIMATION",
+					"duration": "0.5",
+					"start": "0",
+					"param": "_xScale"
+				  },
+				  {
+					"name": "YScaleAnim",
+					"type": "ANIMATION",
+					"duration": "0.5",
+					"start": "0",
+					"param": "_yscale"
+				  },
+				  {
+					"name": "XAnim",
+					"type": "ANIMATION",
+					"duration": "0.5",
+					"start": "0",
+					"param": "_yscale"
+				  },
+				  {
+					"name": "AlphaAnim",
+					"type": "ANIMATION",
+					"duration": "0.5",
+					"start": "0",
+					"param": "_alpha"
+				  }
+				],
+				"application": [
+				  {
+					"toobject": "CANVAS",
+					"styles": "XScaleAnim, YScaleAnim,AlphaAnim"
+				  },
+				  {
+					"toobject": "DIVLINES",
+					"styles": "XScaleAnim,AlphaAnim"
+				  },
+				  {
+					"toobject": "VDIVLINES",
+					"styles": "YScaleAnim,AlphaAnim"
+				  },
+				  {
+					"toobject": "HGRID",
+					"styles": "YScaleAnim,AlphaAnim"
+				  }
+				]
+			  }
+			}
+		  
+
+		  myChartLine.setJSONData(dataObjLine);
+			myChartLine.render("chartdivLine");
+			
+		}
+			//加载饼图
+		function loadCombile(){
+			FusionCharts.setCurrentRenderer('javascript');
+		  var myChart = new FusionCharts( "MSCombi2D", "myChartCombile", "100%", "100%", "0" );
+		  var dataObj={
+			  "chart": {
+			    "palette": "2",
+			    "caption": "公司营收",
+			    "subcaption": "2013年 单位(万)",
+			    "showvalues": "0",
+			    "divlinedecimalprecision": "1",
+			    "limitsdecimalprecision": "1",
+			    "pyaxisname": "Amount",
+			    "syaxisname": "Quantity",
+			    "numberprefix": "￥",
+			    "formatnumberscale": "0"
+			  },
+			  "categories": [
+			    {
+			      "category": [
+			        {
+			          "label": "Portal"
+			        },
+			        {
+			          "label": "OA"
+			        },
+			        {
+			          "label": "ERP"
+			        },
+			        {
+			          "label": "BI"
+			        },
+			        {
+			          "label": "移动产品"
+			        },
+			        {
+			          "label": "crm"
+			        }
+			      ]
+			    }
+			  ],
+			  "dataset": [
+			    {
+			      "seriesname": "收入",
+			      "data": [
+			        {
+			          "value": "5854"
+			        },
+			        {
+			          "value": "4171"
+			        },
+			        {
+			          "value": "1375"
+			        },
+			        {
+			          "value": "1875"
+			        },
+			        {
+			          "value": "2246"
+			        },
+			        {
+			          "value": "2696"
+			        }
+			        
+			      ]
+			    },
+			    {
+			      "seriesname": "利润",
+			      "renderas": "Line",
+			      "data": [
+			        {
+			          "value": "3242"
+			        },
+			        {
+			          "value": "3171"
+			        },
+			        {
+			          "value": "700"
+			        },
+			        {
+			          "value": "1287"
+			        },
+			        {
+			          "value": "1856"
+			        },
+			        {
+			          "value": "1126"
+			        }
+			      ]
+			    }
+			  ]
+			}
+		  
+
+		  myChart.setJSONData(dataObj);
+			myChart.render("chartdivCombile");
+			
+		}
+		
+			function loadMSBar2D(){
+		  FusionCharts.setCurrentRenderer('javascript');
+		  var myChart = new FusionCharts( "Bar2D", "myChartBar2D", "100%", "100%", "0" );
+				var dataObj={
+				  "chart": {
+				    "caption": "客户排名",
+				    "subcaption": "",
+				    "yaxisname": "单位（万）",
+				    "xaxisname": "",
+				    "alternatevgridcolor": "AFD8F8",
+				    "basefontcolor": "114B78",
+				    "tooltipbordercolor": "114B78",
+				    "tooltipbgcolor": "E7EFF6",
+				    "useroundedges": "1",
+				    "showborder": "0",
+				    "bgcolor": "FFFFFF,FFFFFF"
+				  },
+				  "data": [
+				    {
+				      "label": "客户1",
+				      "value": "1000",
+				      "color": "AFD8F8"
+				    },
+				    {
+				      "label": "客户2",
+				      "value": "950",
+				      "color": "F6BD0F"
+				    },
+				    {
+				      "label": "客户3",
+				      "value": "800",
+				      "color": "8BBA00"
+				    },
+				    {
+				      "label": "客户4",
+				      "value": "760",
+				      "color": "A66EDD"
+				    },
+				    {
+				      "label": "客户5",
+				      "value": "700",
+				      "color": "F984A1"
+				    },
+				    {
+				      "label": "客户6",
+				      "value": "650",
+				      "color": "F984A1"
+				    },
+				    {
+				      "label": "客户7",
+				      "value": "600",
+				      "color": "F984A1"
+				    },
+				    {
+				      "label": "客户8",
+				      "value": "500",
+				      "color": "F984A1"
+				    }
+				  ]
+							}	
+
+		  myChart.setJSONData(dataObj);
+			myChart.render("chartdivBar");
+		}
+		  </script>
+		
+	</div><!-- /content -->
+	   
+
+
+
+</div><!-- /page -->
+
+</body>
+</html>

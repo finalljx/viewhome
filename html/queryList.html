@@ -1,0 +1,234 @@
+<html>
+<head>
+	<title>请示审批</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0"/>
+	<script type="application/javascript" src="../assets/iscroll.js"></script>
+	<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" /> 
+	<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" /> 
+	<script src="../lib/jquery/jquery.min.js"></script>		
+	<script src="../lib/encrypt/encrypt.js"></script>
+	<script src="../lib/json/json2.js"></script>
+	<script src="../lib/hori/hori.js?tag=21369"></script>
+	<script src="../config/web/config.js"></script>
+	<script src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
+	<script type="text/javascript">
+			var myScroll,pullUpEl, pullUpOffset,generatedCount=0;
+			var start=20;
+			function pullUpAction () {
+				setTimeout(function () {
+					//vwDocByDate,vwtoArchive,vwDocByArchvied
+					var typestr = localStorage.getItem("type");
+					alert(typestr);return;
+					var url=$.hori.getconfig().appServerHost+"view/oa/queryForDoing/docapp/genertec/dep1/qsbg_1.nsf/myview?openform&view="+view+"&start=1&count=10";
+					$.hori.ajax({
+						"type":"post",
+						"url":url,
+						"success":function(res){
+							console.log(res);
+							$("#querydataList").empty();
+							$("#querydataList").append(res).listview("refresh");
+							myStartTaskLoad=true;
+							$("#signdataList").empty();
+						},
+						"error":function(res){
+							alert(res);
+							$.hori.hideLoading();
+						}
+					});
+					myScroll.refresh();
+				}, 1000);
+			}
+			function loaded() {
+				pullUpEl = document.getElementById('pullUp');	
+				pullUpOffset = pullUpEl.offsetHeight;
+				
+			myScroll = new iScroll('wrapper', {
+				useTransition: true,
+				topOffset: pullUpOffset,
+				onRefresh: function () {
+				if (pullUpEl.className.match('loading')) {
+						pullUpEl.className = '';
+						pullUpEl.querySelector('.pullUpLabel').innerHTML = '';
+					}
+				},
+			onScrollMove: function () {
+				if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
+					pullUpEl.className = 'flip';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '';
+					this.maxScrollY = this.maxScrollY;
+				} else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
+					pullUpEl.className = '';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '';
+					this.maxScrollY = pullUpOffset;
+				}
+			},
+			onScrollEnd: function () {
+				if (pullUpEl.className.match('flip')) {
+					pullUpEl.className = 'loading';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '';
+					pullUpAction();
+				}
+			}
+		});
+			setTimeout(function () { document.getElementById('wrapper').style.left = '0'; }, 800);
+		}
+			document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+			document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 200); }, false);
+</script>
+	<script>
+		var myStartTaskLoad=false;
+		var myDoingTaskLoad=false;
+		$(document).ready(function(){
+			var hori = $.hori;
+			/*设置标题*/
+			hori.setHeaderTitle("任务");
+			$("#tabs").tabs({beforeActivate:function(event,ui){
+					//alert(ui.newTab.context.dataset.id);
+					var tabid=ui.newTab.context.dataset.id;
+					//内请
+					if(tabid=="queryList" && !myDoingTaskLoad){
+							queryListForDoing();
+					}
+					//会签
+					if(tabid=="signList" && !myStartTaskLoad){
+						signListForDoing();
+					}
+			}})
+			var onlist=localStorage.getItem("click");
+			//alert(onlist);
+			if(onlist=="1"){
+				$("#ui-id-1").click()	
+			}
+			if(onlist=="2"){
+				$("#ui-id-2").click()	
+			}
+			hori.registerEvent("case", "casePresented", function() {
+				var onlist=localStorage.getItem("click");
+				if(onlist=="1"){
+					$("#ui-id-1").click()	
+				}
+				if(onlist=="2"){
+					$("#ui-id-2").click()	
+				}
+			});
+			queryListForDoing();
+		})
+		</script>
+		<script type="text/javascript">
+		
+		//内请办理中
+		function queryListForDoing(){
+			localStorage.setItem("type","vwDocByDate");
+			var url=$.hori.getconfig().appServerHost+"view/oa/queryForDoing/docapp/genertec/dep1/qsbg_1.nsf/myview?openform&view=vwDocByDate&start=1&count=10";
+				$.hori.ajax({
+					"type":"post",
+					"url":url,
+					"success":function(res){
+						console.log(res);
+						$("#querydataList").empty();
+						$("#querydataList").append(res).listview("refresh");
+						myStartTaskLoad=true;
+						$("#signdataList").empty();
+					},
+					"error":function(res){
+						alert(res);
+						$.hori.hideLoading();
+					}
+				});
+		}
+		//内请办理中/docapp/genertec/dep1/qsbg_1.nsf/myview?openform&view=vwDocByDate&start=1&count=50
+		//内请待归档/docapp/genertec/dep1/qsbg_1.nsf/myview?openform&view=vwtoArchive&start=1&count=20
+		//内请已归档/docapp/genertec/dep1/qsbg_1.nsf/myview?openform&view=vwDocByArchvied&start=1&count=20
+		var template = "";
+		function queryListForType(view){
+			//vwDocByDate,vwtoArchive,vwDocByArchvied
+			if(view=="vwDocByDate"){
+				alert("办理中");
+				template="queryForDoing";
+			}
+			if(view=="vwtoArchive"){
+				alert("待归档");
+			}
+			if(view=="vwDocByArchvied"){
+				alert("已归档");
+			}
+			localStorage.setItem("type",view);
+			var url=$.hori.getconfig().appServerHost+"view/oa/queryForDoing/docapp/genertec/dep1/qsbg_1.nsf/myview?openform&view="+view+"&start=1&count=10";
+				$.hori.ajax({
+					"type":"post",
+					"url":url,
+					"success":function(res){
+						console.log(res);
+						$("#querydataList").empty();
+						$("#querydataList").append(res).listview("refresh");
+						myStartTaskLoad=true;
+						$("#signdataList").empty();
+					},
+					"error":function(res){
+						alert(res);
+						$.hori.hideLoading();
+					}
+				});
+		}
+	</script>
+	
+</head>
+<body>
+	<div data-role="page" style="margin:0px;padding:0px;">
+		<div data-role="content">
+			<div data-role="tabs" id="tabs">
+		      	<div data-role="navbar">
+				    <ul>
+				      <li><a href="#two" data-ajax="false" data-id="queryList">内请</a></li>
+				      <li><a href="#three" data-ajax="false" data-id="signList">会签</a></li>
+				    </ul>
+		      	</div>
+			      <div id="two">
+					<div align="center" class="ui-grid-b">
+						<div class="ui-block-a">
+							<select name="querytype" id="querytype" onChange="queryListForType(this.value)" data-theme="a"  data-native-menu="true">
+							<option value="vwDocByDate">办理中</option>
+							<option value="vwtoArchive">待归档</option>
+							<option value="vwDocByArchvied">已归档</option>
+							</select>
+						</div>
+						<div class="ui-block-b"></div>
+						<div class="ui-block-c"></div>
+					</div>
+			      	<div id="wrapper">
+					<div id="scroller">
+						<div id="pullDown">
+						</div>
+						<ul id="querydataList"  data-role="listview" data-inset="true">
+							
+							<li id="moredata" style="display:none"><div id="pullUp" align="center">
+								<span class="pullUpLabel">上划加载更多...</span>
+							</div></li>
+						</ul>
+					</div>
+					</div>
+			      </div>
+			      <div id="three">
+					<div align="center" class="ui-grid-b">
+						<div class="ui-block-a"></div>
+						<div class="ui-block-b"></div>
+						<div class="ui-block-c">
+							<select name="signtype" id="signtype" data-theme="a"  data-native-menu="true">
+								<option value="Application/ykzh/DigiFlowIssueDoc.nsf">办理中</option>
+								<option value="Application/ykzh/DigiFlowReceiveDoc.nsf">待归档</option>
+								<option value="Application/ykzh/DigiFlowReceiveDoc.nsf">已归档</option>
+							</select>
+						</div>
+					</div>
+			       <ul id="signdataList" data-role="listview" data-inset="true"></ul>
+			      </div>
+		    </div>
+		</div>	
+		<br/><br/><br/>
+	</div>		
+</body>
+	
+
+</html>
+
