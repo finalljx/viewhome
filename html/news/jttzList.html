@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>移动办公</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+<link rel="stylesheet"
+	href="../../lib/jquery-mobile/jquery.mobile.min.css" />
+<link rel="stylesheet" href="../../assets/jquery.mobile-sugon.css" />
+<script src="../../lib/jquery/jquery.min.js"></script>
+<script src="../../lib/jquery-cookie/jquery.cookie.js"></script>
+<script src="../../lib/encrypt/encrypt.js"></script>
+<script src="../../lib/json/json2.js"></script>
+<script src="../../lib/hori/hori.js?tag=21369"></script>
+<script src="../../lib/jquery-mobile/jquery.mobile.min.js"></script>
+<script src="../../config/web/config.js"></script>
+<style>
+a {
+	text-decoration: none;
+}
+</style>
+<script type="text/javascript">
+	$(document).ready(function(){
+		//加载收入完成图表数据
+		loadSrwcChart();
+	});
+	function loadSrwcChart(){
+            var url = $.hori.getconfig().appServerHost+"view/news/jttzList/accsyWcmNews/services/reqWcmNewsList";
+            var temp = "$lt;?xml version='1.0' encoding='utf-8'?$gt;$lt;root$gt;$lt;newslist$gt;$lt;type$gt;GT_HomePage_SiteArea_jttz$lt;/type$gt;$lt;userid$gt;fangyonghong$lt;/userid$gt;$lt;pageSize$gt;10$lt;/pageSize$gt;$lt;parent$gt;1$lt;/parent$gt;$lt;pageNow$gt;1$lt;/pageNow$gt;$lt;/newslist$gt;$lt;/root$gt;";
+            var soap ="<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='http://webservice.biz.digiwin.com'>";
+                soap+='<soapenv:Header/><soapenv:Body>';
+                soap+='<web:getWcmNewsList>';
+                soap+='<web:in0>'+temp+'</web:in0>';
+                soap+='</web:getWcmNewsList>';
+                soap+=' </soapenv:Body></soapenv:Envelope>';
+            var data = "data-xml="+soap;
+            
+            $.hori.ajax({
+                "type":"post",
+                "url":url,
+                "data":data,
+                "headers":{
+                	"Authorization":"Basic d3BzYWRtaW46R1RBZG1pbg=="
+                },
+                "success":function(res){
+                    alert("success:" + res);
+                    document.getElementById("aaaaa").value = res;
+                },
+                "error":function(res){
+                    alert("error:" + res);
+                    $.hori.hideLoading();
+                }
+            });
+    }
+
+	</script>
+</head>
+<body>
+	<!-- 收入完成 -->
+	<div data-role="page" id="srwc" class="login">
+		<div data-role="content" align="center">2222222222</div>
+		<input type="text" id="aaaaa" />
+			</div>
+</body>
+</html>

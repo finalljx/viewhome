@@ -47,7 +47,6 @@
 			<rule mode="replace" regex="&lt;/doc_unid&gt;" value="&amp;lt;/doc_unid&amp;gt;" />
 
 		</view>
-
 		<!-- 流程处理 -->
 		<view id="submit" template="oa/flow/submit.xsl">
 			<rule mode="remove" regex="&amp;nbsp;"/>
@@ -156,4 +155,10 @@
 		</view>
 	</viewer>
 	<viewer id="oamsg" type="remote" source="http://docapp.genertec.com.cn"	encoding="gb2312"></viewer>
+	<viewer id="bi" type="remote" source="http://webseal.genertec.com.cn"    encoding="gb2312">
+	    <view id="loadSrwcChart" template="bi/querySrwcChartData.jsp" encoding="utf-8" />
+	</viewer>
+	<viewer id="news" type="remote" source="http://webseal.genertec.com.cn"    encoding="gb2312">
+	    <view id="jttzList" template="news/jttzList.jsp" encoding="utf-8" />
+	</viewer>
 </viewers>
