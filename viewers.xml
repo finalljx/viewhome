@@ -85,7 +85,6 @@
 			<rule mode="replace" regex="&amp;amp;apos;" value="" />
 			<rule mode="replace" regex="&amp;apos;" value="" />
 			<rule mode="replace" regex="&apos;" value="" />
-
 			<rule mode="replace" regex="width=&quot;386&quot;" value="width=&quot;240px&quot;" />
 			<rule mode="replace" regex="width=&amp;quot;386&amp;quot;"
 				value="width=&quot;300px&quot;" />
@@ -156,7 +155,34 @@
 	</viewer>
 	<viewer id="oamsg" type="remote" source="http://docapp.genertec.com.cn"	encoding="gb2312"></viewer>
 	<viewer id="bi" type="remote" source="http://webseal.genertec.com.cn"    encoding="gb2312">
-	    <view id="loadSrwcChart" template="bi/querySrwcChartData.jsp" encoding="utf-8" />
+	    <view id="loadSrwcChart" template="bi/querySrwcChartData.jsp" encoding="utf-8">
+	    	<rule mode="replace" regex="soap:" value="" />
+			<rule mode="replace" regex="ns1:" value="" />
+			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
+			<rule mode="replace" regex="&amp;lt;" value="" />
+			<rule mode="replace" regex="&amp;amp;mdash;" value="—" />
+			<rule mode="replace" regex="&amp;amp;hellip;" value="…" />
+			<rule mode="replace" regex="&amp;amp;lsquo;" value="‘" />
+			<rule mode="replace" regex="&amp;amp;rsquo;" value="’" />
+			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
+			<rule mode="replace" regex="&amp;quot;" value="&quot;"/>
+			<rule mode="replace" regex="&amp;amp;nbsp;" value="" />
+			<rule mode="replace" regex="&amp;amp;middot;" value="" />
+			<rule mode="replace" regex="&amp;amp;ldquo;" value="“" />
+			<rule mode="replace" regex="&amp;amp;rdquo;" value="”" />
+			<rule mode="replace" regex="&amp;amp;apos;" value="" />
+			<rule mode="replace" regex="&amp;apos;" value="" />
+			<rule mode="replace" regex="&apos;" value="" /> 
+			<rule mode="replace" regex="width=&quot;386&quot;" value="width=&quot;240px&quot;" />
+			<rule mode="replace" regex="width=&amp;quot;386&amp;quot;"
+				value="width=&quot;300px&quot;" />
+			<rule mode="remove" regex="height=&quot;179&quot;" />
+			<rule mode="remove" regex="height=&amp;quot;179&amp;quot;" />
+	    	
+	    </view>
+	    <view id="loadJytsChart" template="bi/queryJytsChartData.jsp" encoding="utf-8">
+	    	<rule mode="replace" regex="\n" value="" />
+	    </view>
 	</viewer>
 	<viewer id="news" type="remote" source="http://webseal.genertec.com.cn"    encoding="gb2312">
 	    <view id="jttzList" template="news/jttzList.jsp" encoding="utf-8" />

@@ -37,6 +37,12 @@
 		$.hori.showLoading();
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl+"viewhome/html/bi/srwc.html");
 	}
+	
+	// 经营态势
+	function loadJyts() {
+		$.hori.showLoading();
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl+"viewhome/html/bi/jyts.html");
+	}
 
 </script>
 </head>
@@ -45,7 +51,7 @@
 		<div data-role="content" align="center">
 			<div class="ui-grid-c" id="divOne">
 				<div class="ui-block-a">
-					<a href="javascript:void(0);" onclick="loadTaskList()"> 
+					<a href="javascript:void(0);" onclick="loadJyts()"> 
 					<img id="imgToDo" width="45" height="45" src="../assets/home/task.png" />
 					</a> <br/>
 					<!-- <span id="spanTodo" class="bubble-count ui-btn-up-c ui-btn-corner-all">1</span> <br /> -->

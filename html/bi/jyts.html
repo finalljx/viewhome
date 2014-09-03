@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>收入完成</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+<link rel="stylesheet"
+	href="../../lib/jquery-mobile/jquery.mobile.min.css" />
+<link rel="stylesheet" href="../../assets/jquery.mobile-sugon.css" />
+<script src="../../lib/jquery/jquery.min.js"></script>
+<script src="../../lib/jquery-cookie/jquery.cookie.js"></script>
+<script src="../../lib/encrypt/encrypt.js"></script>
+<script src="../../lib/json/json2.js"></script>
+<script src="../../lib/hori/hori.js?tag=21369"></script>
+<script src="../../lib/jquery-mobile/jquery.mobile.min.js"></script>
+<script src="../../config/web/config.js"></script>
+<style>
+a {
+	text-decoration: none;
+}
+</style>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		//加载收入完成图表数据
+		loadSrwcChart();
+	});
+	
+	//加载收入完成图表数据
+	function loadSrwcChart(){
+            var url = $.hori.getconfig().appServerHost+"view/bi/loadJytsChart/accsyBiReport/services/reqBiReportData";
+            var temp = "$lt;?xml version='1.0' encoding='utf-8'?$gt;$lt;root$gt;$lt;reportdata$gt;$lt;reportid$gt;1$lt;/reportid$gt;$lt;/reportdata$gt;$lt;/root$gt;";
+            var soap ="<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='http://webservice.biz.digiwin.com'>";
+                soap+='<soapenv:Header/><soapenv:Body>';
+                soap+='<web:viewReportById>';
+                soap+='<web:in0>'+temp+'</web:in0>';
+                soap+='</web:viewReportById>';
+                soap+=' </soapenv:Body></soapenv:Envelope>';
+            var data = "data-xml="+soap;
+            
+            $.hori.ajax({
+                "type":"post",
+                "url":url,
+                "data":data,
+                "success":function(res){
+                	
+                	var jsonObj=JSON.parse(res);
+                	console.log(jsonObj);
+                	document.getElementById("aa").innerHTML = jsonObj.reportdata.datatext;
+        		
+                },
+                "error":function(res){
+                    alert("error:" + res);
+                    $.hori.hideLoading();
+                }
+            });
+    }
+	
+	</script>
+</head>
+<body >
+	<!-- 收入完成 -->
+	<div data-role="page" id="srwc" class="login">
+		<div data-role="content" align="center" id="aa">
+		
+		</div>
+			</div>
+</body>
+</html>
