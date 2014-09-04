@@ -44,26 +44,21 @@
 	//请示查阅
 	function loadqueryList() {
 		localStorage.setItem("click","1");
+		localStorage.setItem("addmore","no");
 		$.hori.showLoading();
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/queryList.html?data-application=b4f4da8d398248ae998e39c5145d9093');
-	}
-	//BI图表
-	function loadBI() {
-		localStorage.setItem("click","4");
-		$.hori.showLoading();
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/bi.html');
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/queryList.html');
 	}
 	function createUser() {
 		$.hori.ajax({
-				"type":"get",
-				"url":"/viewhome/oa/currentuser/docapp/genertec/persontasks.nsf/frmPage?openform",
-				"success":function(res){
-					localStorage.setItem("Chinesename",res);
-					currentUser = "CN="+res+"/O=genertec";
-				},
-				"error":function(res){
-				}
-			});
+			"type":"get",
+			"url":"/viewhome/oa/currentuser/docapp/genertec/persontasks.nsf/frmPage?openform",
+			"success":function(res){
+				localStorage.setItem("Chinesename",res);
+				currentUser = "CN="+res+"/O=genertec";
+			},
+			"error":function(res){
+			}
+		});
 	}
 </script>
 </head>
@@ -91,7 +86,7 @@
 					</a> <br /> <span style="color: #434343;font-size:14px;"><strong>安全生产值班表</strong></span>
 				</div>
 				<div class="ui-block-d">
-					<a href="javascript:void(0);" onclick="loadBI()">
+					<a href="javascript:void(0);" onclick="loadNews()">
 						<img width="45" height="45" src="../assets/home/news.png">
 					</a> <br /> <span style="color: #434343;font-size:14px;"><strong>BI图表</strong></span>
 				</div>

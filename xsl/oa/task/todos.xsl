@@ -14,11 +14,20 @@
 		<script src="/view/lib/jquery-mobile/jquery.mobile.min.js"></script>
 		<script src="/view/config/web/config.js"></script>
 		<script>
-			function loadPageForm(unid){
-			<![CDATA[  
+			<![CDATA[
+			function loadPageForm(str){
+				var template ="todoscontent";
+				var unid = $(str).data("unid");
+				var type = $(str).data("type");
+				if(type=="会签库"){
+					template="signcontent";
+				}
 				var itcode=localStorage.getItem("Chinesename");
-				var loadurl= $.hori.getconfig().appServerHost+"view/oa/todoscontent/docapp/genertec/persontasks.nsf/agtUrlRef?openagent&unid="+unid+"&user="+itcode;
-				console.log(loadurl);
+				localStorage.setItem("contemplate",template);
+				localStorage.setItem("unid",unid);
+				//针对提交、驳回取消时，保存意见
+				localStorage.setItem("mindStr","");
+				var loadurl= $.hori.getconfig().appServerHost+"view/oa/"+template+"/docapp/genertec/persontasks.nsf/agtUrlRef?openagent&unid="+unid+"&user="+itcode;
 				$.hori.loadPage(loadurl);
 			}
 			]]>
@@ -38,7 +47,7 @@
 						success: function(response){
 							//alert(response);return;
 							$("#moredata").remove();
-							$("#more").remove();
+							//$("#more").remove();
 							$("ul").append(response);
 							$("ul").listview('refresh');
 							$.hori.hideLoading();
@@ -115,17 +124,21 @@
 	</html>
 	</xsl:template>
 	<xsl:template match="tr">
-		<li href="#" data-icon="false">
-			<xsl:variable name="unid"><xsl:value-of select="td[2]/input/@value"/></xsl:variable>
-			<a href="javascript:void(0)" onclick="loadPageForm('{$unid}');">
-				<h3><xsl:value-of select="td[3]/."/><xsl:value-of select="td[2]/@value"/></h3>
-				<p>
-					类型:<font color="#0080FF"><xsl:value-of select="td[4]/."/></font>
-					来源:<font color="#0080FF"><xsl:value-of select="td[5]/."/></font>
-					状态:<font color="#0080FF"><xsl:value-of select="td[6]/."/></font>
-					时间:<font color="#0080FF"><xsl:value-of select="td[7]/."/></font>
-				</p>
-			</a>
-		</li>
+		<xsl:variable name="unid"><xsl:value-of select="td[2]/input/@value"/></xsl:variable>
+		<xsl:variable name="type"><xsl:value-of select="td[4]/."/></xsl:variable>
+		<xsl:variable name="state"><xsl:value-of select="td[6]/."/></xsl:variable>
+		<xsl:if test="$state!='正在起草'">
+			<li href="#" data-icon="false">
+				<a href="javascript:void(0)" onclick="loadPageForm(this);" data-unid="{$unid}"	data-type="{$type}">
+					<h3><xsl:value-of select="td[3]/."/><xsl:value-of select="td[2]/@value"/></h3>
+					<p>
+						类型:<font color="#0080FF"><xsl:value-of select="td[4]/."/></font>
+						来源:<font color="#0080FF"><xsl:value-of select="td[5]/."/></font>
+						状态:<font color="#0080FF"><xsl:value-of select="td[6]/."/></font>
+						时间:<font color="#0080FF"><xsl:value-of select="td[7]/."/></font>
+					</p>
+				</a>
+			</li>
+		</xsl:if>
 	</xsl:template>
 </xsl:stylesheet>

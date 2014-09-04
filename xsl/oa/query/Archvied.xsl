@@ -24,7 +24,7 @@
 				<p>
 					日期:<font color="#0080FF"><xsl:value-of select="td[3]/."/></font>
 					状态:<font color="#0080FF"><xsl:value-of select="td[6]/."/></font>
-					处理人:<font color="#0080FF"><xsl:value-of select="substring-before(td[7]/.,'/')"/></font>
+					处理人:<font color="#0080FF"><xsl:value-of select="substring-after(substring-before(td[7]/.,'/'),'CN=')"/></font>
 				</p>
 			</a>
 		</li>
