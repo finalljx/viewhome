@@ -20,8 +20,8 @@
 		$(document).ready(function(){
 			if(localStorage.getItem("data-saveusername")=="true"){
 				var username=localStorage.getItem("username");
-				if(username!=null){
-					username=decrypt($.hori.getconfig().encryptKey,username);
+				if(username==null){
+					username="用户名/itcode";
 				}
 				$("#username").attr("value", username);
 				$('#saveusername').attr("checked", true).checkboxradio("refresh");
@@ -89,7 +89,7 @@
 						//本地存储itcode 和oaServerName
 						localStorage.setItem("oaServerName",$.hori.getconfig().oaServerName)
 						localStorage.setItem("itcode",username);
-						$.cookie("itcode",username,{"expires":360000,path:"/"})
+						//$.cookie("itcode",username,{"expires":360000,path:"/"})
 						saveUserInfoToLocal(username);
 						
 						var targetURL= $.hori.getconfig().serverBaseUrl+"viewhome/html/home.html";	
@@ -141,7 +141,8 @@
 			try{
 				if(document.getElementById("saveusername").checked){
 					localStorage.setItem("data-saveusername", "true");
-					localStorage.setItem("username", encrypt($.hori.getconfig().encryptKey,username));
+					//localStorage.setItem("username", encrypt($.hori.getconfig().encryptKey,username));
+					localStorage.setItem("username", username);
 				}else{
 					localStorage.setItem("data-saveusername", "false");
 				}
