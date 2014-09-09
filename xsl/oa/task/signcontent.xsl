@@ -5,12 +5,9 @@
 	<xsl:variable name="username">
 		<xsl:value-of select="substring-before(substring-after(//input[@name='curUser']/@value,'CN='),'/O=')"/>
 	</xsl:variable>
-	<!-- 表单变量 <xsl:value-of select="substring-after(//input[@name='fldIframeURL']/@value, 'vwprintcld/')"/>--> 
+	<!-- 表单变量 --> 
 	<xsl:variable name="dbPath">
 		<xsl:value-of select="//input[@name='dbpath' or @name='dbPath' or @name='dbPath1']/@value" />
-	</xsl:variable>
-	<xsl:variable name="docunid">
-		<xsl:value-of select="substring-after(//input[@name='fldIframeURL']/@value, 'vwprintcld/')"/>
 	</xsl:variable>
 	<xsl:variable name="unId">
 		<xsl:choose><xsl:when test="contains(//url/text(),'/0/')"><xsl:value-of select="substring-before(substring-after(//url/text(),'/0/'),'?')" /></xsl:when><xsl:when test="contains(//url/text(),'/vwDocByDate/')"><xsl:value-of select="substring-before(substring-after(//url/text(),'/vwDocByDate/'),'?')" /></xsl:when><xsl:otherwise><xsl:value-of select="substring-before(substring-after(substring-after(//url/text(),'nsf/'),'/'),'?')" /></xsl:otherwise></xsl:choose>
@@ -23,7 +20,7 @@
 					<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 					<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
 					<script type="application/javascript" src="/view/assets/iscroll.js"></script>
-					<link rel="stylesheet" href="/view/lib/jquery-mobile/jquery.mobile.min.css"/>
+					<link rel="stylesheet" href="/view/lib/jquery-mobile/jquery.mobile.min.css" />
 					<link rel="stylesheet" href="/view/assets/jquery.mobile-sugon.css" />
 					<script src="/view/lib/jquery/jquery.min.js"></script>
 					<script src="/view/lib/hori/hori.js?tag=21369"></script>
@@ -39,7 +36,7 @@
 								<script type="text/javascript">
 									var id = '<xsl:value-of select="substring-after(//input[@name='fldIframeURL']/@value, 'vwprintcld/')"/>';
 									var dbPath = '<xsl:value-of select="$dbPath"/>';
-									var url= 'view/oa/todoscontent/docapp/'+dbPath+'/vwDocByDate/' + id + '?editdocument';
+									var url= 'view/oa/signcontent/docapp/'+dbPath+'/vwDocByDate/' + id + '?editdocument';
 									var loadurl= $.hori.getconfig().appServerHost+url;
 									console.log(loadurl);
 									$.hori.loadPage(loadurl);
@@ -93,10 +90,8 @@
 								//提交
 								if(value=="reject"){
 									var question = window.confirm("确定驳回吗?"); 
-								}else if(value=="submit"){
-									var question = window.confirm("确定提交吗?"); 
 								}else{
-									var question = window.confirm("确定会签吗?"); 
+									var question = window.confirm("确定提交吗?"); 
 								}
 								post(value);
 							}
@@ -108,13 +103,8 @@
 								}else if(type=="reject"){
 									$("#querysaveagent").val("agtFlowDeny");
 									$("#form").submit();
-								}else if(type=="sign"){
-									var id = $("#docunid").val();
-									var dbPath = $("#dbPath").val();
-									var signurl= 'view/oa/signstart/docapp/'+dbPath+'/frmSubmitPage?openform&action=huiqian&unid='+id;
-									var signloadurl= $.hori.getconfig().appServerHost+signurl;
-									$.hori.loadPage(signloadurl);
 								}
+								
 							}
 						]]>
 						</script>
@@ -125,23 +115,17 @@
 					</head>
 					<body>
 						<div id="notice" data-role="page">
-							<form id="form" action="/view/oa/submit{//form[@name='_frmWebFlow']/@action}" method="post">
-								<input type="hidden" id="querysaveagent" name="$$querysaveagent" value="{//input[@name='$$querysaveagent']/@value}" />
+							<form id="form" action="/view/oa/signsubmit{//form[@name='_frmWebFlow']/@action}" method="post">
+								<input type="hidden" id="querysaveagent" name="$$querysaveagent" value="{//input[@name='$$querysaveagent']/@value}"/>
 								<div data-role="content" align="center">
 								<div class="ui-grid-b">
 									<div class="ui-block-a" style="padding-bottom:5px;" align="center">
-										<a data-role="button" value="submit" onclick="submit('submit');" data-mini='true' data-theme="f">提 交</a>
 									</div>
 									<div class="ui-block-b" style="padding-bottom:5px;" align="center">
-										<a data-role="button" value="reject" onclick="submit('reject');" data-mini='true' data-theme="f">驳 回</a>
 									</div>
-									<xsl:if test="//div[contains(@onclick, 'huiqian')]">
-										<div class="ui-block-c" style="padding-bottom:5px;" align="center">
-											<a data-role="button" value="oprate" onclick="submit('sign');" data-mini='true' data-theme="f">会 签</a>
-										</div>
-										<input type="hidden" id="docunid" value="{$docunid}"/>
-										<input type="hidden" id="dbPath" value="{$dbPath}"/>
-									</xsl:if>
+									<div class="ui-block-c" style="padding-bottom:5px;" align="center">
+										<a data-role="button" value="reject" onclick="submit('submit');" data-mini='true' data-theme="f">55提　交</a>
+									</div>
 								</div>
 								<h3><xsl:value-of select="substring-after(//table[@id='table1']/tbody/tr[4]/.,':')" /></h3>
 									   
@@ -184,26 +168,14 @@
 											</table>
 										</li>
 									 </ul>
-									<div data-role="collapsible" data-theme="f" data-content-theme="d">
-										<h4>领导指示</h4>
-										<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
-											<!-- <li data-role="list-divider">领导指示</li> -->
-											<li>
-												<xsl:if test="count(//td[@class='top']//table/tbody)=0">
-													<font color="red" size="3">无领导指示</font>
-												</xsl:if>
-												<xsl:apply-templates select="//td[@class='top']//table/tbody" mode="leader"/>
-											</li>
-										</ul>
-									</div>
-									<div data-role="collapsible" data-theme="f" data-content-theme="d">
-										<h4>基本信息</h4>
+									<div data-role="collapsible" data-collapsed="false" data-theme="f" data-content-theme="d">
+										<h4>会签信息</h4>
 									<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
 										<li>
-											<xsl:if test="count(//table[@id='table1']/tbody)=0">
-												<font color="red" size="3">无基本信息</font>
+											<xsl:if test="count(//table[@class='tableClass']/tbody)=0">
+												<font color="red" size="3">无</font>
 											</xsl:if>
-											<xsl:apply-templates select="//table[@id='table1']/tbody" mode="basedata"/>
+											<xsl:apply-templates select="//table[@class='tableClass']/tbody" mode="basedata"/>
 										</li>
 									</ul>
 									</div>
@@ -279,49 +251,27 @@
 		</xsl:if>
 	</xsl:template>
 
-	<!-- 处理领导审批 -->
-	<xsl:template match="tbody" mode="leader">
-		<div>
-			<div style="width:100%;line-height:1.8;" align="left">
-				指示意见:<xsl:value-of select="tr[1]/td/text()"/><br/>
-				指示时间:<xsl:value-of select="tr[2]/td/text()"/><br/>
-				指示领导:<xsl:value-of select="substring-before(tr[2]/td/span/text(),'/')"/>
-			</div>
-		</div>
-		<hr/>
-	</xsl:template>
+	
 	<!-- 处理基本信息 select="tr[5]/table/tbody/tr"-->
-	<xsl:template match="tbody" mode="basedata">	
-		<xsl:value-of select="tr[5]/td/table/tbody/tr/td[1]/." /><hr/>
-		<xsl:value-of select="tr[5]/td/table/tbody/tr/td[2]/." /><hr/>
-		<xsl:value-of select="tr[5]/td/table/tbody/tr/td[3]/." /><hr/>
-			<xsl:apply-templates select="tr[5]/td/table/tbody/tr/td[4]/table/tbody/tr[2]" mode="yu1"/>
-			<xsl:apply-templates select="tr[5]/td/table/tbody/tr/td[5]/table/tbody//tr" mode="yu9"/>
-		<xsl:value-of select="tr[6]/." /><hr/>
-	</xsl:template>
-	<xsl:template match="tr" mode="yu1">	
-		签报人：<xsl:value-of select="substring-before(td/.,'/')"/><hr/>
-		签报时间：<xsl:value-of select="substring-after(td/.,'/genertec')"/><hr/>
-	</xsl:template>
-	<xsl:template match="tr" mode="yu9">
-		<xsl:variable name="trnumber" select="position()"/>
-		<xsl:choose>
-				<xsl:when test="$trnumber=1">
-					<xsl:value-of select="td[1]/."/><xsl:value-of select="substring-before(td[2]/.,'/')"/><hr/>
-				</xsl:when>
-				<xsl:when test="$trnumber!=1">
-					<xsl:value-of select="td[1]/."/><xsl:value-of select="td[2]/."/><hr/>
-				</xsl:when>
-				<xsl:otherwise>
-				</xsl:otherwise>
-		</xsl:choose>
+	<xsl:template match="tbody" mode="basedata">
+		文件标题:<xsl:value-of select="//input[@name='fldSubject']/@value"/><hr/>
+		<xsl:variable name="years" select="substring-after(//input[@name='fldswrq']/@value,'/')"/>
+		<xsl:variable name="year" select="substring-after($years,'/')"/>
+		<xsl:variable name="day" select="substring-before($years,'/')"/>
+		<xsl:variable name="month" select="substring-before(//input[@name='fldswrq']/@value,'/')"/>
+		收文日期:<xsl:value-of select="$year"/>-<xsl:value-of select="$month"/>-<xsl:value-of select="$day"/><hr/>
+		来文单位:<xsl:value-of select="//input[@name='fldLwjg']/@value"/><hr/>
+		来文字号:<xsl:value-of select="//input[@name='fldLwzh']/@value"/><hr/>
+		收文类型:<xsl:value-of select="//input[@name='fldswlx']/@value"/><hr/>
+		收文来源:<xsl:value-of select="//tr[6]//td[4]/text()"/><hr/>
+		来文份数:<xsl:value-of select="//input[@name='fldFs']/@value"/>
 	</xsl:template>
 	
 	<!-- 处理审批意见 -->
 	<xsl:template match="tr" mode="mindinfo">
 		<div>
 			<div style="width:100%;line-height:1.8;" align="left">
-				<xsl:variable name="num" select="position()"/>
+			<xsl:variable name="num" select="position()"/>
 			<xsl:choose>
 				<xsl:when test="$num mod 2!=0">
 					<xsl:value-of select="td[1]/."/>:<xsl:value-of select="substring-before(td[2]/.,'/')"/><br/>

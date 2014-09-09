@@ -11,9 +11,6 @@
 	<xsl:variable name="unidstr">
 	<xsl:value-of select="substring-before(substring-after(//param[@name='to']/@value,'unid='),'&amp;seluser')"/>
 	</xsl:variable>
-	<xsl:variable name="dbPath">
-		<xsl:value-of select="//input[@name='dbpath' or @name='dbPath' or @name='dbPath1']/@value" />
-	</xsl:variable>
 
 	<xsl:template match="/">
 		<html lang="zh_cn">
@@ -95,24 +92,11 @@
 									}
 									function hideuserselect(){
 										var val = $('input:radio:checked').val();
-										var number = val.indexOf("genertec");
-										if(number!="-1"){
-											var num = val.indexOf("/");
-											var CHname = val.substring(0,num);
-											
-											var num2 = CHname.indexOf("=");
-											if(num2!="-1"){
-												var CHname1 = CHname.substring(num2+1);
-												$('#forshow').attr('value',CHname1);
-											}else{
-												$('#forshow').attr('value',CHname);
-											}
-											$('#fldXyspr').attr('value',val);
-											$("#faqdiv").css("display","none");
-										}else if(number=="-1"){
-											$("#faqdiv").css("display","none");
+										if(val==""){
+											alert("请选择人员");
 										}
-										
+										$('#fldXyspr').attr('value',val);
+										$("#faqdiv").css("display","none");
 									}
 								</script>
 								<style type="text/css">
@@ -126,7 +110,7 @@
 									</ul>
 									<div class="ui-grid-a">
 										<div class="ui-block-a">
-											<button type="submit" data-theme="f" name="$$querysaveagent" value="submitConfirm">确定11</button>
+											<button type="submit" data-theme="f" name="$$querysaveagent" value="submitConfirm">确定yu01</button>
 										</div>
 										<div class="ui-block-b">
 											<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="window.history.go(-2)">取消</a>
@@ -158,10 +142,10 @@
 									</ul>
 									<div class="ui-grid-a">
 										<div class="ui-block-a">
-											<button type="submit" data-theme="f" name="$$querysaveagent" value="agtFlowDeny">确定22</button>
+											<button type="submit" data-theme="f" name="$$querysaveagent" value="agtFlowDeny">确定yu02</button>
 										</div>
 										<div class="ui-block-b">
-											<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="window.history.go(-1)">取消d</a>
+											<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="window.history.go(-1)">取消</a>
 										</div>
 									</div>
 									<xsl:apply-templates select="//input[@type='hidden']" mode="hidden"/>
@@ -172,9 +156,10 @@
 							<xsl:when test="contains(//url/text(), 'frmBranchSelecter')">
 								<xsl:choose>
 									<xsl:when test="//td[@class='msgok_msg']">
-										<form action="/view/oa/submit{//form[1]/@action}" method="post" data-rel="dialog">
+										<form action="/view/oa/signsubmit{//form[1]/@action}" method="post" data-rel="dialog">
 											<ul data-role="listview" data-inset="true">
-												<li data-role="list-divider"></li>
+												<li data-role="list-divider">
+												</li>
 												<li>
 													<div style="100%;text-align:center;" align="center">
 														<div align="center">
@@ -187,23 +172,23 @@
 												<div class="ui-block-a">
 												</div>
 												<div class="ui-block-b">
-													<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="window.history.go(-2)">确定33</a>
+													<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="window.history.go(-2)">确定yu03</a>
 												</div>
 											</div>
 										</form>
 									</xsl:when>
 									<xsl:otherwise>
-										<form action="/view/oa/submit{//form[1]/@action}" method="post" data-rel="dialog">
+										<form action="/view/oa/signsubmit{//form[1]/@action}" method="post" data-rel="dialog">
 											<ul data-role="listview" data-inset="true">
 												<li data-role="list-divider"></li>
 												<xsl:apply-templates select="//table[@bgcolor='#eeeeee']//tr[position()&lt;last()]" mode="branch"/>
 											</ul>
 											<div class="ui-grid-a">
 												<div class="ui-block-a">
-													<button type="submit" data-theme="f" name="$$querysaveagent" value="agSaveSelBranch">确定44</button>
+													<button type="submit" data-theme="f" name="$$querysaveagent" value="agSaveSelBranch">确定yu04</button>
 												</div>
 												<div class="ui-block-b">
-													<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="$.hori.backPage(1)">取消</a>
+													<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="window.history.go(-1)">取消</a>
 												</div>
 											</div>
 											<xsl:apply-templates select="//input[@type='hidden']" mode="hidden"/>
@@ -302,37 +287,37 @@
 				<input type="hidden" readonly="true" value="{//input[@name='fldSelDept']/@value}" name="fldSelDept"/>
 			</xsl:when>
 			<xsl:when test="contains(.,'下一环节审批人')">
-				<xsl:value-of select="td/b/text()"/>
 				<!--对选人员按钮进行判断，如果调用方法为SelectPerson(),则是普通选择；-->
 				<!--如果调用方法为SelectPersonAdv()；则是给定范围的选择-->
 				<!--如果不能选择人员，则直接给出系统默认的人员-->
 				<xsl:choose>
 					<xsl:when test="contains(.//div[@id='search']/@onclick,'SelectPerson(')">
 						<li data-role="fieldcontain">
-							<fieldset data-role="controlgroup" data-type="horizontal" style="text-align:center;">
-								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
+							<fieldset data-role="controlgroup" data-type="horizontal">
+								<legend>下一环节审批人:</legend>
 								<input type="text" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
-								<a href="javascript:void(0)" onclick="clearperson();" style="margin-left:100px;" data-role="button" data-inline="true">清空666</a>
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/indishare/addresstree.nsf/wUserList?openform&amp;code=53&amp;mode=1&amp;scope=1&amp;order=1')" data-role="button" data-inline="true" data-theme="b">选人13</a>
+								<a href="javascript:void(0)" onclick="clearperson();" style="margin-left:30px;" data-role="button" data-inline="true">清空</a>
+								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/indishare/addresstree.nsf/wUserList?openform&amp;code=53&amp;mode=1&amp;scope=1&amp;order=1')" data-role="button" data-inline="true" data-theme="b">选人yu06
+								</a>
 							</fieldset>
+							
 						</li>
 					</xsl:when>
 					<xsl:when test="contains(.//div[@id='search']/@onclick,'SelectPersonAdv(')">
 						<li data-role="fieldcontain">
 							<fieldset data-role="controlgroup" data-type="horizontal">
 								<legend>下一环节审批人:</legend>
-								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
 								<input type="text" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
 								<a href="javascript:void(0)" style="margin-left:30px;" onclick="clearperson();" data-role="button" data-inline="true">清空</a>
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/docapp/{$dbPath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}')" data-role="button" data-inline="true" data-theme="b">选人2</a>
+								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/docapp/genertec/dep1/qsbg_1.nsf/(wAddressAdv)?OpenForm&amp;unid={$unidstr}')" data-role="button" data-inline="true" data-theme="b">选人yu09</a>
 							</fieldset>
 						</li>
 					</xsl:when>
 					<xsl:otherwise>
 						<li data-role="fieldcontain">
 							<fieldset data-role="controlgroup" data-type="horizontal">
-								<legend>下一环节审批人w:</legend>
-								<xsl:value-of select="substring-before(//input[@name='fldXyspr']/@value,'/')" />
+								<legend>下一环节审批人:</legend>
+								<xsl:value-of select="//input[@name='fldXyspr']/@value" />
 								<input id="fldXyspr" name="fldXyspr" type="hidden" value="{//input[@name='fldXyspr']/@value}"/>
 							</fieldset>
 						</li>

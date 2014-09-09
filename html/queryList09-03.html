@@ -13,79 +13,38 @@
 	<script src="../config/web/config.js"></script>
 	<script src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
 	<script type="text/javascript">
-			var addmore = localStorage.getItem("addmore");
 			var myScroll,pullUpEl, pullUpOffset,generatedCount=0;
 			var Astart=1;
 			var Bstart=1;
 			var Cstart=1;
-			var dstart=1;
-			var estart=1;
-			var fstart=1;
-			var view="";
-			var dataid = ""
 			function pullUpAction () {
 				setTimeout(function () {
 					//vwDocByDate,vwtoArchive,vwDocByArchvied
-					//querydoing querytoArchive queryArchvied
-					var type = localStorage.getItem("type");
-					var dbpath = "";
-					if(type=="querydoing"){
+					var view = localStorage.getItem("type");
+					var dbpath = localStorage.getItem("dbpath");
+					if(view=="vwDocByDate"){
 						template="queryForDoing";
-						view = "vwDocByDate";
-						dataid = "querydataList";
-						dbpath="/docapp/genertec/dep1/qsbg_1.nsf";
-						Astart=Astart+2;
+						Astart=Astart+20;
 						start=Astart;
 					}
-					if(type=="querytoArchive"){
+					if(view=="vwtoArchive"){
 						template="toArchive";
-						view = "vwtoArchive";
-						dataid = "querydataList";
-						dbpath="/docapp/genertec/dep1/qsbg_1.nsf";
-						Bstart=Bstart+2;
+						Bstart=Bstart+20;
 						start=Bstart;
 					}
-					if(type=="queryArchvied"){
+					if(view=="vwDocByArchvied"){
 						template="Archvied";
-						view = "vwDocByArchvied";
-						dataid = "querydataList";
-						dbpath="/docapp/genertec/dep1/qsbg_1.nsf";
-						Cstart=Cstart+2;
+						Cstart=Cstart+20;
 						start=Cstart;
 					}
-					//signForDoing signtoArchive signArchvied
-					if(type=="signForDoing"){
-						template="signForDoing";
-						view = "vwDocByDate";
-						dataid = "signdataList";
-						dbpath = localStorage.getItem("singdbPath");
-						dstart=dstart+2;
-						start=dstart;
-					}
-					if(type=="signtoArchive"){
-						template="signtoArchive";
-						view = "vwtoArchive";
-						dataid = "signdataList";
-						dbpath = localStorage.getItem("singdbPath");
-						estart=estart+2;
-						start=estart;
-					}
-					if(type=="signArchvied"){
-						template="signArchvied";
-						view = "vwDocByArchvied";
-						dataid = "signdataList";
-						dbpath = localStorage.getItem("singdbPath");
-						fstart=fstart+2;
-						start=fstart;
-					}
-					alert(template+"===="+dbpath+"==="+start);
-					var url=$.hori.getconfig().appServerHost+"view/oa/"+template+dbpath+"/myview?openform&view="+view+"&start="+start+"&count=2";
+					
+					var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/docapp/"+dbpath+"/myview?openform&view="+view+"&start="+start+"&count=20";
 					$.hori.ajax({
 						"type":"post",
 						"url":url,
 						"success":function(res){
 							$("#moredata").remove();
-							$("#"+dataid).append(res).listview("refresh");
+							$("#querydataList").append(res).listview("refresh");
 							myStartTaskLoad=true;
 						},
 						"error":function(res){
@@ -134,31 +93,23 @@
 			document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 200); }, false);
 </script>
 	<script>
+		var myStartTaskLoad=false;
+		var myDoingTaskLoad=false;
 		var singdbPath ="";
-		var template = "";
-		var tabid="queryList";
 		$(document).ready(function(){
 			var hori = $.hori;
 			/*设置标题*/
 			hori.setHeaderTitle("任务");
-			//获取会签tab
-			getsignpath();
 			$("#tabs").tabs({beforeActivate:function(event,ui){
 					//alert(ui.newTab.context.dataset.id);
-					tabid=ui.newTab.context.dataset.id;
+					var tabid=ui.newTab.context.dataset.id;
 					//内请
-					if(tabid=="queryList"){
-						queryListForType($('#querytype').val());
-						$("#moredata").remove();
-						$("#queryselect").css("display", "block");
-						$("#signselect").css("display", "none");
+					if(tabid=="queryList" && !myDoingTaskLoad){
+						//queryListForDoing();
 					}
 					//会签
-					if(tabid=="signList"){
-						signListForType($('#signtype').val());
-						$("#moredata").remove();
-						$("#signselect").css("display", "block");
-						$("#queryselect").css("display", "none");
+					if(tabid=="signList" && !myStartTaskLoad){
+						//signListForDoing();
 					}
 			}})
 			var onlist=localStorage.getItem("click");
@@ -169,37 +120,36 @@
 			if(onlist=="2"){
 				$("#ui-id-2").click()	
 			}
-			if(tabid=="queryList"){
-				queryListForType($('#querytype').val());
-			}
+			hori.registerEvent("case", "casePresented", function() {
+				var onlist=localStorage.getItem("click");
+				if(onlist=="1"){
+					$("#ui-id-1").click()	
+				}
+				if(onlist=="2"){
+					$("#ui-id-2").click()	
+				}
+			});
+			queryListForDoing();
+			//getsignpath();
+			
 		})
 		</script>
 		<script type="text/javascript">
-		//内请切换
-		function queryListForType(view){
-			alert("neiqing");
-			Astart=1;Bstart=1;Cstart=1;
-			if(view=="vwDocByDate"){
-				template="queryForDoing";
-				localStorage.setItem("type","querydoing");
-			}
-			if(view=="vwtoArchive"){
-				template="toArchive";
-				localStorage.setItem("type","querytoArchive");
-			}
-			if(view=="vwDocByArchvied"){
-				localStorage.setItem("type","queryArchvied");
-				template="Archvied";
-			}
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/docapp/genertec/dep1/qsbg_1.nsf/myview?openform&view="+view+"&start=1&count=2";
+		
+		//内请办理中
+		function queryListForDoing(){
+			localStorage.setItem("type","vwDocByDate");
+			var dbpath="genertec/dep1/qsbg_1.nsf";
+			localStorage.setItem("dbpath","genertec/dep1/qsbg_1.nsf");
+			var url=$.hori.getconfig().appServerHost+"view/oa/queryForDoing/docapp/"+dbpath+"/myview?openform&view=vwDocByDate&start=1&count=20";
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
 				"success":function(res){
+					console.log(res);
 					$("#querydataList").empty();
-					$("#signdataList").empty();
 					$("#querydataList").append(res).listview("refresh");
-					signLoad=true;
+					myStartTaskLoad=true;
 				},
 				"error":function(res){
 					alert(res);
@@ -207,55 +157,31 @@
 				}
 			});
 		}
-		
-		//获取会签类型库
-		function getsignpath(){
-			$.hori.ajax({
-				"type":"post",
-				"url":"/viewhome/oa/signtype/docapp/genertec/mgrengine.nsf/createNavigator?openAgent&divIndex=001",
-				"success":function(res){
-					console.log(res);
-					//docapp/genertec/dep26/hqk_26.nsf
-					//用于测试写死，正式时要放开
-					//singdbPath = res;
-					singdbPath="/docapp/genertec/dep251/hqk_251.nsf";
-					localStorage.setItem("singdbPath",singdbPath);
-				},
-				"error":function(res){
-				}
-			});
-		}
-
-		//会签切换
-		function signListForType(value){
-			alert("huiqian");
-			localStorage.setItem("addmore","no");
-			dstart=1;estart=1;fstart=1;
-			if(value=="doing"){
-				template="signForDoing";
-				view="vwDocByDate";
-				localStorage.setItem("type","signForDoing");
+		//内请切换
+		var template = "";
+		function queryListForType(view){
+			//vwDocByDate,vwtoArchive,vwDocByArchvied
+			Astart=1;Bstart=1;Cstart=1;
+			if(view=="vwDocByDate"){
+				template="queryForDoing";
 			}
-			if(value=="todo"){
-				template="signtoArchive";
-				view="vwtoArchive";
-				localStorage.setItem("type","signtoArchive");
+			if(view=="vwtoArchive"){
+				template="toArchive";
 			}
-			if(value=="did"){
-				template="signArchvied";
-				view="vwDocByArchived";
-				localStorage.setItem("type","signArchvied");
+			if(view=="vwDocByArchvied"){
+				template="Archvied";
 			}
-			var singdbPath = localStorage.getItem("singdbPath");
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+singdbPath+"/myview?openform&view="+view+"&start=1&count=2";
-			alert(url);
+			localStorage.setItem("type",view);
+			localStorage.setItem("dbpath","genertec/dep1/qsbg_1.nsf");
+			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/docapp/genertec/dep1/qsbg_1.nsf/myview?openform&view="+view+"&start=1&count=20";
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
 				"success":function(res){
-					$("#signdataList").empty();
+					console.log(res);
 					$("#querydataList").empty();
-					$("#signdataList").append(res).listview("refresh");
+					$("#querydataList").append(res).listview("refresh");
+					myStartTaskLoad=true;
 				},
 				"error":function(res){
 					alert(res);
@@ -265,30 +191,59 @@
 		}
 		//内请表单展示页面
 		function loadPageForm(str){
-			localStorage.setItem("click","1");
-			var templatecon ="querycontent";
+		////vwDocByDate,vwtoArchive,vwDocByArchvied
+			var template ="querycontent";
 			var unid = $(str).data("unid");
 			var type = localStorage.getItem("type");
-			var loadurl= $.hori.getconfig().appServerHost+"view/oa/"+templatecon+"/docapp/genertec/dep1/qsbg_1.nsf/"+type+"/"+unid+"?editdocument";
+			var loadurl= $.hori.getconfig().appServerHost+"view/oa/"+template+"/docapp/genertec/dep1/qsbg_1.nsf/"+type+"/"+unid+"?editdocument";
 			$.hori.loadPage(loadurl);
 		}
-		//会签表单展示页面
-		function loadsignPageForm(str){
-		////vwDocByDate,vwtoArchive,vwDocByArchvied
-			localStorage.setItem("click","2");
-			localStorage.setItem("addmore","yes");
-			var templatecon ="contentsign";
-			var unid = $(str).data("unid");
-			var loadurl= $.hori.getconfig().appServerHost+"view/oa/"+templatecon+unid;
-			$.hori.loadPage(loadurl);
+		//获取会签类型库
+		function getsignpath(){
+			$.hori.ajax({
+				"type":"post",
+				"url":"/viewhome/oa/signtype/docapp/genertec/mgrengine.nsf/createNavigator?openAgent&divIndex=001",
+				"success":function(res){
+					localStorage.setItem("singdbPath",res);
+					console.log(res);
+					//docapp/genertec/dep26/hqk_26.nsf
+					//用于测试写死，正式时要放开
+					//singdbPath = res;
+					singdbPath="/docapp/genertec/dep251/hqk_251.nsf";
+					signListForDoing();
+					
+				},
+				"error":function(res){
+				}
+			});
 		}
+		//会签办理中 
+		function signListForDoing(){
+			localStorage.setItem("type","signvwDocByDate");
+			var dbpath=singdbPath;
+			localStorage.setItem("dbpath",dbpath);
+			var url=$.hori.getconfig().appServerHost+"view/oa/signForDoing"+dbpath+"/myview?openform&view=vwDocByDate&start=1&count=20";
+			$.hori.ajax({
+				"type":"post",
+				"url":url,
+				"success":function(res){
+					$("#signdataList").empty();
+					$("#signdataList").append(res).listview("refresh");
+					myStartTaskLoad=true;
+				},
+				"error":function(res){
+					alert(res);
+					$.hori.hideLoading();
+				}
+			});
+		}
+		
 	</script>
 	
 </head>
 <body>
 	<div data-role="page" style="margin:0px;padding:0px;">
 		<div data-role="content">
-		
 			<div data-role="tabs" id="tabs">
 		      	<div data-role="navbar">
 				    <ul>
@@ -296,7 +251,8 @@
 				      <li><a href="#three" data-ajax="false" data-id="signList">会签</a></li>
 				    </ul>
 		      	</div>
-				<div id="queryselect" align="center" class="ui-grid-b">
+			      <div id="two">
+					<div align="center" class="ui-grid-b">
 						<div class="ui-block-a">
 							<select name="querytype" id="querytype" onChange="queryListForType(this.value)" data-theme="a"  data-native-menu="true">
 							<option value="vwDocByDate">办理中</option>
@@ -306,42 +262,42 @@
 						</div>
 						<div class="ui-block-b"></div>
 						<div class="ui-block-c"></div>
-				</div>
-				<div id="signselect" align="center" class="ui-grid-b" style="display:none">
-						<div class="ui-block-a"></div>
-						<div class="ui-block-b"></div>
-						<div class="ui-block-c">
-							<select name="signtype" id="signtype" onChange="signListForType(this.value)" data-theme="a"  data-native-menu="true">
-								<option value="doing">办理中22</option>
-								<option value="todo">待归档</option>
-								<option value="did">已归档</option>
-							</select>
-						</div>
-				</div>
-				<div id="wrapper">
+					</div>
+			      	<div id="wrapper">
 					<div id="scroller">
-						<div id="pullDown"></div>
-			      <div id="two">
+						<div id="pullDown">
+						</div>
 						<ul id="querydataList"  data-role="listview" data-inset="true">
+							
 							<li id="moredata" style="display:none"><div id="pullUp" align="center">
 								<span class="pullUpLabel">上划加载更多...</span>
 							</div></li>
 						</ul>
-					
+					</div>
+					</div>
 			      </div>
 			      <div id="three">
+					<div align="center" class="ui-grid-b">
+						<div class="ui-block-a"></div>
+						<div class="ui-block-b"></div>
+						<div class="ui-block-c">
+							<select name="signtype" id="signtype" data-theme="a"  data-native-menu="true">
+								<option value="Application/ykzh/DigiFlowIssueDoc.nsf">办理中</option>
+								<option value="Application/ykzh/DigiFlowReceiveDoc.nsf">待归档</option>
+								<option value="Application/ykzh/DigiFlowReceiveDoc.nsf">已归档</option>
+							</select>
+						</div>
+					</div>
 			       <ul id="signdataList" data-role="listview" data-inset="true">
-						<li id="moredata" style="display:none"><div id="pullUp" align="center">
-								<span class="pullUpLabel">上划加载更多...</span>
-							</div></li>
+					
 				   </ul>
 			      </div>
 		    </div>
-			</div>
-			</div>
 		</div>	
 		<br/><br/><br/>
 	</div>		
 </body>
+	
+
 </html>
 

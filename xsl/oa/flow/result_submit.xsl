@@ -26,7 +26,6 @@
 				<div data-role="dialog" class="type-home">
 					<div data-role="header">
 						<style>.ui-dialog .ui-header .ui-btn-icon-notext { display:none;} </style>
-						<!-- <a data-role="button" href="javascript:void(0);" onclick="window.history.go(-3)">确定</a> -->
 						<h1>操作提示</h1>
 					</div>
 					<div data-role="content" align="center">
@@ -35,7 +34,7 @@
 							<li>
 								<div style="100%;text-align:center;" align="center">
 									<div align="center">
-										<xsl:value-of select="//td[@class='msgok_msg']/."/>
+										<xsl:value-of select="substring-before(//td[@class='msgok_msg']/.,'/')"/>
 									</div>
 								</div>
 							</li>
