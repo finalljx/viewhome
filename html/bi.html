@@ -100,16 +100,16 @@
 		try {
 			var hori = $.hori;
 			/*设置标题*/
-			hori.setHeaderTitle("首页");
+			//hori.setHeaderTitle("首页");
 			/*隐藏后退按钮*/
-			hori.hideBackBtn();
+			//hori.hideBackBtn();
 			/*注册注销事件*/
-			hori.registerEvent("case", "navButtonTouchUp", function() {
-				hori.backPage(1);
-			});
-			if (hori.getMobileType() == "apple") {
-				$("#divMail").hide();
-			}
+			//hori.registerEvent("case", "navButtonTouchUp", function() {
+			//	hori.backPage(1);
+			//});
+			//if (hori.getMobileType() == "apple") {
+			//	$("#divMail").hide();
+			//}
 		} catch (e) {
 			alert(e.message);
 		}
@@ -120,85 +120,71 @@
 	<!-- <div data-role="page" id="home"
 		style="background: url(../assets/home/bg_empty.jpg); -moz-background-size: cover; background-repeat: repeat;">
 		<div data-role="content" align="center">
- -->		<div id="nav2_wrap" style="sidth:100%;">
-       	 <div id="nav2">
-            <ul><li>
-					<a href="bi/jyts.html" target="aa"> <img id="imgToDo"
+ -->
+	<div id="nav2_wrap" >
+		<div id="nav2" >
+			<ul>
+				<li><a href="bi/jyts.html" target="aa"> <img id="imgToDo"
 						width="45" height="45" src="../assets/home/task.png" />
-					</a> <br />
-					<!-- <span id="spanTodo" class="bubble-count ui-btn-up-c ui-btn-corner-all">1</span> <br /> -->
+				</a> <!-- <span id="spanTodo" class="bubble-count ui-btn-up-c ui-btn-corner-all">1</span> <br /> -->
 					<span style="color: #434343; font-size: 14px;"><strong>经营态势</strong></span>
 				</li>
-				<li>
-					<a href="bi/srwc.html" target=aa> <img id="imgSearch"
+				<li><a href="bi/srwc.html" target=aa> <img id="imgSearch"
 						width="45" height="45" src="../assets/home/msg.png" />
-					</a> <br />
-					<!-- <span id="spanSearch" class="bubble-count ui-btn-up-c ui-btn-corner-all">1</span>  -->
+				</a>  <!-- <span id="spanSearch" class="bubble-count ui-btn-up-c ui-btn-corner-all">1</span>  -->
 					<span style="color: #434343; font-size: 14px;"><strong>收入完成</strong></span>
 				</li>
-				<li>					
-				<a href="bi/lrwc.html" target=aa> <img width="45" height="45"
-						src="../assets/home/news.png">
-					</a> <br /> <span style="color: #434343; font-size: 14px;"><strong>利润完成</strong></span>
+				<li><a href="bi/lrwc.html" target=aa> <img width="45"
+						height="45" src="../assets/home/news.png">
+				</a>  <span style="color: #434343; font-size: 14px;"><strong>利润完成</strong></span>
 				</li>
-				<li>
-					<a href="bi/srlr.html" target=aa> <img width="45" height="45"
-						src="../assets/home/news.png">
-					</a> <br /> <span style="color: #434343; font-size: 14px;"><strong>收入利润</strong></span>
+				<li><a href="bi/srlr.html" target=aa> <img width="45"
+						height="45" src="../assets/home/news.png">
+				</a>  <span style="color: #434343; font-size: 14px;"><strong>收入利润</strong></span>
 				</li>
-				<li>
-					<a href="bi/srlrqs.html" target="aa"> <img id="imgToDo"
+				<li><a href="bi/srlrqs.html" target="aa"> <img id="imgToDo"
 						width="45" height="45" src="../assets/home/task.png" />
-					</a> <br />
-					<!-- <span id="spanTodo" class="bubble-count ui-btn-up-c ui-btn-corner-all">1</span> <br /> -->
+				</a>  <!-- <span id="spanTodo" class="bubble-count ui-btn-up-c ui-btn-corner-all">1</span>  -->
 					<span style="color: #434343; font-size: 14px;"><strong>收入利润趋势</strong></span>
 				</li>
-				<li>
-					<a href="bi/srbk.html" target=aa> <img id="imgSearch"
+				<li><a href="bi/srbk.html" target=aa> <img id="imgSearch"
 						width="45" height="45" src="../assets/home/msg.png" />
-					</a> <br />
-					<span style="color: #434343; font-size: 14px;"><strong>收入板块</strong></span>
+				</a>  <span style="color: #434343; font-size: 14px;"><strong>收入板块</strong></span>
 				</li>
-				<li>
-					<a href="bi/fxzk.html" target=aa> <img width="45" height="45"
-						src="../assets/home/news.png">
-					</a> <br /> <span style="color: #434343; font-size: 14px;"><strong>风险状况</strong></span>
+				<li><a href="bi/fxzk.html" target=aa> <img width="45"
+						height="45" src="../assets/home/news.png">
+				</a>  <span style="color: #434343; font-size: 14px;"><strong>风险状况</strong></span>
 				</li>
-				<li>
-					<a href="bi/lrbk.html" target=aa> <img width="45" height="45"
-						src="../assets/home/news.png">
-					</a> <br /> <span style="color: #434343; font-size: 14px;"><strong>利润板块</strong></span>
-           </li> 
-           </ul>
-            <span class="bar"></span>
-        </div>
-  <!--   </div> -->
-    
-<script type="text/javascript">
-    $('#nav').navigator();
-
-    (function () {
-        var bar = $('#nav2 span.bar'),
-            left = $('#nav2 ul').offset().left;
-        $('#nav2').navigator({
-            select: function( e, index, li ){
-                bar.css({
-                    left: li.offsetLeft - left,
-                    width: li.childNodes[0].offsetWidth
-                });
-            },
-            ready: function() {
-                bar.appendTo($('#nav2').find('.ui-scroller'));
-            }
-        });
-
-    })();
-</script>
-
+				<li><a href="bi/lrbk.html" target=aa> <img width="45"
+						height="45" src="../assets/home/news.png">
+				</a>  <span style="color: #434343; font-size: 14px;"><strong>利润板块</strong></span>
+				</li>
+			</ul>
+			<span class="bar"></span>
 		</div>
-		<iframe width=100% height=800px frameborder=1 scrolling=no name="aa"
-			src="bi/lrbk.html"></iframe>
-		，
+		<!--   </div> -->
 
+		<script type="text/javascript">
+			$('#nav').navigator();
+
+			(function() {
+				var bar = $('#nav2 span.bar'), left = $('#nav2 ul').offset().left;
+				$('#nav2').navigator({
+					select : function(e, index, li) {
+						bar.css({
+							left : li.offsetLeft - left,
+							width : li.childNodes[0].offsetWidth
+						});
+					},
+					ready : function() {
+						bar.appendTo($('#nav2').find('.ui-scroller'));
+					}
+				});
+
+			})();
+		</script>
+	</div>
+	<iframe width=100% height=800px frameborder=1 scrolling=no name="aa"
+		src="bi/lrbk.html"></iframe>
 </body>
 </html>
