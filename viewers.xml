@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <viewers>
 	<viewer id="oa" type="remote" source="http://webseal.genertec.com.cn" 	encoding="gb2312">
-		<!-- 登陆验证 http://docapp.genertec.com.cn http://webseal.genertec.com.cn/pkmslogin.form-->
+		<!-- 登陆验证 $.hori.backPage(1)-->
 		<view id="loginvalidate" template="login/loginValidate.jsp"	encoding="utf-8" />
 		<view id="loginOut" template="login/loginOut.jsp"	encoding="gb2312" />
 		<view id="loginOut2" template="login/loginOut.jsp"	encoding="utf-8" />
@@ -45,17 +45,58 @@
 
 			<rule mode="replace" regex="&lt;doc_unid&gt;" value="&amp;lt;doc_unid&amp;gt;" />
 			<rule mode="replace" regex="&lt;/doc_unid&gt;" value="&amp;lt;/doc_unid&amp;gt;" />
-
 		</view>
+		<!-- 请示代办会签展示内容 -->
+		<view id="signcontent" template="oa/task/signcontent.xsl" encoding="GBK">
+			<!-- 源数据是符合标签形式的字符串，转换成真正的字符串（把'<','>' 替换成真正的标签） -->
+			
+			<rule mode="replace" regex="&amp;nbsp;" value="" />
+			<rule mode="replace" regex="&lt;!" value="&amp;lt;!" />
+			<rule mode="replace" regex="&lt;/!" value="&amp;lt;/!" />
+			<rule mode="replace" regex="!&gt;" value="!&amp;gt;" />
+			
+			<rule mode="replace" regex="&lt;file_unid&gt;" value="&amp;lt;file_unid&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_unid&gt;" value="&amp;lt;/file_unid&amp;gt;" />
+
+			<rule mode="replace" regex="&lt;file_name&gt;" value="&amp;lt;file_name&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_name&gt;" value="&amp;lt;/file_name&amp;gt;" />
+
+			<rule mode="replace" regex="&lt;file_size&gt;" value="&amp;lt;file_size&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_size&gt;" value="&amp;lt;/file_size&amp;gt;" />
+
+			<rule mode="replace" regex="&lt;file_create&gt;" value="&amp;lt;file_create&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_create&gt;" value="&amp;lt;/file_create&amp;gt;" />
+
+			<rule mode="replace" regex="&lt;file_update&gt;" value="&amp;lt;file_update&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_update&gt;" value="&amp;lt;/file_update&amp;gt;" />
+
+			<rule mode="replace" regex="&lt;file_editmodel&gt;" value="&amp;lt;file_editmodel&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_editmodel&gt;" value="&amp;lt;/file_editmodel&amp;gt;" />
+
+			<rule mode="replace" regex="&lt;doc_unid&gt;" value="&amp;lt;doc_unid&amp;gt;" />
+			<rule mode="replace" regex="&lt;/doc_unid&gt;" value="&amp;lt;/doc_unid&amp;gt;" />
+		</view>
+
 		<!-- 流程处理 -->
 		<view id="submit" template="oa/flow/submit.xsl">
 			<rule mode="remove" regex="&amp;nbsp;"/>
 		</view>
+		<view id="signstart" template="oa/flow/signstart.xsl">
+			<rule mode="remove" regex="&amp;nbsp;"/>
+		</view>
+		<view id="signsubmit" template="oa/flow/signsubmit.xsl">
+			<rule mode="remove" regex="&amp;nbsp;"/>
+		</view>
+		<!-- 返回结果 -->
 		<view id="responsesubmit" template="oa/flow/result_submit.xsl">
 			<rule mode="remove" regex="&amp;nbsp;"/>
 		</view>
 		<!-- 流程人员选择 -->
-		<view id="userselectorg" template="oa/userselect/listorg.xsl" encoding="gb18030">
+		<view id="userselectorg" template="oa/userselect/listorg.xsl">
+			<rule mode="remove" regex="&amp;nbsp;"/>
+		</view>
+		<!-- 会签流程人员选择 -->
+		<view id="userselect" template="oa/userselect/signlistorg.xsl" encoding="utf-8">
 			<rule mode="remove" regex="&amp;nbsp;"/>
 		</view>
 		<view id="userselectuser" template="oa/userselect/listuser.xsl" encoding="utf-8">
@@ -66,15 +107,15 @@
 			<rule mode="replace" regex="soap:" value="" />
 			<rule mode="replace" regex="ns1:" value="" />
 		</view>
+		<!-- 获取用户 -->
+		<view id="signtype" template="oa/query/signtype.xsl" encoding="gb18030"/>
 		<!-- 请示查阅内请办理中-->
 		<view id="queryForDoing" template="oa/query/queryForDoing.xsl" encoding="gb2312">
 			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
-
-		<!-- 企业新闻 -->
-		<view id="newslist" template="news/newsList.jsp" encoding="utf-8" />
-		<view id="newscontent" template="digi/news/content.xsl" encoding="GB2312">
+		<!-- 请示查阅内请待归档-->
+		<view id="toArchive" template="oa/query/toArchive.xsl" encoding="gb2312">
 			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 			<rule mode="replace" regex="&amp;quot;" value="&quot;" />
@@ -92,66 +133,70 @@
 			<rule mode="remove" regex="height=&amp;quot;179&amp;quot;" />
 			<rule mode="replace" regex="http://oadev.dawning.com.cn/" value="/view/oa/newsfile/" />
 		</view>
-		<view id="file" template="file.jsp" />
-
-		<view id="newsfile" template="" />
-	</viewer>
-	<viewer id="oamobile" type="remote" source="http://docapp.genertec.com.cn" encoding="gb2312">
-		<!-- 手机待办列表 -->
-		<view id="todosmobile" template="taskList.jsp" encoding="utf-8" />
-		
-		<!-- 个人消息 -->
-		<!-- 未读 -->
-		<view id="messagelist" template="unreadList.jsp" encoding="utf-8" />
-		<view id="messagecontent" template="digi/message/content.xsl">
-
-			<rule mode="replace" regex="0 " value="0&#160;" />
-			<rule mode="replace" regex="1 " value="1&#160;" />
-			<rule mode="replace" regex="2 " value="2&#160;" />
-			<rule mode="replace" regex="3 " value="3&#160;" />
-			<rule mode="replace" regex="4 " value="4&#160;" />
-			<rule mode="replace" regex="5 " value="5&#160;" />
-			<rule mode="replace" regex="6 " value="6&#160;" />
-			<rule mode="replace" regex="7 " value="7&#160;" />
-			<rule mode="replace" regex="8 " value="8&#160;" />
-			<rule mode="replace" regex="9 " value="9&#160;" />
-
-			<rule mode="replace" regex="approver=" value="approver='" />
-			<rule mode="replace" regex=" approveren=" value="' approveren='" />
-			<rule mode="replace" regex=" approvetime=" value="' approvetime=" />
-
-			<rule mode="replace" regex="&amp;amp;nbsp;" value=" " />
-			<rule mode="replace" regex="&amp;nbsp;" value=" " />
-			<rule mode="replace" regex="&amp;nbsp" value=" " />
+		<!-- 请示查阅内请已归档-->
+		<view id="Archvied" template="oa/query/Archvied.xsl" encoding="gb2312">
 			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
-			<rule mode="replace" regex="&lt;\!\[CDATA\[" value="" />
-			<rule mode="replace" regex="\]\]&gt;" value="" />
-			<!-- 在转换的时候双引号 被保留了 替换掉 <rule mode="replace" regex="&amp;quot;" value=""/> -->
-
-			<rule mode="replace" regex="&amp;amp;#49;" value="1" />
-			<rule mode="replace" regex="&amp;amp;#55;" value="7" />
-			<rule mode="replace" regex="&amp;amp;#8226;" value="*" />
 		</view>
-		<!-- 高级流程操作 -->
-		<view id="operationjq" template="oa/flow/operationjq.xsl">
+		<!-- 请示查阅内请办理中展示内容 -->
+		<view id="querycontent" template="oa/query/querycontent.xsl" encoding="GBK">
+			<rule mode="replace" regex="&amp;nbsp;" value="" />
+			<rule mode="replace" regex="&lt;!" value="&amp;lt;!" />
+			<rule mode="replace" regex="&lt;/!" value="&amp;lt;/!" />
+			<rule mode="replace" regex="!&gt;" value="!&amp;gt;" />
+			<rule mode="replace" regex="&lt;file_unid&gt;" value="&amp;lt;file_unid&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_unid&gt;" value="&amp;lt;/file_unid&amp;gt;" />
+			<rule mode="replace" regex="&lt;file_name&gt;" value="&amp;lt;file_name&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_name&gt;" value="&amp;lt;/file_name&amp;gt;" />
+			<rule mode="replace" regex="&lt;file_size&gt;" value="&amp;lt;file_size&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_size&gt;" value="&amp;lt;/file_size&amp;gt;" />
+			<rule mode="replace" regex="&lt;file_create&gt;" value="&amp;lt;file_create&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_create&gt;" value="&amp;lt;/file_create&amp;gt;" />
+			<rule mode="replace" regex="&lt;file_update&gt;" value="&amp;lt;file_update&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_update&gt;" value="&amp;lt;/file_update&amp;gt;" />
+			<rule mode="replace" regex="&lt;file_editmodel&gt;" value="&amp;lt;file_editmodel&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_editmodel&gt;" value="&amp;lt;/file_editmodel&amp;gt;" />
+			<rule mode="replace" regex="&lt;doc_unid&gt;" value="&amp;lt;doc_unid&amp;gt;" />
+			<rule mode="replace" regex="&lt;/doc_unid&gt;" value="&amp;lt;/doc_unid&amp;gt;" />
 		</view>
-		<view id="operationsearch" template="/oa/flow/searchresult.xsl" encoding="utf-8">
-			<rule mode="replace" regex="\{id:" value="&lt;id id:"/>
-			<rule mode="replace" regex="\}" value="&gt;&lt;/id&gt;"/>
-			<rule mode="replace" regex=":&quot;" value="='"/>
-			<rule mode="replace" regex="&quot;," value="' "/>
-			<rule mode="replace" regex=":" value="_"/>
+		<!-- 会签办理中-->
+		<view id="signForDoing" template="oa/query/signForDoing.xsl" encoding="gb2312">
+			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
+			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
-        <view id="operationorg" template="oa/flow/address/list.xsl" encoding="utf-8"/>
-        <view id="operationsuborg" template="oa/flow/address/sublist.xsl" encoding="utf-8"/>
-        <view id="operationperson" template="oa/flow/address/content.xsl" encoding="utf-8">
-			<rule mode="replace" regex="\{id:" value="&lt;id id:"/>
-			<rule mode="replace" regex="\}" value="&gt;&lt;/id&gt;"/>
-			<rule mode="replace" regex=":&quot;" value="='"/>
-			<rule mode="replace" regex="&quot;," value="' "/>
-			<rule mode="replace" regex=":" value="_"/>
+		<!-- 会签待归档-->
+		<view id="signtoArchive" template="oa/query/signtoArchive.xsl" encoding="gb2312">
+			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
+			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
+		<!-- 会签已归档-->
+		<view id="signArchvied" template="oa/query/signArchvied.xsl" encoding="gb2312">
+			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
+			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
+		</view>
+		<!-- 会签展示内容 -->
+		<view id="contentsign" template="oa/query/contentsign.xsl" encoding="GBK">
+			<rule mode="replace" regex="&amp;nbsp;" value="" />
+			<rule mode="replace" regex="&lt;!" value="&amp;lt;!" />
+			<rule mode="replace" regex="&lt;/!" value="&amp;lt;/!" />
+			<rule mode="replace" regex="!&gt;" value="!&amp;gt;" />
+			<rule mode="replace" regex="&lt;file_unid&gt;" value="&amp;lt;file_unid&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_unid&gt;" value="&amp;lt;/file_unid&amp;gt;" />
+			<rule mode="replace" regex="&lt;file_name&gt;" value="&amp;lt;file_name&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_name&gt;" value="&amp;lt;/file_name&amp;gt;" />
+			<rule mode="replace" regex="&lt;file_size&gt;" value="&amp;lt;file_size&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_size&gt;" value="&amp;lt;/file_size&amp;gt;" />
+			<rule mode="replace" regex="&lt;file_create&gt;" value="&amp;lt;file_create&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_create&gt;" value="&amp;lt;/file_create&amp;gt;" />
+			<rule mode="replace" regex="&lt;file_update&gt;" value="&amp;lt;file_update&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_update&gt;" value="&amp;lt;/file_update&amp;gt;" />
+			<rule mode="replace" regex="&lt;file_editmodel&gt;" value="&amp;lt;file_editmodel&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_editmodel&gt;" value="&amp;lt;/file_editmodel&amp;gt;" />
+			<rule mode="replace" regex="&lt;doc_unid&gt;" value="&amp;lt;doc_unid&amp;gt;" />
+			<rule mode="replace" regex="&lt;/doc_unid&gt;" value="&amp;lt;/doc_unid&amp;gt;" />
+		</view>
+		<view id="file" template="file.jsp" />
+		<view id="newsfile" template="" />
 	</viewer>
 	<viewer id="oamsg" type="remote" source="http://docapp.genertec.com.cn"	encoding="gb2312"></viewer>
 	<viewer id="bi" type="remote" source="http://webseal.genertec.com.cn"    encoding="gb2312">

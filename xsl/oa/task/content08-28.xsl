@@ -5,12 +5,9 @@
 	<xsl:variable name="username">
 		<xsl:value-of select="substring-before(substring-after(//input[@name='curUser']/@value,'CN='),'/O=')"/>
 	</xsl:variable>
-	<!-- 表单变量 <xsl:value-of select="substring-after(//input[@name='fldIframeURL']/@value, 'vwprintcld/')"/>--> 
+	<!-- 表单变量 --> 
 	<xsl:variable name="dbPath">
 		<xsl:value-of select="//input[@name='dbpath' or @name='dbPath' or @name='dbPath1']/@value" />
-	</xsl:variable>
-	<xsl:variable name="docunid">
-		<xsl:value-of select="substring-after(//input[@name='fldIframeURL']/@value, 'vwprintcld/')"/>
 	</xsl:variable>
 	<xsl:variable name="unId">
 		<xsl:choose><xsl:when test="contains(//url/text(),'/0/')"><xsl:value-of select="substring-before(substring-after(//url/text(),'/0/'),'?')" /></xsl:when><xsl:when test="contains(//url/text(),'/vwDocByDate/')"><xsl:value-of select="substring-before(substring-after(//url/text(),'/vwDocByDate/'),'?')" /></xsl:when><xsl:otherwise><xsl:value-of select="substring-before(substring-after(substring-after(//url/text(),'nsf/'),'/'),'?')" /></xsl:otherwise></xsl:choose>
@@ -23,7 +20,7 @@
 					<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 					<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
 					<script type="application/javascript" src="/view/assets/iscroll.js"></script>
-					<link rel="stylesheet" href="/view/lib/jquery-mobile/jquery.mobile.min.css"/>
+					<link rel="stylesheet" href="/view/lib/jquery-mobile/jquery.mobile.min.css" />
 					<link rel="stylesheet" href="/view/assets/jquery.mobile-sugon.css" />
 					<script src="/view/lib/jquery/jquery.min.js"></script>
 					<script src="/view/lib/hori/hori.js?tag=21369"></script>
@@ -93,28 +90,20 @@
 								//提交
 								if(value=="reject"){
 									var question = window.confirm("确定驳回吗?"); 
-								}else if(value=="submit"){
-									var question = window.confirm("确定提交吗?"); 
 								}else{
-									var question = window.confirm("确定会签吗?"); 
+									var question = window.confirm("确定提交吗?"); 
 								}
 								post(value);
 							}
 
 							function post(type){
 								if(type == "submit"){
-									$("#querysaveagent").val("agtFlowDeal");
 									$("#form").submit();
 								}else if(type=="reject"){
 									$("#querysaveagent").val("agtFlowDeny");
 									$("#form").submit();
-								}else if(type=="sign"){
-									var id = $("#docunid").val();
-									var dbPath = $("#dbPath").val();
-									var signurl= 'view/oa/signstart/docapp/'+dbPath+'/frmSubmitPage?openform&action=huiqian&unid='+id;
-									var signloadurl= $.hori.getconfig().appServerHost+signurl;
-									$.hori.loadPage(signloadurl);
 								}
+								
 							}
 						]]>
 						</script>
@@ -135,13 +124,9 @@
 									<div class="ui-block-b" style="padding-bottom:5px;" align="center">
 										<a data-role="button" value="reject" onclick="submit('reject');" data-mini='true' data-theme="f">驳 回</a>
 									</div>
-									<xsl:if test="//div[contains(@onclick, 'huiqian')]">
-										<div class="ui-block-c" style="padding-bottom:5px;" align="center">
-											<a data-role="button" value="oprate" onclick="submit('sign');" data-mini='true' data-theme="f">会 签</a>
-										</div>
-										<input type="hidden" id="docunid" value="{$docunid}"/>
-										<input type="hidden" id="dbPath" value="{$dbPath}"/>
-									</xsl:if>
+									<div class="ui-block-c" style="padding-bottom:5px;" align="center">
+										<a data-role="button" value="oprate" onclick="" data-mini='true' data-theme="f">会 签</a>
+									</div>
 								</div>
 								<h3><xsl:value-of select="substring-after(//table[@id='table1']/tbody/tr[4]/.,':')" /></h3>
 									   

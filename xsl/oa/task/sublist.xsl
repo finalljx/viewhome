@@ -15,19 +15,22 @@
 			</div></li>
 		</xsl:if>
 	</xsl:template>
-
 	<xsl:template match="tr">
-		<li href="">
-			<xsl:variable name="unid"><xsl:value-of select="td[2]/input/@value"/></xsl:variable>
-			<a href="javascript:void(0)" onclick="loadPageForm('/view/oamobile/contentmobile/{$unid}');" data-icon="arrow-r" data-iconpos="right">
-				<h3><xsl:value-of select="td[3]/."/><xsl:value-of select="td[2]/@value"/></h3>
-				<p>
-					类型:<font color="#0080FF"><xsl:value-of select="td[4]/."/></font>
-					来源:<font color="#0080FF"><xsl:value-of select="td[5]/."/></font>
-					状态:<font color="#0080FF"><xsl:value-of select="td[6]/."/></font>
-					时间:<font color="#0080FF"><xsl:value-of select="td[7]/."/></font>
-				</p>
-			</a>
-		</li>
+		<xsl:variable name="unid"><xsl:value-of select="td[2]/input/@value"/></xsl:variable>
+		<xsl:variable name="type"><xsl:value-of select="td[4]/."/></xsl:variable>
+		<xsl:variable name="state"><xsl:value-of select="td[6]/."/></xsl:variable>
+		<xsl:if test="$state!='正在起草'">
+			<li href="#" data-icon="false">
+				<a href="javascript:void(0)" onclick="loadPageForm(this);" data-unid="{$unid}"	data-type="{$type}">
+					<h3><xsl:value-of select="td[3]/."/><xsl:value-of select="td[2]/@value"/></h3>
+					<p>
+						类型:<font color="#0080FF"><xsl:value-of select="td[4]/."/></font>
+						来源:<font color="#0080FF"><xsl:value-of select="td[5]/."/></font>
+						状态:<font color="#0080FF"><xsl:value-of select="td[6]/."/></font>
+						时间:<font color="#0080FF"><xsl:value-of select="td[7]/."/></font>
+					</p>
+				</a>
+			</li>
+		</xsl:if>
 	</xsl:template>
 </xsl:stylesheet>
