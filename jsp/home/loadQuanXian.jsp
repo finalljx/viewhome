@@ -21,8 +21,7 @@
 	Map nsMap = new HashMap();
 	nsMap.put("ns1", "http://webservice.biz.digiwin.com");
 	//对document而言全路径为：/beans:beans/beans:bean   
-	XPath xpath = doc.createXPath("//ns1:viewreportbyidresponse//ns1:out");
-	
+	XPath xpath = doc.createXPath("//ns1:getallreportbyuseridresponse//ns1:out");
 	xpath.setNamespaceURIs(nsMap);
 	String data = "";
 	try {

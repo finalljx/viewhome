@@ -13,21 +13,50 @@
 <%@ page language="java" import="org.dom4j.XPath"%>
 <%@ page language="java" import="java.util.*"%>
 <%
+   JSONObject json = new JSONObject();
 	Query q = Query.getInstance(request);
 	String responseXml = q.getContent();
-	/*
+
 	Document doc = DocumentHelper.parseText(responseXml);
-	Map nsMap = new HashMap();
-	nsMap.put("ns1", "http://webservice.biz.digiwin.com");
-	//对document而言全路径为：/beans:beans/beans:bean   
-	XPath xpath = doc.createXPath("//ns1:viewreportbyidresponse//ns1:out[1]");
-	xpath.setNamespaceURIs(nsMap);
-	String data = "";
+	
+	String year = "";
+	String month = "";
+	String primaryunit = "";
+	String seriesname = "";
+	String seriesdata = "";
+	String qnys="";
+	String ljwc="";
+	String wcbl="";
+	String qnysz="";
+	String ljwcz="";
+	String wcblz="";
 	try {
-		data = xpath.selectSingleNode(doc).getStringValue();
+	 year = doc.selectSingleNode("//year").getStringValue();
+	 month = doc.selectSingleNode("//month").getStringValue();
+	 primaryunit = doc.selectSingleNode("//primaryunit").getStringValue();
+	 seriesname = doc.selectSingleNode("//seriesname").getStringValue();
+	  String[] aa=seriesname.split("\\|");
+	  qnys=aa[0];
+	  ljwc=aa[1];
+	  wcbl=aa[2];
+	 seriesdata = doc.selectSingleNode("//seriesdata").getStringValue();
+	 String[] bb=seriesdata.split("\\|");
+	  qnysz=bb[0];
+	  ljwcz=bb[1];
+	  wcblz=bb[2];
 	} catch (Exception e) {
 		e.printStackTrace();
-	}*/
-	out.clear();
-	out.print(responseXml);
+	}
+    json.put("year", year);
+    json.put("month", month);
+    json.put("primaryunit", primaryunit);
+    json.put("qnys", qnys);
+    json.put("ljwc", ljwc);
+    json.put("wcbl", wcbl);
+    json.put("qnysz", qnysz);
+    json.put("ljwcz", ljwcz);
+    json.put("wcblz", wcblz);
+    
+	out.print(json);
+	System.out.println(json);
 %>

@@ -155,6 +155,7 @@
 	</viewer>
 	<viewer id="oamsg" type="remote" source="http://docapp.genertec.com.cn"	encoding="gb2312"></viewer>
 	<viewer id="bi" type="remote" source="http://webseal.genertec.com.cn"    encoding="gb2312">
+	<view id="loadQuanXian" template="home/loadQuanXian.jsp" encoding="utf-8"></view>
 	    <view id="loadSrwcChart" template="bi/querySrwcChartData.jsp" encoding="utf-8">
 	    	<rule mode="replace" regex="soap:" value="" />
 			<rule mode="replace" regex="ns1:" value="" />
@@ -183,6 +184,13 @@
 	    <view id="loadJytsChart" template="bi/queryJytsChartData.jsp" encoding="utf-8">
 	    	<rule mode="replace" regex="\n" value="" />
 	    </view>
+	    <view id="loadSrlrqsChart" template="bi/queryJytsChartData.jsp" encoding="utf-8">
+	    	<rule mode="replace" regex="\n" value="" />
+	    </view>
+	    <view id="loadLrbkChart" template="bi/queryLrbkChartData.jsp" encoding="utf-8">
+	    	<rule mode="replace" regex="\n" value="" />
+	    </view>
+	    
 	</viewer>
 	<viewer id="news" type="remote" source="http://webseal.genertec.com.cn"    encoding="gb2312">
 	    <view id="jttzList" template="news/jttzList.jsp" encoding="utf-8" />
