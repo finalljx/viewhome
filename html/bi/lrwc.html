@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>收入完成</title>
+<title>利润完成</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
@@ -10,6 +10,7 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="../../lib/jquery-mobile/jquery.mobile.min.css" />
+<link rel="stylesheet" href="../../assets/jquery.mobile-sugon.css" />
 <script src="../../lib/jquery/jquery.min.js"></script>
 <script src="../../lib/jquery-cookie/jquery.cookie.js"></script>
 <script src="../../lib/encrypt/encrypt.js"></script>
@@ -25,17 +26,18 @@ a {
 
 </head>
 <body>
-	<!-- 收入完成 -->
+	<!-- 利润完成 -->
+	<div >
 	<div style="float:right;">
 	<div id="yusuan" align="left"></div>
 	<div id="leiji" align="left"></div>
 	<div id="bili" align="left"></div>
 	</div>
-	<div id="main" style="height: 400px">
-	
+	<div id="main"  style="height: 400px">
+	</div>
 	</div>
 	<script src="../asset/js/echarts-plain-original.js"></script>
-	<script type="text/javascript" src="../asset/js/echartsHome.js"></script>
+	<script src="../asset/js/echartsHome.js"></script>
 	<script src="../asset/js/bootstrap.min.js"></script>
 	<script src="../asset/js/echartsExample.js"></script>
 <script type="text/javascript">
@@ -48,7 +50,7 @@ var j="";
 	//加载收入完成图表数据
 	function loadSrwcChart(){
             var url = $.hori.getconfig().appServerHost+"view/bi/loadSrwcChart/accsyBiReport/services/reqBiReportData";
-            var temp = "$lt;?xml version='1.0' encoding='utf-8'?$gt;$lt;root$gt;$lt;reportdata$gt;$lt;reportid$gt;11$lt;/reportid$gt;$lt;/reportdata$gt;$lt;/root$gt;";
+            var temp = "$lt;?xml version='1.0' encoding='utf-8'?$gt;$lt;root$gt;$lt;reportdata$gt;$lt;reportid$gt;16$lt;/reportid$gt;$lt;/reportdata$gt;$lt;/root$gt;";
             var soap ="<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='http://webservice.biz.digiwin.com'>";
                 soap+='<soapenv:Header/><soapenv:Body>';
                 soap+='<web:viewReportById>';
@@ -70,8 +72,9 @@ var j="";
                 	document.getElementById("leiji").innerHTML=c;
                 	var d=json.wcbl+":"+json.wcblz+"%";
                 	document.getElementById("bili").innerHTML=d;
-                	var ww=(Math.ceil((json.ljwcz)/100))*100;
-                	draw(ww);
+                	var qq=(Math.ceil((json.ljwcz)/10))*10; 
+
+                	draw(qq);
                 },
                 "error":function(res){
                     alert("error:" + res);
@@ -79,7 +82,7 @@ var j="";
                 }
             });
     }
-	function draw(ww){
+	function draw(ljwcz){
 		var option = {
 				toolbox : {
 					show : false,
@@ -99,14 +102,14 @@ var j="";
 				series : [ {
 					name : '收入完成',
 					type : 'gauge',
-					startAngle: 179,
+					startAngle: 180,
 		            endAngle : 0,
-					splitNumber :4, // 分割段数，默认为5
-					max:ww,
+					splitNumber : 4, // 分割段数，默认为5
+					max: ljwcz,   
 					axisLine : { // 坐标轴线
 						lineStyle : { // 属性lineStyle控制线条样式
-							color : [ [ 0.2, 'rgba(139,71,137,0.8)' ], [ 0.8, 'rgba(139,71,137,0.8)' ],
-									[ 1, 'rgba(139,71,137,0.8)' ] ],
+							color : [ [ 0.2, '#8B4789' ], [ 0.8, '#8B4789' ],
+									[ 1, '#8B4789' ] ],
 							width : 50
 						}
 					},
@@ -142,15 +145,15 @@ var j="";
 					},
 					
 					detail : {
-						show : false,
+						show:false,
 						//formatter:'{value}%',
 						textStyle : { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+							color : 'red',
 							fontWeight : 'bolder'
 						}
 					},
 					data : [ {
 						value : 0,
-						name : ''
 					} ]
 				} ]
 			};

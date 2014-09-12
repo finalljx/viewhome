@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>收入完成</title>
+<title>经营态势</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
@@ -44,7 +44,7 @@ a {
                 "url":url,
                 "data":data,
                 "success":function(res){
-                	
+                
                 	var jsonObj=JSON.parse(res);
                 	console.log(jsonObj);
                 	document.getElementById("aa").innerHTML = jsonObj.reportdata.datatext;
@@ -60,9 +60,9 @@ a {
 	</script>
 </head>
 <body >
-	<!-- 收入完成 -->
-	<div data-role="page" id="srwc" class="login">
-		<div data-role="content" align="center" id="aa">
+	<!-- 经营态势 -->
+	<div data-role="page" id="srwc" class="login" >
+		<div data-role="content" align="center" id="aa" >
 		
 		</div>
 			</div>
