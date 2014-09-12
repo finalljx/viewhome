@@ -60,6 +60,11 @@
 			}
 		});
 	}
+	//新闻
+    function loadNews() {
+        $.hori.showLoading();
+        $.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/news/tpxwList.html');
+    }
 </script>
 </head>
 <body>
