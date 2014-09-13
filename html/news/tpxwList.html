@@ -5,30 +5,41 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+<script type="application/javascript" src="../../assets/iscroll.js"></script>
 <link rel="stylesheet"
-	href="../../lib/jquery-mobile/jquery.mobile.min.css" />
-<link rel="stylesheet" href="../../assets/jquery.mobile-sugon.css" />
+	href="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" />
+<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
 <script src="../../lib/jquery/jquery.min.js"></script>
-<script src="../../lib/jquery-cookie/jquery.cookie.js"></script>
 <script src="../../lib/encrypt/encrypt.js"></script>
 <script src="../../lib/json/json2.js"></script>
 <script src="../../lib/hori/hori.js?tag=21369"></script>
-<script src="../../lib/jquery-mobile/jquery.mobile.min.js"></script>
 <script src="../../config/web/config.js"></script>
+<script
+	src="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
 <script src="../../lib/knockout/knockout.js"></script>
 <script src="../../lib/knockout/knockout.mapping.js"></script>
 <style>
 a {
 	text-decoration: none;
 }
+
+.ui-listview .ui-li-has-thumb>img:first-child, .ui-listview .ui-li-has-thumb>.ui-btn>img:first-child,
+	.ui-listview .ui-li-has-thumb .ui-li-thumb {
+	position: absolute;
+	left: 5;
+	top: auto;
+	bottom: auto; 
+	max-width: 5em;
+	max-height: 5em;
+}
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
 		var itcode = localStorage.getItem("itcode");
-		//加载收入完成图表数据
-		loadSrwcChart(itcode);
+		//加载图片新闻列表
+		getwcmNewsList(itcode);
 	});
-	function loadSrwcChart(itcode) {
+	function getwcmNewsList(itcode) {
 		var url = $.hori.getconfig().appServerHost
 				+ "view/news/tpxwList/accsyWcmNews/services/WcmNewsList";
 		//            var temp = "$lt;?xml version='1.0' encoding='utf-8'?$gt;$lt;root$gt;$lt;newslist$gt;$lt;type$gt;GT_HomePage_SiteArea_jttz$lt;/type$gt;$lt;userid$gt;fangyonghong$lt;/userid$gt;$lt;pageSize$gt;10$lt;/pageSize$gt;$lt;parent$gt;1$lt;/parent$gt;$lt;pageNow$gt;1$lt;/pageNow$gt;$lt;/newslist$gt;$lt;/root$gt;";
@@ -43,37 +54,36 @@ a {
 		soap += ' </soapenv:Body></soapenv:Envelope>';
 		var data = "data-xml=" + soap;
 
-		$.hori.ajax({
-			"type" : "post",
-			"url" : url,
-			"data" : data,
-			"headers" : {
-				"Authorization" : "Basic d3BzYWRtaW46R1RBZG1pbg=="
-			},
-			"success" : function(res) {
-				var list = JSON.parse(res);
-				var data = new Object();
-				data.list = list;
-				render(data);
-			},
-			"error" : function(res) {
-				alert("error:" + res);
-				$.hori.hideLoading();
-			}
-		});
+		$.hori
+				.ajax({
+					"type" : "post",
+					"url" : url,
+					"data" : data,
+					"headers" : {
+						"Authorization" : "Basic d3BzYWRtaW46R1RBZG1pbg=="
+					},
+					"success" : function(res) {
+						var list = JSON.parse(res);
+						for ( var item in list) {
+							var targetURL = "http://10.1.32.61/appdata/WcmNewsImage/"
+									+ list[item].contentName
+									+ "/"
+									+ list[item].newName;
+							list[item].imgSrc = targetURL;
+							console.log(targetURL);
+						}
+						var data = new Object();
+						data.list = list;
+						render(data);
+					},
+					"error" : function(res) {
+						alert("error:" + res);
+						$.hori.hideLoading();
+					}
+				});
 	}
 
 	function render(jsonData) {
-		/* var mapping = {
-			"href" : {
-				update : function(options) {
-					var config = $.hori.getconfig();
-					var targetURL = config.serverBaseUrl
-							+ "viewhome/news/html/tpxwList.html";
-					return targetURL;
-				}
-			}
-		}; */
 		var viewModel = ko.mapping.fromJS(jsonData);
 		console.log(viewModel);
 		ko.applyBindings(viewModel);
@@ -81,21 +91,19 @@ a {
 </script>
 </head>
 <body>
-	<!-- 收入完成 -->
-	<ul data-bind="foreach: list" data-role="listview" data-inset="true">
-		<li style="height: 100%;">
-			<div style="display: inline;">
-				<img alt=""
-					src="http://portal1.genertec.com.cn/wps/wcm/connect/e9668e5c-60f9-4103-b6c4-ad8fad332112/%E8%B0%A2%E8%B0%A2.jpg?MOD=AJPERES&CACHEID=e9668e5c-60f9-4103-b6c4-ad8fad332112" />
-			</div>
-			<div style=" height: 100%;" >
-				<span data-bind="text: contentTitle"></span>
-				<div style="float: left;vertical-align: bottom;">
-				[8-22]
-					<!-- <span style="display: inline;" data-bind="text: contentTitle"></span> -->
-				</div>
-			</div>
-		</li>
-	</ul>
+	<div data-role="page" id="tpxwList"
+		style="background: url(../../assets/home/bg_empty.jpg); -moz-background-size: cover; background-repeat: repeat;">
+		<div data-role="content" align="center">
+			<ul data-bind="foreach: list" data-role="listview">
+				<li data-icon="false"><a href="#"> <img
+						data-bind="attr:{'src':imgSrc}" />
+						<h3 style="white-space: normal;">
+							<span data-bind="text: contentTitle" />
+						</h3>
+						<p style="text-align: right;">[8-22]</p>
+				</a></li>
+			</ul>
+		</div>
+	</div>
 </body>
 </html>
