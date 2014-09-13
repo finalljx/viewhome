@@ -11,6 +11,7 @@
 <script src="../lib/json/json2.js"></script>
 <script src="../lib/hori/hori.js?tag=21369"></script>
 <script src="../lib/jquery-mobile/jquery.mobile.min.js"></script>
+<script src="../lib/app/home/app.js"></script>
 <script src="../config/web/config.js"></script>
 <script type="text/javascript">
 	var currentUser = "";
@@ -47,6 +48,11 @@
 		localStorage.setItem("addmore","no");
 		$.hori.showLoading();
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/queryList.html');
+	}
+	//BI
+	function loadBI() {
+		$.hori.showLoading();
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/bi.html');
 	}
 	function createUser() {
 		$.hori.ajax({
@@ -85,15 +91,15 @@
 					<!-- <span id="spanSearch" class="bubble-count ui-btn-up-c ui-btn-corner-all">1</span>  -->
 					<span style="color:#434343;font-size:14px;"><strong>请示查询</strong></span>
 				</div>
+				 <div class="ui-block-c" id="cc" >
+					<a href="javascript:void(0);" onclick="loadBI()">
+						<img width="45" height="45" src="../assets/home/news.png">
+					</a> <br /> <span style="color: #434343;font-size:14px;"><strong>BI图表</strong></span>
+				</div> 
 				<div class="ui-block-c">
 					<a href="javascript:void(0);" onclick="loadNews()">
 						<img width="45" height="45" src="../assets/home/news.png">
 					</a> <br /> <span style="color: #434343;font-size:14px;"><strong>安全生产值班表</strong></span>
-				</div>
-				<div class="ui-block-d">
-					<a href="javascript:void(0);" onclick="loadNews()">
-						<img width="45" height="45" src="../assets/home/news.png">
-					</a> <br /> <span style="color: #434343;font-size:14px;"><strong>BI图表</strong></span>
 				</div>
 			</div>
 			<br />

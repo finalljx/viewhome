@@ -5,9 +5,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+	<link
+	href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+	rel="stylesheet">
 <link rel="stylesheet"
 	href="../../lib/jquery-mobile/jquery.mobile.min.css" />
-<link rel="stylesheet" href="../../assets/jquery.mobile-sugon.css" />
 <script src="../../lib/jquery/jquery.min.js"></script>
 <script src="../../lib/jquery-cookie/jquery.cookie.js"></script>
 <script src="../../lib/encrypt/encrypt.js"></script>
@@ -20,12 +22,29 @@ a {
 	text-decoration: none;
 }
 </style>
+
+</head>
+<body>
+	<!-- 收入完成 -->
+	<div style="float:right;">
+	<div id="yusuan" align="left"></div>
+	<div id="leiji" align="left"></div>
+	<div id="bili" align="left"></div>
+	</div>
+	<div id="main" style="height: 400px">
+	
+	</div>
+	<script src="../asset/js/echarts-plain-original.js"></script>
+	<script type="text/javascript" src="../asset/js/echartsHome.js"></script>
+	<script src="../asset/js/bootstrap.min.js"></script>
+	<script src="../asset/js/echartsExample.js"></script>
 <script type="text/javascript">
+var j="";
+
 	$(document).ready(function(){
 		//加载收入完成图表数据
 		loadSrwcChart();
 	});
-	
 	//加载收入完成图表数据
 	function loadSrwcChart(){
             var url = $.hori.getconfig().appServerHost+"view/bi/loadSrwcChart/accsyBiReport/services/reqBiReportData";
@@ -37,14 +56,22 @@ a {
                 soap+='</web:viewReportById>';
                 soap+=' </soapenv:Body></soapenv:Envelope>';
             var data = "data-xml="+soap;
-            
             $.hori.ajax({
                 "type":"post",
                 "url":url,
                 "data":data,
                 "success":function(res){
-                    alert("success:" + res);
-                    document.getElementById("aaaaa").value = res;
+                	var json=JSON.parse(res);
+                	console.log(json);
+                	j=json.ljwcz;
+                	var b=json.qnys+":"+json.qnysz+json.primaryunit;
+                	document.getElementById("yusuan").innerHTML=b;
+                	var c=json.ljwc+":"+json.ljwcz+json.primaryunit;
+                	document.getElementById("leiji").innerHTML=c;
+                	var d=json.wcbl+":"+json.wcblz+"%";
+                	document.getElementById("bili").innerHTML=d;
+                	var ww=(Math.ceil((json.ljwcz)/100))*100;
+                	draw(ww);
                 },
                 "error":function(res){
                     alert("error:" + res);
@@ -52,14 +79,85 @@ a {
                 }
             });
     }
-
+	function draw(ww){
+		var option = {
+				toolbox : {
+					show : false,
+					feature : {
+						mark : {
+							show : false
+						},
+						restore : {
+							show : false
+						},
+						saveAsImage : {
+							show : false
+						}
+					}
+				},
+				
+				series : [ {
+					name : '收入完成',
+					type : 'gauge',
+					startAngle: 179,
+		            endAngle : 0,
+					splitNumber :4, // 分割段数，默认为5
+					max:ww,
+					axisLine : { // 坐标轴线
+						lineStyle : { // 属性lineStyle控制线条样式
+							color : [ [ 0.2, 'rgba(139,71,137,0.8)' ], [ 0.8, 'rgba(139,71,137,0.8)' ],
+									[ 1, 'rgba(139,71,137,0.8)' ] ],
+							width : 50
+						}
+					},
+					axisTick : { // 坐标轴小标记
+						splitNumber : 10, // 每份split细分多少段
+						length : 10, // 属性length控制线长
+						lineStyle : { // 属性lineStyle控制线条样式
+							color : '#A4D3EE'
+						}
+					},
+					axisLabel : { // 坐标轴文本标签，详见axis.axisLabel
+						textStyle : { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+							color : '#32CD32'
+						}
+					},
+					splitLine : { // 分隔线
+						show : true, // 默认显示，属性show控制显示与否
+						length : 10, // 属性length控制线长
+						lineStyle : { // 属性lineStyle（详见lineStyle）控制线条样式
+							color : '#00EEEE'
+						}
+					},
+					 
+					pointer : {
+						width : 5
+					},
+					title : {
+						show : true,
+						offsetCenter : [ 0, '-40%' ], // x, y，单位px
+						textStyle : { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+							fontWeight : 'bolder'
+						}
+					},
+					
+					detail : {
+						show : false,
+						//formatter:'{value}%',
+						textStyle : { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+							fontWeight : 'bolder'
+						}
+					},
+					data : [ {
+						value : 0,
+						name : ''
+					} ]
+				} ]
+			};
+			var myChart = echarts.init(document.getElementById('main'));
+			option.series[0].data[0].value =j;
+			myChart.setOption(option);
+	}
 	</script>
-</head>
-<body>
-	<!-- 收入完成 -->
-	<div data-role="page" id="srwc" class="login">
-		<div data-role="content" align="center">2222222222</div>
-		<input type="text" id="aaaaa" />
-			</div>
 </body>
 </html>
