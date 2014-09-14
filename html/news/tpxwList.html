@@ -54,14 +54,13 @@ a {
 		soap += ' </soapenv:Body></soapenv:Envelope>';
 		var data = "data-xml=" + soap;
 
-		$.hori
-				.ajax({
+		$.hori.ajax({
 					"type" : "post",
 					"url" : url,
 					"data" : data,
-					"headers" : {
-						"Authorization" : "Basic d3BzYWRtaW46R1RBZG1pbg=="
-					},
+					//"headers" : {
+					//	"Authorization" : "Basic d3BzYWRtaW46R1RBZG1pbg=="
+					//},
 					"success" : function(res) {
 						var list = JSON.parse(res);
 						for ( var item in list) {
@@ -70,7 +69,6 @@ a {
 									+ "/"
 									+ list[item].newName;
 							list[item].imgSrc = targetURL;
-							console.log(targetURL);
 						}
 						var data = new Object();
 						data.list = list;
@@ -85,8 +83,15 @@ a {
 
 	function render(jsonData) {
 		var viewModel = ko.mapping.fromJS(jsonData);
-		console.log(viewModel);
 		ko.applyBindings(viewModel);
+	}
+	//跳转新闻详情
+	function showDetail(item){
+		alert(item);
+		var contentName = item.contentName;
+		localStorage.setItem("currentContentName",item.contentName);
+		$.hori.showLoading();
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/news/newsDetail.html');
 	}
 </script>
 </head>
@@ -95,12 +100,13 @@ a {
 		style="background: url(../../assets/home/bg_empty.jpg); -moz-background-size: cover; background-repeat: repeat;">
 		<div data-role="content" align="center">
 			<ul data-bind="foreach: list" data-role="listview">
-				<li data-icon="false"><a href="#"> <img
-						data-bind="attr:{'src':imgSrc}" />
-						<h3 style="white-space: normal;">
-							<span data-bind="text: contentTitle" />
-						</h3>
-						<p style="text-align: right;">[8-22]</p>
+				<li data-icon="false" >
+					<a onclick="showDetail(this);return false;" data-bind="attr:{'contentName':contentName}"  > 
+					<img data-bind="attr:{'src':imgSrc}" />
+					<h3 style="white-space: normal;">
+						<span data-bind="text: contentTitle" />
+					</h3>
+					<p style="text-align: right;">[8-22]</p>
 				</a></li>
 			</ul>
 		</div>

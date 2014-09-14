@@ -5,13 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
 <link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" />
 <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
+<link rel="stylesheet" href="../lib/swiper/idangerous.swiper.css">
+<link rel="stylesheet" href="../lib/app/home/css/news.css">
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/jquery-cookie/jquery.cookie.js"></script>
 <script src="../lib/encrypt/encrypt.js"></script>
 <script src="../lib/json/json2.js"></script>
 <script src="../lib/hori/hori.js?tag=21369"></script>
 <script src="../lib/jquery-mobile/jquery.mobile.min.js"></script>
+<script src="../lib/knockout/knockout.js"></script>
+<script src="../lib/knockout/knockout.mapping.js"></script>
+<script src="../lib/swiper/idangerous.swiper.min.js"></script>
 <script src="../lib/app/home/app.js"></script>
+<script src="../lib/app/home/news.js"></script>
 <script src="../config/web/config.js"></script>
 <script type="text/javascript">
 	var currentUser = "";
@@ -31,6 +37,9 @@
 			if (hori.getMobileType() == "apple") {
 				$("#divMail").hide();
 			}
+			var itcode=localStorage.getItem("itcode");
+			//默认先加载图片新闻
+			getTpxwNewsList(itcode,"GT_HomePage_SiteArea_tpxw");
 		} catch (e) {
 			alert(e.message);
 		}
@@ -66,8 +75,8 @@
 			}
 		});
 	}
-	//新闻
-    function loadNews() {
+	//图片新闻
+    function loadTpxwList() {
         $.hori.showLoading();
         $.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/news/tpxwList.html');
     }
@@ -76,30 +85,44 @@
 <body>
 	<div data-role="page" id="home" style="background: url(../assets/home/bg_empty.jpg); -moz-background-size: cover; background-repeat: repeat;">
 		<div data-role="content" align="center">
+			<div class="swiper-container">
+				<div class="swiper-wrapper" data-bind="foreach: list">
+					<div class="swiper-slide">
+						<a onclick="showDetail(this);return false;" data-bind="attr:{'contentName':contentName}"  > 
+							<img data-bind="attr:{'src':imgSrc}" />
+							<div >
+								<span class="title" data-bind="text: contentTitle" />
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="pagination"></div>
+				<div class="more"><a href="#" onclick="loadTpxwList();" >more</a></div>
+			</div>
 			<div class="ui-grid-c" id="divOne">
 				<div class="ui-block-a">
 					<a href="javascript:void(0);" onclick="loadTaskList()"> 
-					<img id="imgToDo" width="45" height="45" src="../assets/home/task.png" />
+					<img id="imgToDo" width="45" height="45" src="../assets/home/gwdb.png" />
 					</a> <br/>
 					<!-- <span id="spanTodo" class="bubble-count ui-btn-up-c ui-btn-corner-all">1</span> <br /> -->
-					<span style="color:#434343;font-size:14px;"><strong>请示待办</strong></span>
+					<span style="color:#434343;font-size:12px;"><strong>公文待办</strong></span>
 				</div>
 				<div class="ui-block-b">
 					<a href="javascript:void(0);" onclick="loadqueryList()">
-						<img id="imgSearch" width="45" height="45" src="../assets/home/msg.png" />
+						<img id="imgSearch" width="45" height="45" src="../assets/home/gwcy.png" />
 					</a> <br />
 					<!-- <span id="spanSearch" class="bubble-count ui-btn-up-c ui-btn-corner-all">1</span>  -->
-					<span style="color:#434343;font-size:14px;"><strong>请示查询</strong></span>
+					<span style="color:#434343;font-size:12px;"><strong>公文查阅</strong></span>
 				</div>
 				 <div class="ui-block-c" id="cc" >
 					<a href="javascript:void(0);" onclick="loadBI()">
-						<img width="45" height="45" src="../assets/home/news.png">
-					</a> <br /> <span style="color: #434343;font-size:14px;"><strong>BI图表</strong></span>
+						<img width="45" height="45" src="../assets/home/bi.png">
+					</a> <br /> <span style="color: #434343;font-size:12px;"><strong>BI图表</strong></span>
 				</div> 
 				<div class="ui-block-c">
-					<a href="javascript:void(0);" onclick="loadNews()">
-						<img width="45" height="45" src="../assets/home/news.png">
-					</a> <br /> <span style="color: #434343;font-size:14px;"><strong>安全生产值班表</strong></span>
+					<a href="javascript:void(0);">
+						<img width="45" height="45" src="../assets/home/aqsc.png">
+					</a> <br /> <span style="color: #434343;font-size:12px;"><strong>安全生产值班表</strong></span>
 				</div>
 			</div>
 			<br />
