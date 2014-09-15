@@ -2,7 +2,8 @@
 <head>
 <title>首页</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
 <link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" />
 <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
 <link rel="stylesheet" href="../lib/swiper/idangerous.swiper.css">
@@ -37,9 +38,9 @@
 			if (hori.getMobileType() == "apple") {
 				$("#divMail").hide();
 			}
-			var itcode=localStorage.getItem("itcode");
+			var itcode = localStorage.getItem("itcode");
 			//默认先加载图片新闻
-			getTpxwNewsList(itcode,"GT_HomePage_SiteArea_tpxw");
+			getTpxwNewsList(itcode, "GT_HomePage_SiteArea_tpxw");
 		} catch (e) {
 			alert(e.message);
 		}
@@ -47,88 +48,119 @@
 	//请示待办
 	function loadTaskList() {
 		$.hori.showLoading();
-		localStorage.setItem("itcode",currentUser);
-		var itcode=localStorage.getItem("itcode");
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl+"viewhome/oa/todos/docapp/genertec/persontasks.nsf/dbview?openform&view=vwgwdbshow&restricttocategory="+itcode+"&start=1&count=20");
+		localStorage.setItem("itcode", currentUser);
+		var itcode = localStorage.getItem("itcode");
+		$.hori
+				.loadPage($.hori.getconfig().serverBaseUrl
+						+ "viewhome/oa/todos/docapp/genertec/persontasks.nsf/dbview?openform&view=vwgwdbshow&restricttocategory="
+						+ itcode + "&start=1&count=20");
 	}
 	//请示查阅
 	function loadqueryList() {
-		localStorage.setItem("click","1");
-		localStorage.setItem("addmore","no");
+		localStorage.setItem("click", "1");
+		localStorage.setItem("addmore", "no");
 		$.hori.showLoading();
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/queryList.html');
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl
+				+ 'viewhome/html/queryList.html');
 	}
 	//BI
 	function loadBI() {
 		$.hori.showLoading();
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/bi.html');
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl
+				+ 'viewhome/html/bi.html');
 	}
 	function createUser() {
-		$.hori.ajax({
-			"type":"get",
-			"url":"/viewhome/oa/currentuser/docapp/genertec/persontasks.nsf/frmPage?openform",
-			"success":function(res){
-				localStorage.setItem("Chinesename",res);
-				currentUser = "CN="+res+"/O=genertec";
-			},
-			"error":function(res){
-			}
-		});
+		$.hori
+				.ajax({
+					"type" : "get",
+					"url" : "/viewhome/oa/currentuser/docapp/genertec/persontasks.nsf/frmPage?openform",
+					"success" : function(res) {
+						localStorage.setItem("Chinesename", res);
+						currentUser = "CN=" + res + "/O=genertec";
+					},
+					"error" : function(res) {
+					}
+				});
 	}
 	//图片新闻
-    function loadTpxwList() {
-        $.hori.showLoading();
-        $.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/news/tpxwList.html');
-    }
+	function loadTpxwList() {
+		$.hori.showLoading();
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl
+				+ 'viewhome/html/news/tpxwList.html');
+	}
 </script>
 </head>
 <body>
-	<div data-role="page" id="home" style="background: url(../assets/home/bg_empty.jpg); -moz-background-size: cover; background-repeat: repeat;">
+	<div data-role="page" id="home"
+		style="background: url(../assets/home/bg_empty.jpg); -moz-background-size: cover; background-repeat: repeat;">
+		<div data-role="header">
+			<h1>首页</h1>
+		</div>
 		<div data-role="content" align="center">
 			<div class="swiper-container">
 				<div class="swiper-wrapper" data-bind="foreach: list">
 					<div class="swiper-slide">
-						<a onclick="showDetail(this);return false;" data-bind="attr:{'contentName':contentName}"  > 
-							<img data-bind="attr:{'src':imgSrc}" />
-							<div >
+						<a onclick="showDetail(this);return false;"
+							data-bind="attr:{'contentName':contentName}"> <img
+							data-bind="attr:{'src':imgSrc}" />
+							<div>
 								<span class="title" data-bind="text: contentTitle" />
 							</div>
 						</a>
 					</div>
 				</div>
 				<div class="pagination"></div>
-				<div class="more"><a href="#" onclick="loadTpxwList();" >more</a></div>
+				<div class="more">
+					<a href="#" onclick="loadTpxwList();">more</a>
+				</div>
 			</div>
 			<div class="ui-grid-c" id="divOne">
 				<div class="ui-block-a">
-					<a href="javascript:void(0);" onclick="loadTaskList()"> 
-					<img id="imgToDo" width="45" height="45" src="../assets/home/gwdb.png" />
-					</a> <br/>
+					<a href="javascript:void(0);" onclick="loadTaskList()"> <img
+						id="imgToDo" width="45" height="45" src="../assets/home/gwdb.png" />
+					</a> <br />
 					<!-- <span id="spanTodo" class="bubble-count ui-btn-up-c ui-btn-corner-all">1</span> <br /> -->
-					<span style="color:#434343;font-size:12px;"><strong>公文待办</strong></span>
+					<span style="color: #434343; font-size: 12px;"><strong>公文待办</strong></span>
 				</div>
 				<div class="ui-block-b">
-					<a href="javascript:void(0);" onclick="loadqueryList()">
-						<img id="imgSearch" width="45" height="45" src="../assets/home/gwcy.png" />
+					<a href="javascript:void(0);" onclick="loadqueryList()"> <img
+						id="imgSearch" width="45" height="45"
+						src="../assets/home/gwcy.png" />
 					</a> <br />
 					<!-- <span id="spanSearch" class="bubble-count ui-btn-up-c ui-btn-corner-all">1</span>  -->
-					<span style="color:#434343;font-size:12px;"><strong>公文查阅</strong></span>
+					<span style="color: #434343; font-size: 12px;"><strong>公文查阅</strong></span>
 				</div>
-				 <div class="ui-block-c" id="cc" >
-					<a href="javascript:void(0);" onclick="loadBI()">
-						<img width="45" height="45" src="../assets/home/bi.png">
-					</a> <br /> <span style="color: #434343;font-size:12px;"><strong>BI图表</strong></span>
-				</div> 
+				<div class="ui-block-c" id="cc">
+					<a href="javascript:void(0);" onclick="loadBI()"> <img
+						width="45" height="45" src="../assets/home/bi.png">
+					</a> <br /> <span style="color: #434343; font-size: 12px;"><strong>BI图表</strong></span>
+				</div>
 				<div class="ui-block-c">
-					<a href="javascript:void(0);">
-						<img width="45" height="45" src="../assets/home/aqsc.png">
-					</a> <br /> <span style="color: #434343;font-size:12px;"><strong>安全生产值班表</strong></span>
+					<a href="javascript:void(0);"> <img width="45" height="45"
+						src="../assets/home/aqsc.png">
+					</a> <br /> <span style="color: #434343; font-size: 12px;"><strong>安全生产值班表</strong></span>
 				</div>
 			</div>
-			<br />
-			
+			<p>
+			<!-- <ul data-bind="foreach: list" data-role="listview" data-theme="d">
+                <div data-bind="if : $index == 0">
+				<li data-role="list-divider"  ><a>集团新闻</a> <a href="#"
+					style="float: right">more</a></li>
+                </div>
+				<li data-icon="false"><a
+					onclick="showDetail(this);return false;"
+					data-bind="attr:{'contentName':contentName}" data-mini="true">
+						<p>
+							<span data-bind="text: contentTitle"
+								style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 350px; float: left;"><font
+								color="#0080ff"></font></span><span><a href="#"
+								style="float: right"> <font color="#0080ff"><span>[8-22]</span></font></a></span>
+						</p>
+				</a></li>
+			</ul> -->
+
 		</div>
 	</div>
-	
+
 </body>
 </html>
