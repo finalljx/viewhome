@@ -52,28 +52,28 @@ a {
         		 var monthdata=json.reportdata.monthData.split('|');
         		 
         		var busiData=json.reportdata.busiData;
-        		var imgString="<ul style='list-style:none;'><li><div style='float:left;width:6%;'>&nbsp;</div><div style='float:left;width:4.5%;'>&nbsp;</div>";
+        		var imgString="<ul style='list-style:none;'><li><div style='float:left;width:60px;'>&nbsp;</div><div style='float:left;width:50px;'>&nbsp;</div>";
         		for(var z=0;z<monthdata.length;z++){
-        			imgString=imgString+"<div style='float:left;width:4.5%;'>"+monthdata[z]+"</div>";
+        			imgString=imgString+"<div style='float:left;width:6%;'>"+monthdata[z]+"</div>";
         		}
         		imgString=imgString+"</li><br/>"
         		for(var i=0;i<busiData.length;i++){
         			var busiName=busiData[i].busiName;
         			if(30==busiData[i].now){
-        				imgString=imgString+"<li style='line-height:50px;'><div style='float:left;clear:both;width:7%;'>"+busiName+"</div><div style='float:left;'><img src='img/dahong.png'></img></div>"
+        				imgString=imgString+"<li style='line-height:50px;'><div style='float:left;clear:both;width:60px;'><font size='2'>"+busiName+"</font></div><div style='float:left;width:50px;'><img src='img/dahong.png'></img></div>"
         			}else {
-        				imgString=imgString+"<li style='line-height:50px;'><div style='float:left;clear:both;width:7%;'>"+busiName+"</div><div style='float:left;'><img src='img/dalv.png'></img></div>"
+        				imgString=imgString+"<li style='line-height:50px;'><div style='float:left;clear:both;width:60px;'><font size='2'>"+busiName+"</div><div style='float:left;width:50px;'><img src='img/dalv.png'></img></div>"
         			}
         			var imageType=busiData[i].imageType.split('|');
         			for(var j=0;j<imageType.length;j++){
         				if(10==imageType[j]){
-        					imgString=imgString+"<div style='float:left;width:4.5%;line-height:60px;'><img src='img/xiaolv.png'></img></div>";
+        					imgString=imgString+"<div style='float:left;width:6%;line-height:60px;'><img src='img/xiaolv.png'></img></div>";
         				}else if(20==imageType[j]){
-        					imgString=imgString+"<div style='float:left;width:4.5%;line-height:60px;'><img src='img/xiaohuang.png'></img></div>";
+        					imgString=imgString+"<div style='float:left;width:6%;line-height:60px;'><img src='img/xiaohuang.png'></img></div>";
         				}else if(30==imageType[j]){
-        					imgString=imgString+"<div style='float:left;width:4.5%;line-height:60px;'><img src='img/xiaohong.png'></img></div>";
+        					imgString=imgString+"<div style='float:left;width:6%;line-height:60px;'><img src='img/xiaohong.png'></img></div>";
         				}else{
-        					imgString=imgString+"<div style='float:left;width:4.5%;line-height:60px;'><img src='img/xiaohui.png'></img></div>";
+        					imgString=imgString+"<div style='float:left;width:6%;line-height:60px;'><img src='img/xiaohui.png'></img></div>";
         				}
         			}
         			imgString=imgString+"</li>";
