@@ -40,7 +40,13 @@
 			}
 			var itcode = localStorage.getItem("itcode");
 			//默认先加载图片新闻
-			getTpxwNewsList(itcode, "GT_HomePage_SiteArea_tpxw");
+			getTpxwNewsList(itcode, "GT_HomePage_SiteArea_tpxw",6,1);
+			//加载通知公告
+			getTpxwNewsList(itcode, "GT_HomePage_SiteArea_jttz",4,1);
+		    //加载集团新闻
+			getTpxwNewsList(itcode, "GT_HomePage_SiteArea_jtxw",4,1);
+		    //成员单位新闻
+			getTpxwNewsList(itcode, "GT_HomePage_SiteArea_zgsxw",6,1);
 		} catch (e) {
 			alert(e.message);
 		}
@@ -98,8 +104,8 @@
 		</div>
 		<div data-role="content" align="center">
 			<div class="swiper-container">
-				<div class="swiper-wrapper" data-bind="foreach: list">
-					<div class="swiper-slide">
+				<div id="tpxwSwiper" class="swiper-wrapper" data-bind="foreach: list">
+					<div class="swiper-slide" >
 						<a onclick="showDetail(this);return false;"
 							data-bind="attr:{'contentName':contentName}"> <img
 							data-bind="attr:{'src':imgSrc}" />
@@ -130,7 +136,7 @@
 					<!-- <span id="spanSearch" class="bubble-count ui-btn-up-c ui-btn-corner-all">1</span>  -->
 					<span style="color: #434343; font-size: 12px;"><strong>公文查阅</strong></span>
 				</div>
-				<div class="ui-block-c" id="cc">
+				<div class="ui-block-c" id="three">
 					<a href="javascript:void(0);" onclick="loadBI()"> <img
 						width="45" height="45" src="../assets/home/bi.png">
 					</a> <br /> <span style="color: #434343; font-size: 12px;"><strong>BI图表</strong></span>
@@ -142,23 +148,54 @@
 				</div>
 			</div>
 			<p>
-			<!-- <ul data-bind="foreach: list" data-role="listview" data-theme="d">
-                <div data-bind="if : $index == 0">
-				<li data-role="list-divider"  ><a>集团新闻</a> <a href="#"
-					style="float: right">more</a></li>
-                </div>
-				<li data-icon="false"><a
-					onclick="showDetail(this);return false;"
-					data-bind="attr:{'contentName':contentName}" data-mini="true">
+			
+              <div>
+			<ul id="jttzList" data-role="listview" data-theme="d"
+				style="word-wrap: break-word" data-bind="foreach: list">
+				<li data-icon="false" ><a
+					onclick="app.openDoc(this);return false" data-mini="true">
 						<p>
-							<span data-bind="text: contentTitle"
-								style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 350px; float: left;"><font
-								color="#0080ff"></font></span><span><a href="#"
-								style="float: right"> <font color="#0080ff"><span>[8-22]</span></font></a></span>
+							<span
+								style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 200px; float: left;"><font
+								color="#0080ff">&nbsp;&nbsp;<span data-bind="text:contentTitle"></span></font></span><span><a
+								href="#" style="float: right;"> <font color="#0080ff"><span>2014-08-13&nbsp;&nbsp;</span></font></a></span>
 						</p>
 				</a></li>
-			</ul> -->
-
+			</ul>
+			</div>
+			<p>
+			<br/>
+			<div>
+			<ul id="jtxwList" data-role="listview" data-theme="d"
+				style="word-wrap: break-word" data-bind="foreach: list">
+				<li data-icon="false" ><a
+					onclick="app.openDoc(this);return false" data-mini="true">
+						<p>
+							<span
+								style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 200px; float: left;"><font
+								color="#0080ff">&nbsp;&nbsp;<span data-bind="text:contentTitle"></span></font></span><span><a
+								href="#" style="float: right;"> <font color="#0080ff"><span>2014-08-13&nbsp;&nbsp;</span></font></a></span>
+						</p>
+				</a></li>
+			</ul>
+			</div>
+			<p>
+			<br/>
+			<div>
+			<ul id="cydwxwList" data-role="listview" data-theme="d"
+				style="word-wrap: break-word" data-bind="foreach: list">
+				<li data-icon="false" ><a
+					onclick="app.openDoc(this);return false" data-mini="true">
+						<p>
+							<span
+								style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 200px; float: left;"><font
+								color="#0080ff">&nbsp;&nbsp;<span data-bind="text:contentTitle"></span></font></span><span><a
+								href="#" style="float: right;"> <font color="#0080ff"><span>2014-08-13&nbsp;&nbsp;</span></font></a></span>
+						</p>
+				</a></li>
+			</ul>
+			</div>
+			
 		</div>
 	</div>
 

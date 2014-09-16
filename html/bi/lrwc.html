@@ -64,17 +64,19 @@ var j="";
                 "data":data,
                 "success":function(res){
                 	var json=JSON.parse(res);
-                	console.log(json);
+                	reportdata=json.reportdata;
+                	var seriesname=reportdata.seriesname.split('|');
+                	var seriesdata=reportdata.seriesdata.split('|');
                 	j=json.ljwcz;
-                	var b=json.qnys+":"+json.qnysz+json.primaryunit;
+                	var b=seriesname[0]+":"+seriesdata[0]+reportdata.primaryunit;
                 	document.getElementById("yusuan").innerHTML=b;
-                	var c=json.ljwc+":"+json.ljwcz+json.primaryunit;
+                	var c=seriesname[1]+":"+seriesdata[1]+reportdata.primaryunit;
                 	document.getElementById("leiji").innerHTML=c;
-                	var d=json.wcbl+":"+json.wcblz+"%";
+                	var d=seriesname[2]+":"+seriesdata[2]+"%";
                 	document.getElementById("bili").innerHTML=d;
-                	var qq=(Math.ceil((json.ljwcz)/10))*10; 
+                	var ww=(Math.ceil((seriesdata[1])/10))*10;
 
-                	draw(qq);
+                	draw(ww);
                 },
                 "error":function(res){
                     alert("error:" + res);
@@ -108,8 +110,8 @@ var j="";
 					max: ljwcz,   
 					axisLine : { // 坐标轴线
 						lineStyle : { // 属性lineStyle控制线条样式
-							color : [ [ 0.2, '#8B4789' ], [ 0.8, '#8B4789' ],
-									[ 1, '#8B4789' ] ],
+							color : [ [ 0.2, '#01a149' ], [ 0.8, '#01a149' ],
+									[ 1, '#01a149' ] ],
 							width : 50
 						}
 					},
@@ -117,12 +119,12 @@ var j="";
 						splitNumber : 10, // 每份split细分多少段
 						length : 10, // 属性length控制线长
 						lineStyle : { // 属性lineStyle控制线条样式
-							color : '#A4D3EE'
+							color : '#1ad4d1'
 						}
 					},
 					axisLabel : { // 坐标轴文本标签，详见axis.axisLabel
 						textStyle : { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-							color : '#32CD32'
+							color : '#ffffff'
 						}
 					},
 					splitLine : { // 分隔线
