@@ -222,9 +222,9 @@
 	    
 	</viewer>
 	<viewer id="news" type="remote" source="http://10.1.32.61:10039/"  encoding="gb2312">
-        <view id="tpxwList" template="news/tpxwList.jsp" encoding="UTF-8" />
-        <view id="jttzList" template="news/jttzList.jsp" encoding="UTF-8" />
+        <view id="newsList" template="news/newsList.jsp" encoding="UTF-8" />
         <view id="newsDetail" template="news/newsDetail.jsp" encoding="UTF-8" >
+        <rule mode="replace" regex="&#160;" value=" " />
         </view>
 	</viewer>
 </viewers>
