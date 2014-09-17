@@ -35,6 +35,8 @@
 <script type="text/javascript" src="src/core/widget.js"></script>
 <script type="text/javascript" src="src/widget/navigator/navigator.js"></script>
 <script type="text/javascript" src="src/widget/navigator/$scrollable.js"></script>
+<script src="../lib/knockout/knockout.js"></script>
+<script src="../lib/knockout/knockout.mapping.js"></script>
 <script type="text/javascript"
 	src="src/widget/navigator/scrolltonext.js"></script>
 <style type="text/css">
@@ -90,13 +92,77 @@
 	display: -webkit-box;
 }
 
+#iframe {
+	width: 100%;
+}
+
 .ui-scroller {
 	float: left;
 }
 </style>
+
 <script type="text/javascript">
 	var currentUser = "";
 	$(document).ready(function() {
+		
+		var allData = [ {
+			'reportId' : 1,
+			'title' : '经营态势',
+			'target' : 'bi/jyts.html',
+			'img' : '../assets/home/task.png'
+		}, {
+			'reportId' : 6,
+			'title' : '收入利润趋势',
+			'target' : 'bi/srlrqs.html',
+			'img' : '../assets/home/news.png'
+		}, {
+			'reportId' : 11,
+			'title' : '收入完成',
+			'target' : 'bi/srwc.html',
+			'img' : '../assets/home/msg.png'
+		}, {
+			'reportId' : 16,
+			'title' : '利润完成',
+			'target' : 'bi/lrwc.html',
+			'img' : '../assets/home/task.png'
+		},
+
+		{
+			'reportId' : 21,
+			'title' : '风险状况',
+			'target' : 'bi/fxzk.html',
+			'img' : '../assets/home/task.png'
+		}, {
+			'reportId' : 31,
+			'title' : '收入板块',
+			'target' : 'bi/srbk.html',
+			'img' : '../assets/home/msg.png'
+		}, {
+			'reportId' : 36,
+			'title' : '利润板块',
+			'target' : 'bi/lrbk.html',
+			'img' : '../assets/home/news.png'
+		}, {
+			'reportId' : 66,
+			'title' : '收入利润',
+			'target' : 'bi/srlr.html',
+			'img' : '../assets/home/task.png'
+		} ];
+		var jsondata = localStorage.getItem("json");
+		var json = JSON.parse(jsondata);
+		var target=[];
+		for (var i = 0; i < json.length; i++) {
+			for (var j = 0; j < allData.length; j++) {
+				if (json[i].reportId == allData[j].reportId){
+					target.push(allData[j]); 
+					break;
+					}
+			}
+
+		}
+		var data = new Object();
+		data.list = target;
+		render(data);
 		try {
 			var hori = $.hori;
 			/*设置标题*/
@@ -114,60 +180,36 @@
 			alert(e.message);
 		}
 	});
+
+	function render(jsonData) {
+
+		var viewModel = ko.mapping.fromJS(jsonData);
+		ko.applyBindings(viewModel);
+		
+		initNav();
+		var winheight = $(window).height();
+		var iframeheight = winheight - $("#nav2_wrap").height() - 20;
+		$("#iframe").height(iframeheight);
+	}
 </script>
 </head>
 <body>
-	<!-- <div data-role="page" id="home"
-		style="background: url(../assets/home/bg_empty.jpg); -moz-background-size: cover; background-repeat: repeat;">
-		<div data-role="content" align="center">
- -->
-	<div id="nav2_wrap" >
-		<div id="nav2" >
-			<ul>
-				<li><a href="bi/jyts.html" target="aa"> <img id="imgToDo"
-						width="45" height="45" src="../assets/home/task.png" />
-				</a> <!-- <span id="spanTodo" class="bubble-count ui-btn-up-c ui-btn-corner-all">1</span> <br /> -->
-					<span style="color: #434343; font-size: 14px;"><strong>经营态势</strong></span>
-				</li>
-				<li><a href="bi/srwc.html" target=aa> <img id="imgSearch"
-						width="45" height="45" src="../assets/home/msg.png" />
-				</a>  <!-- <span id="spanSearch" class="bubble-count ui-btn-up-c ui-btn-corner-all">1</span>  -->
-					<span style="color: #434343; font-size: 14px;"><strong>收入完成</strong></span>
-				</li>
-				<li><a href="bi/lrwc.html" target=aa> <img width="45"
-						height="45" src="../assets/home/news.png">
-				</a>  <span style="color: #434343; font-size: 14px;"><strong>利润完成</strong></span>
-				</li>
-				<li><a href="bi/srlr.html" target=aa> <img width="45"
-						height="45" src="../assets/home/news.png">
-				</a>  <span style="color: #434343; font-size: 14px;"><strong>收入利润</strong></span>
-				</li>
-				<li><a href="bi/srlrqs.html" target="aa"> <img id="imgToDo"
-						width="45" height="45" src="../assets/home/task.png" />
-				</a>  <!-- <span id="spanTodo" class="bubble-count ui-btn-up-c ui-btn-corner-all">1</span>  -->
-					<span style="color: #434343; font-size: 14px;"><strong>收入利润趋势</strong></span>
-				</li>
-				<li><a href="bi/srbk.html" target=aa> <img id="imgSearch"
-						width="45" height="45" src="../assets/home/msg.png" />
-				</a>  <span style="color: #434343; font-size: 14px;"><strong>收入板块</strong></span>
-				</li>
-				<li><a href="bi/fxzk.html" target=aa> <img width="45"
-						height="45" src="../assets/home/news.png">
-				</a>  <span style="color: #434343; font-size: 14px;"><strong>风险状况</strong></span>
-				</li>
-				<li><a href="bi/lrbk.html" target=aa> <img width="45"
-						height="45" src="../assets/home/news.png">
-				</a>  <span style="color: #434343; font-size: 14px;"><strong>利润板块</strong></span>
+	<div data-role="header"></div>
+	<div id="nav2_wrap" style="margin-top: 10px;">
+		<div id="nav2">
+			<ul data-bind="foreach: list">
+				<li data-icon="false"><a  data-bind="attr:{'href':target}" target="xianshi">
+						<img id="imgToDo" width="45" height="45"
+						data-bind="attr:{'src':img}" />
+				</a> <span style="color: #434343; font-size: 14px;"><strong><span
+							data-bind="text: title" /></span></strong></span>
 				</li>
 			</ul>
 			<span class="bar"></span>
 		</div>
-		<!--   </div> -->
 
 		<script type="text/javascript">
-			$('#nav').navigator();
-
-			(function() {
+			function initNav() {
 				var bar = $('#nav2 span.bar'), left = $('#nav2 ul').offset().left;
 				$('#nav2').navigator({
 					select : function(e, index, li) {
@@ -181,10 +223,13 @@
 					}
 				});
 
-			})();
+				$('#arrow').on('click', function() {
+					$('#nav2').iScroll('scrollTo', 100, 0, 400, true);
+				});
+
+			};
 		</script>
 	</div>
-	<iframe width=100% height=800px frameborder=1 scrolling=no name="aa"
-		src="bi/lrbk.html"></iframe>
+	<iframe frameborder=1 name="xianshi" id="iframe" src="bi/jyts.html"></iframe>
 </body>
 </html>

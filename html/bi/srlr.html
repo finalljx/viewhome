@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
-	<link
+<link
 	href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
 	rel="stylesheet">
 <link rel="stylesheet"
@@ -26,70 +26,72 @@ a {
 </head>
 <body>
 	<!-- 收入利润 -->
-	<div id="main" style="height: 400px;width:500px;float:left;">
+	<div id="main" style="height: 400px; width: 450px; float: left;">
 	</div>
-	<div id="main1" style="height: 400px;width:500px;float:left;">
+	<div id="main1" style="height: 400px; width: 450px; float: left;">
 	</div>
-	
-	
+
+
 	<script src="../asset/js/echarts-plain-original.js"></script>
 	<script type="text/javascript" src="../asset/js/echartsHome.js"></script>
 	<script src="../asset/js/bootstrap.min.js"></script>
 	<script src="../asset/js/echartsExample.js"></script>
-	
-<script type="text/javascript">
 
-	$(document).ready(function(){
+	<script type="text/javascript">
+		$(document).ready(function() {
+			//加载收入完成图表数据
+			loadSrlrqsChart()
+		});
 		//加载收入完成图表数据
-		loadSrlrqsChart()
-	});
-	//加载收入完成图表数据
-	function loadSrlrqsChart(){
-            var url = $.hori.getconfig().appServerHost+"view/bi/loadSrlrqsChart/accsyBiReport/services/reqBiReportData";
-            var temp = "$lt;?xml version='1.0' encoding='utf-8'?$gt;$lt;root$gt;$lt;reportdata$gt;$lt;reportid$gt;66$lt;/reportid$gt;$lt;/reportdata$gt;$lt;/root$gt;";
-            var soap ="<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='http://webservice.biz.digiwin.com'>";
-                soap+='<soapenv:Header/><soapenv:Body>';
-                soap+='<web:viewReportById>';
-                soap+='<web:in0>'+temp+'</web:in0>';
-                soap+='</web:viewReportById>';
-                soap+=' </soapenv:Body></soapenv:Envelope>';
-            var data = "data-xml="+soap;
-            
-            $.hori.ajax({
-                "type":"post",
-                "url":url,
-                "data":data,
-                "success":function(res){
-                	var json=JSON.parse(res);
-                	console.log(res);
-                	var income  = json.reportdata.income;
-                	var profit = json.reportdata.profit;
-                	var title=json.reportdata.tltle;
-                	var type=json.reportdata.type;
-                	var year= json.reportdata.year;
-                	var month= json.reportdata.month;
-                	var category=income.category;
-                	var seriesname=income.seriesname.split('|');
-                	var seriesdata=income.seriesdata.split('|');
-                	var serieschart=income.serieschart.split('|');
-                	
-                	 loadSrlrqs(title,seriesname,seriesdata,category,serieschart,year,month);
-                	var category2=profit.category;
-                	var seriesname2=profit.seriesname.split('|');
-                	var seriesdata2=profit.seriesdata.split('|');
-                	var serieschart2=profit.serieschart.split('|');
-                 loadSrlrqs2(title,seriesname2,seriesdata2,category2,serieschart,year,month); 
-                },
-                "error":function(res){
-                    alert("error:" + res);
-                    $.hori.hideLoading();
-                }
-            });
-    }
-	
+		function loadSrlrqsChart() {
+			var url = $.hori.getconfig().appServerHost
+					+ "view/bi/loadSrlrqsChart/accsyBiReport/services/reqBiReportData";
+			var temp = "$lt;?xml version='1.0' encoding='utf-8'?$gt;$lt;root$gt;$lt;reportdata$gt;$lt;reportid$gt;66$lt;/reportid$gt;$lt;/reportdata$gt;$lt;/root$gt;";
+			var soap = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='http://webservice.biz.digiwin.com'>";
+			soap += '<soapenv:Header/><soapenv:Body>';
+			soap += '<web:viewReportById>';
+			soap += '<web:in0>' + temp + '</web:in0>';
+			soap += '</web:viewReportById>';
+			soap += ' </soapenv:Body></soapenv:Envelope>';
+			var data = "data-xml=" + soap;
+
+			$.hori.ajax({
+				"type" : "post",
+				"url" : url,
+				"data" : data,
+				"success" : function(res) {
+					var json = JSON.parse(res);
+					console.log(res);
+					var income = json.reportdata.income;
+					var profit = json.reportdata.profit;
+					var title = json.reportdata.tltle;
+					var type = json.reportdata.type;
+					var year = json.reportdata.year;
+					var month = json.reportdata.month;
+					var category = income.category;
+					var seriesname = income.seriesname.split('|');
+					var seriesdata = income.seriesdata.split('|');
+					var serieschart = income.serieschart.split('|');
+
+					loadSrlrqs(title, seriesname, seriesdata, category,
+							serieschart, year, month);
+					var category2 = profit.category;
+					var seriesname2 = profit.seriesname.split('|');
+					var seriesdata2 = profit.seriesdata.split('|');
+					var serieschart2 = profit.serieschart.split('|');
+					loadSrlrqs2(title, seriesname2, seriesdata2, category2,
+							serieschart, year, month);
+				},
+				"error" : function(res) {
+					alert("error:" + res);
+					$.hori.hideLoading();
+				}
+			});
+		}
 	</script>
 	<script type="text/javascript">
-		function loadSrlrqs(title,seriesname,seriesdata,category,serieschart,year,month) {
+		function loadSrlrqs(title, seriesname, seriesdata, category,
+				serieschart, year, month) {
 			var option = {
 				tooltip : {
 					trigger : 'axis'
@@ -107,8 +109,11 @@ a {
 				legend : {
 					data : seriesname
 				},
+				dataRange : {
+					x : 0
+				},
 				xAxis : [ {
-					data : [category]
+					data : [ category ]
 				} ],
 				yAxis : [ {
 					type : 'value',
@@ -121,30 +126,28 @@ a {
 						formatter : '{value} '
 					}
 				} ],
-				series : [
-						{
-							name : [seriesname[0]],
-							type : 'bar',
-							data : [seriesdata[0]]
-						},
-						{
-							name : [seriesname[1]],
-							type : 'bar',
-							data : [seriesdata[1]]
-						},
-						{
-							name : [seriesname[2]],
-							type : 'line',
-							yAxisIndex : 1,
-							data : [seriesdata[2]]
-						} ]
+				series : [ {
+					name : [ seriesname[0] ],
+					type : 'bar',
+					data : [ seriesdata[0] ]
+				}, {
+					name : [ seriesname[1] ],
+					type : 'bar',
+					data : [ seriesdata[1] ]
+				}, {
+					name : [ seriesname[2] ],
+					type : 'line',
+					yAxisIndex : 1,
+					data : [ seriesdata[2] ]
+				} ]
 			};
 			var myChart = echarts.init(document.getElementById('main'));
 			myChart.setOption(option);
 		}
 	</script>
 	<script type="text/javascript">
-		function loadSrlrqs2(title,seriesname2,seriesdata2,category2,serieschart,year,month) {
+		function loadSrlrqs2(title, seriesname2, seriesdata2, category2,
+				serieschart, year, month) {
 			var option = {
 				tooltip : {
 					trigger : 'axis'
@@ -173,11 +176,11 @@ a {
 				},
 				calculable : false,
 				legend : {
-					data : seriesname2
+					data : seriesname2,
 				},
 				xAxis : [ {
 					type : 'category',
-					data : [category2]
+					data : [ category2 ]
 				} ],
 				yAxis : [ {
 					type : 'value',
@@ -190,27 +193,24 @@ a {
 						formatter : '{value} '
 					}
 				} ],
-				series : [
-						{
-							name : seriesname2[0],
-							type : 'bar',
-							data : [seriesdata2[0]]
-						},
-						{
-							name : seriesname2[1],
-							type : 'bar',
-							data : [seriesdata2[1]]
-						},
-						{
-							name : seriesname2[2],
-							type : 'line',
-							yAxisIndex : 1,
-							data : [seriesdata2[2]]
-						}  ]
+				series : [ {
+					name : seriesname2[0],
+					type : 'bar',
+					data : [ seriesdata2[0] ]
+				}, {
+					name : seriesname2[1],
+					type : 'bar',
+					data : [ seriesdata2[1] ]
+				}, {
+					name : seriesname2[2],
+					type : 'line',
+					yAxisIndex : 1,
+					data : [ seriesdata2[2] ]
+				} ]
 			};
 			var myChart = echarts.init(document.getElementById('main1'));
 			myChart.setOption(option);
-		} 
+		}
 	</script>
 </body>
 </html>
