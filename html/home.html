@@ -94,6 +94,25 @@
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl
 				+ 'viewhome/html/news/tpxwList.html');
 	}
+	//集团新闻
+	function loadJtxwList() {
+		$.hori.showLoading();
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl
+				+ 'viewhome/html/news/jtxwList.html');
+	}
+	//通知公告
+	function loadJttzList() {
+		$.hori.showLoading();
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl
+				+ 'viewhome/html/news/jttzList.html');
+	}
+	//成员单位新闻
+	function loadCydwxwList() {
+		$.hori.showLoading();
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl
+				+ 'viewhome/html/news/cydwxwList.html');
+	}
+	
 </script>
 </head>
 <body>
@@ -106,8 +125,8 @@
 			<div class="swiper-container">
 				<div id="tpxwSwiper" class="swiper-wrapper" data-bind="foreach: list">
 					<div class="swiper-slide" >
-						<a onclick="showDetail(this);return false;"
-							data-bind="attr:{'contentName':contentName}"> <img
+						<a data-bind="click:showDetail"
+							> <img
 							data-bind="attr:{'src':imgSrc}" />
 							<div>
 								<span class="title" data-bind="text: contentTitle" />
@@ -120,7 +139,7 @@
 					<a href="#" onclick="loadTpxwList();">more</a>
 				</div>
 			</div>
-			<div class="ui-grid-c" id="divOne">
+			<div class="ui-grid-b" id="divOne">
 				<div class="ui-block-a">
 					<a href="javascript:void(0);" onclick="loadTaskList()"> <img
 						id="imgToDo" width="45" height="45" src="../assets/home/gwdb.png" />
@@ -136,7 +155,7 @@
 					<!-- <span id="spanSearch" class="bubble-count ui-btn-up-c ui-btn-corner-all">1</span>  -->
 					<span style="color: #434343; font-size: 12px;"><strong>公文查阅</strong></span>
 				</div>
-				<div class="ui-block-c" id="three">
+				<div class="ui-block-c" id="three" style="display:none">
 					<a href="javascript:void(0);" onclick="loadBI()"> <img
 						width="45" height="45" src="../assets/home/bi.png">
 					</a> <br /> <span style="color: #434343; font-size: 12px;"><strong>BI图表</strong></span>
@@ -153,7 +172,7 @@
 			<ul id="jttzList" data-role="listview" data-theme="d"
 				style="word-wrap: break-word" data-bind="foreach: list">
 				<li data-icon="false" ><a
-					onclick="app.openDoc(this);return false" data-mini="true">
+					data-bind="click:showDetailjttz" data-mini="true">
 						<p>
 							<span
 								style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 200px; float: left;"><font
@@ -169,7 +188,7 @@
 			<ul id="jtxwList" data-role="listview" data-theme="d"
 				style="word-wrap: break-word" data-bind="foreach: list">
 				<li data-icon="false" ><a
-					onclick="app.openDoc(this);return false" data-mini="true">
+					data-bind="click:showDetailjtxw" data-mini="true">
 						<p>
 							<span
 								style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 200px; float: left;"><font
@@ -185,7 +204,7 @@
 			<ul id="cydwxwList" data-role="listview" data-theme="d"
 				style="word-wrap: break-word" data-bind="foreach: list">
 				<li data-icon="false" ><a
-					onclick="app.openDoc(this);return false" data-mini="true">
+					data-bind="click:showDetailzgsxw" data-mini="true">
 						<p>
 							<span
 								style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 200px; float: left;"><font
