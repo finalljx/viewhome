@@ -114,12 +114,12 @@
 						registdevice();
 						}else{
 							$.hori.hideLoading();
-							alert(json.msg+"11111");
+							alert("登录失败", + json.msg);
 						}
 
 				},
 				"error":function(res){
-					alert(res+"222");
+					alert("登录错误" + res);
 					$.hori.hideLoading();
 				}
 			})
