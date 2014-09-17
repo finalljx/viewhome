@@ -15,7 +15,7 @@ a {
 }
 
 .swiper-container .more {
-	/* background-color: rgba(100, 100, 100, 0.5); */
+	background-color: rgba(127,127,127,0.5);
 	position: absolute;
 	z-index: 10;
 	right: 2px;
@@ -24,6 +24,7 @@ a {
 }
 
 .swiper-slide .title {
+	background-color: rgba(127,127,127,0.5);
 	overflow: hidden;
 	white-space: nowrap;
 	text-align: left;
