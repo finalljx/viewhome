@@ -41,7 +41,7 @@ a {
 	});
 	function getwcmNewsList(itcode) {
 		var url = $.hori.getconfig().appServerHost
-				+ "view/news/tpxwList/accsyWcmNews/services/WcmNewsList";
+				+ "view/news/newsList/accsyWcmNews/services/WcmNewsList";
 		//            var temp = "$lt;?xml version='1.0' encoding='utf-8'?$gt;$lt;root$gt;$lt;newslist$gt;$lt;type$gt;GT_HomePage_SiteArea_jttz$lt;/type$gt;$lt;userid$gt;fangyonghong$lt;/userid$gt;$lt;pageSize$gt;10$lt;/pageSize$gt;$lt;parent$gt;1$lt;/parent$gt;$lt;pageNow$gt;1$lt;/pageNow$gt;$lt;/newslist$gt;$lt;/root$gt;";
 		var temp = "$lt;?xml version='1.0' encoding='utf-8'?$gt;$lt;root$gt;$lt;newslist$gt;$lt;type$gt;GT_HomePage_SiteArea_tpxw$lt;/type$gt;$lt;userid$gt;"
 				+ itcode
@@ -87,8 +87,9 @@ a {
 	}
 	//跳转新闻详情
 	function showDetail(item){
-		var contentName = item.contentName;
-		localStorage.setItem("currentContentName",item.contentName);
+		var contentName = item.contentName();
+		localStorage.setItem("currentContentName",contentName);
+		localStorage.setItem("currentGT_HomePage","GT_HomePage_SiteArea_tpxw");
 		$.hori.showLoading();
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/news/newsDetail.html');
 	}
@@ -104,7 +105,7 @@ a {
 		<div data-role="content" align="center">
 			<ul data-bind="foreach: list" data-role="listview">
 				<li data-icon="false" >
-					<a onclick="showDetail(this);return false;" data-bind="attr:{'contentName':contentName}"  > 
+					<a  data-bind="click:showDetail"  >
 					<img data-bind="attr:{'src':imgSrc}" />
 					<h3 style="white-space: normal;">
 						<span data-bind="text: contentTitle" />

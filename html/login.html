@@ -174,6 +174,18 @@
 				});
 			});
 		}
+		//忘记密码
+		function forgetPwd() {
+			$.hori.showLoading();
+			$.hori.loadPage($.hori.getconfig().serverBaseUrl
+					+ 'viewhome/html/forgetPwd.html');
+		}
+		//设置向导
+		function guide() {
+			$.hori.showLoading();
+			$.hori.loadPage($.hori.getconfig().serverBaseUrl
+					+ 'viewhome/html/guide.html');
+		}
 	</script>
 </head>
 <body>
@@ -219,7 +231,7 @@
 							<label for="saveusername" data-mini="true">记住帐号</label>
 						</div>
 						<div class="ui-block-b">
-							<a data-role="button" data-theme="f" data-mini="true" onclick="">忘记密码</a>
+							<a data-role="button" data-theme="f" data-mini="true" onclick="forgetPwd()">忘记密码</a>
 						</div>
 					</div>
 				</li>
@@ -230,6 +242,11 @@
 				</div>
 				<div class="ui-block-b">
 					<a href="javascript:void(0)" onclick="cancel()" data-theme="f" data-role="button" data-icon="delete" data-iconpos="right">&nbsp;取&nbsp;消&nbsp;</a>
+				</div>
+			</div>
+			<div>
+			<div  style="float:center;">
+					<a href="javascript:void(0)" onclick="guide()" data-theme="f" data-role="button" data-icon="check" >&nbsp;向&nbsp;导&nbsp;</a>
 				</div>
 			</div>
 		</div>
