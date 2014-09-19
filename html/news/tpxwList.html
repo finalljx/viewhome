@@ -35,6 +35,8 @@ a {
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
+		/*设置标题*/
+        $.hori.setHeaderTitle("图片新闻");
 		var itcode = localStorage.getItem("itcode");
 		//加载图片新闻列表
 		getwcmNewsList(itcode);
@@ -98,15 +100,11 @@ a {
 <body>
 	<div data-role="page" id="tpxwList"
 		style="background: url(../../assets/home/bg_empty.jpg); -moz-background-size: cover; background-repeat: repeat;">
-		<div data-role="header" >
-		    <a href="#" data-rel="back" data-mini="true">返回</a>
-            <h1>图片新闻</h1>
-        </div>
 		<div data-role="content" align="center">
 			<ul data-bind="foreach: list" data-role="listview">
 				<li data-icon="false" >
 					<a  data-bind="click:showDetail"  >
-					<img data-bind="attr:{'src':imgSrc}" />
+					<img data-bind="attr:{'src':imgSrc}" style="margin-left: 10px;margin-top: 10px;" />
 					<h3 style="white-space: normal;">
 						<span data-bind="text: contentTitle" />
 					</h3>

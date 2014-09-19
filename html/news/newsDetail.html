@@ -25,17 +25,20 @@ a {
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
+		/*设置标题*/
+        $.hori.setHeaderTitle("新闻详情");
 		//加载新闻详情
 		getWcmNewsData();
 	});
 	//加载新闻详情
 	function getWcmNewsData() {
 		var currentContentName = localStorage.getItem("currentContentName");
+		var currentGT_HomePage = localStorage.getItem("currentGT_HomePage");
 		var url = $.hori.getconfig().appServerHost
 				+ "view/news/newsDetail/accsyWcmNews/services/WcmNewsData";
 		//            var temp = "$lt;?xml version='1.0' encoding='utf-8'?$gt;$lt;root$gt;$lt;newslist$gt;$lt;type$gt;GT_HomePage_SiteArea_jttz$lt;/type$gt;$lt;userid$gt;fangyonghong$lt;/userid$gt;$lt;pageSize$gt;10$lt;/pageSize$gt;$lt;parent$gt;1$lt;/parent$gt;$lt;pageNow$gt;1$lt;/pageNow$gt;$lt;/newslist$gt;$lt;/root$gt;";
-		var temp = "$lt;root$gt;$lt;newslist$gt;$lt;type$gt;GT_HomePage_SiteArea_tpxw$lt;/type$gt;$lt;contentName$gt;"
-				+ "56d9bde3-e26b-44ae-8860-f68fa3dd4de8"
+		var temp = "$lt;root$gt;$lt;newslist$gt;$lt;type$gt;" + currentGT_HomePage + "$lt;/type$gt;$lt;contentName$gt;"
+				+ currentContentName
 				+ "$lt;/contentName$gt;$lt;/newslist$gt;$lt;/root$gt;";
 		var soap = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='http://webservice.biz.digiwin.com'>";
 		soap += '<soapenv:Header/><soapenv:Body>';
@@ -72,10 +75,6 @@ a {
 </head>
 <body>
 	<div data-role="page" id="newsDetail">
-		<div data-role="header" >
-			<a href="#" data-rel="back" data-mini="true">返回</a>
-			<h1>新闻详情</h1>
-		</div>
 		<div data-role="content">
 			<!-- 标题 -->
 			<div>
@@ -84,7 +83,7 @@ a {
 				</h3>
 			</div>
 			<!-- 发布信息 -->
-			<div>
+			<div style="background-color: rgba(127,127,127,0.5);">
 				<p>
 				<div style="float: left;">
 					发布时间：<span data-bind="text: creatTime" />
