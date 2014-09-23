@@ -78,7 +78,7 @@
 						fstart=fstart+2;
 						start=fstart;
 					}
-					alert(template+"===="+dbpath+"==="+start);
+					//alert(template+"===="+dbpath+"==="+start);
 					var url=$.hori.getconfig().appServerHost+"view/oa/"+template+dbpath+"/myview?openform&view="+view+"&start="+start+"&count=2";
 					$.hori.ajax({
 						"type":"post",
@@ -140,7 +140,7 @@
 		$(document).ready(function(){
 			var hori = $.hori;
 			/*设置标题*/
-			hori.setHeaderTitle("任务");
+			hori.setHeaderTitle("公文查阅");
 			//获取会签tab
 			getsignpath();
 			$("#tabs").tabs({beforeActivate:function(event,ui){
@@ -177,7 +177,7 @@
 		<script type="text/javascript">
 		//内请切换
 		function queryListForType(view){
-			alert("neiqing");
+			//alert("neiqing");
 			Astart=1;Bstart=1;Cstart=1;
 			if(view=="vwDocByDate"){
 				template="queryForDoing";
@@ -228,7 +228,7 @@
 
 		//会签切换
 		function signListForType(value){
-			alert("huiqian");
+			//alert("huiqian");
 			localStorage.setItem("addmore","no");
 			dstart=1;estart=1;fstart=1;
 			if(value=="doing"){
@@ -248,7 +248,7 @@
 			}
 			var singdbPath = localStorage.getItem("singdbPath");
 			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+singdbPath+"/myview?openform&view="+view+"&start=1&count=2";
-			alert(url);
+			//alert(url);
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
@@ -292,8 +292,8 @@
 			<div data-role="tabs" id="tabs">
 		      	<div data-role="navbar">
 				    <ul>
-				      <li><a href="#two" data-ajax="false" data-id="queryList">内请</a></li>
-				      <li><a href="#three" data-ajax="false" data-id="signList">会签</a></li>
+				      <li><a href="#two" data-ajax="false" data-id="queryList">集团内请</a></li>
+				      <li><a href="#three" data-ajax="false" data-id="signList">部门会签</a></li>
 				    </ul>
 		      	</div>
 				<div id="queryselect" align="center" class="ui-grid-b">
@@ -312,7 +312,7 @@
 						<div class="ui-block-b"></div>
 						<div class="ui-block-c">
 							<select name="signtype" id="signtype" onChange="signListForType(this.value)" data-theme="a"  data-native-menu="true">
-								<option value="doing">办理中22</option>
+								<option value="doing">办理中</option>
 								<option value="todo">待归档</option>
 								<option value="did">已归档</option>
 							</select>

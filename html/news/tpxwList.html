@@ -35,23 +35,9 @@ a {
 </style>
 <script type="text/javascript">
 var itcode;
-var moreCurrentName;
 $(document).ready(function() {
 		 itcode = localStorage.getItem("itcode");
 		 $.hori.setHeaderTitle("图片新闻");
-		 moreCurrentName= localStorage.getItem("moreCurrentName")
-		 switch (moreCurrentName){
-			
-			case "GT_HomePage_SiteArea_jttz":
-				document.getElementsByTagName("h1")[0].innerHTML = "通知公告";
-				break;
-			case "GT_HomePage_SiteArea_jtxw":
-				document.getElementsByTagName("h1")[0].innerHTML = "集团新闻";
-				break;
-			case "GT_HomePage_SiteArea_zgsxw":
-				document.getElementsByTagName("h1")[0].innerHTML = "成员单位新闻";
-				break;
-			}
 	//加载通知公告列表
 	pullUpAction(itcode);
 });
@@ -65,7 +51,7 @@ $(document).ready(function() {
 					page=page+1;
 					var url = $.hori.getconfig().appServerHost
 					+ "view/news/newsList/accsyWcmNews/services/WcmNewsList";
-					var temp = "$lt;?xml version='1.0' encoding='utf-8'?$gt;$lt;root$gt;$lt;newslist$gt;$lt;type$gt;"+moreCurrentName+"$lt;/type$gt;$lt;userid$gt;"
+					var temp = "$lt;?xml version='1.0' encoding='utf-8'?$gt;$lt;root$gt;$lt;newslist$gt;$lt;type$gt;GT_HomePage_SiteArea_tpxw$lt;/type$gt;$lt;userid$gt;"
 							+ itcode
 							+ "$lt;/userid$gt;$lt;pageSize$gt;10$lt;/pageSize$gt;$lt;parent$gt;1$lt;/parent$gt;$lt;pageNow$gt;"+page+"$lt;/pageNow$gt;$lt;/newslist$gt;$lt;/root$gt;";
 					var soap = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='http://webservice.biz.digiwin.com'>";
@@ -159,22 +145,25 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-		<div data-role="header" >
+     <div data-role="header" >
 		    <a href="#" data-rel="back" data-mini="true">返回</a>
-            <h1>集团新闻</h1>
+            <h1>图片新闻</h1>
         </div>
+		<div data-role="content" align="center">
 		<div id="wrapper">
 		<div id="scroller">
 			<div id="pullUp"></div>
-			<ul data-bind="foreach: list" id="querydataList" data-role="listview" data-inset="true">
+			<ul data-bind="foreach: list" id="querydataList" data-role="listview">
 				<li data-icon="false" >
 					<a  data-bind="click:showDetail"  >
+					<img data-bind="attr:{'src':imgSrc}" style="margin-left: 10px;margin-top: 10px;" />
 					<h3 style="white-space: normal;">
-						<span data-bind="text: contentTitle" ></span>
+						<span data-bind="text: contentTitle" />
 					</h3>
 					<p style="text-align: right;">[8-22]</p>
 				</a></li>
 			</ul>
+		</div>
 		</div>
 	</div>
 </body>
