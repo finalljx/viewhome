@@ -95,24 +95,14 @@
 				+ 'viewhome/html/news/tpxwList.html');
 	}
 	//集团新闻
-	function loadJtxwList() {
+	function loadNewsList(typeName) {
+		localStorage.setItem("moreCurrentName", "GT_HomePage_SiteArea_jttz");
 		$.hori.showLoading();
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl
-				+ 'viewhome/html/news/jtxwList.html');
+				+ 'viewhome/html/news/newsList.html');
 	}
-	//通知公告
-	function loadJttzList() {
-		$.hori.showLoading();
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl
-				+ 'viewhome/html/news/jttzList.html');
-	}
-	//成员单位新闻
-	function loadCydwxwList() {
-		$.hori.showLoading();
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl
-				+ 'viewhome/html/news/cydwxwList.html');
-	}
-	//按
+	
+	//安全生产值班表列表
 	function loadAqsczbb() {
 		$.hori.showLoading();
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl
@@ -124,9 +114,7 @@
 <body>
 	<div data-role="page" id="home"
 		style="background: url(../assets/home/bg_empty.jpg); -moz-background-size: cover; background-repeat: repeat;">
-		<div data-role="header">
-			<h1>首页</h1>
-		</div>
+		
 		<div data-role="content" align="center">
 			<div class="swiper-container">
 				<div id="tpxwSwiper" class="swiper-wrapper" data-bind="foreach: list">

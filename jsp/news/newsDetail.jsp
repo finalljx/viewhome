@@ -26,7 +26,7 @@
     String data = "";
     try {
         //返回xml数据内容
-        data = xpath.selectSingleNode(doc).getStringValue();
+        data = xpath.selectSingleNode(doc).getStringValue().replaceAll("&#160;","	");
     } catch (Exception e) {
         e.printStackTrace();
     }
@@ -34,14 +34,16 @@
     XPath xpath1 = doc1.createXPath("//richText[1]");
     //获取正文html内容
     String richText = xpath1.selectSingleNode(doc1).asXML();
+    
     richText = richText.replaceAll("<richText>","").replaceAll("</richText>","");
     data = doc1.asXML();
-    //转换为 JSON
+       //转换为 JSON
     String json = XmlUtils.xml2Json(data);
     JSONObject jo = new JSONObject(json);
     JSONObject newslist = (JSONObject)jo.get("newslist");
     //替换正文html内容
     newslist.put("richText",richText);
+    
     out.clear();
     out.print(newslist.toString());
 %>

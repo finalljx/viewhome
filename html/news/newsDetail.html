@@ -22,6 +22,9 @@
 a {
 	text-decoration: none;
 }
+p{
+  text-indent:2em;
+}
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -31,11 +34,13 @@ a {
 	//加载新闻详情
 	function getWcmNewsData() {
 		var currentContentName = localStorage.getItem("currentContentName");
+		var GT_HomePage = localStorage.getItem("currentGT_HomePage");
+		
 		var url = $.hori.getconfig().appServerHost
 				+ "view/news/newsDetail/accsyWcmNews/services/WcmNewsData";
 		//            var temp = "$lt;?xml version='1.0' encoding='utf-8'?$gt;$lt;root$gt;$lt;newslist$gt;$lt;type$gt;GT_HomePage_SiteArea_jttz$lt;/type$gt;$lt;userid$gt;fangyonghong$lt;/userid$gt;$lt;pageSize$gt;10$lt;/pageSize$gt;$lt;parent$gt;1$lt;/parent$gt;$lt;pageNow$gt;1$lt;/pageNow$gt;$lt;/newslist$gt;$lt;/root$gt;";
-		var temp = "$lt;root$gt;$lt;newslist$gt;$lt;type$gt;GT_HomePage_SiteArea_tpxw$lt;/type$gt;$lt;contentName$gt;"
-				+ "56d9bde3-e26b-44ae-8860-f68fa3dd4de8"
+		var temp = "$lt;root$gt;$lt;newslist$gt;$lt;type$gt;"+GT_HomePage+"$lt;/type$gt;$lt;contentName$gt;"
+				+ currentContentName
 				+ "$lt;/contentName$gt;$lt;/newslist$gt;$lt;/root$gt;";
 		var soap = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='http://webservice.biz.digiwin.com'>";
 		soap += '<soapenv:Header/><soapenv:Body>';
@@ -53,8 +58,18 @@ a {
 				"Authorization" : "Basic d3BzYWRtaW46R1RBZG1pbg=="
 			},
 			"success" : function(res) {
+				/* var urlb=/img src=\\\"/;
+				var urla=/\\\" ALT/;
+				alert(res);
+				 urlb=res.replace(urlb,'img src=\\"/view/oa/file');
+				 var url=urlb.replace(urla,'&data-result=file\\" ALT');
+				 alert(url); */
+				 var reg=new RegExp(/(<img src=\\\")(\S+)(\\".+\/\>)/g);
+				 var newstr=res.replace(reg,"$1http://portal1.genertec.com.cn$2\ $3"); 
+			
 				console.log(res);
 				var data = JSON.parse(res);
+				console.log(data);
 				render(data);
 			},
 			"error" : function(res) {
@@ -62,11 +77,15 @@ a {
 				$.hori.hideLoading();
 			}
 		});
+		//重置ID
+		localStorage.setItem("currentContentName","");
+		localStorage.setItem("currentGT_HomePage","");
 	}
 
 	function render(jsonData) {
 		var viewModel = ko.mapping.fromJS(jsonData);
 		ko.applyBindings(viewModel);
+		console.log(viewModel);
 	}
 </script>
 </head>
@@ -80,24 +99,24 @@ a {
 			<!-- 标题 -->
 			<div>
 				<h3>
-					<span data-bind="text: contentTitle" />
+					<span data-bind="text: contentTitle" ></span>
 				</h3>
 			</div>
 			<!-- 发布信息 -->
 			<div>
 				<p>
 				<div style="float: left;">
-					发布时间：<span data-bind="text: creatTime" />
+					发布时间：<span data-bind="text: creatTime" ></span>
 				</div>
 				<div style="float: right;">
-					发文来源：<span data-bind="text: newsource" />
+					发文来源：<span data-bind="text: newsource" ></span>
 				</div>
 				</p>
 			</div>
 			<!-- <div data-bind="html:richText"></div> -->
 			<!-- 正文 -->
 			<div style="clear: both;">
-				<span data-bind="html:richText">
+				<span data-bind="html:richText" ></span>
 			</div>
 
 		</div>
