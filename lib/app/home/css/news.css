@@ -17,8 +17,9 @@ a {
 .swiper-container .more {
 	background-color: rgba(127,127,127,0.5);
 	position: absolute;
+	padding-left:5px;
 	z-index: 10;
-	right: 2px;
+	right: 10px;
 	bottom: 0px;
 	position: absolute;
 }
