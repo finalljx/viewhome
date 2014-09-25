@@ -152,7 +152,6 @@ $(document).ready(function() {
 	function showDetail(item){
 		var contentName = item.contentName();
 		localStorage.setItem("currentContentName",contentName);
-		alert(moreCurrentName);
 		$.hori.showLoading();
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/news/newsDetail.html');
 	}

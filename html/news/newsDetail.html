@@ -44,7 +44,6 @@ p{
 		var temp = "$lt;root$gt;$lt;newslist$gt;$lt;type$gt;" + currentGT_HomePage + "$lt;/type$gt;$lt;contentName$gt;"
 				+ currentContentName
 				+ "$lt;/contentName$gt;$lt;/newslist$gt;$lt;/root$gt;";
-				
 		var soap = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='http://webservice.biz.digiwin.com'>";
 		soap += '<soapenv:Header/><soapenv:Body>';
 		soap += '<web:getWcmNewsData>';
@@ -70,9 +69,7 @@ p{
 				 var reg=new RegExp(/(<img src=\\\")(\S+)(\\".+\/\>)/g);
 				 var newstr=res.replace(reg,"$1http://portal1.genertec.com.cn$2\ $3"); 
 			
-				console.log(res);
 				var data = JSON.parse(res);
-				console.log(data);
 				render(data);
 			},
 			"error" : function(res) {
@@ -81,14 +78,11 @@ p{
 			}
 		});
 		//重置ID
-		localStorage.setItem("currentContentName","");
-		localStorage.setItem("currentGT_HomePage","");
 	}
 
 	function render(jsonData) {
 		var viewModel = ko.mapping.fromJS(jsonData);
 		ko.applyBindings(viewModel);
-		console.log(viewModel);
 	}
 </script>
 </head>
