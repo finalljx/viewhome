@@ -138,7 +138,7 @@ $(document).ready(function() {
 	function showDetail(item,moreCurrentName){
 		var contentName = item.contentName();
 		localStorage.setItem("currentContentName",contentName);
-		localStorage.setItem("currentGT_HomePage",moreCurrentName);
+		//localStorage.setItem("currentGT_HomePage",moreCurrentName);
 		$.hori.showLoading();
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/news/newsDetail.html');
 	}

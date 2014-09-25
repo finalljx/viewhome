@@ -39,7 +39,7 @@ var moreCurrentName;
 $(document).ready(function() {
 		 itcode = localStorage.getItem("itcode");
 		 $.hori.setHeaderTitle("图片新闻");
-		 moreCurrentName= localStorage.getItem("moreCurrentName")
+		 moreCurrentName= localStorage.getItem("moreCurrentName");
 		 switch (moreCurrentName){
 			
 			case "GT_HomePage_SiteArea_jttz":
@@ -149,10 +149,10 @@ $(document).ready(function() {
 }
 		
 	//跳转新闻详情页
-	function showDetail(item,moreCurrentName){
+	function showDetail(item){
 		var contentName = item.contentName();
 		localStorage.setItem("currentContentName",contentName);
-		localStorage.setItem("currentGT_HomePage",moreCurrentName);
+		alert(moreCurrentName);
 		$.hori.showLoading();
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/news/newsDetail.html');
 	}
