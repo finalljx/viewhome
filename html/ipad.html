@@ -22,6 +22,10 @@
 <script src="../lib/swiper/idangerous.swiper.min.js"></script>
 <script src="../lib/app/home/news.js"></script>
 <script src="../config/web/config.js"></script>
+<script src="asset/js/echarts-plain-original.js"></script>
+	<script type="text/javascript" src="asset/js/echartsHome.js"></script>
+	<script src="asset/js/bootstrap.min.js"></script>
+	<script src="asset/js/echartsExample.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -45,7 +49,7 @@
 			alert(e.message);
 		}
 	});
-
+    //中间页面
 	function loadMiddleContent() {
 		$.getScript("../lib/app/home/tpxwList.js");
 		$("#middleContent").load("news/tpxwList.html", function(a, b, c) {
@@ -55,11 +59,54 @@
 			$.mobile.loading("hide")
 		}, 1000);
 	}
+	//页面右侧
 	function loadRightContent() {
 		localStorage.setItem("moreCurrentName","GT_HomePage_SiteArea_tpxw");
 		$.getScript("../lib/app/home/newsDetail.js");
 		setTimeout(function() {
 			$.mobile.loading("hide");
+		}, 1000);
+	}
+	//加载BI右侧页面
+	function loadRightBIContent(itemBi) {
+		var biId=itemBi.reportId();
+		
+		switch (biId){
+		case 1:
+			$.getScript("../lib/app/home/bi/jyts.js");
+			break;
+		case 6:
+			$.getScript("../lib/app/home/bi/srlrqs.js");
+			break;
+		case 11:
+			$.getScript("../lib/app/home/bi/srwc.js");
+			break;
+		case 16:
+			$.getScript("../lib/app/home/bi/lrwc.js");
+			break;
+		case 21:
+			$.getScript("../lib/app/home/bi/fxzk.js");
+			break;
+		case 31:
+			$.getScript("../lib/app/home/bi/srbk.js");
+			break;
+		case 36:
+			$.getScript("../lib/app/home/bi/lrbk.js");
+			break;
+		case 66:
+			$.getScript("../lib/app/home/bi/srlr.js");
+			break;
+		}
+		
+		setTimeout(function() {
+			$.mobile.loading("hide")
+		}, 1000);
+	}
+	//加载BI 中间页面
+	function loadMiddleBIContent() {
+		$.getScript("../lib/app/home/app.js");
+		setTimeout(function() {
+			$.mobile.loading("hide")
 		}, 1000);
 	}
 </script>
@@ -110,7 +157,7 @@ a {
 					class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li"><div
 						class="ui-btn-inner ui-li">
 						<div class="ui-btn-text">
-							<a href="#" class="ui-link-inherit">BI图表</a>
+							<a onclick="loadMiddleBIContent()" class="ui-link-inherit">BI图表</a>
 						</div>
 						<span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span>
 					</div></li>
@@ -136,8 +183,8 @@ a {
 					</div></li>
 			</ul>
 		</div>
-		<div class="grid_5" id="middleContent"></div>
-		<div class="grid_5" id="rightContent">555</div>
+		<div class="grid_5" id="middleContent">正在加载中...</div>
+		<div class="grid_5" id="rightContent">正在加载中...</div>
 	</div>
 	</div>
 
