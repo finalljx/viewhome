@@ -41,7 +41,7 @@ a {
 	<script src="../asset/js/bootstrap.min.js"></script>
 	<script src="../asset/js/echartsExample.js"></script>
 <script type="text/javascript">
-var j="";
+
 
 	$(document).ready(function(){
 		//加载收入完成图表数据
@@ -67,7 +67,7 @@ var j="";
                 	reportdata=json.reportdata;
                 	var seriesname=reportdata.seriesname.split('|');
                 	var seriesdata=reportdata.seriesdata.split('|');
-                	j=json.ljwcz;
+                	var lrwc=seriesdata[1];
                 	var b=seriesname[0]+":"+seriesdata[0]+reportdata.primaryunit;
                 	document.getElementById("yusuan").innerHTML=b;
                 	var c=seriesname[1]+":"+seriesdata[1]+reportdata.primaryunit;
@@ -75,8 +75,7 @@ var j="";
                 	var d=seriesname[2]+":"+seriesdata[2]+"%";
                 	document.getElementById("bili").innerHTML=d;
                 	var ww=(Math.ceil((seriesdata[1])/10))*10;
-
-                	draw(ww);
+                	draw(ww,lrwc);
                 },
                 "error":function(res){
                     alert("error:" + res);
@@ -84,7 +83,7 @@ var j="";
                 }
             });
     }
-	function draw(ljwcz){
+	function draw(ljwcz,lrwc){
 		var option = {
 				toolbox : {
 					show : false,
@@ -160,7 +159,7 @@ var j="";
 				} ]
 			};
 			var myChart = echarts.init(document.getElementById('main'));
-			option.series[0].data[0].value =j;
+			option.series[0].data[0].value =lrwc;
 			myChart.setOption(option);
 	}
 	</script>
