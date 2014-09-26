@@ -5,19 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
-<script type="application/javascript" src="../../assets/iscroll.js"></script>
-<link rel="stylesheet"
-	href="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" />
-<link rel="stylesheet" href="../../assets/jquery.mobile-sugon.css" />
-<script src="../../lib/jquery/jquery.min.js"></script>
-<script src="../../lib/encrypt/encrypt.js"></script>
-<script src="../../lib/json/json2.js"></script>
-<script src="../../lib/hori/hori.js?tag=21369"></script>
-<script src="../../config/web/config.js"></script>
-<script
-	src="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
-<script src="../../lib/knockout/knockout.js"></script>
-<script src="../../lib/knockout/knockout.mapping.js"></script>
+
 <style>
 a {
 	text-decoration: none;
@@ -26,74 +14,9 @@ p{
   text-indent:2em;
 }
 </style>
-<script type="text/javascript">
-	$(document).ready(function() {
-		/*设置标题*/
-        $.hori.setHeaderTitle("新闻详情");
-		//加载新闻详情
-		getWcmNewsData();
-	});
-	//加载新闻详情
-	function getWcmNewsData() {
-		var currentContentName = localStorage.getItem("currentContentName");
-
-		var currentGT_HomePage = localStorage.getItem("currentGT_HomePage");
-		var url = $.hori.getconfig().appServerHost
-				+ "view/news/newsDetail/accsyWcmNews/services/WcmNewsData";
-		//            var temp = "$lt;?xml version='1.0' encoding='utf-8'?$gt;$lt;root$gt;$lt;newslist$gt;$lt;type$gt;GT_HomePage_SiteArea_jttz$lt;/type$gt;$lt;userid$gt;fangyonghong$lt;/userid$gt;$lt;pageSize$gt;10$lt;/pageSize$gt;$lt;parent$gt;1$lt;/parent$gt;$lt;pageNow$gt;1$lt;/pageNow$gt;$lt;/newslist$gt;$lt;/root$gt;";
-		var temp = "$lt;root$gt;$lt;newslist$gt;$lt;type$gt;" + currentGT_HomePage + "$lt;/type$gt;$lt;contentName$gt;"
-				+ currentContentName
-				+ "$lt;/contentName$gt;$lt;/newslist$gt;$lt;/root$gt;";
-		var soap = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='http://webservice.biz.digiwin.com'>";
-		soap += '<soapenv:Header/><soapenv:Body>';
-		soap += '<web:getWcmNewsData>';
-		soap += '<web:in0>' + temp + '</web:in0>';
-		soap += '</web:getWcmNewsData>';
-		soap += ' </soapenv:Body></soapenv:Envelope>';
-		var data = "data-xml=" + soap;
-
-		$.hori.ajax({
-			"type" : "post",
-			"url" : url,
-			"data" : data,
-			"headers" : {
-				"Authorization" : "Basic d3BzYWRtaW46R1RBZG1pbg=="
-			},
-			"success" : function(res) {
-				/* var urlb=/img src=\\\"/;
-				var urla=/\\\" ALT/;
-				alert(res);
-				 urlb=res.replace(urlb,'img src=\\"/view/oa/file');
-				 var url=urlb.replace(urla,'&data-result=file\\" ALT');
-				 alert(url); */
-				 var reg=new RegExp(/(<img src=\\\")(\S+)(\\".+\/\>)/g);
-				 var newstr=res.replace(reg,"$1http://portal1.genertec.com.cn$2\ $3"); 
-			
-				console.log(res);
-				var data = JSON.parse(res);
-				console.log(data);
-				render(data);
-			},
-			"error" : function(res) {
-				alert("error:" + res);
-				$.hori.hideLoading();
-			}
-		});
-		//重置ID
-		localStorage.setItem("currentContentName","");
-		localStorage.setItem("currentGT_HomePage","");
-	}
-
-	function render(jsonData) {
-		var viewModel = ko.mapping.fromJS(jsonData);
-		ko.applyBindings(viewModel);
-		console.log(viewModel);
-	}
-</script>
 </head>
 <body>
-	<div data-role="page" id="newsDetail">
-		<div data-role="content">
+		<div data-role="content" id="newsDetail">
 			<!-- 标题 -->
 			<div>
 				<h3>
@@ -118,6 +41,5 @@ p{
 			</div>
 
 		</div>
-	</div>
 </body>
 </html>

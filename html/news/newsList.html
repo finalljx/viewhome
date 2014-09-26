@@ -39,9 +39,8 @@ var moreCurrentName;
 $(document).ready(function() {
 		 itcode = localStorage.getItem("itcode");
 		 $.hori.setHeaderTitle("图片新闻");
-		 moreCurrentName= localStorage.getItem("moreCurrentName")
+		 moreCurrentName= localStorage.getItem("moreCurrentName");
 		 switch (moreCurrentName){
-			
 			case "GT_HomePage_SiteArea_jttz":
 				document.getElementsByTagName("h1")[0].innerHTML = "通知公告";
 				break;
@@ -152,7 +151,6 @@ $(document).ready(function() {
 	function showDetail(item,moreCurrentName){
 		var contentName = item.contentName();
 		localStorage.setItem("currentContentName",contentName);
-		localStorage.setItem("currentGT_HomePage",moreCurrentName);
 		$.hori.showLoading();
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/news/newsDetail.html');
 	}

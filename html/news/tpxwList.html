@@ -5,8 +5,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
-<script type="application/javascript" src="../../assets/iscroll.js"></script>
-<link rel="stylesheet"
+
+<!-- <link rel="stylesheet"
 	href="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" />
 <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
 <script src="../../lib/jquery/jquery.min.js"></script>
@@ -16,9 +16,10 @@
 <script src="../../config/web/config.js"></script>
 <script
 	src="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
+
 <script src="../../lib/knockout/knockout.js"></script>
-<script src="../../lib/knockout/knockout.mapping.js"></script>
-<style>
+<script src="../../lib/knockout/knockout.mapping.js"></script> -->
+<!-- <style>
 a {
 	text-decoration: none;
 }
@@ -32,138 +33,22 @@ a {
 	max-width: 5em;
 	max-height: 5em;
 }
-</style>
-<script type="text/javascript">
-var itcode;
-$(document).ready(function() {
-		 itcode = localStorage.getItem("itcode");
-		 $.hori.setHeaderTitle("图片新闻");
-	//加载通知公告列表
-	pullUpAction(itcode);
-});
-	var myScroll, pullDownEl, pullDownOffset, pullUpEl, pullUpOffset, generatedCount = 0;
-    var str=null;
-    var jsonData=new Object();
-	 var page=0;
-	 var viewModel=new Object();
-	function pullUpAction(itcode) {
-		setTimeout(function () {
-					page=page+1;
-					var url = $.hori.getconfig().appServerHost
-					+ "view/news/newsList/accsyWcmNews/services/WcmNewsList";
-					var temp = "$lt;?xml version='1.0' encoding='utf-8'?$gt;$lt;root$gt;$lt;newslist$gt;$lt;type$gt;GT_HomePage_SiteArea_tpxw$lt;/type$gt;$lt;userid$gt;"
-							+ itcode
-							+ "$lt;/userid$gt;$lt;pageSize$gt;10$lt;/pageSize$gt;$lt;parent$gt;1$lt;/parent$gt;$lt;pageNow$gt;"+page+"$lt;/pageNow$gt;$lt;/newslist$gt;$lt;/root$gt;";
-					var soap = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='http://webservice.biz.digiwin.com'>";
-					soap += '<soapenv:Header/><soapenv:Body>';
-					soap += '<web:getWcmNewsList>';
-					soap += '<web:in0>' + temp + '</web:in0>';
-					soap += '</web:getWcmNewsList>';
-					soap += ' </soapenv:Body></soapenv:Envelope>';
-					var data = "data-xml=" + soap;
-					$.hori.ajax({
-						"type" : "post",
-						"url" : url,
-						"data" : data,
-						"success" : function(res) {
-							var list = JSON.parse(res);
-							for ( var item in list) {
-								var targetURL = "http://10.1.32.61/appdata/WcmNewsImage/"
-										+ list[item].contentName
-										+ "/"
-										+ list[item].newName;
-								list[item].imgSrc = targetURL;
-							}
-							if(page==1){
-							jsonData.list = list;
-							render();
-							}else {
-								for(var i=0;i<list.length;i++){
-									viewModel.list.push(list[i]);
-								}
-							}
-						},
-						"error" : function(res) {
-							alert("error:" + res);
-							$.hori.hideLoading();
-						}
-							});
-		}, 100);
-		setTimeout(loaded, 1000); 
-	}
-	function render() {
-		 viewModel = ko.mapping.fromJS(jsonData);
-		ko.applyBindings(viewModel);
-		$('#querydataList').append('<li id="moredata" class="ui-li-static ui-body-inherit ui-last-child"><div id="pullUp" align="center"><span class="pullUpLabel">上划加载更多...</span></div></li>');
-		//myScroll.refresh();
-	}
-	
-	function loaded() {
-		pullUpEl = document.getElementById('pullUp');	
-		pullUpOffset = pullUpEl.offsetHeight;
-	 myScroll = new iScroll('wrapper', {
-		useTransition: true,
-		topOffset: pullUpOffset,
-		onRefresh: function () {
-		 if (pullUpEl.className.match('loading')) {
-				pullUpEl.className = '';
-		//		pullUpEl.querySelector('.pullUpLabel').innerHTML = 'load';
-			} 
-		},
-		
-	onScrollMove: function () {
-		if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
-			pullUpEl.className = 'flip';
-			//pullUpEl.querySelector('.pullUpLabel').innerHTML = '';
-			this.maxScrollY = this.maxScrollY;
-		} else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
-			pullUpEl.className = '';
-			//pullUpEl.querySelector('.pullUpLabel').innerHTML = '';
-			this.maxScrollY = pullUpOffset;
-		}
-	},
-	onScrollEnd: function () {
-	
-		if (pullUpEl.className.match('flip')) {
-			pullUpEl.className = 'loading';
-			//pullUpEl.querySelector('.pullUpLabel').innerHTML = 'loading...';
-			pullUpAction(itcode);
-		}
-	}
-});
-	setTimeout(function () { document.getElementById('wrapper').style.left = '0'; }, 800);
-}
-		
-	//跳转新闻详情页
-	function showDetail(item,moreCurrentName){
-		var contentName = item.contentName();
-		localStorage.setItem("currentContentName",contentName);
-		localStorage.setItem("currentGT_HomePage",moreCurrentName);
-		$.hori.showLoading();
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/news/newsDetail.html');
-	}
-</script>
+</style> -->
 </head>
 <body>
-     <div data-role="header" >
-		    <a href="#" data-rel="back" data-mini="true">返回</a>
-            <h1>图片新闻</h1>
-        </div>
-		<div data-role="content" align="center">
-		<div id="wrapper">
+		<div id="wrapper" style="overflow:scroll;">
 		<div id="scroller">
 			<div id="pullUp"></div>
 			<ul data-bind="foreach: list" id="querydataList" data-role="listview">
 				<li data-icon="false" >
 					<a  data-bind="click:showDetail"  >
-					<img data-bind="attr:{'src':imgSrc}" style="margin-left: 10px;margin-top: 10px;" />
+					<img data-bind="attr:{'src':imgSrc}" style="margin-left: 10px;margin-top: 10px;max-width: 5em; max-height: 5em;" />
 					<h3 style="white-space: normal;">
 						<span data-bind="text: contentTitle" />
 					</h3>
 					<p style="text-align: right;">[8-22]</p>
 				</a></li>
-			</ul>
-		</div>
+			 </ul>
 		</div>
 	</div>
 </body>
