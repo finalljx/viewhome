@@ -4,10 +4,19 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
 </head>
+<style>
+#loadBi{
+margin-left: 0px;
+-webkit-padding-start: 0px;
+}
+.ui-btn {
+margin: 0px;
+}
+</style>
 <body>
 		<div >
 		<ul data-bind="foreach: list" id="loadBi" data-role="listview">
-				<li data-icon="false" class="ui-btn ui-btn-icon-right ui-li ui-li-has-thumb ui-first-child ui-last-child ui-btn-up-c">
+				<li data-icon="false" data-bind="attr:{'id':reportId}" class="ui-btn  ui-li ui-li-has-thumb ui-first-child ui-last-child ui-btn-up-c">
 					<a  data-bind="click:loadRightBIContent"  >
 					<h3  class="ui-li-heading" style=" text-align:center;">
 						<span data-bind="text: title" />
@@ -15,6 +24,5 @@
 				</a></li>
 			 </ul>
 		</div>
-	</div>
 </body>
 </html>
