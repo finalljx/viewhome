@@ -32,6 +32,12 @@ a {
 	max-width: 5em;
 	max-height: 5em;
 }
+#wrapper {
+	position: fixed;
+	top:0px;
+	bottom: 48px;
+	width:100%;
+}
 </style>
 <script type="text/javascript">
 var itcode;
@@ -40,18 +46,7 @@ $(document).ready(function() {
 		 itcode = localStorage.getItem("itcode");
 		 $.hori.setHeaderTitle("图片新闻");
 		 moreCurrentName= localStorage.getItem("moreCurrentName");
-		 switch (moreCurrentName){
-			
-			case "GT_HomePage_SiteArea_jttz":
-				document.getElementsByTagName("h1")[0].innerHTML = "通知公告";
-				break;
-			case "GT_HomePage_SiteArea_jtxw":
-				document.getElementsByTagName("h1")[0].innerHTML = "集团新闻";
-				break;
-			case "GT_HomePage_SiteArea_zgsxw":
-				document.getElementsByTagName("h1")[0].innerHTML = "成员单位新闻";
-				break;
-			}
+		
 	//加载通知公告列表
 	pullUpAction(itcode);
 });
@@ -82,19 +77,22 @@ $(document).ready(function() {
 						"success" : function(res) {
 							var list = JSON.parse(res);
 							for ( var item in list) {
-								var targetURL = "http://10.1.32.61/appdata/WcmNewsImage/"
-										+ list[item].contentName
-										+ "/"
+								var targetURL = "http://10.1.32.61/appdata/WcmNewsImage/" + list[item].contentName + "/"
 										+ list[item].newName;
 								list[item].imgSrc = targetURL;
 							}
-							if(page==1){
-							jsonData.list = list;
-							render();
-							}else {
-								for(var i=0;i<list.length;i++){
+							if (page == 1) {
+								jsonData.list = list;
+								render();
+								myScroll.refresh();
+							} else {
+								if(list.length<10){
+									$('#pullUpLabel').text("没有更多数据！");
+								}
+								for (var i = 0; i < list.length; i++) {
 									viewModel.list.push(list[i]);
 								}
+								myScroll.refresh();
 							}
 						},
 						"error" : function(res) {
@@ -102,51 +100,49 @@ $(document).ready(function() {
 							$.hori.hideLoading();
 						}
 							});
-		}, 100);
-		setTimeout(loaded, 1000); 
+		}, 1000);
 	}
 	function render() {
 		 viewModel = ko.mapping.fromJS(jsonData);
 		ko.applyBindings(viewModel);
 		$('#querydataList').append('<li id="moredata" class="ui-li-static ui-body-inherit ui-last-child"><div id="pullUp" align="center"><span class="pullUpLabel">上划加载更多...</span></div></li>');
-		//myScroll.refresh();
+		loaded();
 	}
 	
 	function loaded() {
-		pullUpEl = document.getElementById('pullUp');	
+		pullUpEl = document.getElementById('pullUp');
 		pullUpOffset = pullUpEl.offsetHeight;
-	 myScroll = new iScroll('wrapper', {
-		useTransition: true,
-		topOffset: pullUpOffset,
-		onRefresh: function () {
-		 if (pullUpEl.className.match('loading')) {
-				pullUpEl.className = '';
-		//		pullUpEl.querySelector('.pullUpLabel').innerHTML = 'load';
-			} 
-		},
-		
-	onScrollMove: function () {
-		if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
-			pullUpEl.className = 'flip';
-			//pullUpEl.querySelector('.pullUpLabel').innerHTML = '';
-			this.maxScrollY = this.maxScrollY;
-		} else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
-			pullUpEl.className = '';
-			//pullUpEl.querySelector('.pullUpLabel').innerHTML = '';
-			this.maxScrollY = pullUpOffset;
-		}
-	},
-	onScrollEnd: function () {
-	
-		if (pullUpEl.className.match('flip')) {
-			pullUpEl.className = 'loading';
-			//pullUpEl.querySelector('.pullUpLabel').innerHTML = 'loading...';
-			pullUpAction(itcode);
-		}
+		myScroll = new iScroll('wrapper', {
+			useTransition : true,
+			topOffset : pullUpOffset,
+			onRefresh : function() {
+				if (pullUpEl.className.match('loading')) {
+					pullUpEl.className = '';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
+				}
+			},
+
+			onScrollMove : function() {
+				if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
+					pullUpEl.className = 'flip';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
+					this.maxScrollY = this.maxScrollY;
+				} else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
+					pullUpEl.className = '';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
+					this.maxScrollY = pullUpOffset;
+				}
+			},
+			onScrollEnd : function() {
+
+				if (pullUpEl.className.match('flip')) {
+					pullUpEl.className = 'loading';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = 'loading...';
+					 pullUpAction(itcode);
+				}
+			}
+		});
 	}
-});
-	setTimeout(function () { document.getElementById('wrapper').style.left = '0'; }, 800);
-}
 		
 	//跳转新闻详情页
 	function showDetail(item){
@@ -158,13 +154,9 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-		<div data-role="header" >
-		    <a href="#" data-rel="back" data-mini="true">返回</a>
-            <h1>集团新闻</h1>
-        </div>
 		<div id="wrapper">
 		<div id="scroller">
-			<div id="pullUp"></div>
+		<p></p>
 			<ul data-bind="foreach: list" id="querydataList" data-role="listview" data-inset="true">
 				<li data-icon="false" >
 					<a  data-bind="click:showDetail"  >
