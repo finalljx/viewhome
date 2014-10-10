@@ -83,7 +83,9 @@
 								localStorage.setItem("attachmentUrl",url);
 								$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
 							}
-							
+							function test(val){
+								alert(val);
+							}
 							function submit(value){
 								var sel = $("#fldAttitude").val();
 								if(sel == null || sel==""){
@@ -95,10 +97,19 @@
 									var question = window.confirm("确定驳回吗?"); 
 								}else if(value=="submit"){
 									var question = window.confirm("确定提交吗?"); 
-								}else{
+								}else if(value=="save"){
+									var question = window.confirm("确定保存吗?"); 
+								}else if(value=="sign"){
+									var huiqiandanwei = $("#huiqiandanwei").val();
+									if(huiqiandanwei==""||huiqiandanwei==null){
+										alert("发起内请时没有选择会签流程，手机端不能处理，请到电脑上处理！");
+										return false;
+									}
 									var question = window.confirm("确定会签吗?"); 
 								}
-								post(value);
+								if(question){
+									post(value);
+								}
 							}
 
 							function post(type){
@@ -108,12 +119,15 @@
 								}else if(type=="reject"){
 									$("#querysaveagent").val("agtFlowDeny");
 									$("#form").submit();
+								}else if(type=="save"){
+									$("#querysaveagent").val("agtSaveDraftNoExit");
+									$("#form").submit();
+									//document.location.reload();
+									//$.hori.backPage(1)
 								}else if(type=="sign"){
-									var id = $("#docunid").val();
-									var dbPath = $("#dbPath").val();
-									var signurl= 'view/oa/signstart/docapp/'+dbPath+'/frmSubmitPage?openform&action=huiqian&unid='+id;
-									var signloadurl= $.hori.getconfig().appServerHost+signurl;
-									$.hori.loadPage(signloadurl);
+									$("#querysaveagent").val("agtExecuteAction");
+									$("#hfldAction").val("huiqian");
+									$("#form").submit();
 								}
 							}
 						]]>
@@ -128,23 +142,29 @@
 							<form id="form" action="/view/oa/submit{//form[@name='_frmWebFlow']/@action}" method="post">
 								<input type="hidden" id="querysaveagent" name="$$querysaveagent" value="{//input[@name='$$querysaveagent']/@value}" />
 								<div data-role="content" align="center">
-								<div class="ui-grid-b">
-									<div class="ui-block-a" style="padding-bottom:5px;" align="center">
-										<a data-role="button" value="submit" onclick="submit('submit');" data-mini='true' data-theme="f">提 交</a>
-									</div>
-									<div class="ui-block-b" style="padding-bottom:5px;" align="center">
-										<a data-role="button" value="reject" onclick="submit('reject');" data-mini='true' data-theme="f">驳 回</a>
-									</div>
+								<div class="ui-grid-c">
+									<xsl:if test="//div[contains(@onclick, 'agtFlowDeal')]">
+										<div class="ui-block-a" style="padding-bottom:5px;" align="center">
+											<a data-role="button" value="submit" onclick="submit('submit');" data-mini='true' data-theme="f">提 交</a>
+										</div>
+									</xsl:if>
+									<xsl:if test="//div[contains(@onclick, 'agtFlowDeny')]">
+										<div class="ui-block-b" style="padding-bottom:5px;" align="center">
+											<a data-role="button" value="reject" onclick="submit('reject');" data-mini='true' data-theme="f">驳 回</a>
+										</div>
+									</xsl:if>
 									<xsl:if test="//div[contains(@onclick, 'huiqian')]">
 										<div class="ui-block-c" style="padding-bottom:5px;" align="center">
 											<a data-role="button" value="oprate" onclick="submit('sign');" data-mini='true' data-theme="f">会 签</a>
 										</div>
-										<input type="hidden" id="docunid" value="{$docunid}"/>
-										<input type="hidden" id="dbPath" value="{$dbPath}"/>
+									</xsl:if>
+									<xsl:if test="//*[@name='fldAttitude']">
+										<div class="ui-block-d" style="padding-bottom:5px;" align="center">
+											<a data-role="button" value="reject" onclick="submit('save');" data-mini='true' data-theme="f">保 存</a>
+										</div>
 									</xsl:if>
 								</div>
 								<h3><xsl:value-of select="substring-after(//table[@id='table1']/tbody/tr[4]/.,':')" /></h3>
-									   
 								<div data-role="collapsible" data-collapsed="false" data-theme="f" data-content-theme="d">
 									<h4>附件</h4>
 									<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
@@ -178,7 +198,7 @@
 												</tr>
 												<tr style="width:100%">
 													<td colspan="2" style="width:100%" align="center">
-														<textarea id="fldAttitude" name="fldAttitude"></textarea>
+														<textarea id="fldAttitude" name="fldAttitude"><xsl:value-of select="//textarea[@name='fldAttitude']/text()"/></textarea>
 													</td>
 												</tr>
 											</table>
@@ -204,6 +224,7 @@
 												<font color="red" size="3">无基本信息</font>
 											</xsl:if>
 											<xsl:apply-templates select="//table[@id='table1']/tbody" mode="basedata"/>
+											<input type="hidden" id="huiqiandanwei" value="{substring-after(//table[@id='table1']/tbody/tr[5]/td/table/tbody/tr/td[3]/.,'：')}"/>
 										</li>
 									</ul>
 									</div>
@@ -232,7 +253,7 @@
 	<!-- 将隐藏控件传入 -->
 	<xsl:template match="input" mode="hidden">
 		<xsl:if test="@name!='$$querysaveagent'">
-			<input type="hidden" name="{@name}" value="{@value}"/>
+			<input type="hidden" id="{@name}" name="{@name}" value="{@value}"/>
 		</xsl:if>
 	</xsl:template>
 

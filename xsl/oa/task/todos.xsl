@@ -25,8 +25,6 @@
 				var itcode=localStorage.getItem("Chinesename");
 				localStorage.setItem("contemplate",template);
 				localStorage.setItem("unid",unid);
-				//针对提交、驳回取消时，保存意见
-				localStorage.setItem("mindStr","");
 				var loadurl= $.hori.getconfig().appServerHost+"view/oa/"+template+"/docapp/genertec/persontasks.nsf/agtUrlRef?openagent&unid="+unid+"&user="+itcode;
 				$.hori.loadPage(loadurl);
 			}
@@ -35,12 +33,12 @@
 		<script type="text/javascript">
 		<![CDATA[
 			var myScroll,pullUpEl, pullUpOffset,generatedCount = 0;
-			var start=20;
+			var start=1;
 			function pullUpAction () {
 				setTimeout(function () {
 					$.hori.showLoading();
 					var itcode=localStorage.getItem("itcode");
-					start=start+10;
+					start=start+20;
 					var url = $.hori.getconfig().appServerHost+"viewhome/oa/todossub/docapp/genertec/persontasks.nsf/dbview?openform&view=vwgwdbshow&restricttocategory="+itcode+"&start="+start+"&count=20";
 					$.ajax({
 						type: "get", url: url,
@@ -132,9 +130,9 @@
 				<a href="javascript:void(0)" onclick="loadPageForm(this);" data-unid="{$unid}"	data-type="{$type}">
 					<h3><xsl:value-of select="td[3]/."/><xsl:value-of select="td[2]/@value"/></h3>
 					<p>
-						类型:<font color="#0080FF"><xsl:value-of select="td[4]/."/></font>
+						类型d:<font color="#0080FF"><xsl:value-of select="td[4]/."/></font>
 						来源:<font color="#0080FF"><xsl:value-of select="td[5]/."/></font>
-						状态:<font color="#0080FF"><xsl:value-of select="td[6]/."/></font>
+						状态d:<font color="#0080FF"><xsl:value-of select="td[6]/."/></font>
 						时间:<font color="#0080FF"><xsl:value-of select="td[7]/."/></font>
 					</p>
 				</a>
