@@ -9,9 +9,10 @@
 					<property name="title">
 						<string></string>
 					</property>
+					<!--
 					<property name="navButtonText">
 						<string>注销</string>
-					</property>
+					</property>-->
 					<property name="navBarHidden">
 						<string>0</string>
 					</property>

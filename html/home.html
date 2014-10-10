@@ -20,6 +20,10 @@
 <script src="../lib/app/home/app.js"></script>
 <script src="../lib/app/home/news.js"></script>
 <script src="../config/web/config.js"></script>
+<style type="text/css">
+.swiper-image{
+}
+</style>
 <script type="text/javascript">
 	var currentUser = "";
 	$(document).ready(function() {
@@ -35,18 +39,15 @@
 			});
 			//ios 隐藏邮件图标
 			createUser();
-			if (hori.getMobileType() == "apple") {
-				$("#divMail").hide();
-			}
 			var itcode = localStorage.getItem("itcode");
 			//默认先加载图片新闻
-			getNewsList(itcode, "GT_HomePage_SiteArea_tpxw",6,1);
+			getNewsList(itcode, "GT_HomePage_SiteArea_tpxw", 6, 1);
 			//加载通知公告
-			getNewsList(itcode, "GT_HomePage_SiteArea_jttz",4,1);
-		    //加载集团新闻
-			getNewsList(itcode, "GT_HomePage_SiteArea_jtxw",4,1);
-		    //成员单位新闻
-			getNewsList(itcode, "GT_HomePage_SiteArea_zgsxw",6,1);
+			getNewsList(itcode, "GT_HomePage_SiteArea_jttz", 4, 1);
+			//加载集团新闻
+			getNewsList(itcode, "GT_HomePage_SiteArea_jtxw", 4, 1);
+			//成员单位新闻
+			getNewsList(itcode, "GT_HomePage_SiteArea_zgsxw", 6, 1);
 		} catch (e) {
 			alert(e.message);
 		}
@@ -101,14 +102,13 @@
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl
 				+ 'viewhome/html/news/newsList.html');
 	}
-	
+
 	//安全生产值班表列表
 	function loadAqsczbb() {
 		$.hori.showLoading();
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl
 				+ 'viewhome/html/watchlist.html');
 	}
-	
 </script>
 </head>
 <body>
@@ -116,15 +116,15 @@
 		style="background: url(../assets/home/bg_empty.jpg); -moz-background-size: cover; background-repeat: repeat;">
 		<div data-role="content" align="center">
 			<div class="swiper-container">
-				<div id="tpxwSwiper" class="swiper-wrapper" data-bind="foreach: list">
-					<div class="swiper-slide" >
-						<a data-bind="click:showDetail"
-							> <img
+				<div id="tpxwSwiper" class="swiper-wrapper"
+					data-bind="foreach: list">
+					<div class="swiper-slide">
+						<a data-bind="click:showDetail"> <img class="swiper-image"
 							data-bind="attr:{'src':imgSrc}" />
-							<div>
-								<span class="title" data-bind="text: contentTitle" ></span>
-							</div>
 						</a>
+						<div>
+							<span class="title" data-bind="text: contentTitle"></span>
+						</div>
 					</div>
 				</div>
 				<div class="pagination"></div>
@@ -148,63 +148,66 @@
 					<!-- <span id="spanSearch" class="bubble-count ui-btn-up-c ui-btn-corner-all">1</span>  -->
 					<span style="color: #434343; font-size: 12px;"><strong>公文查阅</strong></span>
 				</div>
-				<div class="ui-block-c" id="three" style="display:none">
+				<div class="ui-block-c" id="three" style="display: none">
 					<a href="javascript:void(0);" onclick="loadBI()"> <img
 						width="45" height="45" src="../assets/home/bi.png">
 					</a> <br /> <span style="color: #434343; font-size: 12px;"><strong>BI图表</strong></span>
 				</div>
 				<div class="ui-block-c">
-					<a href="javascript:void(0);" onclick="loadAqsczbb()"> <img width="45" height="45"
-						src="../assets/home/aqsc.png">
+					<a href="javascript:void(0);" onclick="loadAqsczbb()"> <img
+						width="45" height="45" src="../assets/home/aqsc.png">
 					</a> <br /> <span style="color: #434343; font-size: 12px;"><strong>安全生产值班表</strong></span>
 				</div>
 			</div>
 			<p>
-              <div>
-			<ul id="jttzList" data-role="listview" data-theme="d"
-				style="word-wrap: break-word" data-bind="foreach: list">
-				<li data-icon="false" ><a
-					data-bind="click:showDetailJttz" data-mini="true">
-						<p>
-							<span
-								style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 80%; float: left;"><font
-								color="#0080ff">&nbsp;&nbsp;<span data-bind="text:contentTitle"></span></font></span><span><a
-								href="#" style="float: right;"> <font color="#0080ff"><span>[08-13]&nbsp;&nbsp;</span></font></a></span>
-						</p>
-				</a></li>
-			</ul>
+			<div>
+				<ul id="jttzList" data-role="listview" data-theme="d"
+					style="word-wrap: break-word" data-bind="foreach: list">
+					<li data-icon="false"><a data-bind="click:showDetailJttz"
+						data-mini="true">
+							<p>
+								<span
+									style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 80%; float: left;"><font
+									color="#0080ff">&nbsp;&nbsp;<span
+										data-bind="text:contentTitle"></span></font></span><span><a href="#"
+									style="float: right;"> <font color="#0080ff"><span>[08-13]&nbsp;&nbsp;</span></font></a></span>
+							</p>
+					</a></li>
+				</ul>
 			</div>
 			<p>
 			<div>
-			<ul id="jtxwList" data-role="listview" data-theme="d"
-				style="word-wrap: break-word" data-bind="foreach: list">
-				<li data-icon="false" ><a
-					data-bind="click:showDetailJtxw" data-mini="true">
-						<p>
-							<span
-								style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 80%; float: left;"><font
-								color="#0080ff">&nbsp;&nbsp;<span data-bind="text:contentTitle"></span></font></span><span><a
-								href="#" style="float: right;"> <font color="#0080ff"><span>[08-13]&nbsp;&nbsp;</span></font></a></span>
-						</p>
-				</a></li>
-			</ul>
+				<ul id="jtxwList" data-role="listview" data-theme="d"
+					style="word-wrap: break-word" data-bind="foreach: list">
+					<li data-icon="false"><a data-bind="click:showDetailJtxw"
+						data-mini="true">
+							<p>
+								<span
+									style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 80%; float: left;"><font
+									color="#0080ff">&nbsp;&nbsp;<span
+										data-bind="text:contentTitle"></span></font></span><span><a href="#"
+									style="float: right;"> <font color="#0080ff"><span>[08-13]&nbsp;&nbsp;</span></font></a></span>
+							</p>
+					</a></li>
+				</ul>
 			</div>
 			<p>
 			<div>
-			<ul id="cydwxwList" data-role="listview" data-theme="d"
-				style="word-wrap: break-word" data-bind="foreach: list">
-				<li data-icon="false" ><a
-					data-bind="click:showDetailZgsxw" data-mini="true">
-						<p>
-							<span
-								style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 80%; float: left;"><font
-								color="#0080ff">&nbsp;&nbsp;<span data-bind="text:contentTitle"></span></font></span><span><a
-								href="#" style="float: right;"> <font color="#0080ff"><span>[08-13]&nbsp;&nbsp;</span></font></a></span>
-						</p>
-				</a></li>
-			</ul>
+				<ul id="cydwxwList" data-role="listview" data-theme="d"
+					style="word-wrap: break-word" data-bind="foreach: list">
+					<li data-icon="false"><a data-bind="click:showDetailZgsxw"
+						data-mini="true">
+							<p>
+								<span
+									style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 80%; float: left;"><font
+									color="#0080ff">&nbsp;&nbsp;<span
+										data-bind="text:contentTitle"></span></font></span><span><a href="#"
+									style="float: right;"> <font color="#0080ff"><span>[08-13]&nbsp;&nbsp;</span></font></a></span>
+							</p>
+					</a></li>
+				</ul>
 			</div>
-			
+
 		</div>
 	</div>
 
