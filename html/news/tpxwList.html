@@ -7,8 +7,18 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
 
 </head>
+<style>
+#wrapper {
+	position: fixed;
+	top:0px;
+	bottom: 48px;
+	width:40%;
+}
+</style>
 <body>
-		
+		<div id="wrapper" style="overflow:scroll;">
+		<div id="scroller">
+		<p></p>
 			<ul data-bind="foreach: list" id="querydataList" data-role="listview">
 				<li data-icon="false" >
 					<a  data-bind="click:showDetail"  >
@@ -19,11 +29,6 @@
 					<p style="text-align: right;">[8-22]</p>
 				</a></li>
 			 </ul>
-		<div id="wrapper" style="overflow:scroll;">
-		<div id="scroller">
-			<div id="pullUp"></div>
-			<ul data-role="listview" id="dataList" style="list-style:none;">
-			</ul>
 		</div>
 	</div>
 </body>
