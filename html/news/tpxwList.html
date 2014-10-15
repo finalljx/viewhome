@@ -72,12 +72,15 @@ function pullUpAction(itcode) {
 					"type" : "post",
 					"url" : url,
 					"data" : data,
+					"headers" : {
+					 "Authorization" : "Basic d3BzYWRtaW46R1RBZG1pbg=="
+					 },
 					"success" : function(res) {
 						var list = JSON.parse(res);
 						for ( var item in list) {
-							var targetURL = "http://10.1.32.61/appdata/WcmNewsImage/" + list[item].contentName + "/"
-									+ list[item].newName;
-							list[item].imgSrc = targetURL;
+							var targetURL = $.hori.getconfig().serverBaseUrl+"view/news/file/" + list[item].tpxwImage + "?data-result=file";
+							list[item].tpxwImage = targetURL;
+							console.log(list[item].tpxwImage);
 						}
 						if (page == 1) {
 							jsonData.list = list;
@@ -162,11 +165,11 @@ function loaded() {
 			<ul data-bind="foreach: list" id="querydataList" data-role="listview">
 				<li data-icon="false" >
 					<a  data-bind="click:showDetail"  >
-					<img data-bind="attr:{'src':imgSrc}" style="margin-left: 10px;margin-top: 10px;" />
+					<img data-bind="attr:{'src':tpxwImage}" style="margin-left: 10px;margin-top: 10px;" />
 					<h3 style="white-space: normal;">
 						<span data-bind="text: contentTitle" />
 					</h3>
-					<p style="text-align: right;">[8-22]</p>
+					<p style="text-align: right;"><span data-bind="text:creatTime"></span></p>
 				</a></li>
 			</ul>
 		</div>

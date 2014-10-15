@@ -46,7 +46,6 @@ $(document).ready(function() {
 		 itcode = localStorage.getItem("itcode");
 		 $.hori.setHeaderTitle("图片新闻");
 		 moreCurrentName= localStorage.getItem("moreCurrentName");
-		
 	//加载通知公告列表
 	pullUpAction(itcode);
 });
@@ -163,7 +162,7 @@ $(document).ready(function() {
 					<h3 style="white-space: normal;">
 						<span data-bind="text: contentTitle" ></span>
 					</h3>
-					<p style="text-align: right;">[8-22]</p>
+					<p style="text-align: right;"><span data-bind="text:creatTime"></span></p>
 				</a></li>
 			</ul>
 		</div>

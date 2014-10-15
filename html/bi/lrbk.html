@@ -56,7 +56,6 @@ a {
                 "url":url,
                 "data":data,
                 "success":function(res){
-                	console.log(res);
                 	var json=JSON.parse(res);
                 	var reportdata=json.reportdata;
                 	var title=reportdata.title;
@@ -115,14 +114,14 @@ a {
 	                    center: ['50%', '60%'],
 	                    radius: '50%',
 	                    data:[
-	                        {value: Math.abs(seriesdata[0]),  name: category[0]},
+	                        {value: seriesdata[0],  name: category[0]},
 	                        {value: seriesdata[1],  name: category[1]},
 	                        {value: seriesdata[2],  name: category[2]},
 	                        {value: seriesdata[3],  name: category[3]},
-	                        {value: seriesdata[4], name: category[4]},
-	                        {value: seriesdata[5], name: category[5]},
-	                        {value: seriesdata[6], name: category[6]},
-	                        {value: Math.abs(seriesdata[7]), name: category[7]}
+	                        {value: seriesdata[4],  name: category[4]},
+	                        {value: seriesdata[5],  name: category[5]},
+	                        {value: seriesdata[6],  name: category[6]},
+	                        {value: seriesdata[7],  name: category[7]}
 	                        
 	                    ]
 	                }

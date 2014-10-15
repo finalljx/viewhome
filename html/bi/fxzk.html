@@ -70,7 +70,7 @@ float: left;
         				imgString=imgString+"<li style='line-height:50px;'><div style='float:left;clear:both;width:60px;'><font size='2'>"+busiName+"</div><div style='float:left;width:50px;'><img src='img/dalv.png'></img></div>"
         			}
         			var imageType=busiData[i].imageType.split('|');
-        			for(var j=0;j<imageType.length;j++){
+        			for(var j=0;j<imageType.length-1;j++){
         				if(10==imageType[j]){
         					imgString=imgString+"<div style='float:left;width:6%;line-height:60px;'><img src='img/xiaolv.png'></img></div>";
         				}else if(20==imageType[j]){

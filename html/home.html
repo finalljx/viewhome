@@ -96,7 +96,7 @@
 	}
 	//集团新闻
 	function loadNewsList(typeName) {
-		localStorage.setItem("moreCurrentName", "GT_HomePage_SiteArea_jttz");
+		localStorage.setItem("moreCurrentName", typeName);
 		$.hori.showLoading();
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl
 				+ 'viewhome/html/news/newsList.html');
@@ -120,7 +120,7 @@
 					<div class="swiper-slide" >
 						<a data-bind="click:showDetail"
 							> <img
-							data-bind="attr:{'src':imgSrc}" />
+							data-bind="attr:{'src':tpxwImage}" />
 							<div>
 								<span class="title" data-bind="text: contentTitle" ></span>
 							</div>
@@ -169,7 +169,7 @@
 							<span
 								style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 80%; float: left;"><font
 								color="#0080ff">&nbsp;&nbsp;<span data-bind="text:contentTitle"></span></font></span><span><a
-								href="#" style="float: right;"> <font color="#0080ff"><span>[08-13]&nbsp;&nbsp;</span></font></a></span>
+								href="#" style="float: right;"> <font color="#0080ff"><span data-bind="text:creatTime">&nbsp;&nbsp;</span></font></a></span>
 						</p>
 				</a></li>
 			</ul>
@@ -184,7 +184,7 @@
 							<span
 								style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 80%; float: left;"><font
 								color="#0080ff">&nbsp;&nbsp;<span data-bind="text:contentTitle"></span></font></span><span><a
-								href="#" style="float: right;"> <font color="#0080ff"><span>[08-13]&nbsp;&nbsp;</span></font></a></span>
+								href="#" style="float: right;"> <font color="#0080ff"><span data-bind="text:creatTime">&nbsp;&nbsp;</span></font></a></span>
 						</p>
 				</a></li>
 			</ul>
@@ -199,7 +199,7 @@
 							<span
 								style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 80%; float: left;"><font
 								color="#0080ff">&nbsp;&nbsp;<span data-bind="text:contentTitle"></span></font></span><span><a
-								href="#" style="float: right;"> <font color="#0080ff"><span>[08-13]&nbsp;&nbsp;</span></font></a></span>
+								href="#" style="float: right;"> <font color="#0080ff"><span data-bind="text:creatTime"> &nbsp;&nbsp;</span></font></a></span>
 						</p>
 				</a></li>
 			</ul>
