@@ -77,11 +77,10 @@ function pullUpAction(itcode) {
 					 },
 					"success" : function(res) {
 						var list = JSON.parse(res);
-						for ( var item in list) {
+						/* for ( var item in list) {
 							var targetURL = $.hori.getconfig().serverBaseUrl+"view/news/file/" + list[item].tpxwImage + "?data-result=file";
 							list[item].tpxwImage = targetURL;
-							console.log(list[item].tpxwImage);
-						}
+						} */
 						if (page == 1) {
 							jsonData.list = list;
 							render();
@@ -119,7 +118,7 @@ function loaded() {
 		useTransition : true,
 		topOffset : pullUpOffset,
 		onRefresh : function() {
-			if (pullUpEl.className.match('loading')) {
+			if (pullUpEl.className.match('正在加载中...')) {
 				pullUpEl.className = '';
 				pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
 			}
@@ -139,8 +138,8 @@ function loaded() {
 		onScrollEnd : function() {
 
 			if (pullUpEl.className.match('flip')) {
-				pullUpEl.className = 'loading';
-				pullUpEl.querySelector('.pullUpLabel').innerHTML = 'loading...';
+				pullUpEl.className = '正在加载中...';
+				pullUpEl.querySelector('.pullUpLabel').innerHTML = '正在加载中...';
 				 pullUpAction(itcode);
 			}
 		}

@@ -46,7 +46,6 @@
     
    XPath xpath2 = doc1.createXPath("//attachment[1]");
    if(xpath2.selectSingleNode(doc1)!=null){
-   System.out.println(xpath2+"111*****************************************************************");
    String attachment = xpath2.selectSingleNode(doc1).asXML();
     attachment = attachment.replaceAll("<attachment>","").replaceAll("</attachment>","");
     XPath xpath3 = doc1.createXPath("//attachmentSource[1]");
@@ -54,14 +53,7 @@
     attachmentSource = attachmentSource.replaceAll("<attachmentSource>","").replaceAll("</attachmentSource>","");
     newslist.put("attachment",attachment);
     newslist.put("attachmentSource",attachmentSource);
-    System.out.println("****************************************");
-    System.out.println(attachment);
-    System.out.println("****************************************");
-    System.out.println(attachmentSource);
-    System.out.println("****************************************");
    } 
-    
-   
     //替换正文html内容
     newslist.put("richText",richText);
     out.clear();
