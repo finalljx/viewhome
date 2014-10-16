@@ -8,6 +8,23 @@
 <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
 <link rel="stylesheet" href="../lib/swiper/idangerous.swiper.css">
 <link rel="stylesheet" href="../lib/app/home/css/news.css">
+<style type="text/css">
+.swiper-image {
+	
+}
+
+.ui-li-has-count .ui-li-count {
+	/* font-size: 16px; */
+	font-weight: 700;
+}
+
+.ui-date-item {
+	border: none;
+	background: transparent;
+	background-image: none;
+	font-size: 2em;
+}
+</style>
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/jquery-cookie/jquery.cookie.js"></script>
 <script src="../lib/encrypt/encrypt.js"></script>
@@ -21,7 +38,8 @@
 <script src="../lib/app/home/news.js"></script>
 <script src="../config/web/config.js"></script>
 <style type="text/css">
-.swiper-image{
+.swiper-image {
+	
 }
 </style>
 <script type="text/javascript">
@@ -116,13 +134,13 @@
 		style="background: url(../assets/home/bg_empty.jpg); -moz-background-size: cover; background-repeat: repeat;">
 		<div data-role="content" align="center">
 			<div class="swiper-container">
-				<div id="tpxwSwiper" class="swiper-wrapper" data-bind="foreach: list">
-					<div class="swiper-slide" >
-						<a data-bind="click:showDetail"
-							> <img
+				<div id="tpxwSwiper" class="swiper-wrapper"
+					data-bind="foreach: list">
+					<div class="swiper-slide">
+						<a data-bind="click:showDetail"> <img
 							data-bind="attr:{'src':tpxwImage}" />
 							<div>
-								<span class="title" data-bind="text: contentTitle" ></span>
+								<span class="title" data-bind="text: contentTitle"></span>
 							</div>
 						</a>
 					</div>
@@ -135,74 +153,58 @@
 			<div class="ui-grid-b" id="divOne">
 				<div class="ui-block-a">
 					<a href="javascript:void(0);" onclick="loadTaskList()"> <img
-						id="imgToDo" width="45" height="45" src="../assets/home/gwdb.png" />
+						id="imgToDo" src="../assets/home/gwdb.png" class="module-icon" />
 					</a> <br />
 					<!-- <span id="spanTodo" class="bubble-count ui-btn-up-c ui-btn-corner-all">1</span> <br /> -->
-					<span style="color: #434343; font-size: 12px;"><strong>公文待办</strong></span>
+					<span style="color: #434343;"><strong>公文待办</strong></span>
 				</div>
 				<div class="ui-block-b">
 					<a href="javascript:void(0);" onclick="loadqueryList()"> <img
-						id="imgSearch" width="45" height="45"
-						src="../assets/home/gwcy.png" />
+						id="imgSearch" class="module-icon" src="../assets/home/gwcy.png" />
 					</a> <br />
 					<!-- <span id="spanSearch" class="bubble-count ui-btn-up-c ui-btn-corner-all">1</span>  -->
-					<span style="color: #434343; font-size: 12px;"><strong>公文查阅</strong></span>
+					<span style="color: #434343;"><strong>公文查阅</strong></span>
 				</div>
 				<div class="ui-block-c" id="three" style="display: none">
 					<a href="javascript:void(0);" onclick="loadBI()"> <img
-						width="45" height="45" src="../assets/home/bi.png">
-					</a> <br /> <span style="color: #434343; font-size: 12px;"><strong>BI图表</strong></span>
+						class="module-icon" src="../assets/home/bi.png">
+					</a> <br /> <span style="color: #434343;"><strong>BI图表</strong></span>
 				</div>
 				<div class="ui-block-c">
 					<a href="javascript:void(0);" onclick="loadAqsczbb()"> <img
-						width="45" height="45" src="../assets/home/aqsc.png">
-					</a> <br /> <span style="color: #434343; font-size: 12px;"><strong>安全生产值班表</strong></span>
+						class="module-icon" src="../assets/home/aqsc.png">
+					</a> <br /> <span style="color: #434343;"><strong>安全生产值班表</strong></span>
 				</div>
 			</div>
 			<p>
-              <div>
-			<ul id="jttzList" data-role="listview" data-theme="d"
-				style="word-wrap: break-word" data-bind="foreach: list">
-				<li data-icon="false" ><a
-					data-bind="click:showDetailJttz" data-mini="true">
-						<p>
-							<span
-								style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 80%; float: left;"><font
-								color="#0080ff">&nbsp;&nbsp;<span data-bind="text:contentTitle"></span></font></span><span>
-						<a href="#" style="float: right;"> <font color="#0080ff"><span data-bind="text:creatTime">&nbsp;&nbsp;</span></font></a></span>
-						</p>
-				</a></li>
-			</ul>
+			<div>
+				<ul id="jttzList" data-role="listview" data-theme="d"
+					data-bind="foreach: list">
+					<li data-icon="false"><a data-bind="click:showDetailJttz">
+							<!-- ko text: contentTitle --> <!-- /ko --> <span
+							class="ui-li-count ui-date-item" data-bind="text:creatTime" />
+					</a></li>
+				</ul>
 			</div>
 			<p>
 			<div>
-			<ul id="jtxwList" data-role="listview" data-theme="d"
-				style="word-wrap: break-word" data-bind="foreach: list">
-				<li data-icon="false" ><a
-					data-bind="click:showDetailJtxw" data-mini="true">
-						<p>
-							<span
-								style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 80%; float: left;"><font
-								color="#0080ff">&nbsp;&nbsp;<span data-bind="text:contentTitle"></span></font></span><span><a
-								href="#" style="float: right;"> <font color="#0080ff"><span data-bind="text:creatTime">&nbsp;&nbsp;</span></font></a></span>
-						</p>
-				</a></li>
-			</ul>
+				<ul id="jtxwList" data-role="listview" data-theme="d"
+					style="word-wrap: break-word" data-bind="foreach: list">
+					<li data-icon="false"><a data-bind="click:showDetailJttz">
+							<!-- ko text: contentTitle --> <!-- /ko --> <span
+							class="ui-li-count ui-date-item" data-bind="text:creatTime" />
+					</a></li>
+				</ul>
 			</div>
 			<p>
 			<div>
-			<ul id="cydwxwList" data-role="listview" data-theme="d"
-				style="word-wrap: break-word" data-bind="foreach: list">
-				<li data-icon="false" ><a
-					data-bind="click:showDetailZgsxw" data-mini="true">
-						<p>
-							<span
-								style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 80%; float: left;"><font
-								color="#0080ff">&nbsp;&nbsp;<span data-bind="text:contentTitle"></span></font></span><span><a
-								href="#" style="float: right;"> <font color="#0080ff"><span data-bind="text:creatTime"> &nbsp;&nbsp;</span></font></a></span>
-						</p>
-				</a></li>
-			</ul>
+				<ul id="cydwxwList" data-role="listview" data-theme="d"
+					data-bind="foreach: list">
+					<li data-icon="false"><a data-bind="click:showDetailJttz">
+							<!-- ko text: contentTitle --> <!-- /ko --> <span
+							class="ui-li-count ui-date-item" data-bind="text:creatTime" />
+					</a></li>
+				</ul>
 			</div>
 
 		</div>
