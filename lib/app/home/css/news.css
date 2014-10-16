@@ -4,11 +4,32 @@ a {
 	text-decoration: none;
 }
 
+.module-icon{
+	width: 4em;
+	height: 4em;
+}
+
+.swiper-image {
+    
+}
+
+.ui-li-has-count .ui-li-count {
+    /* font-size: 16px; */
+    font-weight: 700;
+}
+
+.ui-date-item {
+    border: none;
+    background: transparent;
+    background-image: none;
+    font-size: 2em;
+}
+
 .swiper-container {
 	margin-left: 0px;
 	color: #fff;
 	text-align: left;
-	font-size: 13px;
+	font-size: 16px;
 	line-height: 1.5;
 	color: #fff;
 	margin-bottom: 5px;
@@ -70,7 +91,6 @@ a {
 .swiper-dynamic-links a {
 	display: inline-block;
 	padding: 5px;
-	border-radius: 3px;
 	border: 1px solid #ccc;
 	margin: 5px;
 	font-size: 12px;
