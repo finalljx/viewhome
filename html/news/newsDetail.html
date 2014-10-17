@@ -16,7 +16,7 @@ p{
 </style>
 </head>
 <body>
-		<div data-role="content" id="newsDetail">
+		<div data-role="content" id="newsDetail" >
 			<!-- 标题 -->
 			<div>
 				<h3>
@@ -34,12 +34,15 @@ p{
 				</div>
 				</p>
 			</div>
-			<!-- <div data-bind="html:richText"></div> -->
-			<!-- 正文 -->
 			<div style="clear: both;">
 				<span data-bind="html:richText" ></span>
 			</div>
-
+			<div style="clear: both; display: inline;" id="fujian">
+				<ul data-bind="foreach: attachmentList">
+					<li><a data-bind="attr:{'href':attachmentSource}"><span
+							data-bind="text: attachment"></span></a></li>
+				</ul>
+			</div>
 		</div>
 </body>
 </html>

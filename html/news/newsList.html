@@ -5,20 +5,131 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
-<script type="application/javascript" src="../../assets/iscroll.js"></script>
-<link rel="stylesheet"
-	href="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" />
-<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
-<script src="../../lib/jquery/jquery.min.js"></script>
-<script src="../../lib/encrypt/encrypt.js"></script>
-<script src="../../lib/json/json2.js"></script>
-<script src="../../lib/hori/hori.js?tag=21369"></script>
-<script src="../../config/web/config.js"></script>
-<script
-	src="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
-<script src="../../lib/knockout/knockout.js"></script>
-<script src="../../lib/knockout/knockout.mapping.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		jQuery.jqtab = function(tabtit, tab_conbox, shijian) {
+			$(tab_conbox).find("li").hide();
+			$(tabtit).find("li:first").addClass("thistab").show();
+			$(tab_conbox).find("li:first").show();
+
+			$(tabtit).find("li").bind(shijian, function() {
+				$(this).addClass("thistab").siblings("li").removeClass("thistab");
+				var activeindex = $(tabtit).find("li").index(this);
+				$(tab_conbox).children().eq(activeindex).show().siblings().hide();
+				return false;
+			});
+
+		};
+		/*调用方法如下：*/
+		$.jqtab("#tabs", "#tab_conbox", "click");
+
+	});
+function changelb(type){
+	switch(type){
+	case 'tpxw':
+		localStorage.setItem("moreCurrentName","GT_HomePage_SiteArea_"+type);
+		$.getScript("../lib/app/home/tpxwList.js");
+		$("#middleContent").load("news/tpxwList.html", function(a, b, c) {
+			$("#querydataList").listview();   
+		});
+		setTimeout(function() {
+			$.mobile.loading("hide")
+		}, 1000);
+		break;
+	case 'jttz':
+		localStorage.setItem("moreCurrentName","GT_HomePage_SiteArea_"+type);
+		$.getScript("../lib/app/home/newsList.js");
+		$("#middleContent").load("news/newsList.html", function(a, b, c) {
+			$("#querydataList").listview();   
+		});
+		setTimeout(function() {
+			$.mobile.loading("hide")
+		}, 1000);
+	    break;
+	case 'jtxw':
+		localStorage.setItem("moreCurrentName","GT_HomePage_SiteArea_"+type);
+		$.getScript("../lib/app/home/newsList.js");
+		$("#middleContent").load("news/newsList.html", function(a, b, c) {
+			$("#querydataList").listview();   
+		});
+		setTimeout(function() {
+			$.mobile.loading("hide")
+		}, 1000);
+		break;
+	case 'zgsxw':
+		localStorage.setItem("moreCurrentName","GT_HomePage_SiteArea_"+type);
+		$.getScript("../lib/app/home/newsList.js");
+		$("#middleContent").load("news/newsList.html", function(a, b, c) {
+			$("#querydataList").listview();   
+		});
+		setTimeout(function() {
+			$.mobile.loading("hide")
+		}, 1000);
+		break;
+	}
+	
+}
+</script>
+
+
 <style>
+#wrapper {
+	position: fixed;
+	top: 55px;
+	bottom: 48px;
+	width: 40%;
+}
+
+#tabbox {
+	width: 600px;
+	overflow: hidden;
+	margin: 0 auto;
+}
+
+.tab_conbox {
+	border: 1px solid #999;
+	border-top: none;
+}
+
+.tab_con {
+	display: none;
+}
+
+.tabs {
+	height: 32px;
+	border-bottom: 1px solid #999;
+	border-left: 1px solid #999;
+	width: 100%;
+}
+
+.tabs li {
+	height: 31px;
+	line-height: 31px;
+	float: left;
+	border: 1px solid #999;
+	border-left: none;
+	margin-bottom: -1px;
+	background: #e0e0e0;
+	overflow: hidden;
+	position: relative;
+}
+
+.tabs li a {
+	display: block;
+	padding: 0 20px;
+	border: 1px solid #fff;
+	outline: none;
+}
+
+.tabs li a:hover {
+	background: #ccc;
+}
+
+.tabs .thistab, .tabs .thistab a:hover {
+	background: #fff;
+	border-bottom: 1px solid #fff;
+}
+
 a {
 	text-decoration: none;
 }
@@ -33,144 +144,34 @@ a {
 	max-height: 5em;
 }
 </style>
-<script type="text/javascript">
-var itcode;
-var moreCurrentName;
-$(document).ready(function() {
-		 itcode = localStorage.getItem("itcode");
-		 $.hori.setHeaderTitle("图片新闻");
-		 moreCurrentName= localStorage.getItem("moreCurrentName");
-		 switch (moreCurrentName){
-			case "GT_HomePage_SiteArea_jttz":
-				document.getElementsByTagName("h1")[0].innerHTML = "通知公告";
-				break;
-			case "GT_HomePage_SiteArea_jtxw":
-				document.getElementsByTagName("h1")[0].innerHTML = "集团新闻";
-				break;
-			case "GT_HomePage_SiteArea_zgsxw":
-				document.getElementsByTagName("h1")[0].innerHTML = "成员单位新闻";
-				break;
-			}
-	//加载通知公告列表
-	pullUpAction(itcode);
-});
-	var myScroll, pullDownEl, pullDownOffset, pullUpEl, pullUpOffset, generatedCount = 0;
-    var str=null;
-    var jsonData=new Object();
-	 var page=0;
-	 var viewModel=new Object();
-	function pullUpAction(itcode) {
-		setTimeout(function () {
-					page=page+1;
-					var url = $.hori.getconfig().appServerHost
-					+ "view/news/newsList/accsyWcmNews/services/WcmNewsList";
-					var temp = "$lt;?xml version='1.0' encoding='utf-8'?$gt;$lt;root$gt;$lt;newslist$gt;$lt;type$gt;"+moreCurrentName+"$lt;/type$gt;$lt;userid$gt;"
-							+ itcode
-							+ "$lt;/userid$gt;$lt;pageSize$gt;10$lt;/pageSize$gt;$lt;parent$gt;1$lt;/parent$gt;$lt;pageNow$gt;"+page+"$lt;/pageNow$gt;$lt;/newslist$gt;$lt;/root$gt;";
-					var soap = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='http://webservice.biz.digiwin.com'>";
-					soap += '<soapenv:Header/><soapenv:Body>';
-					soap += '<web:getWcmNewsList>';
-					soap += '<web:in0>' + temp + '</web:in0>';
-					soap += '</web:getWcmNewsList>';
-					soap += ' </soapenv:Body></soapenv:Envelope>';
-					var data = "data-xml=" + soap;
-					$.hori.ajax({
-						"type" : "post",
-						"url" : url,
-						"data" : data,
-						"success" : function(res) {
-							var list = JSON.parse(res);
-							for ( var item in list) {
-								var targetURL = "http://10.1.32.61/appdata/WcmNewsImage/"
-										+ list[item].contentName
-										+ "/"
-										+ list[item].newName;
-								list[item].imgSrc = targetURL;
-							}
-							if(page==1){
-							jsonData.list = list;
-							render();
-							}else {
-								for(var i=0;i<list.length;i++){
-									viewModel.list.push(list[i]);
-								}
-							}
-						},
-						"error" : function(res) {
-							alert("error:" + res);
-							$.hori.hideLoading();
-						}
-							});
-		}, 100);
-		setTimeout(loaded, 1000); 
-	}
-	function render() {
-		 viewModel = ko.mapping.fromJS(jsonData);
-		ko.applyBindings(viewModel);
-		$('#querydataList').append('<li id="moredata" class="ui-li-static ui-body-inherit ui-last-child"><div id="pullUp" align="center"><span class="pullUpLabel">上划加载更多...</span></div></li>');
-		//myScroll.refresh();
-	}
-	
-	function loaded() {
-		pullUpEl = document.getElementById('pullUp');	
-		pullUpOffset = pullUpEl.offsetHeight;
-	 myScroll = new iScroll('wrapper', {
-		useTransition: true,
-		topOffset: pullUpOffset,
-		onRefresh: function () {
-		 if (pullUpEl.className.match('loading')) {
-				pullUpEl.className = '';
-		//		pullUpEl.querySelector('.pullUpLabel').innerHTML = 'load';
-			} 
-		},
-		
-	onScrollMove: function () {
-		if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
-			pullUpEl.className = 'flip';
-			//pullUpEl.querySelector('.pullUpLabel').innerHTML = '';
-			this.maxScrollY = this.maxScrollY;
-		} else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
-			pullUpEl.className = '';
-			//pullUpEl.querySelector('.pullUpLabel').innerHTML = '';
-			this.maxScrollY = pullUpOffset;
-		}
-	},
-	onScrollEnd: function () {
-	
-		if (pullUpEl.className.match('flip')) {
-			pullUpEl.className = 'loading';
-			//pullUpEl.querySelector('.pullUpLabel').innerHTML = 'loading...';
-			pullUpAction(itcode);
-		}
-	}
-});
-	setTimeout(function () { document.getElementById('wrapper').style.left = '0'; }, 800);
-}
-		
-	//跳转新闻详情页
-	function showDetail(item,moreCurrentName){
-		var contentName = item.contentName();
-		localStorage.setItem("currentContentName",contentName);
-		$.hori.showLoading();
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/news/newsDetail.html');
-	}
-</script>
+
 </head>
 <body>
-		<div data-role="header" >
-		    <a href="#" data-rel="back" data-mini="true">返回</a>
-            <h1>集团新闻</h1>
-        </div>
+		<div id="tabbox" style="width:100%; overflow: hidden; margin: 0 auto;align: center;">
+	<div style="align:center;">
+		<ul class="tabs" id="tabs" style="-webkit-padding-start: 0px;border-bottom: 1px  #ededed; ">
+			<li><a
+				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('tpxw')">图片新闻</a></li>
+			<li><a
+				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('jttz')">通知公告</a></li>
+			<li><a
+				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('jtxw')">集团新闻</a></li>
+			<li><a
+				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('zgsxw')">成员单位新闻</a></li>
+			
+		</ul>
+		</div>
+	</div>
 		<div id="wrapper">
 		<div id="scroller">
-			<div id="pullUp"></div>
+			<p></p>
 			<ul data-bind="foreach: list" id="querydataList" data-role="listview" data-inset="true">
 				<li data-icon="false" >
 					<a  data-bind="click:showDetail"  >
 					<h3 style="white-space: normal;">
 						<span data-bind="text: contentTitle" ></span>
 					</h3>
-					<p style="text-align: right;">[8-22]</p>
+					<p style="text-align: right;"><span data-bind="text:creatTime"></span></p>
 				</a></li>
 			</ul>
 		</div>
