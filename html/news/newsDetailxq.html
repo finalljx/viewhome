@@ -67,7 +67,7 @@ function getWcmNewsData1() {
 					var attachmentNameLength = data.attachment.length;
 					var attachmentSourceLength = data.attachmentSource.length;
 					if(data.attachment.charAt(attachmentNameLength - 1) === "|"){
-						data.attachment = data.attachment.substring(0,attachmentNameLength -2);
+						data.attachment = data.attachment.substring(0,attachmentNameLength -1);
 					}
 					if(data.attachmentSource.charAt(attachmentSourceLength - 1) === "|"){
 						data.attachmentSource = data.attachmentSource.substring(0,attachmentSourceLength - 2);
