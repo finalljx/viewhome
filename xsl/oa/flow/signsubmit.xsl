@@ -105,18 +105,11 @@
 									}
 									function hideuserselect(){
 										var val = $('input:radio:checked').val();
+										console.log(val);
 										var number = val.indexOf("genertec");
 										if(number!="-1"){
-											var num = val.indexOf("/");
-											var CHname = val.substring(0,num);
-											
-											var num2 = CHname.indexOf("=");
-											if(num2!="-1"){
-												var CHname1 = CHname.substring(num2+1);
-												$('#forshow').attr('value',CHname1);
-											}else{
-												$('#forshow').attr('value',CHname);
-											}
+											var CHname = val.substring(number+9,val.length);
+											$('#forshow').attr('value',CHname);
 											$('#fldXyspr').attr('value',val);
 											$("#faqdiv").css("display","none");
 										}else if(number=="-1"){
@@ -402,7 +395,7 @@
 								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
 								<input type="text" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
 								<a href="javascript:void(0)" onclick="clearperson();" style="margin-left:30px;" data-role="button" data-inline="true">清空</a>
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/indishare/addresstree.nsf/wUserList?openform&amp;code=53&amp;mode=1&amp;scope=1&amp;order=1')" data-role="button" data-inline="true" data-theme="b">选人yu06
+								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectsignsub/docapp/indishare/addresstree.nsf/vwUserBydepPath?readviewentries&amp;restricttocategory=_53_&amp;count=500&amp;start=1')" data-role="button" data-inline="true" data-theme="b">选人yu06
 								</a>
 							</fieldset>
 							
@@ -415,7 +408,7 @@
 								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
 								<input type="text" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
 								<a href="javascript:void(0)" style="margin-left:30px;" onclick="clearperson();" data-role="button" data-inline="true">清空</a>
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/docapp/{$dbpath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}')" data-role="button" data-inline="true" data-theme="b">选人yu09</a>
+								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/docapp/{$dbpath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}')" data-role="button" data-inline="true" data-theme="b">选人yu09</a>
 							</fieldset>
 						</li>
 					</xsl:when>
@@ -432,12 +425,14 @@
 			</xsl:when>
 			
 			<xsl:when test="td[@class='tdLabel']">
+				<xsl:if test="not(contains(td[@class='tdLabel']/.,'是否邮件'))">
 				<li data-role="fieldcontain">
 					<fieldset data-role="controlgroup">
 						<legend><xsl:value-of select="td[@class='tdLabel']/."/></legend>
 						<xsl:apply-templates select="td[@class='tdContent']/." mode="submit"/>
 					</fieldset>
 				</li>
+				</xsl:if>
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>

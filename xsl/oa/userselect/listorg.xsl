@@ -4,7 +4,7 @@
 		<li data-role="list-divider"></li>
 		<li data-role="list-divider">
 			<div data-role="controlgroup" data-type="horizontal" style="width:100%;" align="right">
-				<a data-role="button" href="" onclick="hideuserselect()" data-inline="true" data-theme="f">确定</a> 
+				<a data-role="button" href="" onclick="hideuserselect()" data-theme="f">确定</a>
 			</div>
 		</li>
 		<xsl:apply-templates select="//select[@id='EntryList_1']//option" />
