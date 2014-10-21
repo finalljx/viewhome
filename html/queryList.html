@@ -214,9 +214,9 @@
 		function getsignpath(){
 			$.hori.ajax({
 				"type":"post",
-				"url":"/viewhome/oa/signtype/docapp/genertec/mgrengine.nsf/createNavigator?openAgent&divIndex=001",
+				"url":$.hori.getconfig().appServerHost+"/view/oa/signtype/docapp/genertec/mgrengine.nsf/createNavigator?openAgent&divIndex=001",
 				"success":function(res){
-					console.log(res);
+					alert(res);
 					//docapp/genertec/dep26/hqk_26.nsf
 					//用于测试写死，正式时要放开
 					//singdbPath = res;
@@ -224,6 +224,7 @@
 					localStorage.setItem("singdbPath",singdbPath);
 				},
 				"error":function(res){
+					alert("没获取到会签库路径");
 				}
 			});
 		}
@@ -249,8 +250,9 @@
 				localStorage.setItem("type","signArchvied");
 			}
 			var singdbPath = localStorage.getItem("singdbPath");
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+singdbPath+"/myview?openform&view="+view+"&start=1&count=10";
-			//alert(url);
+			alert(singdbPath);
+			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/myview?openform&view="+view+"&start=1&count=10";
+			alert(url);
 			$.hori.ajax({
 				"type":"post",
 				"url":url,

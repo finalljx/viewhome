@@ -61,7 +61,7 @@
 	function createUser() {
 		$.hori.ajax({
 			"type" : "get",
-			"url" : "/viewhome/oa/currentuser/docapp/genertec/persontasks.nsf/frmPage?openform",
+			"url" : $.hori.getconfig().appServerHost+"/view/oa/currentuser/docapp/genertec/persontasks.nsf/frmPage?openform",
 			"success" : function(res) {
 				localStorage.setItem("Chinesename", res);
 				currentUser = "CN=" + res + "/O=genertec";
