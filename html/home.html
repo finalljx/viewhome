@@ -51,12 +51,8 @@
 	//请示待办
 	function loadTaskList() {
 		$.hori.showLoading();
-		localStorage.setItem("itcode", currentUser);
-		var itcode = localStorage.getItem("itcode");
-		$.hori
-				.loadPage($.hori.getconfig().serverBaseUrl
-						+ "viewhome/oa/todos/docapp/genertec/persontasks.nsf/dbview?openform&view=vwgwdbshow&restricttocategory="
-						+ itcode + "&start=1&count=20");
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl
+						+ "viewhome/html/task.html");
 	}
 	//请示查阅
 	function loadqueryList() {
