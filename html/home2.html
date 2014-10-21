@@ -83,7 +83,7 @@
 		                 {"id":7,"name":"电子期刊","img":"../assets/home/gwdb.png","target":"loadBI()"},
 		                 {"id":8,"name":"聘免公告","img":"../assets/home/gwdb.png","target":"loadBI()"},
 		                 {"id":9,"name":"科技动态","img":"../assets/home/gwdb.png","target":"loadBI()"},
-		                 {"id":10,"name":"政策法规资讯","img":"../assets/home/gwdb.png","target":"loadBI()"},
+		                 {"id":10,"name":"政策法规资讯","img":"../assets/home/gwdb.png","target":"loadZcfg()"},
 		                 {"id":11,"name":"安全生产","img":"../assets/home/aqsc.png","target":"loadAqsczbb()"}
 		               
 		                 ];
@@ -103,22 +103,35 @@
 		$.hori.showLoading();
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/jtxwz.html');
 	}
+	//加载政策法规资讯子页面
+	function loadZcfg(){
+		$.hori.showLoading();
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/zcfgz.html');
+		
+	}
 	function render(data) {
 		console.log(data);
 		var viewModel = ko.mapping.fromJS(data);
 		ko.applyBindings(viewModel,document.getElementById("divOne"));
 	}
 </script>
+<style>
+#divxs{
+width:33%;
+margin-bottom:20px;
+margin-top:20px
+}
+</style>
 </head>
 <body>
 	<div data-role="content" align="center">
 		<div class="ui-grid-b" id="divOne">
 		<div data-bind="foreach: list" style="width:100%;">
-			<div class="ui-block-c"style="width:30%;">
+			<div class="ui-block-c" id="divxs" >
 				<a href="javascript:void(0);" data-bind="attr:{'onclick':target}" > <img
 					id="imgToDo" data-bind="attr:{'src':img}" class="module-icon"/>
-				</a> <br /> 
-				<span style="color: #434343;" ><strong data-bind="text:name">aaaa</strong></span>
+				</a> <br />
+				<span style="color: #434343;" style="margin-top:15px;"><strong data-bind="text:name"></strong></span>
 			</div>
 			</div>
 		</div>

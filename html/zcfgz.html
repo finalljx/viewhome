@@ -19,21 +19,6 @@
 <script src="../config/web/config.js"></script>
 
 </head>
-<script type="text/javascript">
-//图片新闻
-	function loadTpxwList() {
-		$.hori.showLoading();
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl
-				+ 'viewhome/html/news/tpxwList.html');
-	}
-	//集团新闻
-	function loadNewsList(typeName) {
-		localStorage.setItem("moreCurrentName", typeName);
-		$.hori.showLoading();
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl
-				+ 'viewhome/html/news/newsList.html');
-	}
-	</script>
 <body>
 	<div data-role="page" id="home"
 		style="background: url(../assets/home/bg_empty.jpg); -moz-background-size: cover; background-repeat: repeat;">
@@ -44,15 +29,13 @@
 					<a href="javascript:void(0);" onclick="loadTpxwList()"> <img
 						id="imgToDo" src="../assets/home/gwdb.png" class="module-icon" />
 					</a> <br />
-					<!-- <span id="spanTodo" class="bubble-count ui-btn-up-c ui-btn-corner-all">1</span> <br /> -->
-					<span style="color: #434343;"><strong>图片新闻</strong></span>
+					<span style="color: #434343;"><strong>安全环保</strong></span>
 				</div>
 				<div class="ui-block-b">
 					<a href="javascript:void(0);" onclick="loadNewsList('GT_HomePage_SiteArea_jtxw')"> <img
 						id="imgSearch" class="module-icon" src="../assets/home/gwcy.png" />
 					</a> <br />
-					<!-- <span id="spanSearch" class="bubble-count ui-btn-up-c ui-btn-corner-all">1</span>  -->
-					<span style="color: #434343;"><strong>集团新闻</strong></span>
+					<span style="color: #434343;"><strong>政策法规</strong></span>
 				</div>
 				
 			</div>
