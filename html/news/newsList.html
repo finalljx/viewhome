@@ -75,10 +75,20 @@ $(document).ready(function() {
 						"data" : data,
 						"success" : function(res) {
 							var list = JSON.parse(res);
-							for ( var item in list) {
+							/* for ( var item in list) {
 								var targetURL = "http://10.1.32.61/appdata/WcmNewsImage/" + list[item].contentName + "/"
 										+ list[item].newName;
 								list[item].imgSrc = targetURL;
+							} */
+							var myDate = new Date();
+							for(var i=0;i<list.length;i++){
+								var time=list[i].creatTime.substr(0, 4);
+								if(time==myDate.getFullYear()){
+									list[i].creatTime=list[i].creatTime.substr(5, 9);
+								}
+								else{
+									list[i].creatTime="["+list[i].creatTime+"]";
+								}
 							}
 							if (page == 1) {
 								jsonData.list = list;
