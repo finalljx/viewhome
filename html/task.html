@@ -2,48 +2,44 @@
 <html>
 <head>
 	<title>代办</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0"/>
-
-	<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" /> 
-
-	<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" /> 
-
-	
-	<script src="../lib/jquery/jquery.min.js"></script>		
-	<script src="../lib/jquery-cookie/jquery.cookie.js"></script>	
+	<script type="application/javascript" src="../assets/iscroll.js"></script>
+	<link href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" rel="stylesheet"></link>
+	<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
+	<link href="../lib/jquery-mobile/jquery-mobile-fluid960.css" rel="stylesheet"></link>
+	<script type="application/javascript" src="../assets/iscroll.js"></script>
+	<script src="../lib/jquery/jquery.min.js"></script>
+	<script src="../lib/jquery-cookie/jquery.cookie.js"></script>
 	<script src="../lib/encrypt/encrypt.js"></script>
+	<script src="../lib/json/json2.js"></script>
 	<script src="../lib/hori/hori.js?tag=21369"></script>
+	<script src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
+	<script src="../lib/knockout/knockout.js"></script>
+	<script src="../lib/knockout/knockout.mapping.js"></script>
+	<script src="../lib/swiper/idangerous.swiper.min.js"></script>
+	<script src="../lib/app/task/app.js"></script>
 	<script src="../config/web/config.js"></script>
-
-	<script src="../lib/knockout/knockout.js"></script>	
-	<script src="../lib/knockout/knockout.mapping.js"></script>	
-	<script src="../lib/app/task/app.js" ></script>
-	<script src="../lib/app/task/taskViewModel.js" ></script>
-	<script src="../lib/jquery-mobile/jquery.mobile.min.js"></script>
+	<style>
+		#wrapper {
+			position: fixed;
+			top: 0px;
+			bottom: 48px;
+			width: 100%;
+			overflow: scroll;
+		}
+	</style>
 </head>
 <body>
 	<div id="list" data-role="page" class="type-home">
 		<div data-role="content" align="center">
-			<div data-bind="visible: taskCount()==0" style="display:none">
-				<ul  data-role="listview" data-inset="true">							
-					<li> 无内容</li>
-				</ul>				
-			</div>
 			<div  id="divDataLoading">
-				<ul  data-role="listview" data-inset="true">							
+				<ul  data-role="listview" data-inset="true">
 					<li>数据加载中……</li>
 				</ul>				
 			</div>
-			<div data-bind="visible: taskCount()>0" style="display:none">
-					<ul data-bind="foreach: tasklist" data-role="listview" data-inset="true">
-						<li>			
-							<a  onclick="app.openDoc(this);return false"  data-bind="attr: {'name':href}" data-icon="arrow-r" data-iconpos="right"> <h3 data-bind="text: title"></h3>
-								<p>时间：<font color="#0080ff"><span data-bind="text: date"></span></font>状态：<font color="#0080ff"><span data-bind="text: taskState"></span></font></p>
-							</a>
-						</li>
-					</ul>
+			<div id="taskList">
+				
 			</div>
 		</div>
 		

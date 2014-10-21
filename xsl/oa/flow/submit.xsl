@@ -384,7 +384,7 @@
 								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
 								<input type="text" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
 								<a href="javascript:void(0)" onclick="clearperson();" style="margin-left:100px;" data-role="button" data-inline="true">清空666</a>
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/indishare/addresstree.nsf/wUserList?openform&amp;code=53&amp;mode=1&amp;scope=1&amp;order=1')" data-role="button" data-inline="true" data-theme="b">选人13</a>
+								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/docapp/{$dbPath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}')" data-role="button" data-inline="true" data-theme="b">选人13</a>
 							</fieldset>
 						</li>
 					</xsl:when>
@@ -427,7 +427,7 @@
 						<textarea id="forshowcheck" name="forshowcheck"></textarea>
 						<input type="text" id="fldXyspr" name="fldXyspr" value="" readonly="true"  data-inline="true"/>
 						<a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/docapp/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10')" data-role="button" data-inline="true" data-theme="b">选人员</a>
-						<a href="javascript:void(0)" onclick="" data-role="button" data-inline="true" data-theme="b">选角色</a>
+						<a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/docapp/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10')" data-role="button" data-inline="true" data-theme="b">选角色</a>
 						<input id="fldXyspr" name="fldXyspr" type="hidden" value="{//input[@name='fldXyspr']/@value}"/>
 					</fieldset>
 				</li>
@@ -444,12 +444,14 @@
 				</li>
 			</xsl:when>
 			<xsl:when test="td[@class='tdLabel']">
+			<xsl:if test="not(contains(td[@class='tdLabel']/.,'是否邮件'))">
 				<li data-role="fieldcontain" style="{./@style}">
 					<fieldset data-role="controlgroup">
 						<legend><xsl:value-of select="td[@class='tdLabel']/."/></legend>
 						<xsl:apply-templates select="td[@class='tdContent']/." mode="submit"/>
 					</fieldset>
 				</li>
+			</xsl:if>
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>

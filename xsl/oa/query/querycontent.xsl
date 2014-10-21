@@ -26,11 +26,6 @@
 		<script src="/view/config/web/config.js"></script>
 			<script>
 			<![CDATA[
-				$(document).ready(function(){
-					var hori=$.hori;
-					/*设置标题*/
-					hori.setHeaderTitle("单据内容");
-				});
 				//viewfile 附件函数
 				function viewfile(url){
 					//alert(url);
