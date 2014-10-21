@@ -1,0 +1,129 @@
+<html>
+<head>
+<title>首页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" />
+<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
+<link rel="stylesheet" href="../lib/swiper/idangerous.swiper.css">
+<link rel="stylesheet" href="../lib/app/home/css/news.css">
+<script src="../lib/jquery/jquery.min.js"></script>
+<script src="../lib/jquery-cookie/jquery.cookie.js"></script>
+<script src="../lib/encrypt/encrypt.js"></script>
+<script src="../lib/json/json2.js"></script>
+<script src="../lib/hori/hori.js?tag=21369"></script>
+<script src="../lib/jquery-mobile/jquery.mobile.min.js"></script>
+<script src="../lib/knockout/knockout.js"></script>
+<script src="../lib/knockout/knockout.mapping.js"></script>
+<script src="../lib/swiper/idangerous.swiper.min.js"></script>
+<script src="../lib/app/home/app.js"></script>
+<script src="../config/web/config.js"></script>
+<script type="text/javascript">
+	var currentUser = "";
+	$(document).ready(function() {
+		try {
+			var hori = $.hori;
+			/*设置标题*/
+			hori.setHeaderTitle("首页");
+			/*隐藏后退按钮*/
+			hori.hideBackBtn();
+			/*注册注销事件*/
+			hori.registerEvent("case", "navButtonTouchUp", function() {
+				hori.backPage(1);
+			});
+			//ios 隐藏邮件图标
+			createUser();
+			var itcode = localStorage.getItem("itcode");
+			getTuBiao();
+		} catch (e) {
+			alert(e.message);
+		}
+	});
+	//请示待办
+	function loadTaskList() {
+		$.hori.showLoading();
+		localStorage.setItem("itcode", currentUser);
+		var itcode = localStorage.getItem("itcode");
+		$.hori
+				.loadPage($.hori.getconfig().serverBaseUrl
+						+ "viewhome/oa/todos/docapp/genertec/persontasks.nsf/dbview?openform&view=vwgwdbshow&restricttocategory="
+						+ itcode + "&start=1&count=20");
+	}
+	//请示查阅
+	function loadqueryList() {
+		localStorage.setItem("click", "1");
+		localStorage.setItem("addmore", "no");
+		$.hori.showLoading();
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/queryList.html');
+	}
+	//BI
+	function loadBI() {
+		$.hori.showLoading();
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/bi.html');
+	}
+	function createUser() {
+		$.hori.ajax({
+			"type" : "get",
+			"url" : "/viewhome/oa/currentuser/docapp/genertec/persontasks.nsf/frmPage?openform",
+			"success" : function(res) {
+				localStorage.setItem("Chinesename", res);
+				currentUser = "CN=" + res + "/O=genertec";
+			},
+			"error" : function(res) {
+			}
+		});
+	}
+	//获取图标个数
+	function getTuBiao() {
+		var jsonData = [ {"id":1,"name":"集团新闻","img":"../assets/home/gwdb.png","target":"loadJtxw()"},
+		                 {"id":2,"name":"通知公告","img":"../assets/home/bi.png","target":"loadNewsList('GT_HomePage_SiteArea_jttz')"},
+		                 {"id":3,"name":"成员单位新闻","img":"../assets/home/aqsc.png","target":"loadNewsList('GT_HomePage_SiteArea_zgsxw')"},
+		                 {"id":4,"name":"公文代办","img":"../assets/home/gwdb.png","target":"loadTaskList()"},
+		                 {"id":5,"name":"公文查阅","img":"../assets/home/bi.png","target":"loadqueryList()"},
+		                 {"id":6,"name":"经营数据","img":"../assets/home/gwdb.png","target":"loadBI()"},
+		                 {"id":7,"name":"电子期刊","img":"../assets/home/gwdb.png","target":"loadBI()"},
+		                 {"id":8,"name":"聘免公告","img":"../assets/home/gwdb.png","target":"loadBI()"},
+		                 {"id":9,"name":"科技动态","img":"../assets/home/gwdb.png","target":"loadBI()"},
+		                 {"id":10,"name":"政策法规资讯","img":"../assets/home/gwdb.png","target":"loadBI()"},
+		                 {"id":11,"name":"安全生产","img":"../assets/home/aqsc.png","target":"loadAqsczbb()"}
+		               
+		                 ];
+		console.log(jsonData);
+		var data = new Object();
+		data.list=jsonData;
+		render(data);
+	}
+
+	//安全生产值班表列表
+	function loadAqsczbb() {
+		$.hori.showLoading();
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/watchlist.html');
+	}
+	//加载图片新闻子页面
+	function loadJtxw(){
+		$.hori.showLoading();
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/jtxwz.html');
+	}
+	function render(data) {
+		console.log(data);
+		var viewModel = ko.mapping.fromJS(data);
+		ko.applyBindings(viewModel,document.getElementById("divOne"));
+	}
+</script>
+</head>
+<body>
+	<div data-role="content" align="center">
+		<div class="ui-grid-b" id="divOne">
+		<div data-bind="foreach: list" style="width:100%;">
+			<div class="ui-block-c"style="width:30%;">
+				<a href="javascript:void(0);" data-bind="attr:{'onclick':target}" > <img
+					id="imgToDo" data-bind="attr:{'src':img}" class="module-icon"/>
+				</a> <br /> 
+				<span style="color: #434343;" ><strong data-bind="text:name">aaaa</strong></span>
+			</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
