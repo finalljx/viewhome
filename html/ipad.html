@@ -109,10 +109,45 @@
 			$.mobile.loading("hide")
 		}, 1000);
 	}
+	//加载待办列表
+	function loadTask() {
+		localStorage.setItem("click", "task");
+		$.getScript("../lib/app/task/app.js");
+		setTimeout(function() {
+			$.mobile.loading("hide")
+		}, 1000);
+	}
+	//加载请示查阅
+	function loadqueryList() {
+		
+		
+	}
+	//获取中文名  获取待办列表时用
+	function createUser() {
+		$.hori
+				.ajax({
+					"type" : "get",
+					"url" : "/viewhome/oa/currentuser/docapp/genertec/persontasks.nsf/frmPage?openform",
+					"success" : function(res) {
+						//localStorage.setItem("Chinesename", res);
+						currentUser = "CN=" + res + "/O=genertec";
+						localStorage.setItem("Chinesename", currentUser);
+					},
+					"error" : function(res) {
+					}
+				});
+	}
 </script>
 <style>
 a {
 	text-decoration: none;
+}
+#wrapper {
+	position: fixed;
+	top: 0px;
+	bottom: 48px;
+	width: 84%;
+	overflow: scroll;
 }
 #middleContent{
 border:0px;
@@ -192,7 +227,7 @@ sul.style.height=h+"px";
 					class="ui-btn  ui-li-has-arrow ui-li ui-btn-up-c"><div
 						class="ui-btn-inner ui-li">
 						<div class="ui-btn-text" style="text-align:center;">
-							<a class="ui-link-inherit"><img src="../assets/home/news.png" width="100px" height="80px"/></a>
+							<a onclick="loadTask()" class="ui-link-inherit"><img src="../assets/home/news.png" width="100px" height="80px"/></a>
 							<br><span>代办</span>
 						</div>
 					</div></li>
