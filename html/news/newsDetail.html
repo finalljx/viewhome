@@ -59,6 +59,10 @@ p {
 				"Authorization" : "Basic d3BzYWRtaW46R1RBZG1pbg=="
 			},
 			"success" : function(res) {
+				 /*  var url="http://webseal.genertec.com.cn/";
+				    var reg=new RegExp(/(<img src=\")(\S+)(".+\/>)/g);
+				    var newstr=res.replace(reg,"$1/aaa/$2/$3bb"); 
+				    alert(newstr);  */
 				var data = JSON.parse(res);
 				if (null != data.attachmentSource) {
 					document.getElementById("fujian").style.display = "inline";
@@ -69,10 +73,14 @@ p {
 					}
 					console.log("data.attachment:" + data.attachment);
 					if(data.attachmentSource.charAt(attachmentSourceLength - 1) === "|"){
-						data.attachmentSource = data.attachmentSource.substring(0,attachmentSourceLength - 2);
+						data.attachmentSource = data.attachmentSource.substring(0,attachmentSourceLength - 1);
 					}
 					var dataArrayName = data.attachment.split("|");
 					var dataArraySource = data.attachmentSource.split("|");
+					for(var i=0; i<dataArraySource.length;i++){
+						dataArraySource[i]=$.hori.getconfig().appServerHost+'view/oa/file/'+dataArraySource[i];
+						dataArraySource[i]=dataArraySource[i].replace('http://webseal.genertec.com.cn/',"");
+					} 
 					var list = new Array();
 					for (var i = 0; i < dataArrayName.length; i++) {
 						var item = new Object();
@@ -81,6 +89,7 @@ p {
 						list.push(item);
 					}
 					data.attachmentList = list;
+					console.log(data);
 				} else {
 					document.getElementById("fujian").style.display = "none";
 				}
@@ -137,7 +146,6 @@ p {
 							data-bind="text: attachment"></span></a></li>
 				</ul>
 			</div>
-
 		</div>
 	</div>
 </body>

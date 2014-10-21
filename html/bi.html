@@ -13,93 +13,15 @@
 <script src="../lib/jquery-mobile/jquery.mobile.min.js"></script>
 <script src="../lib/app/home/app.js"></script>
 <script src="../config/web/config.js"></script>
-<!--demo展示所用css，不用关心 begin-->
-<link rel="stylesheet" type="text/css" href="src/navigator/reset.css" />
-<!--demo展示所用css end-->
-<!--组件依赖css begin-->
-<link rel="stylesheet" type="text/css"
-	href="src/navigator/navigator.css" />
-<link rel="stylesheet" type="text/css"
-	href="src/navigator/navigator.default.css" />
-<!--皮肤文件，若不使用该皮肤，可以不加载-->
-<!--组件依赖css end-->
 
-<!--组件依赖js begin-->
+<link rel="stylesheet" href="../lib/app/home/css/news.css">
 <script type="text/javascript" src="src/extend/zepto.js"></script>
 <script type="text/javascript" src="src/extend/touch.js"></script>
 <script type="text/javascript" src="src/extend/iscroll.js"></script>
 <script type="text/javascript" src="src/extend/highlight.js"></script>
 <script type="text/javascript" src="src/extend/parseTpl.js"></script>
-<script type="text/javascript" src="src/core/gmu.js"></script>
-<script type="text/javascript" src="src/core/event.js"></script>
-<script type="text/javascript" src="src/core/widget.js"></script>
-<script type="text/javascript" src="src/widget/navigator/navigator.js"></script>
-<script type="text/javascript" src="src/widget/navigator/$scrollable.js"></script>
 <script src="../lib/knockout/knockout.js"></script>
 <script src="../lib/knockout/knockout.mapping.js"></script>
-<script type="text/javascript"
-	src="src/widget/navigator/scrolltonext.js"></script>
-<style type="text/css">
-#nav2 {
-	background: transparent;
-	border-width: 0;
-	display: -webkit-box;
-	-webkit-box-flex: 1;
-}
-
-#nav2 li a {
-	color: #333;
-}
-
-#nav2 li.ui-state-active, #nav2 li.ui-state-hover {
-	background: transparent;
-}
-
-#nav2 li.ui-state-active a, #nav2 li.ui-state-hover a {
-	color: #e81459;
-}
-
-#nav2 .ui-scroller {
-	position: relative;
-}
-
-#nav2 .bar {
-	position: absolute;
-	height: 2px;
-	bottom: 0;
-	overflow: hidden;
-	-webkit-box-sizing: border-box;
-	padding: 0 10px;
-	-webkit-transition: left 200ms ease-out;
-}
-
-#nav2 .bar:after {
-	content: '';
-	display: block;
-	height: 2px;
-	background-color: #e81459;
-}
-
-#nav2_wrap {
-	display: -webkit-box;
-}
-
-#arrow {
-	width: 30px;
-	-webkit-box-flex: 0;
-	-webkit-box-align: center;
-	-webkit-box-pack: center;
-	display: -webkit-box;
-}
-
-#iframe {
-	width: 100%;
-}
-
-.ui-scroller {
-	float: left;
-}
-</style>
 
 <script type="text/javascript">
 	var currentUser = "";
@@ -165,71 +87,29 @@
 		render(data);
 		try {
 			var hori = $.hori;
-			/*设置标题*/
-			//hori.setHeaderTitle("首页");
-			/*隐藏后退按钮*/
-			//hori.hideBackBtn();
-			/*注册注销事件*/
-			//hori.registerEvent("case", "navButtonTouchUp", function() {
-			//	hori.backPage(1);
-			//});
-			//if (hori.getMobileType() == "apple") {
-			//	$("#divMail").hide();
-			//}
 		} catch (e) {
 			alert(e.message);
 		}
 	});
 
 	function render(jsonData) {
-
 		var viewModel = ko.mapping.fromJS(jsonData);
-		ko.applyBindings(viewModel);
-		
-		initNav();
-		var winheight = $(window).height();
-		var iframeheight = winheight - $("#nav2_wrap").height() - 20;
-		$("#iframe").height(iframeheight);
+		ko.applyBindings(viewModel,document.getElementById("divBi"));
 	}
 </script>
 </head>
 <body>
-	<div data-role="header"></div>
-	<div id="nav2_wrap" style="margin-top: 10px;">
-		<div id="nav2">
-			<ul data-bind="foreach: list">
-				<li data-icon="false"><a  data-bind="attr:{'href':target}" target="xianshi">
-						<img id="imgToDo" width="45" height="45"
-						data-bind="attr:{'src':img}" />
-				</a> <span style="color: #434343; font-size: 14px;"><strong><span
-							data-bind="text: title" /></span></strong></span>
-				</li>
-			</ul>
-			<span class="bar"></span>
+<div data-role="content" align="center">
+		<div class="ui-grid-b" id="divBi">
+		<div data-bind="foreach: list" style="width:100%;">
+			<div class="ui-block-c"style="width:30%;">
+				<a  data-bind="attr:{'href':target}" > <img
+					id="imgToDo" data-bind="attr:{'src':img}" class="module-icon"/>
+				</a> <br /> 
+				<span style="color: #434343;" ><strong data-bind="text:title"></strong></span>
+			</div>
+			</div>
 		</div>
-
-		<script type="text/javascript">
-			function initNav() {
-				var bar = $('#nav2 span.bar'), left = $('#nav2 ul').offset().left;
-				$('#nav2').navigator({
-					select : function(e, index, li) {
-						bar.css({
-							left : li.offsetLeft - left,
-							width : li.childNodes[0].offsetWidth
-						});
-					},
-					ready : function() {
-						bar.appendTo($('#nav2').find('.ui-scroller'));
-					}
-				});
-
-				$('#arrow').on('click', function() {
-					$('#nav2').iScroll('scrollTo', 100, 0, 400, true);
-				});
-
-			};
-		</script>
 	</div>
-	<iframe frameborder=1 name="xianshi" id="iframe" src="bi/jyts.html"></iframe>
 </body>
 </html>
