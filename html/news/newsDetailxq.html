@@ -70,7 +70,7 @@ function getWcmNewsData1() {
 						data.attachment = data.attachment.substring(0,attachmentNameLength -1);
 					}
 					if(data.attachmentSource.charAt(attachmentSourceLength - 1) === "|"){
-						data.attachmentSource = data.attachmentSource.substring(0,attachmentSourceLength - 2);
+						data.attachmentSource = data.attachmentSource.substring(0,attachmentSourceLength - 1);
 					}
 					var dataArrayName = data.attachment.split("|");
 					var dataArraySource = data.attachmentSource.split("|");

@@ -21,6 +21,7 @@
 <script src="../lib/knockout/knockout.mapping.js"></script>
 <script src="../lib/swiper/idangerous.swiper.min.js"></script>
 <script src="../lib/app/home/news.js"></script>
+<script src="../lib/app/home/tabChange.js"></script>
 <script src="../config/web/config.js"></script>
 <script src="asset/js/echarts-plain-original.js"></script>
 	<script type="text/javascript" src="asset/js/echartsHome.js"></script>
@@ -114,6 +115,81 @@
 a {
 	text-decoration: none;
 }
+#wrapper {
+	position: fixed;
+	top: 55px;
+	bottom: 48px;
+	width: 40%;
+}
+
+#tabbox {
+	width: 600px;
+	overflow: hidden;
+	margin: 0 auto;
+	width:86%;
+	 overflow: hidden; 
+	 margin-left:16%;
+	 align: center
+}
+
+.tab_conbox {
+	border: 1px solid #999;
+	border-top: none;
+}
+
+.tab_con {
+	display: none;
+}
+
+.tabs {
+	height: 32px;
+	border-bottom: 1px solid #999;
+	border-left: 1px solid #999;
+	width: 100%;
+}
+
+.tabs li {
+	height: 31px;
+	line-height: 31px;
+	float: left;
+	border: 1px solid #999;
+	border-left: none;
+	margin-bottom: -1px;
+	background: #e0e0e0;
+	overflow: hidden;
+	position: relative;
+}
+
+.tabs li a {
+	display: block;
+	padding: 0 20px;
+	border: 1px solid #fff;
+	outline: none;
+}
+
+.tabs li a:hover {
+	background: #ccc;
+}
+
+.tabs .thistab, .tabs .thistab a:hover {
+	background: #fff;
+	border-bottom: 1px solid #fff;
+}
+
+a {
+	text-decoration: none;
+}
+
+.ui-listview .ui-li-has-thumb>img:first-child, .ui-listview .ui-li-has-thumb>.ui-btn>img:first-child,
+	.ui-listview .ui-li-has-thumb .ui-li-thumb {
+	position: absolute;
+	left: 5;
+	top: auto;
+	bottom: auto; 
+	max-width: 5em;
+	max-height: 5em;
+}
+
 #middleContent{
 border:0px;
 padding:3px; 
@@ -131,6 +207,7 @@ PADDING:0px;
 LINE-HEIGHT: 20px; 
 OVERFLOW: auto;
 margin-left: 10px;
+margin-top:0px;
 width:50%
 }
 #ul{
@@ -228,8 +305,32 @@ sul.style.height=h+"px";
 					</div></li>
 			</ul>
 		</div>
+	<div id="tabbox">
+		<div style="align:center;">
+		<ul class="tabs" id="tabs" style="-webkit-padding-start: 0px;border-bottom: 1px  #ededed; ">
+			<li><a
+				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('tpxw')">图片新闻</a></li>
+			<li><a
+				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('jttz')">通知公告</a></li>
+			<li><a
+				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('jtxw')">集团新闻</a></li>
+			<li><a
+				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('zgsxw')">成员单位新闻</a></li>
+				<li><a
+				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('zgsxw')">聘免公告</a></li>
+				<li><a
+				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('zgsxw')">科技动态</a></li>
+				<li><a
+				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('zgsxw')">政策法规资讯</a></li>
+				<li><a
+				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('zgsxw')">成员单位新闻</a></li>
+			
+		</ul>
+		</div>
+	</div> 
 		<div class="grid_5" id="middleContent" >正在加载中...</div>
 		<div class="grid_5" id="rightContent" >正在加载中...</div>
 	</div>
+	
 </body>
 </html>
