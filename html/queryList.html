@@ -162,7 +162,6 @@
 					}
 			}}) 
 			var onlist=localStorage.getItem("click4");
-			//alert(onlist);
 			if(onlist=="1"){
 				$("#ui-id-1").click()	
 			}
@@ -275,7 +274,7 @@
 		}
 		//内请表单展示页面
 		function loadPageForm(str){
-			localStorage.setItem("click","1");
+			localStorage.setItem("click4","1");
 			var unid = $(str).data("unid");
 			localStorage.setItem("unid",unid);
 			var loadurl= $.hori.getconfig().appServerHost+"view/html/neiqingform.html";
@@ -284,7 +283,7 @@
 		//会签表单展示页面
 		function loadsignPageForm(str){
 		////vwDocByDate,vwtoArchive,vwDocByArchvied
-			localStorage.setItem("click","2");
+			localStorage.setItem("click4","2");	
 			var templatecon ="contentsign";
 			var unid = $(str).data("unid");
 			var loadurl= $.hori.getconfig().appServerHost+"view/html/signform.html";

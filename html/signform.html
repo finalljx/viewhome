@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>移动办公</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+
+<link
+	href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css"
+	rel="stylesheet"></link>
+<link rel="stylesheet" href="assets/jquery.mobile-sugon.css" />
+<link href="../lib/jquery-mobile/jquery-mobile-fluid960.css"
+	rel="stylesheet"></link>
+<script type="application/javascript" src="assets/iscroll.js"></script>
+<script src="../lib/jquery/jquery.min.js"></script>
+<script src="../lib/jquery-cookie/jquery.cookie.js"></script>
+<script src="../lib/encrypt/encrypt.js"></script>
+<script src="../lib/json/json2.js"></script>
+<script src="../lib/hori/hori.js?tag=21369"></script>
+<script
+	src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
+<script src="../lib/knockout/knockout.js"></script>
+<script src="../lib/knockout/knockout.mapping.js"></script>
+<script src="../lib/swiper/idangerous.swiper.min.js"></script>
+<script src="../lib/app/home/news.js"></script>
+<script src="../config/web/config.js"></script>
+<script src="asset/js/bootstrap.min.js"></script>
+<style type="text/css">
+#main {
+	margin: 15px 10% auto 10%
+}
+</style>
+
+</head>
+<body>
+	<div data-role="page">
+		<div data-role="header">
+			<h1>公文代办</h1>
+		</div>
+
+		<div data-role="content" id="main">
+			<div data-role="controlgroup" data-type="horizontal" id=""
+				align="right">
+				<a href="#" data-role="button">提交</a> <a href="#" data-role="button">保存</a>
+				<a href="#" data-role="button">部门受理</a>
+			</div>
+			<div align="center">
+				<h2>会签处理单</h2>
+			</div>
+			<table class="Table" style="width: 95%;border-spacing:5px" align="center" border="0">
+				
+				<tr>
+					<td>
+
+						<TABLE class=hqTable id="table1" style="width: 100%">
+							<TBODY>
+								<TR bgColor=#e0e0e0>
+									<TD class=hqLabel width="10%">标&nbsp;&nbsp;&nbsp;题</TD>
+									<TD class=hqContent width="90%" colspan="3">&nbsp;
+										关于XXX的批复</TD>
+
+								</TR>
+								<TR bgColor="#f0f0f0">
+									<TD class=hqLabel width="10%">主&nbsp;题&nbsp;词</TD>
+									<TD class=hqContent width="90%" colspan="3">&nbsp;</TD>
+
+								</TR>
+								<TR bgcolor="#e0e0e0">
+									<TD class=hqLabel width="10%">收文日期</TD>
+									<TD class=hqContent width="40%">2014-8-20</TD>
+									<TD class=hqLabel width="10%">收&nbsp;文&nbsp;号</TD>
+									<TD class=hqContent width="40%">部门会签</TD>
+
+								</TR>
+
+								<TR bgColor=#f0f0f0>
+									<TD class=hqLabel width="10%">来文单位</TD>
+									<TD class=hqContent width="40%">信息管理部风险管控和信息总部</TD>
+									<TD class=hqLabel width="10%">来问字号</TD>
+									<TD class=hqContent width="40%">（2014）来文001号</TD>
+
+								</TR>
+								<TR bgcolor="#e0e0e0">
+									<TD class=hqLabel width="10%">收文来源</TD>
+									<TD class=hqContent width="40%">部门会签</TD>
+									<TD class=hqLabel width="10%">收文类型</TD>
+									<TD class=hqContent width="40%">部门会签</TD>
+
+								</TR>
+							</TBODY>
+						</TABLE>
+
+
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div>
+							<span>正文附件：</span>
+							<TABLE class="fjTable" class="fj" id="table2" style="width: 100%">
+								<TBODY>
+									<TR>
+										<TD bgcolor="#f0f0f0" width="800px">请示附件</TD>
+									</TR>
+									<TR>
+										<TD bgcolor="#f0f0f0">请示附件2</TD>
+									</TR>
+								</TBODY>
+							</TABLE>
+
+
+
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><div>
+							<span>审批意见：</span>
+							<textarea rows="3" cols="14" wrap="hard" name="jyText"
+								style="width: 100%"></textarea>
+						</div></td>
+				</tr>
+				<tr>
+					<td style="text-align:right">
+						<div class="ui-block-a">
+
+							 <select name="cyy" id="cyy-tb" data-theme="f"
+								data-native-menu="true">
+								<option value="" selected>常用语</option>
+								<option value="同意">同意</option>
+								<option value="不同意">不同意</option>
+								<option value="已阅">已阅</option>
+
+							</select>
+                            
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div>
+
+							<TABLE class=yjTable id="table3" style="width: 100%">
+								<TBODY>
+									<TR bgColor=#e0e0e0>
+										<TD class=yjLabel width="10%">处 理 人</TD>
+										<TD class=yjContent width="30%">&nbsp;<SPAN
+											title=葛玉喜/genertec class=userName style="VISIBILITY: inherit">葛玉喜</SPAN></TD>
+										<TD class=yjLabel width="10%">处理时间</TD>
+										<TD class=yjContent width="20%">&nbsp;2014-09-24 17:02:11</TD>
+										<TD class=yjLabel width="10%">处理状态</TD>
+										<TD class=yjContent width="20%">&nbsp;起草部门领导复核</TD>
+									</TR>
+									<TR bgColor=#f0f0f0>
+										<TD class=yjLabel>意 见</TD>
+										<TD class=yjContent colSpan=5>&nbsp;同意</TD>
+									</TR>
+
+								</TBODY>
+							</TABLE>
+
+						</div>
+					</td>
+				</tr>
+			</table>
+			<div data-role="controlgroup" data-type="horizontal" id=""
+				align="right">
+				<a href="#" data-role="button">提交</a> <a href="#" data-role="button">保存</a>
+				<a href="#" data-role="button">部门受理</a>
+			</div>
+
+		</div>
+
+	</div>
+</body>
+</html>
