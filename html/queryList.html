@@ -141,6 +141,7 @@
 			hori.setHeaderTitle("公文查阅");
 			//获取会签tab
 			getsignpath();
+			loaded();
 			$("#tabs").tabs({beforeActivate:function(event,ui){
 					//alert(ui.newTab.context.dataset.id);
 					tabid=ui.newTab.context.dataset.id;
@@ -177,7 +178,7 @@
 		<script type="text/javascript">
 		//内请切换
 		function queryListForType(view){
-			//alert("neiqing");
+			
 			Astart=1;Bstart=1;Cstart=1;
 			if(view=="vwDocByDate"){
 				template="queryForDoing";
@@ -199,7 +200,6 @@
 					$("#querydataList").empty();
 					$("#signdataList").empty();
 					$("#querydataList").append(res).listview("refresh");
-					loaded();
 					myScroll.refresh();
 					signLoad=true;
 				},
@@ -216,7 +216,7 @@
 				"type":"post",
 				"url":$.hori.getconfig().appServerHost+"/view/oa/signtype/docapp/genertec/mgrengine.nsf/createNavigator?openAgent&divIndex=001",
 				"success":function(res){
-					alert(res);
+					//alert(res);
 					//docapp/genertec/dep26/hqk_26.nsf
 					//用于测试写死，正式时要放开
 					//singdbPath = res;
@@ -250,9 +250,9 @@
 				localStorage.setItem("type","signArchvied");
 			}
 			var singdbPath = localStorage.getItem("singdbPath");
-			alert(singdbPath);
+			//alert(singdbPath);
 			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/myview?openform&view="+view+"&start=1&count=10";
-			alert(url);
+			//alert(url);
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
@@ -260,7 +260,6 @@
 					$("#signdataList").empty();
 					$("#querydataList").empty();
 					$("#signdataList").append(res).listview("refresh");
-					loaded();
 					myScroll.refresh();
 
 				},
@@ -280,10 +279,11 @@
 		}
 		//会签表单展示页面
 		function loadsignPageForm(str){
-		////vwDocByDate,vwtoArchive,vwDocByArchvied
+		//vwDocByDate,vwtoArchive,vwDocByArchvied
 			localStorage.setItem("click","2");
 			var templatecon ="contentsign";
 			var unid = $(str).data("unid");
+			localStorage.setItem("unid",unid);
 			var loadurl= $.hori.getconfig().appServerHost+"view/html/signform.html";
 			$.hori.loadPage(loadurl);
 		}
@@ -293,7 +293,7 @@
 			position: fixed;
 			top: 108px;
 			bottom: 48px;
-			width: 100%;
+			width: 95%;
 			overflow: scroll;
 		}
 	</style>
