@@ -132,7 +132,7 @@
 		}
 </script>
 	<script>
-	    var pageSize=1;
+	var  loded="1"
 		var singdbPath ="";
 		var template = "";
 		var tabid="queryList";
@@ -142,7 +142,7 @@
 			hori.setHeaderTitle("公文查阅");
 			//获取会签tab
 			getsignpath();
-			loaded();
+			
 			 $("#tab").tabs({beforeActivate:function(event,ui){
 					//alert(ui.newTab.context.dataset.id);
 					tabid=ui.newTab.context.dataset.id;
@@ -201,6 +201,10 @@
 					$("#querydataList").empty();
 					$("#signdataList").empty();
 					$("#querydataList").append(res).listview("refresh");
+					if(loded==1){
+						loaded();
+						loded=loded+1;
+					}
 					myScroll.refresh();
 					signLoad=true;
 				},
@@ -213,6 +217,7 @@
 		
 		//获取会签类型库
 		function getsignpath(){
+			
 			$.hori.ajax({
 				"type":"post",
 				"url":$.hori.getconfig().appServerHost+"/view/oa/signtype/docapp/genertec/mgrengine.nsf/createNavigator?openAgent&divIndex=001",
@@ -251,6 +256,7 @@
 			}
 			var singdbPath = localStorage.getItem("singdbPath");
 			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/myview?openform&view="+view+"&start=1&count=10";
+			
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
