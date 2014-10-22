@@ -49,6 +49,8 @@
 				loadTask();
 			}else if(clickVal=="news"){
 				loadMiddleContent();
+			}else if(clickVal=="querytask"){
+				loadqueryList();
 			}
 		} catch (e) {
 			alert(e.message);
@@ -126,7 +128,15 @@
 	}
 	//加载请示查阅
 	function loadqueryList() {
-		//localStorage.setItem("click", "querytask");
+		localStorage.setItem("click", "querytask");
+		localStorage.setItem("click4", "1");
+		 document.getElementById("tabbox").style.display='none';//更改ipad页面中tab 是否显示。
+		  $("#middleContent").load("queryList.html", function(a, b, c) {
+			
+		document.getElementById("middleContent").style.width = '80%';
+		document.getElementById('rightContent').style.width = '0%';
+		});
+		
 		
 	}
 	//获取中文名  获取待办列表时用
@@ -337,7 +347,7 @@ sul.style.height=h+"px";
 					class="ui-btn ui-btn-up-c  ui-li-has-arrow ui-li ui-last-child"><div
 						class="ui-btn-inner ui-li">
 						<div class="ui-btn-text" style="text-align:center;">
-							<a href="#" class="ui-link-inherit"><img src="../assets/home/news.png" width="100px" height="80px"/></a>
+							<a onclick="loadqueryList()" href="#" class="ui-link-inherit"><img src="../assets/home/news.png" width="100px" height="80px"/></a>
 							<br><span>请示查阅</span>
 						</div>
 					</div></li>

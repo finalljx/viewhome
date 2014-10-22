@@ -87,13 +87,14 @@
 							$("#moredata").remove();
 							$("#"+dataid).append(res).listview("refresh");
 							myStartTaskLoad=true;
+							myScroll.refresh();
 						},
 						"error":function(res){
 							alert(res);
 							$.hori.hideLoading();
 						}
 					});
-					myScroll.refresh();
+					
 				}, 1000);
 			}
 			function loaded() {
@@ -128,12 +129,10 @@
 				}
 			}
 		});
-			setTimeout(function () { document.getElementById('wrapper').style.left = '0'; }, 800);
 		}
-			document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
-			document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 200); }, false);
 </script>
 	<script>
+	    var pageSize=1;
 		var singdbPath ="";
 		var template = "";
 		var tabid="queryList";
@@ -143,7 +142,8 @@
 			hori.setHeaderTitle("公文查阅");
 			//获取会签tab
 			getsignpath();
-			$("#tabs").tabs({beforeActivate:function(event,ui){
+			loaded();
+			 $("#tab").tabs({beforeActivate:function(event,ui){
 					//alert(ui.newTab.context.dataset.id);
 					tabid=ui.newTab.context.dataset.id;
 					//内请
@@ -160,18 +160,20 @@
 						$("#signselect").css("display", "block");
 						$("#queryselect").css("display", "none");
 					}
-			}})
-			var onlist=localStorage.getItem("click");
+			}}) 
+			var onlist=localStorage.getItem("click4");
 			//alert(onlist);
 			if(onlist=="1"){
 				$("#ui-id-1").click()	
 			}
+
 			if(onlist=="2"){
 				$("#ui-id-2").click()	
 			}
 			if(tabid=="queryList"){
 				queryListForType($('#querytype').val());
 			}
+			
 		})
 		</script>
 		<script type="text/javascript">
@@ -191,7 +193,7 @@
 				localStorage.setItem("type","queryArchvied");
 				template="Archvied";
 			}
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/docapp/genertec/dep1/qsbg_1.nsf/myview?openform&view="+view+"&start=1&count=2";
+			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/docapp/genertec/dep1/qsbg_1.nsf/myview?openform&view="+view+"&start=1&count=10";
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
@@ -199,6 +201,7 @@
 					$("#querydataList").empty();
 					$("#signdataList").empty();
 					$("#querydataList").append(res).listview("refresh");
+					myScroll.refresh();
 					signLoad=true;
 				},
 				"error":function(res){
@@ -212,9 +215,8 @@
 		function getsignpath(){
 			$.hori.ajax({
 				"type":"post",
-				"url":"/viewhome/oa/signtype/docapp/genertec/mgrengine.nsf/createNavigator?openAgent&divIndex=001",
+				"url":$.hori.getconfig().appServerHost+"/view/oa/signtype/docapp/genertec/mgrengine.nsf/createNavigator?openAgent&divIndex=001",
 				"success":function(res){
-					console.log(res);
 					//docapp/genertec/dep26/hqk_26.nsf
 					//用于测试写死，正式时要放开
 					//singdbPath = res;
@@ -222,6 +224,7 @@
 					localStorage.setItem("singdbPath",singdbPath);
 				},
 				"error":function(res){
+					alert("没获取到会签库路径");
 				}
 			});
 		}
@@ -247,8 +250,7 @@
 				localStorage.setItem("type","signArchvied");
 			}
 			var singdbPath = localStorage.getItem("singdbPath");
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+singdbPath+"/myview?openform&view="+view+"&start=1&count=2";
-			//alert(url);
+			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/myview?openform&view="+view+"&start=1&count=10";
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
@@ -256,6 +258,8 @@
 					$("#signdataList").empty();
 					$("#querydataList").empty();
 					$("#signdataList").append(res).listview("refresh");
+					myScroll.refresh();
+
 				},
 				"error":function(res){
 					alert(res);
@@ -266,30 +270,36 @@
 		//内请表单展示页面
 		function loadPageForm(str){
 			localStorage.setItem("click","1");
-			var templatecon ="querycontent";
 			var unid = $(str).data("unid");
-			var type = localStorage.getItem("type");
-			var loadurl= $.hori.getconfig().appServerHost+"view/oa/"+templatecon+"/docapp/genertec/dep1/qsbg_1.nsf/"+type+"/"+unid+"?editdocument";
+			localStorage.setItem("unid",unid);
+			var loadurl= $.hori.getconfig().appServerHost+"view/html/neiqingform.html";
 			$.hori.loadPage(loadurl);
 		}
 		//会签表单展示页面
 		function loadsignPageForm(str){
 		////vwDocByDate,vwtoArchive,vwDocByArchvied
 			localStorage.setItem("click","2");
-			localStorage.setItem("addmore","yes");
 			var templatecon ="contentsign";
 			var unid = $(str).data("unid");
-			var loadurl= $.hori.getconfig().appServerHost+"view/oa/"+templatecon+unid;
+			var loadurl= $.hori.getconfig().appServerHost+"view/html/signform.html";
 			$.hori.loadPage(loadurl);
 		}
 	</script>
-	
+		<style>
+		#wrapper {
+			position: fixed;
+			top: 108px;
+			bottom: 48px;
+			width: 100%;
+			overflow: scroll;
+		}
+	</style>
 </head>
 <body>
-	<div data-role="page" style="margin:0px;padding:0px;">
+	<div  style="margin:0px;padding:0px;">
 		<div data-role="content">
 		
-			<div data-role="tabs" id="tabs">
+			<div data-role="tabs" id="tab">
 		      	<div data-role="navbar">
 				    <ul>
 				      <li><a href="#two" data-ajax="false" data-id="queryList">集团内请</a></li>
@@ -322,7 +332,7 @@
 					<div id="scroller">
 						<div id="pullDown"></div>
 			      <div id="two">
-						<ul id="querydataList"  data-role="listview" data-inset="true">
+						<ul id="querydataList"  data-role="listview" data-inset="true" style="width:85%;">
 							<li id="moredata" style="display:none"><div id="pullUp" align="center">
 								<span class="pullUpLabel">上划加载更多...</span>
 							</div></li>
@@ -330,7 +340,7 @@
 					
 			      </div>
 			      <div id="three">
-			       <ul id="signdataList" data-role="listview" data-inset="true">
+			       <ul id="signdataList" data-role="listview" data-inset="true" style="width:85%;">
 						<li id="moredata" style="display:none"><div id="pullUp" align="center">
 								<span class="pullUpLabel">上划加载更多...</span>
 							</div></li>
