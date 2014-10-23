@@ -36,18 +36,18 @@ $(document).ready(function(){
 	var template=localStorage.getItem("contemplate");
 	var unid= localStorage.getItem("unid");
 	var loadurl= $.hori.getconfig().appServerHost+"view/oa/"+template+"/"+unid;
-	alert(loadurl);
 		$.hori.ajax({
 			"type":"post",
 			"url":loadurl,
 			"data":"",
 			"success":function(res){
-				console.log(res);
-				var jsonData=JSON.parse(res);
+				res=res.replace(/&amp;nbsp;/g,"　");
+				document.getElementById("daiban").innerHTML = res;
+				/* var jsonData=JSON.parse(res);
 				console.log(jsonData);
 				var data=new Object();
 				data.list=jsonData;
-				renderDetail(jsonData);
+				renderDetail(jsonData); */
 				/* $("body").html(htmlStr);
 				var jqscript=document.createElement("script");
 				jqscript.src="../lib/jquery-mobile/jquery.mobile.min.js";
@@ -74,7 +74,10 @@ function renderDetail(data) {
 
 </head>
 <body>
-	<div data-role="page">
+<div id="daiban">
+
+</div>
+	<!-- <div data-role="page">
 		<div data-role="header">
 			<h1>公文代办</h1>
 		</div>
@@ -212,6 +215,6 @@ function renderDetail(data) {
 
 		</div>
 
-	</div>
+	</div> -->
 </body>
 </html>
