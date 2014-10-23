@@ -124,6 +124,20 @@
 			$.mobile.loading("hide")
 		}, 1000);
 	}
+	//加载安全生产
+	function loadAqscList(){
+		//alert(2);
+		document.getElementById("tabbox").style.display="none";
+			document.getElementById("middleContent").style.width = '80%';
+		$("#middleContent").load("aqscList.html", function(a, b, c) {
+			//alert(1);
+			//$("#querydataList").listview();
+		});
+		setTimeout(function() {
+			$.mobile.loading("hide")
+		}, 1000);
+	}
+	
 	//加载请示查阅
 	function loadqueryList() {
 		//localStorage.setItem("click", "querytask");
@@ -138,7 +152,6 @@
 					"success" : function(res) {
 						//localStorage.setItem("Chinesename", res);
 						currentUser = "CN=" + res + "/O=genertec";
-						alert(currentUser);
 						localStorage.setItem("Chinesename", currentUser);
 					},
 					"error" : function(res) {
@@ -327,7 +340,7 @@ sul.style.height=h+"px";
 					class="ui-btn ui-btn-up-c  ui-li-has-arrow ui-li"><div
 						class="ui-btn-inner ui-li">
 						<div class="ui-btn-text" style="text-align:center;">
-							<a href="#" class="ui-link-inherit"><img src="../assets/home/news.png" width="100px" height="80px" /></a>
+							<a href="#" onClick="loadAqscList()" class="ui-link-inherit"><img src="../assets/home/news.png" width="100px" height="80px" /></a>
 							<br><span>安全生产值班表</span>
 						</div>
 					</div></li>
