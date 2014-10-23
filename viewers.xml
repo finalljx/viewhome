@@ -175,7 +175,8 @@
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
 		<!-- 会签展示内容 -->
-		<view id="contentsign" template="oa/query/contentsign.xsl" encoding="GBK">
+		<view id="contentsign" template="signForm.jsp"></view>
+		<view id="contentsign1" template="oa/query/contentsign.xsl" encoding="GBK">
 			<rule mode="replace" regex="&amp;nbsp;" value="" />
 			<rule mode="replace" regex="&lt;!" value="&amp;lt;!" />
 			<rule mode="replace" regex="&lt;/!" value="&amp;lt;/!" />
