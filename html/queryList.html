@@ -285,7 +285,10 @@
 		////vwDocByDate,vwtoArchive,vwDocByArchvied
 			localStorage.setItem("click4","2");	
 			var templatecon ="contentsign";
+			localStorage.setItem("contemplate",templatecon);
 			var unid = $(str).data("unid");
+			localStorage.setItem("unid",unid);
+			//alert(unid);return;
 			var loadurl= $.hori.getconfig().appServerHost+"view/html/signform.html";
 			$.hori.loadPage(loadurl);
 		}

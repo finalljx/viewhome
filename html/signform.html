@@ -23,9 +23,49 @@
 <script src="../lib/knockout/knockout.js"></script>
 <script src="../lib/knockout/knockout.mapping.js"></script>
 <script src="../lib/swiper/idangerous.swiper.min.js"></script>
-<script src="../lib/app/home/news.js"></script>
 <script src="../config/web/config.js"></script>
 <script src="asset/js/bootstrap.min.js"></script>
+
+<script>
+$(document).ready(function(){
+	$.hori.showLoading();
+	//$.hori.hideLoading();
+	$.hori.setHeaderTitle("表单");
+	var config=$.hori.getconfig();
+	var itcode=localStorage.getItem("Chinesename");
+	var template=localStorage.getItem("contemplate");
+	var unid= localStorage.getItem("unid");
+	var loadurl= $.hori.getconfig().appServerHost+"view/oa/"+template+"/"+unid;
+	alert(loadurl);
+		$.hori.ajax({
+			"type":"post",
+			"url":loadurl,
+			"data":"",
+			"success":function(res){
+				console.log(res);
+				var jsonData=JSON.parse(res);
+				console.log(jsonData);
+				var data=new Object();
+				data.list=jsonData;
+				renderDetail(jsonData);
+				/* $("body").html(htmlStr);
+				var jqscript=document.createElement("script");
+				jqscript.src="../lib/jquery-mobile/jquery.mobile.min.js";
+				$("head").after(jqscript);
+				$.hori.hideLoading(); */
+			},
+			"error":function(res){
+				$.hori.hideLoading();
+			}
+			});
+});
+
+function renderDetail(data) {
+	var viewModelDetail = ko.mapping.fromJS(data);
+	console.log(viewModelDetail);
+	ko.applyBindings(viewModelDetail, document.getElementById("newsDetail"));
+}
+</script>
 <style type="text/css">
 #main {
 	margin: 15px 10% auto 10%
