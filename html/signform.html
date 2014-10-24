@@ -6,65 +6,84 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
 
-<link
-	href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css"
-	rel="stylesheet"></link>
-<link rel="stylesheet" href="assets/jquery.mobile-sugon.css" />
+<link href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" rel="stylesheet"></link>
+<link rel="stylesheet" href="../../assets/jquery.mobile-sugon.css" />
 <link href="../lib/jquery-mobile/jquery-mobile-fluid960.css"
 	rel="stylesheet"></link>
-<script type="application/javascript" src="assets/iscroll.js"></script>
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/jquery-cookie/jquery.cookie.js"></script>
 <script src="../lib/encrypt/encrypt.js"></script>
 <script src="../lib/json/json2.js"></script>
 <script src="../lib/hori/hori.js?tag=21369"></script>
-<script
-	src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
+<script src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
 <script src="../lib/knockout/knockout.js"></script>
 <script src="../lib/knockout/knockout.mapping.js"></script>
 <script src="../lib/swiper/idangerous.swiper.min.js"></script>
+<script src="../lib/app/home/news.js"></script>
 <script src="../config/web/config.js"></script>
-<script src="asset/js/bootstrap.min.js"></script>
 
 <script>
-$(document).ready(function(){
-	$.hori.showLoading();
-	//$.hori.hideLoading();
-	$.hori.setHeaderTitle("表单");
-	var config=$.hori.getconfig();
-	var itcode=localStorage.getItem("Chinesename");
-	var template=localStorage.getItem("contemplate");
-	var unid= localStorage.getItem("unid");
-	var loadurl= $.hori.getconfig().appServerHost+"view/oa/"+template+"/"+unid;
-		$.hori.ajax({
-			"type":"post",
-			"url":loadurl,
-			"data":"",
-			"success":function(res){
-				res=res.replace(/&amp;nbsp;/g,"　");
-				document.getElementById("daiban").innerHTML = res;
-				/* var jsonData=JSON.parse(res);
-				console.log(jsonData);
-				var data=new Object();
-				data.list=jsonData;
-				renderDetail(jsonData); */
-				/* $("body").html(htmlStr);
-				var jqscript=document.createElement("script");
-				jqscript.src="../lib/jquery-mobile/jquery.mobile.min.js";
-				$("head").after(jqscript);
-				$.hori.hideLoading(); */
-			},
-			"error":function(res){
-				$.hori.hideLoading();
-			}
-			});
-});
-
-function renderDetail(data) {
-	var viewModelDetail = ko.mapping.fromJS(data);
-	console.log(viewModelDetail);
-	ko.applyBindings(viewModelDetail, document.getElementById("newsDetail"));
-}
+$(document).ready(function() {
+						$.hori.showLoading();
+						//$.hori.hideLoading();
+						$.hori.setHeaderTitle("表单");
+						var config = $.hori.getconfig();
+						var itcode = localStorage.getItem("Chinesename");
+						var template = localStorage.getItem("contemplate");
+						var unid = localStorage.getItem("unid");
+						var loadurl = $.hori.getconfig().appServerHost
+								+ "view/oa/" + template + "/" + unid;
+						$.hori
+								.ajax({
+									"type" : "post",
+									"url" : loadurl,
+									"data" : "",
+									"success" : function(res) {
+										var jsonObj = JSON.parse(res);
+										var url = $.hori.getconfig().appServerHost
+												+ "view/oa/file/docapp/";
+										//res=res.replace(/&amp;nbsp;/g,"　");
+										for (var i = 0; i < jsonObj.lianjie.length; i++) {
+											var j = jsonObj.fileName[i]
+													.split(".");
+											jsonObj.lianjie[i] = url
+													+ jsonObj.lianjie[i] + "."
+													+ j[1];
+											alert(jsonObj.lianjie[i]);
+										}
+										jsonObj.fujian = jsonObj.fujian
+												.replace("none", "inline");
+										document.getElementById("daiban").innerHTML = jsonObj.content;
+										var list = new Array();
+										for (var i = 0; i < jsonObj.lianjie.length; i++) {
+											var item = new Object();
+											item.fileName = jsonObj.fileName[i];
+											item.lianjie = jsonObj.lianjie[i];
+											list.push(item);
+										}
+										var data=new Object();
+										data.list = list;
+										console.log(data);
+										renderDetail1(data);
+										
+									},
+									"error" : function(res) {
+										$.hori.hideLoading();
+									}
+								});
+					});
+	function renderDetail1(data) {
+		var viewModelDetail = ko.mapping.fromJS(data);
+		ko.applyBindings(viewModelDetail, document.getElementById("table2"));
+	}
+	function viewfile(item){
+		var url=item.lianjie();
+		url=url.replace(/\&amp;/g,"&");
+		console.log(item.lianjie());
+		alert(url);
+		localStorage.setItem("attachmentUrl",url);
+		$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
+	}
 </script>
 <style type="text/css">
 #main {
@@ -74,9 +93,45 @@ function renderDetail(data) {
 
 </head>
 <body>
-<div id="daiban">
+	<div id="daiban" style="height: 350px;"></div>
+	<div id="fujian" style="height: 400px;">
+		<div>
+			<span>正文附件：</span>
+			<TABLE class="fjTable" class="fj" id="table2" style="width: 100%" data-bind="foreach: list">
+					<TR >
+						<TD bgcolor="#f0f0f0" width="800px">
+						<a data-bind="click:viewfile" ><span
+							data-bind="text: fileName"></span></a></TD>
+					</TR>
+			</TABLE>
+		</div>
+					<div style="margin-top:50px;">
+							<span>审批意见：</span>
+						</div>
+						<div>
+							<TABLE class=yjTable id="table3" style="width: 100%">
+								<TBODY>
+									<TR bgColor=#e0e0e0>
+										<TD class=yjLabel width="10%">处 理 人</TD>
+										<TD class=yjContent width="30%">&nbsp;<SPAN
+											title=葛玉喜/genertec class=userName style="VISIBILITY: inherit">葛玉喜</SPAN></TD>
+										<TD class=yjLabel width="10%">处理时间</TD>
+										<TD class=yjContent width="20%">&nbsp;2014-09-24 17:02:11</TD>
+										<TD class=yjLabel width="10%">处理状态</TD>
+										<TD class=yjContent width="20%">&nbsp;起草部门领导复核</TD>
+									</TR>
+									<TR bgColor=#f0f0f0>
+										<TD class=yjLabel>意 见</TD>
+										<TD class=yjContent colSpan=5>&nbsp;同意</TD>
+									</TR>
 
-</div>
+								</TBODY>
+							</TABLE>
+
+						</div>
+				
+
+	</div>
 	<!-- <div data-role="page">
 		<div data-role="header">
 			<h1>公文代办</h1>
