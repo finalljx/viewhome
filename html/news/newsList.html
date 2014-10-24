@@ -44,8 +44,19 @@ var itcode;
 var moreCurrentName;
 $(document).ready(function() {
 		 itcode = localStorage.getItem("itcode");
-		 $.hori.setHeaderTitle("图片新闻");
 		 moreCurrentName= localStorage.getItem("moreCurrentName");
+		 switch (moreCurrentName){
+		 case "GT_HomePage_SiteArea_jttz":
+			 $.hori.setHeaderTitle("通知公告");
+				break;
+			case "GT_HomePage_SiteArea_jtxw":
+				 $.hori.setHeaderTitle("集团通知");
+				break;
+			case "GT_HomePage_SiteArea_zgsxw": 
+				 $.hori.setHeaderTitle("成员单位新闻");
+				break;
+		 
+		 }
 	//加载通知公告列表
 	pullUpAction(itcode);
 });
