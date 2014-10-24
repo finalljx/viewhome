@@ -178,7 +178,7 @@
 									</ul>
 								</div>
 									<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
-									<li data-role="list-divider">审批意见</li>
+									<li data-role="list-divider">审批意见2</li>
 										<li>
 											<table style="border:0;padding:0;margin:0;" width="100%" border="0">
 												<tr style="width:100%">
