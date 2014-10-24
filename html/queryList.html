@@ -192,7 +192,7 @@
 				localStorage.setItem("type","queryArchvied");
 				template="Archvied";
 			}
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/docapp/genertec/dep1/qsbg_1.nsf/myview?openform&view="+view+"&start=1&count=10";
+			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/docapp/genertec/dep1/qsbg_1.nsf/myview?openform&view="+view+"&start=1&count=100";
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
@@ -251,7 +251,7 @@
 			}
 			var singdbPath = localStorage.getItem("singdbPath");
 			//alert(singdbPath);
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/myview?openform&view="+view+"&start=1&count=10";
+			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/myview?openform&view="+view+"&start=1&count=100";
 			//alert(url);
 			$.hori.ajax({
 				"type":"post",

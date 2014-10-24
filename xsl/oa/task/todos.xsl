@@ -22,7 +22,7 @@
 				});
 			]]>
 		</script>
-	<div id="wrapper" style="overflow: scroll;">
+	<div id="wrapper" style="overflow: scroll;width: 99%;margin-left: -10px;">
 		<div id="scroller">
 		<ul  data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow" style="margin-top: 30px;">
 			<xsl:apply-templates select="//div[@id='viewValue']//table/tbody/tr[position()&gt;1]" />

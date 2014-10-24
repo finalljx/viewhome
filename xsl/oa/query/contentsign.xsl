@@ -29,7 +29,7 @@
 							});
 							//viewfile 附件函数
 							function viewfile(url){
-								//alert(url);
+								console.log(url);return;
 								localStorage.setItem("attachmentUrl",url);
 								$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
 							}
