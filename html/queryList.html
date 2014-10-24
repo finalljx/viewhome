@@ -274,8 +274,9 @@
 			localStorage.setItem("click","1");
 			var unid = $(str).data("unid");
 			localStorage.setItem("unid",unid);
-			var loadurl= $.hori.getconfig().appServerHost+"view/html/neiqingform.html";
-			$.hori.loadPage(loadurl);
+			var targetURL= $.hori.getconfig().serverBaseUrl+"viewhome/html/neiqingform.html";
+			targetURL=encodeURI(targetURL);
+			$.hori.loadPage(targetURL);
 		}
 		//会签表单展示页面
 		function loadsignPageForm(str){
@@ -284,7 +285,7 @@
 			var templatecon ="contentsign";
 			var unid = $(str).data("unid");
 			localStorage.setItem("unid",unid);
-			var loadurl= $.hori.getconfig().appServerHost+"view/html/signform.html";
+			var loadurl= $.hori.getconfig().serverBaseUrl+"view/html/signform.html";
 			$.hori.loadPage(loadurl);
 		}
 	</script>

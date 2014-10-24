@@ -159,7 +159,9 @@
 										</div>
 									</xsl:if>
 								</div>
-								<h3><xsl:value-of select="substring-after(//table[@id='table1']/tbody/tr[4]/.,':')" /></h3>
+								<xsl:if test="count(//table[@class='tbl'])!=0">
+									<h3><xsl:value-of select="//div[@class='style1']/." /></h3>
+								</xsl:if>
 								
 								<div data-role="collapsible" data-collapsed="false" data-theme="f" data-content-theme="d">
 									<h4>附件</h4>
@@ -203,17 +205,14 @@
 									<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
 										<li>
 											<xsl:choose>
-												<xsl:when test="$panduanbiaodan='hei'">
-													<xsl:if test="count(//table[@class='tableClass']/tbody)=0">
-														<font color="red" size="3">无</font>
-													</xsl:if>
+												<xsl:when test="count(//table[@class='tbl'])!=0">
+													<xsl:apply-templates select="//table[@class='tbl' and @width='90%']/tbody" mode="basedata"/>
+												</xsl:when>
+												<xsl:when test="count(//table[@class='tableClass'])!=0">
 													<xsl:apply-templates select="//table[@class='tableClass']/tbody" mode="basedata"/>
 												</xsl:when>
 												<xsl:otherwise>
-													<xsl:if test="count(//table[@class='tbl']/tbody)=0">
 														<font color="red" size="3">无</font>
-													</xsl:if>
-													<xsl:apply-templates select="//table[@class='tbl' and @width='90%']/tbody" mode="basedata"/>
 												</xsl:otherwise>
 											</xsl:choose>
 										</li> 
@@ -293,16 +292,16 @@
 	
 	<!-- 处理基本信息 select="tr[5]/table/tbody/tr"-->
 	<xsl:template match="tbody" mode="basedata">
-		文件标题:<xsl:value-of select="//input[@name='fldSubject']/@value"/><hr/>
+		<xsl:value-of select="tr[3]/."/><hr/>
 		<xsl:variable name="years" select="substring-after(//input[@name='fldswrq']/@value,'/')"/>
 		<xsl:variable name="year" select="substring-after($years,'/')"/>
 		<xsl:variable name="day" select="substring-before($years,'/')"/>
 		<xsl:variable name="month" select="substring-before(//input[@name='fldswrq']/@value,'/')"/>
-		收文日期:<xsl:value-of select="$year"/>-<xsl:value-of select="$month"/>-<xsl:value-of select="$day"/><hr/>
-		来文单位:<xsl:value-of select="//input[@name='fldLwjg']/@value"/><hr/>
-		来文字号:<xsl:value-of select="//input[@name='fldLwzh']/@value"/><hr/>
-		收文类型:<xsl:value-of select="//input[@name='fldswlx']/@value"/><hr/>
-		来文份数:<xsl:value-of select="//input[@name='fldFs']/@value"/>
+		<xsl:value-of select="substring-before(tr[5]/.,'收 文 号')"/><hr/>
+		<!-- 收文日期:<xsl:value-of select="$year"/>-<xsl:value-of select="$month"/>-<xsl:value-of select="$day"/><hr/> -->
+		<xsl:value-of select="substring-before(tr[6]/.,'来文字号')"/><hr/>
+		<xsl:value-of select="substring-before(tr[7]/.,'收文来源')"/><hr/>
+		<xsl:value-of select="tr[8]/."/><hr/>
 	</xsl:template>
 	
 	<!-- 处理审批意见 -->

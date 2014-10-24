@@ -2,8 +2,7 @@
 <head>
 <title>首页</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
 <link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" />
 <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
 <link rel="stylesheet" href="../lib/swiper/idangerous.swiper.css">
@@ -61,14 +60,15 @@
 	function createUser() {
 		$.hori.ajax({
 			"type" : "get",
-			"url" : $.hori.getconfig().appServerHost+"/view/oa/currentuser/docapp/genertec/persontasks.nsf/frmPage?openform",
+			"url" : $.hori.getconfig().serverBaseUrl+"/view/oa/currentuser/docapp/genertec/persontasks.nsf/frmPage?openform",
 			"success" : function(res) {
 				localStorage.setItem("Chinesename", res);
 				currentUser = "CN=" + res + "/O=genertec";
-				alert(currentUser);
+				//alert(currentUser);
 				localStorage.setItem("itcodetasklist", currentUser);
 			},
 			"error" : function(res) {
+				
 			}
 		});
 	}

@@ -82,9 +82,7 @@
 													<xsl:apply-templates select="//table[@class='tableClass']/tbody" mode="basedata"/>
 												</xsl:when>
 												<xsl:otherwise>
-													<xsl:if test="count(//table[@class='tableClass']/tbody)=0">
-														<font color="red" size="3">无</font>
-													</xsl:if>
+													<font color="red" size="3">无</font>
 												</xsl:otherwise>
 											</xsl:choose>
 										</li> 
