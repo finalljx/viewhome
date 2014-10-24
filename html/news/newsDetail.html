@@ -59,11 +59,15 @@ p {
 				"Authorization" : "Basic d3BzYWRtaW46R1RBZG1pbg=="
 			},
 			"success" : function(res) {
-				 /*  var url="http://webseal.genertec.com.cn/";
+				console.log(res);
+				res=res.replace(/webseal.genertec.com.cn/g,"localhost:8080/view/oa/file").replace(/&amp;amp;/g,"&");
+				res=res.replace(/CACHEID=.*?\\/g,"data-result=file\\");
+				console.log(res);
+				/*  var url="http://webseal.genertec.com.cn/";
 				    var reg=new RegExp(/(<img src=\")(\S+)(".+\/>)/g);
 				    var newstr=res.replace(reg,"$1/aaa/$2/$3bb"); 
 				    alert(newstr);  */
-				var data = JSON.parse(res);
+				 var data = JSON.parse(res);
 				if (null != data.attachmentSource) {
 					document.getElementById("fujian").style.display = "inline";
 					var attachmentNameLength = data.attachment.length;
@@ -98,7 +102,7 @@ p {
 			"error" : function(res) {
 				alert("error:" + res);
 				$.hori.hideLoading();
-			}
+			} 
 		});
 		//重置ID
 	}
