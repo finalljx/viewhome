@@ -71,7 +71,7 @@
 			var key="data-userstore";
 			cookie_userstore=new RegExp(encodeURIComponent(key) + '=([^;]*)').exec(clientCookie);
 				if(cookie_userstore){
-					localStorage.setItem("cookie_userstore",cookie_userstore);
+					localStorage.setItem("cookie_userstore",cookie_userstore[1]);
 					var serverDomain=new RegExp('^https?://(.*?)(?=:|/)').exec($.hori.getconfig().appServerHost);
 					if(serverDomain){
 						$.cookie('data-userstore', cookie_userstore[1], {expires: 7, path: '/', domain:serverDomain[1] , secure: false});
