@@ -64,9 +64,29 @@
 		$.hori.showLoading();
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/bi.html');
 	}
+	var  cookie_userstore;
 	function createUser() {
-		var cookieuserstore=$.cookie('data-userstore');
-		$.cookie('data-userstore', '3ad5248aeac94710bdb8dd062ca50ab5', {expires: 7, path: '/', domain: '192.168.1.110', secure: false});
+		$.hori.getCookies(function(clientCookie){
+			try{
+			var key="data-userstore";
+			cookie_userstore=new RegExp(encodeURIComponent(key) + '=([^;]*)').exec(clientCookie);
+				if(cookie_userstore){
+					localStorage.setItem("cookie_userstore",cookie_userstore);
+					var serverDomain=new RegExp('^https?://(.*?)(?=:|/)').exec($.hori.getconfig().appServerHost);
+					if(serverDomain){
+						$.cookie('data-userstore', cookie_userstore[1], {expires: 7, path: '/', domain:serverDomain[1] , secure: false});
+					}else{
+						alert("获取配置文件异常");
+					}
+					
+				}else{
+					alert("获取cookie失败");
+				}
+			}catch(e){
+				alert(e.message);
+			}
+		});
+		
 		$.hori.ajax({
 			"type" : "get",
 			"url" : $.hori.getconfig().appServerHost+"/view/oa/currentuser/docapp/genertec/persontasks.nsf/frmPage?openform",

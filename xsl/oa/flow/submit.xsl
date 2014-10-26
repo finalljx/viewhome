@@ -20,6 +20,11 @@
 			<head>
 			<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 			<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+			<script>
+				<![CDATA[
+					$.hori.showLoading();
+				]]>
+			</script>
 			</head>
 			<body>
 				<div id="submit" data-role="dialog" class="type-home">
@@ -156,6 +161,7 @@
 								</form>
 								<script>
 									<![CDATA[
+										$.hori.hideLoading();
 										function cancelSubmit(){
 											document.location.reload();
 										}
@@ -207,6 +213,7 @@
 								</form>
 								<script>
 									<![CDATA[
+										$.hori.hideLoading();
 										function cancelSubmit(){
 											document.location.reload();
 										}
@@ -237,6 +244,7 @@
 											</div>
 											<script>
 												<![CDATA[
+													$.hori.hideLoading();
 													function cancelSubmit(){
 														document.location.reload();
 													}
@@ -271,7 +279,9 @@
 										</form>
 										<script>
 											<![CDATA[
+												$.hori.hideLoading();
 												function cancelSubmit(){
+													$.hori.showLoading();
 													document.location.reload();
 												}
 											]]>
@@ -298,6 +308,7 @@
 								</ul>
 								<script>
 									<![CDATA[
+										$.hori.hideLoading();
 										function cancelSubmit(){
 											document.location.reload();
 										}
@@ -313,6 +324,7 @@
 									<li data-role="list-divider"></li>
 								</ul>
 								<script>
+									$.hori.hideLoading();
 									document.location.reload();
 								</script>
 							</xsl:otherwise>
@@ -326,7 +338,7 @@
 	<!-- 将隐藏控件传入 -->
 	<xsl:template match="input" mode="hidden">
 		<xsl:if test="@name!='$$querysaveagent'">
-			<input type="text" name="{@name}" value="{@value}"/>
+			<input type="hidden" name="{@name}" value="{@value}"/>
 		</xsl:if>
 	</xsl:template>
 
@@ -377,7 +389,7 @@
 								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
 								<input type="text" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
 								<a href="javascript:void(0)" onclick="clearperson();" style="margin-left:100px;" data-role="button" data-inline="true">清空666</a>
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/docapp/{$dbPath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}')" data-role="button" data-inline="true" data-theme="b">选人13</a>
+								<a href="javascript:void(0)" onclick="userselect('http://192.168.1.110:90/view/oa/userselectorg/docapp/{$dbPath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}')" data-role="button" data-inline="true" data-theme="b">选人13</a>
 							</fieldset>
 						</li>
 					</xsl:when>
@@ -388,7 +400,7 @@
 								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
 								<input type="text" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
 								<a href="javascript:void(0)" style="margin-left:30px;" onclick="clearperson();" data-role="button" data-inline="true">清空</a>
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/docapp/{$dbPath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}')" data-role="button" data-inline="true" data-theme="b">选人2</a>
+								<a href="javascript:void(0)" onclick="userselect('http://192.168.1.110:90/view/oa/userselectorg/docapp/{$dbPath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}')" data-role="button" data-inline="true" data-theme="b">选人2</a>
 							</fieldset>
 						</li>
 					</xsl:when>
@@ -419,8 +431,8 @@
 						<legend>请选择会签审批人:</legend>
 						<textarea id="forshowcheck" name="forshowcheck"></textarea>
 						<input type="text" id="fldXyspr" name="fldXyspr" value="" readonly="true"  data-inline="true"/>
-						<a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/docapp/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10')" data-role="button" data-inline="true" data-theme="b">选人员</a>
-						<a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/docapp/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10')" data-role="button" data-inline="true" data-theme="b">选角色</a>
+						<a href="javascript:void(0)" onclick="userselect('http://192.168.1.110:90/view/oa/userselect/docapp/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10')" data-role="button" data-inline="true" data-theme="b">选人员</a>
+						<a href="javascript:void(0)" onclick="userselect('http://192.168.1.110:90/view/oa/userselect/docapp/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10')" data-role="button" data-inline="true" data-theme="b">选角色</a>
 						<input id="fldXyspr" name="fldXyspr" type="hidden" value="{//input[@name='fldXyspr']/@value}"/>
 					</fieldset>
 				</li>

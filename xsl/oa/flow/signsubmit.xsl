@@ -122,7 +122,7 @@
 									#faqdiv{position:absolute;width:80%; left:50%; top:50%; margin-left:-40%; min-height:300px; height:auto; z-index:100; background-color:#fff;}
 								</style>
 								<!-- 选人提交 -->
-								<form action="/view/oa/responsesubmit{//form[1]/@action}" method="post">
+								<form action="http://192.168.1.110:90/view/oa/responsesubmit{//form[1]/@action}" method="post">
 									<ul data-role="listview" data-inset="true">
 										<li data-role="list-divider"></li>
 										<xsl:apply-templates select="//table[@class='tableClass']//tr" mode="choose"/>
@@ -162,7 +162,7 @@
 							</xsl:when>
 							<!-- 表单驳回确认 -->
 							<xsl:when test="contains(//url/text(), 'frmDenySubmit')">
-								<form action="/view/oa/responsesubmit{//form[1]/@action}" method="post">
+								<form action="http://192.168.1.110:90/view/oa/responsesubmit{//form[1]/@action}" method="post">
 									<ul data-role="listview" data-inset="true">
 										<li data-role="list-divider"></li>
 										<xsl:apply-templates select="//table[@class='tableClass']//tr" mode="choose"/>
@@ -190,7 +190,7 @@
 							<xsl:when test="contains(//url/text(), 'frmBranchSelecter')">
 								<xsl:choose>
 									<xsl:when test="//td[@class='msgok_msg']">
-										<form action="/view/oa/signsubmit{//form[1]/@action}" method="post" data-rel="dialog">
+										<form action="http://192.168.1.110:90/view/oa/signsubmit{//form[1]/@action}" method="post" data-rel="dialog">
 											<ul data-role="listview" data-inset="true">
 												<li data-role="list-divider">
 												</li>
@@ -219,7 +219,7 @@
 										</form>
 									</xsl:when>
 									<xsl:otherwise>
-										<form action="/view/oa/signsubmit{//form[1]/@action}" method="post" data-rel="dialog">
+										<form action="http://192.168.1.110:90/view/oa/signsubmit{//form[1]/@action}" method="post" data-rel="dialog">
 											<xsl:choose>
 												<xsl:when test="contains(//div[@class='Toolbar']/@onclick, 'agSaveSelBranch')">
 													<input type="hidden" id="querysaveagent" name="$$querysaveagent" value="agSaveSelBranch" />

@@ -16,49 +16,6 @@
 		<xsl:choose><xsl:when test="contains(//url/text(),'/0/')"><xsl:value-of select="substring-before(substring-after(//url/text(),'/0/'),'?')" /></xsl:when><xsl:when test="contains(//url/text(),'/vwDocByDate/')"><xsl:value-of select="substring-before(substring-after(//url/text(),'/vwDocByDate/'),'?')" /></xsl:when><xsl:otherwise><xsl:value-of select="substring-before(substring-after(substring-after(//url/text(),'nsf/'),'/'),'?')" /></xsl:otherwise></xsl:choose>
 	</xsl:variable>
 	<xsl:template match="/">
-		<xsl:choose>
-			<xsl:when test="//div[@onclick='editdocument()']">
-				<html lang="zh_cn">
-					<head>
-					<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-					<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
-					<script type="application/javascript" src="/view/assets/iscroll.js"></script>
-					<link rel="stylesheet" href="/view/lib/jquery-mobile/jquery.mobile.min.css" />
-					<link rel="stylesheet" href="/view/assets/jquery.mobile-sugon.css" />
-					<script src="/view/lib/jquery/jquery.min.js"></script>
-					<script src="/view/lib/hori/hori.js?tag=21369"></script>
-					<script src="/view/lib/jquery-mobile/jquery.mobile.min.js"></script>
-					<script src="/view/config/web/config.js"></script>
-					</head>
-					<body>
-						<div data-role="page" class="type-home">
-							<div data-role="header" data-position="fixed">
-								<!-- <a data-icon="home" data-role="button" data-rel="back">返回</a> -->
-							</div><!-- /header -->
-							<div data-role="content" align="center">
-								<script type="text/javascript">
-									var id = '<xsl:value-of select="substring-after(//input[@name='fldIframeURL']/@value, 'vwprintcld/')"/>';
-									var dbPath = '<xsl:value-of select="$dbPath"/>';
-									var url= 'view/oa/signcontent/docapp/'+dbPath+'/vwDocByDate/' + id + '?editdocument';
-									var loadurl= $.hori.getconfig().appServerHost+url;
-									console.log(loadurl);
-									$.hori.loadPage(loadurl);
-								</script>
-								<ul data-role="listview" data-inset="true">
-									<li data-role="list-divider"></li>
-									<li>
-										<div style="width:100%" align="center">
-											<h3>编辑页面跳转</h3>
-										</div>
-									</li>
-									<li data-role="list-divider"></li>
-								</ul>
-							</div>
-						</div>
-					</body>
-				</html>
-			</xsl:when>
-			<xsl:otherwise>
 				<html lang="zh_cn">
 					<head>
 					<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -139,7 +96,7 @@
 					</head>
 					<body>
 						<div id="notice" data-role="page">
-							<form id="form" action="/view/oa/signsubmit{//form[@name='_frmWebFlow']/@action}" method="post">
+							<form id="form" action="http://192.168.1.110:90/view/oa/signsubmit{//form[@name='_frmWebFlow']/@action}" method="post">
 								<input type="hidden" id="querysaveagent" name="$$querysaveagent" value="{//input[@name='$$querysaveagent']/@value}"/>
 								<div data-role="content" align="center">
 								<div class="ui-grid-b">
@@ -235,8 +192,7 @@
 						</div>
 					</body>
 				</html>
-			</xsl:otherwise>
-		</xsl:choose>
+			
 	</xsl:template>
 	
 	<!-- 将隐藏控件传入 -->
