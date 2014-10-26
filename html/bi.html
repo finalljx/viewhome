@@ -26,7 +26,6 @@
 <script type="text/javascript">
 	var currentUser = "";
 	$(document).ready(function() {
-		
 		var allData = [ {
 			'reportId' : 1,
 			'title' : '经营态势',
@@ -71,7 +70,7 @@
 			'img' : '../assets/home/jysj.png'
 		} ];
 		var jsondata = localStorage.getItem("json");
-s		var json = JSON.parse(jsondata);
+		var json = JSON.parse(jsondata);
 		var target=[];
 		for (var i = 0; i < json.length; i++) {
 			for (var j = 0; j < allData.length; j++) {
