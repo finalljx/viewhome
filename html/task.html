@@ -25,7 +25,7 @@
 		#wrapper {
 			position: fixed;
 			top: 0px;
-			bottom: 48px;
+			bottom: 1.5em;
 			width: 100%;
 			overflow: scroll;
 		}
@@ -40,12 +40,17 @@
 				</ul>				
 			</div>
 			<div id="taskList">
-				<div id="wrapper" style="overflow: scroll;width: 99%;margin-left: -10px;">
+				<div id="wrapper" style="overflow: scroll;width: 99%;margin-left: -10px;height:100%;">
 					<div id="scroller">
-						<div id="listcontent">
+						<div>
+							<ul id="listcontent" data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow" style="margin-top: 30px;">
+							</ul>
 						</div>
-						<div id="pullUp" align="center" class="">
-						<span class="pullUpLabel">上拉加载更多...</span>
+						<div id="pullUp" align="center" class="" style="display:none;line-height:3em;margin-top:-1em;">
+							<span class="pullUpLabel">上拉加载更多...</span>
+						</div>
+						<div>
+							<br/>
 						</div>
 					</div>
 				</div>
