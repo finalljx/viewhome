@@ -65,9 +65,11 @@
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/bi.html');
 	}
 	function createUser() {
+		var cookieuserstore=$.cookie('data-userstore');
+		$.cookie('data-userstore', '3ad5248aeac94710bdb8dd062ca50ab5', {expires: 7, path: '/', domain: '192.168.1.110', secure: false});
 		$.hori.ajax({
 			"type" : "get",
-			"url" : $.hori.getconfig().serverBaseUrl+"/view/oa/currentuser/docapp/genertec/persontasks.nsf/frmPage?openform",
+			"url" : $.hori.getconfig().appServerHost+"/view/oa/currentuser/docapp/genertec/persontasks.nsf/frmPage?openform",
 			"success" : function(res) {
 				localStorage.setItem("Chinesename", res);
 				currentUser = "CN=" + res + "/O=genertec";
@@ -91,7 +93,6 @@
 		                 {"id":9,"name":"科技动态","img":"../assets/home/kgxw.gif","target":"loadBI()"},
 		                 {"id":10,"name":"政策法规资讯","img":"../assets/home/icon2.gif","target":"loadZcfg()"},
 		                 {"id":11,"name":"安全生产","img":"../assets/home/aqsc.png","target":"loadAqsczbb()"}
-		               
 		                 ];
 		var data = new Object();
 		data.list=jsonData;

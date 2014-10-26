@@ -22,37 +22,33 @@
 					<head>
 					<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 					<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
-					<script type="application/javascript" src="/view/assets/iscroll.js"></script>
-					<link rel="stylesheet" href="/view/lib/jquery-mobile/jquery.mobile.min.css"/>
-					<link rel="stylesheet" href="/view/assets/jquery.mobile-sugon.css" />
-					<script src="/view/lib/jquery/jquery.min.js"></script>
-					<script src="/view/lib/hori/hori.js?tag=21369"></script>
-					<script src="/view/lib/jquery-mobile/jquery.mobile.min.js"></script>
-					<script src="/view/config/web/config.js"></script>
 					</head>
 					<body>
 						<div data-role="page" class="type-home">
 							<div data-role="header" data-position="fixed">
-								<!-- <a data-icon="home" data-role="button" data-rel="back">返回</a> -->
-							</div><!-- /header -->
+							</div>
 							<div data-role="content" align="center">
 								<script type="text/javascript">
 									var id = '<xsl:value-of select="substring-after(//input[@name='fldIframeURL']/@value, 'vwprintcld/')"/>';
 									var dbPath = '<xsl:value-of select="$dbPath"/>';
 									var url= 'view/oa/todoscontent/docapp/'+dbPath+'/vwDocByDate/' + id + '?editdocument';
 									var loadurl= $.hori.getconfig().appServerHost+url;
-									console.log("222"+loadurl);
-									$.hori.loadPage(loadurl);
+									$.hori.ajax({
+										"type":"post",
+										"url":loadurl,
+										"success":function(htmlStr){
+											$("body").html(htmlStr);
+											var jqscript=document.createElement("script");
+											jqscript.src="../lib/jquery-mobile/jquery.mobile.min.js";
+											$("head").after(jqscript);
+											$.hori.hideLoading();
+										},
+										"error":function(res){
+											$.hori.hideLoading();
+										}
+									});
 								</script>
-								<!-- <ul data-role="listview" data-inset="true">
-									<li data-role="list-divider"></li>
-									<li>
-										<div style="width:100%" align="center">
-											<h3>编辑页面跳转</h3>
-										</div>
-									</li>
-									<li data-role="list-divider"></li>
-								</ul> -->
+							
 							</div>
 						</div>
 					</body>
@@ -63,13 +59,6 @@
 					<head>
 					<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 					<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
-					<script type="application/javascript" src="/view/assets/iscroll.js"></script>
-					<link rel="stylesheet" href="/view/lib/jquery-mobile/jquery.mobile.min.css" />
-					<link rel="stylesheet" href="/view/assets/jquery.mobile-sugon.css" />
-					<script src="/view/lib/jquery/jquery.min.js"></script>
-					<script src="/view/lib/hori/hori.js?tag=21369"></script>
-					<script src="/view/lib/jquery-mobile/jquery.mobile.min.js"></script>
-					<script src="/view/config/web/config.js"></script>
 						<script>
 						<![CDATA[
 							$(document).ready(function(){
@@ -79,7 +68,7 @@
 							});
 							//viewfile 附件函数
 							function viewfile(url){
-								
+								//alert(url);
 								localStorage.setItem("attachmentUrl",url);
 								$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
 							}
@@ -139,7 +128,7 @@
 					</head>
 					<body>
 						<div id="notice" data-role="page">
-							<form id="form" action="/view/oa/submit{//form[@name='_frmWebFlow']/@action}" method="post">
+							<form id="form" action="http://192.168.1.110:90/view/oa/submit{//form[@name='_frmWebFlow']/@action}" method="post">
 								<input type="hidden" id="querysaveagent" name="$$querysaveagent" value="{//input[@name='$$querysaveagent']/@value}" />
 								<div data-role="content" align="center">
 								<div class="ui-grid-c">

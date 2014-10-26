@@ -14,8 +14,7 @@
 <script src="../../lib/json/json2.js"></script>
 <script src="../../lib/hori/hori.js?tag=21369"></script>
 <script src="../../config/web/config.js"></script>
-<script
-	src="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
+<script src="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
 <script src="../../lib/knockout/knockout.js"></script>
 <script src="../../lib/knockout/knockout.mapping.js"></script>
 <style>
@@ -81,6 +80,7 @@ function pullUpAction(itcode) {
 							var targetURL = $.hori.getconfig().appServerHost+'view/oa/file/' + list[item].tpxwImage + "?data-result=file";
 							list[item].tpxwImage = targetURL;
 							list[item].tpxwImage=list[item].tpxwImage.replace("http://webseal.genertec.com.cn/","").replace(/\&amp;/g,"&");
+							
 						} 
 						 var myDate = new Date();
 							for(var i=0;i<list.length;i++){
@@ -179,7 +179,7 @@ function loaded() {
 					<h3 style="white-space: normal;">
 						<span data-bind="text: contentTitle" />
 					</h3>
-					<p style="text-align: right;"><span data-bind="text:creatTime">&nbsp;&nbsp;</span></p>
+					<p style="text-align: right;"><span style="margin-right: 30px;" data-bind="text:creatTime">&nbsp;&nbsp;</span></p>
 				</a></li>
 			</ul>
 		</div>

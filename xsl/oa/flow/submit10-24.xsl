@@ -20,6 +20,13 @@
 			<head>
 			<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 			<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+			<script type="application/javascript" src="/view/assets/iscroll.js"></script>
+			<link rel="stylesheet" href="/view/lib/jquery-mobile/jquery.mobile.min.css" />
+			<link rel="stylesheet" href="/view/assets/jquery.mobile-sugon.css" />
+			<script src="/view/lib/jquery/jquery.min.js"></script>
+			<script src="/view/lib/hori/hori.js?tag=21369"></script>
+			<script src="/view/lib/jquery-mobile/jquery.mobile.min.js"></script>
+			<script src="/view/config/web/config.js"></script>
 			</head>
 			<body>
 				<div id="submit" data-role="dialog" class="type-home">
@@ -138,7 +145,7 @@
 									#faqdiv{position:absolute;width:80%; left:50%; top:50%; margin-left:-40%; min-height:300px; height:auto; z-index:100; background-color:#fff;}
 								</style>
 								<!-- 选人提交 -->
-								<form action="http://192.168.1.110:90/view/oa/responsesubmit{//form[1]/@action}" method="post">
+								<form action="/view/oa/responsesubmit{//form[1]/@action}" method="post">
 									<ul data-role="listview" data-inset="true">
 										<li data-role="list-divider"></li>
 										<xsl:apply-templates select="//table[@class='tableClass']//tr" mode="choose"/>
@@ -189,7 +196,7 @@
 							</xsl:when>
 							<!-- 表单驳回确认 -->
 							<xsl:when test="contains(//url/text(), 'frmDenySubmit')">
-								<form action="http://192.168.1.110:90/view/oa/responsesubmit{//form[1]/@action}" method="post">
+								<form action="/view/oa/responsesubmit{//form[1]/@action}" method="post">
 									<ul data-role="listview" data-inset="true">
 										<li data-role="list-divider"></li>
 										<xsl:apply-templates select="//table[@class='tableClass']//tr" mode="choose"/>
@@ -217,7 +224,7 @@
 							<xsl:when test="contains(//url/text(), 'frmBranchSelecter')">
 								<xsl:choose>
 									<xsl:when test="//td[@class='msgok_msg']">
-										<form action="http://192.168.1.110:90/view/oa/submit{//form[1]/@action}" method="post" data-rel="dialog">
+										<form action="/view/oa/submit{//form[1]/@action}" method="post" data-rel="dialog">
 											<ul data-role="listview" data-inset="true">
 												<li data-role="list-divider"></li>
 												<li>
@@ -245,7 +252,7 @@
 										</form>
 									</xsl:when>
 									<xsl:otherwise>
-										<form action="http://192.168.1.110:90/view/oa/submit{//form[1]/@action}" method="post" data-rel="dialog">
+										<form action="/view/oa/submit{//form[1]/@action}" method="post" data-rel="dialog">
 											<xsl:choose>
 												<xsl:when test="contains(//div[@class='Toolbar']/@onclick, 'agSaveSelBranch')">
 													<input type="hidden" id="querysaveagent" name="$$querysaveagent" value="agSaveSelBranch" />
@@ -326,7 +333,7 @@
 	<!-- 将隐藏控件传入 -->
 	<xsl:template match="input" mode="hidden">
 		<xsl:if test="@name!='$$querysaveagent'">
-			<input type="text" name="{@name}" value="{@value}"/>
+			<input type="hidden" name="{@name}" value="{@value}"/>
 		</xsl:if>
 	</xsl:template>
 
