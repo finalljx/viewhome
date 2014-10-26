@@ -77,11 +77,10 @@ function pullUpAction(itcode) {
 					"success" : function(res) {
 						var list = JSON.parse(res);
 						 for ( var item in list) {
-							var targetURL = $.hori.getconfig().appServerHost+'view/oa/file/' + list[item].tpxwImage + "?data-result=file";
+							var targetURL = $.hori.getconfig().appServerHost+'view/oa/file/' + list[item].tpxwImage + "?data-result=file&data-userstore=662cc84bc9f44cb4b7bcd8ca772f6815";
 							list[item].tpxwImage = targetURL;
 							list[item].tpxwImage=list[item].tpxwImage.replace("http://webseal.genertec.com.cn/","").replace(/\&amp;/g,"&");
-							
-						} 
+
 						 var myDate = new Date();
 							for(var i=0;i<list.length;i++){
 								var time=list[i].creatTime.substr(0, 4);
@@ -179,7 +178,8 @@ function loaded() {
 					<h3 style="white-space: normal;">
 						<span data-bind="text: contentTitle" />
 					</h3>
-					<p style="text-align: right;"><span style="margin-right: 30px;" data-bind="text:creatTime">&nbsp;&nbsp;</span></p>
+
+					<p style="text-align: right;"><span style="margin-right: 20px;" data-bind="text:creatTime"></span></p>
 				</a></li>
 			</ul>
 		</div>
