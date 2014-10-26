@@ -128,7 +128,7 @@ var m = Math,
 			onRefresh: null,
 			onBeforeScrollStart: function (e) { e.preventDefault(); },
 			onScrollStart: null,
-			onBeforeScrollMove: null,
+			onBeforeScrollMove: function (e) { e.preventDefault(); },
 			onScrollMove: null,
 			onBeforeScrollEnd: null,
 			onScrollEnd: null,
@@ -553,15 +553,7 @@ iScroll.prototype = {
 						target = point.target;
 						while (target.nodeType != 1) target = target.parentNode;
 
-						if (target.tagName != 'SELECT' && target.tagName != 'INPUT' && target.tagName != 'TEXTAREA') {
-							ev = doc.createEvent('MouseEvents');
-							ev.initMouseEvent('click', true, true, e.view, 1,
-								point.screenX, point.screenY, point.clientX, point.clientY,
-								e.ctrlKey, e.altKey, e.shiftKey, e.metaKey,
-								0, null);
-							ev._fake = true;
-							target.dispatchEvent(ev);
-						}
+						
 					}, that.options.zoom ? 250 : 0);
 				}
 			}
