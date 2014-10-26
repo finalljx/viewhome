@@ -77,11 +77,11 @@ function pullUpAction(itcode) {
 					 },
 					"success" : function(res) {
 						var list = JSON.parse(res);
+						var cookie_userstore = localStorage.getItem("cookie_userstore");
 						 for ( var item in list) {
-							var targetURL = $.hori.getconfig().appServerHost+'view/oa/file/' + list[item].tpxwImage + "?data-result=file&data-userstore=662cc84bc9f44cb4b7bcd8ca772f6815";
+							var targetURL = $.hori.getconfig().appServerHost+'view/oa/file/' + list[item].tpxwImage + "?data-result=file&data-userstore="+cookie_userstore;
 							list[item].tpxwImage = targetURL;
 							list[item].tpxwImage=list[item].tpxwImage.replace("http://webseal.genertec.com.cn/","").replace(/\&amp;/g,"&");
-						alert(list[item].tpxwImage);
 						 } 
 						 var myDate = new Date();
 							for(var i=0;i<list.length;i++){
