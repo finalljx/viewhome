@@ -59,16 +59,11 @@ p {
 				"Authorization" : "Basic d3BzYWRtaW46R1RBZG1pbg=="
 			},
 			"success" : function(res) {
-				console.log(res);
-				res=res.replace(/webseal.genertec.com.cn/g,"localhost:8080/view/oa/file").replace(/&amp;amp;/g,"&");
+				var url=$.hori.getconfig().appServerHost+"view/oa/file";
+				res=res.replace(/http:\/\/webseal.genertec.com.cn/g,url).replace(/&amp;amp;/g,"&");
 				res=res.replace(/CACHEID=.*?\\/g,"data-result=file\\");
-				console.log(res);
-				/*  var url="http://webseal.genertec.com.cn/";
-				    var reg=new RegExp(/(<img src=\")(\S+)(".+\/>)/g);
-				    var newstr=res.replace(reg,"$1/aaa/$2/$3bb"); 
-				    alert(newstr);  */
 				 var data = JSON.parse(res);
-				if (null != data.attachmentSource) {
+				if ( data.attachmentSource!=undefined) {
 					document.getElementById("fujian").style.display = "inline";
 					var attachmentNameLength = data.attachment.length;
 					var attachmentSourceLength = data.attachmentSource.length;
@@ -85,6 +80,8 @@ p {
 						dataArraySource[i]=$.hori.getconfig().appServerHost+'view/oa/file/'+dataArraySource[i];
 						dataArraySource[i]=dataArraySource[i].replace('http://webseal.genertec.com.cn/',"");
 					} 
+					
+					var dataData = new Object();
 					var list = new Array();
 					for (var i = 0; i < dataArrayName.length; i++) {
 						var item = new Object();
@@ -92,12 +89,13 @@ p {
 						item.attachmentSource = dataArraySource[i];
 						list.push(item);
 					}
-					data.attachmentList = list;
+					dataData.list = list;
 					console.log(data);
+					render(dataData);
 				} else {
-					document.getElementById("fujian").style.display = "none";
+					render(data);
 				}
-				render(data);
+				
 			},
 			"error" : function(res) {
 				alert("error:" + res);
@@ -144,12 +142,14 @@ p {
 			<div style="clear: both;">
 				<span data-bind="html:richText"></span>
 			</div>
-			<div style="clear: both; display: inline;" id="fujian">
-				<ul data-bind="foreach: attachmentList">
-					<li><a data-bind="click:viewfile" ><span
+			
+			 <div style="clear: both; display: inline;" id="fujian" data-bind="if:$root.list">
+				<ul data-bind="foreach: list" >
+					<li >
+					<a data-bind="click:viewfile" ><span
 							data-bind="text: attachment"></span></a></li>
 				</ul>
-			</div>
+			</div> 
 		</div>
 	</div>
 </body>
