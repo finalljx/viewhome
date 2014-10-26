@@ -91,11 +91,9 @@ p {
 					}
 					dataData.list = list;
 					console.log(data);
-					render(dataData);
-				} else {
+					renderfj(dataData);
+				} 
 					render(data);
-				}
-				
 			},
 			"error" : function(res) {
 				alert("error:" + res);
@@ -108,14 +106,17 @@ p {
 		var url=item.attachmentSource()+"&data-convert=office";
 		url=url.replace(/\&amp;/g,"&");
 		console.log(item.attachmentSource());
-		alert(url);
 		localStorage.setItem("attachmentUrl",url);
 		$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
 	}
 	
 	function render(jsonData) {
 		var viewModel = ko.mapping.fromJS(jsonData);
-		ko.applyBindings(viewModel);
+		ko.applyBindings(viewModel,document.getElementById("textRich"));
+	}
+	function renderfj(jsonData) {
+		var viewModel = ko.mapping.fromJS(jsonData);
+		ko.applyBindings(viewModel,document.getElementById("fujian"));
 	}
 </script>
 </head>
@@ -129,6 +130,7 @@ p {
 				</h3>
 			</div>
 			<!-- 发布信息 -->
+			<div id="textRich">
 			<div style="background-color: rgba(127, 127, 127, 0.5);">
 				<p>
 				<div style="float: left;">
@@ -138,11 +140,12 @@ p {
 					发文来源：<span data-bind="text: newsource"></span>
 				</div>
 				</p>
+			
 			</div>
 			<div style="clear: both;">
 				<span data-bind="html:richText"></span>
 			</div>
-			
+			</div>
 			 <div style="clear: both; display: inline;" id="fujian" data-bind="if:$root.list">
 				<ul data-bind="foreach: list" >
 					<li >
