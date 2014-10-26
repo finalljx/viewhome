@@ -22,15 +22,13 @@
 				});
 			]]>
 		</script>
-		<ul  data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow" style="margin-top: 30px;">
-			
 			<xsl:if test="count(//div[@id='viewValue']//table/tbody/tr[position()&gt;1])=0">
 				<li><a>无内容</a></li>
 			</xsl:if>
 			<xsl:if test="count(//div[@id='viewValue']//table/tbody/tr[position()&gt;1])!=0">
+				<br/>
 				<xsl:apply-templates select="//div[@id='viewValue']//table/tbody/tr[position()&gt;1]" />
 			</xsl:if>
-		</ul>
 	</xsl:template>
 	<xsl:template match="tr">
 		<xsl:variable name="unid"><xsl:value-of select="td[2]/input/@value"/></xsl:variable>
