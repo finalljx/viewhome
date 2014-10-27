@@ -103,7 +103,7 @@
 	//获取图标个数
 	function getTuBiao() {
 		var jsonData = [ {"id":1,"name":"集团新闻","img":"../assets/home/news.png","target":"loadJtxw()"},
-		                 {"id":2,"name":"通知公告","img":"../assets/home/tzgg.png","target":"loadNewsList('GT_HomePage_SiteArea_jttz')"},
+		                 {"id":2,"name":"集团通知","img":"../assets/home/tzgg.png","target":"loadNewsList('GT_HomePage_SiteArea_jttz')"},
 		                 {"id":3,"name":"成员单位新闻","img":"../assets/home/cydwxw.png","target":"loadNewsList('GT_HomePage_SiteArea_zgsxw')"},
 		                 {"id":4,"name":"公文待办","img":"../assets/home/task.png","target":"loadTaskList()"},
 		                 {"id":5,"name":"公文查阅","img":"../assets/home/gwcy.png","target":"loadqueryList()"},
@@ -142,10 +142,11 @@
 	}
 </script>
 <style>
-#divxs{
+ #divxs{
 width:33%;
-line-height:3em;
-}
+margin-bottom:20px;
+margin-top:20px
+} 
 /* @media screen and (min-width: 600px) and (max-width: 1900px) {
   #imgToDo {
     width:200px;
@@ -173,8 +174,8 @@ line-height:3em;
 			<div class="ui-block-c" id="divxs" >
 				<a href="javascript:void(0);" data-bind="attr:{'onclick':target}" > <img
 					id="imgToDo" data-bind="attr:{'src':img}" class="module-icon"/>
-				</a> <br />
-				<span style="color: #434343;" style="margin-top:15px;"><strong data-bind="text:name"></strong></span>
+				</a><br />
+				<span style="color: #434343;"><strong data-bind="text:name"></strong></span>
 			</div>
 			</div>
 		</div>

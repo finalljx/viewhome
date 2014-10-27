@@ -23,6 +23,7 @@ a {
 <script type="text/javascript">
 
 	$(document).ready(function(){
+		$.hori.setHeaderTitle("经营动态");
 		//加载收入完成图表数据
 		loadSrwcChart();
 	});
@@ -44,7 +45,7 @@ a {
                 "url":url,
                 "data":data,
                 "success":function(res){
-                
+                  res=res.replace(/\s\s/g,"</p><p>")
                 	var jsonObj=JSON.parse(res);
                 	document.getElementById("aa").innerHTML = jsonObj.reportdata.datatext;
         		
@@ -57,12 +58,14 @@ a {
     }
 	
 	</script>
+	<style>
+	  p   {   text-indent:2em   }  
+	</style>
 </head>
 <body >
 	<!-- 经营态势 -->
 	<div data-role="page" id="srwc" class="login" >
-		<div data-role="content" align="center" id="aa" >
-		
+		<div data-role="content" align="left" id="aa" style="margin-left: 20px;" >
 		</div>
 			</div>
 </body>

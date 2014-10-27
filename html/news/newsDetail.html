@@ -59,9 +59,11 @@ p {
 				"Authorization" : "Basic d3BzYWRtaW46R1RBZG1pbg=="
 			},
 			"success" : function(res) {
+				
 				var url=$.hori.getconfig().appServerHost+"view/oa/file";
 				res=res.replace(/http:\/\/webseal.genertec.com.cn/g,url).replace(/&amp;amp;/g,"&");
 				res=res.replace(/CACHEID=.*?\\/g,"data-result=file\\");
+				res=res.replace(/style=.*?\\"/g,"");
 				 var data = JSON.parse(res);
 				if ( data.attachmentSource!=undefined) {
 					document.getElementById("fujian").style.display = "inline";
@@ -105,7 +107,6 @@ p {
 	function viewfile(item){
 		var url=item.attachmentSource()+"&data-convert=office";
 		url=url.replace(/\&amp;/g,"&");
-		console.log(item.attachmentSource());
 		localStorage.setItem("attachmentUrl",url);
 		$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
 	}
@@ -126,12 +127,12 @@ p {
 			<!-- 标题 -->
 			<div>
 				<h3>
-					<span data-bind="text: contentTitle"></span>
+					<span data-bind="text: contentTitle" ></span>
 				</h3>
 			</div>
-			<!-- 发布信息 -->
-			<div id="textRich">
-			<div style="background-color: rgba(127, 127, 127, 0.5);">
+			
+			
+			<div style="background-color: rgba(127,127,127,0.5);">
 				<p>
 				<div style="float: left;">
 					发布时间：<span data-bind="text: creatTime"></span>
@@ -139,6 +140,7 @@ p {
 				<div style="float: right;">
 					发文来源：<span data-bind="text: newsource"></span>
 				</div>
+				<br/>
 				</p>
 			
 			</div>
@@ -147,8 +149,9 @@ p {
 			</div>
 			</div>
 			 <div style="clear: both; display: inline;" id="fujian" data-bind="if:$root.list">
-				<ul data-bind="foreach: list" >
-					<li >
+			 <a style="float: left;color: black;">附件列表:</a>
+				<ul data-bind="foreach: list" style="list-style-type:none;">
+					<li data-icon="false" style="float: left;">
 					<a data-bind="click:viewfile" ><span
 							data-bind="text: attachment"></span></a></li>
 				</ul>
