@@ -193,7 +193,11 @@
 </script>
 <style>
 
-   @media  only screen and (min-width: 1070px) and (max-width: 1081px) {
+.divxs {
+		width: 33.333%;
+		margin-top: 20px
+	}
+  /*  @media  only screen and (min-width: 1070px) and (max-width: 1081px) {
   .imgToDo {
     width:10em;
   }
@@ -220,7 +224,7 @@
 		width: 33.333%;
 		margin-top: 20px
 	}
-} 
+}  */
 </style>
 </head>
 <body>
@@ -229,7 +233,7 @@
 			<div data-bind="foreach: list" style="width: 100%;">
 				<div class="ui-block-b divxs">
 					<a href="javascript:void(0);" data-bind="attr:{'onclick':target}">
-						<img class="imgToDo " data-bind="attr:{'src':img}" />
+						<img class="imgToDo module-icon  " data-bind="attr:{'src':img}" />
 					</a><br /> <span style="color: #434343;"><strong
 						data-bind="text:name"></strong></span>
 				</div>
