@@ -291,7 +291,6 @@
 								</xsl:choose>
 								
 							</xsl:when>
-							<!-- 表单错误提示 -->
 							<xsl:when test="contains(//url/text(), 'Seq=')">
 								<ul data-role="listview" data-inset="true">
 									<li data-role="list-divider">
@@ -387,8 +386,8 @@
 						<li data-role="fieldcontain">
 							<fieldset data-role="controlgroup" data-type="horizontal" style="text-align:center;">
 								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
-								<input type="text" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
-								<a href="javascript:void(0)" onclick="clearperson();" style="margin-left:100px;" data-role="button" data-inline="true">清空666</a>
+								<input type="hidden" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
+								<!-- <a href="javascript:void(0)" onclick="clearperson();" style="margin-left:100px;" data-role="button" data-inline="true">清空666</a> -->
 								<a href="javascript:void(0)" onclick="userselect('http://192.168.1.110:90/view/oa/userselectorg/docapp/{$dbPath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}')" data-role="button" data-inline="true" data-theme="b">选人13</a>
 							</fieldset>
 						</li>
@@ -398,8 +397,8 @@
 							<fieldset data-role="controlgroup" data-type="horizontal">
 								<legend>下一环节审批人:</legend>
 								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
-								<input type="text" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
-								<a href="javascript:void(0)" style="margin-left:30px;" onclick="clearperson();" data-role="button" data-inline="true">清空</a>
+								<input type="hidden" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
+								<!-- <a href="javascript:void(0)" style="margin-left:30px;" onclick="clearperson();" data-role="button" data-inline="true">清空</a> -->
 								<a href="javascript:void(0)" onclick="userselect('http://192.168.1.110:90/view/oa/userselectorg/docapp/{$dbPath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}')" data-role="button" data-inline="true" data-theme="b">选人2</a>
 							</fieldset>
 						</li>
@@ -430,9 +429,9 @@
 					<fieldset data-role="controlgroup" data-type="horizontal">
 						<legend>请选择会签审批人:</legend>
 						<textarea id="forshowcheck" name="forshowcheck"></textarea>
-						<input type="text" id="fldXyspr" name="fldXyspr" value="" readonly="true"  data-inline="true"/>
+						<input type="hidden" id="fldXyspr" name="fldXyspr" value="" readonly="true"  data-inline="true"/>
 						<a href="javascript:void(0)" onclick="userselect('http://192.168.1.110:90/view/oa/userselect/docapp/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10')" data-role="button" data-inline="true" data-theme="b">选人员</a>
-						<a href="javascript:void(0)" onclick="userselect('http://192.168.1.110:90/view/oa/userselect/docapp/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10')" data-role="button" data-inline="true" data-theme="b">选角色</a>
+						<!-- <a href="javascript:void(0)" onclick="userselect('http://192.168.1.110:90/view/oa/userselect/docapp/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10')" data-role="button" data-inline="true" data-theme="b">选角色</a> -->
 						<input id="fldXyspr" name="fldXyspr" type="hidden" value="{//input[@name='fldXyspr']/@value}"/>
 					</fieldset>
 				</li>

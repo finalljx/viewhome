@@ -36,7 +36,7 @@
 									<div align="center">
 										<xsl:if test="contains(//h2/., 'Form processed')">表单已处理</xsl:if>
 										<xsl:if test="contains(//td[@class='msgok_msg']/.,'/')">
-											<xsl:value-of select="substring-before(//td[@class='msgok_msg']/.,'/')"/>
+											<xsl:value-of select="//td[@class='msgok_msg']/."/>
 										</xsl:if>
 										<xsl:if test="not(contains(//td[@class='msgok_msg']/.,'/'))">
 											<xsl:value-of select="//td[@class='msgok_msg']/."/>
@@ -49,12 +49,13 @@
 						<div class="ui-grid-a">
 							<div class="ui-block-a"></div>
 							<div class="ui-block-b">
-								<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">确认</a>
+								<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">返回</a>
 							</div>
 							<script>
 								<![CDATA[
 									function cancelSubmit(){
-										document.location.reload();
+										//document.location.reload();
+										$.hori.backPage(1);
 									}
 								]]>
 							</script>

@@ -257,11 +257,7 @@
 							<!-- 表单错误提示 -->
 							<xsl:when test="contains(//url/text(), 'Seq=')">
 								<ul data-role="listview" data-inset="true">
-									<li data-role="list-divider">
-										<div data-role="controlgroup" data-type="horizontal" style="width:100%;" align="right">
-											<a data-role="button" href="javascript:void(0);" onclick="cancelSubmit()">返回</a>
-										</div>
-									</li>
+									<li data-role="list-divider"></li>
 									<li>
 										<xsl:choose>
 											<xsl:when test="//body/script">接收成功</xsl:when>
@@ -271,21 +267,24 @@
 									</li>
 									<li data-role="list-divider"></li>
 								</ul>
-								<script>
-									<![CDATA[
-										function cancelSubmit(){
-											document.location.reload();
-										}
-									]]>
-								</script>
+								<div class="ui-grid-a">
+									<div class="ui-block-a"></div>
+									<div class="ui-block-b">
+										<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">返回</a>
+									</div>
+									<script>
+										<![CDATA[
+											function cancelSubmit(){
+												//document.location.reload();
+												$.hori.backPage(1);
+											}
+										]]>
+									</script>
+								</div>
 							</xsl:when>
 							<xsl:otherwise>
 								<ul data-role="listview" data-inset="true">
-									<li data-role="list-divider">
-										<div data-role="controlgroup" data-type="horizontal" style="width:100%;" align="right">
-											<a data-role="button" href="javascript:void(0);" onclick="cancelSubmit()">返回</a>
-										</div>
-									</li>
+									<li data-role="list-divider"></li>
 									<li>
 										<xsl:choose>
 											<xsl:when test="//fieldset"><xsl:value-of select="//fieldset//table/."/></xsl:when>
@@ -295,13 +294,20 @@
 									</li>
 									<li data-role="list-divider"></li>
 								</ul>
-								<script>
-									<![CDATA[
-										function cancelSubmit(){
-											document.location.reload();
-										}
-									]]>
-								</script>
+								<div class="ui-grid-a">
+									<div class="ui-block-a"></div>
+									<div class="ui-block-b">
+										<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">返回</a>
+									</div>
+									<script>
+										<![CDATA[
+											function cancelSubmit(){
+												//document.location.reload();
+												$.hori.backPage(1);
+											}
+										]]>
+									</script>
+								</div>
 							</xsl:otherwise>
 						</xsl:choose>
 					</div><!-- /content -->
@@ -346,7 +352,6 @@
 	</xsl:template>
 	<xsl:template match="text()" mode="branchcontent"></xsl:template>
 	<xsl:template match="br" mode="branchcontent"></xsl:template>
-
 
 	
 	<!-- 流程人员选择 -->
@@ -393,9 +398,9 @@
 							<fieldset data-role="controlgroup" data-type="horizontal">
 								<legend>下一环节审批人:</legend>
 								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
-								<input type="text" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
-								<a href="javascript:void(0)" onclick="clearperson();" style="margin-left:30px;" data-role="button" data-inline="true">清空</a>
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectsignsub/docapp/indishare/addresstree.nsf/vwUserBydepPath?readviewentries&amp;restricttocategory=_53_&amp;count=500&amp;start=1')" data-role="button" data-inline="true" data-theme="b">选人yu06
+								<input type="hidden" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
+								<!-- <a href="javascript:void(0)" onclick="clearperson();" style="margin-left:30px;" data-role="button" data-inline="true">清空</a> -->
+								<a href="javascript:void(0)" onclick="userselect('http://192.168.1.110:90/view/oa/userselectsignsub/docapp/indishare/addresstree.nsf/vwUserBydepPath?readviewentries&amp;restricttocategory=_53_&amp;count=500&amp;start=1')" data-role="button" data-inline="true" data-theme="b">选人yu06
 								</a>
 							</fieldset>
 							
@@ -406,9 +411,9 @@
 							<fieldset data-role="controlgroup" data-type="horizontal">
 								<legend>下一环节审批人:</legend>
 								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
-								<input type="text" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
-								<a href="javascript:void(0)" style="margin-left:30px;" onclick="clearperson();" data-role="button" data-inline="true">清空</a>
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/docapp/{$dbpath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}')" data-role="button" data-inline="true" data-theme="b">选人yu09</a>
+								<input type="hidden" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
+								<!-- <a href="javascript:void(0)" style="margin-left:30px;" onclick="clearperson();" data-role="button" data-inline="true">清空</a> -->
+								<a href="javascript:void(0)" onclick="userselect('http://192.168.1.110:90/view/oa/userselectorg/docapp/{$dbpath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}')" data-role="button" data-inline="true" data-theme="b">选人yu09</a>
 							</fieldset>
 						</li>
 					</xsl:when>
