@@ -26,7 +26,7 @@ a {
 </head>
 <body>
 	<!-- 利润板块-->
-	<div id="main" style="height: 400px">
+	<div id="main" style="height: 400px;margin-top: 20px;">
 	</div>
 	<script src="../asset/js/echarts-plain-original.js"></script>
 	<script type="text/javascript" src="../asset/js/echartsHome.js"></script>
@@ -35,6 +35,7 @@ a {
 <script type="text/javascript">
 
 	$(document).ready(function(){
+		$.hori.setHeaderTitle("利润板块");
 		//加载收入完成图表数据
 		loadSrwcChart();
 	});
@@ -73,7 +74,6 @@ a {
                 }
             });
     }
-
 	function loadlrbk(title,year,month,primaryunit,category,seriesdata) {
 	var option = 
 	        {
@@ -88,8 +88,14 @@ a {
 	                    ],
 	            legend: {
 	                data:category,
-	                x:'left'
+	                x:'left',
+	                margin:200,
+	             // 主题，主题
+	                textStyle: {
+	                    fontSize: 30
+	                }
 	            },
+	           
 	            toolbox: {
 	                show : false,
 	                feature : {
@@ -130,6 +136,7 @@ a {
 	var myChart = echarts.init(document.getElementById('main'));
 	myChart.setOption(option);
 	}
+	
 	</script>
 </body>
 </html>

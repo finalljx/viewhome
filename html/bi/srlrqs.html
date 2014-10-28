@@ -37,10 +37,11 @@ a {
 <script type="text/javascript">
 
 	$(document).ready(function(){
-		//加载收入完成图表数据
+		$.hori.setHeaderTitle("收入利润趋势");
+		//加载收入利润趋势图表数据
 		loadSrlrqsChart()
 	});
-	//加载收入完成图表数据
+	//加载收入利润趋势图表数据
 	function loadSrlrqsChart(){
             var url = $.hori.getconfig().appServerHost+"view/bi/loadSrlrqsChart/accsyBiReport/services/reqBiReportData";
             var temp = "$lt;?xml version='1.0' encoding='utf-8'?$gt;$lt;root$gt;$lt;reportdata$gt;$lt;reportid$gt;6$lt;/reportid$gt;$lt;/reportdata$gt;$lt;/root$gt;";

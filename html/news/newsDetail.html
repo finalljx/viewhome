@@ -59,10 +59,10 @@ p {
 				"Authorization" : "Basic d3BzYWRtaW46R1RBZG1pbg=="
 			},
 			"success" : function(res) {
-				
+				var widthImg=document.documentElement.clientWidth*0.8;
 				var url=$.hori.getconfig().appServerHost+"view/oa/file";
 				res=res.replace(/http:\/\/webseal.genertec.com.cn/g,url).replace(/&amp;amp;/g,"&");
-				res=res.replace(/CACHEID=.*?\\/g,"data-result=file\\");
+				res=res.replace(/CACHEID=.*?\\/g,'data-result=file\\\" width=\\\"'+widthImg+'\\');
 				res=res.replace(/style=.*?\\"/g,"");
 				 var data = JSON.parse(res);
 				if ( data.attachmentSource!=undefined) {
@@ -96,6 +96,7 @@ p {
 					renderfj(dataData);
 				} 
 					render(data);
+					
 			},
 			"error" : function(res) {
 				alert("error:" + res);
