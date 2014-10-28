@@ -57,6 +57,13 @@ a {
                 "url":url,
                 "data":data,
                 "success":function(res){
+                	var cWidth=window.screen.width;
+                	var fontSize;
+                	if(cWidth<720){
+                		fontSize=12;
+                	}else{
+                		fontSize=18;
+                	}
                 	var json=JSON.parse(res);
                 	var reportdata=json.reportdata;
                 	var title=reportdata.title;
@@ -65,7 +72,7 @@ a {
                 	var primaryunit=reportdata.primaryunit;
                 	var category=reportdata.category.split('|');
                 	var seriesdata=reportdata.seriesdata.split('|');
-                	loadlrbk(title,year,month,primaryunit,category,seriesdata);
+                	loadlrbk(title,year,month,primaryunit,category,seriesdata,fontSize);
         		
                 },
                 "error":function(res){
@@ -74,7 +81,7 @@ a {
                 }
             });
     }
-	function loadlrbk(title,year,month,primaryunit,category,seriesdata) {
+	function loadlrbk(title,year,month,primaryunit,category,seriesdata,fontSize) {
 	var option = 
 	        {
 	            tooltip : {
@@ -89,10 +96,10 @@ a {
 	            legend: {
 	                data:category,
 	                x:'left',
-	                margin:200,
+	                margin:200, 
 	             // 主题，主题
 	                textStyle: {
-	                    fontSize: 30
+	                    fontSize: fontSize
 	                }
 	            },
 	           
