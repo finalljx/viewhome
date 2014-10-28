@@ -26,23 +26,34 @@ a {
 </head>
 <body>
 	<!-- 收入利润 -->
-	<div id="main" style="height: 400px; width: 450px; float: left;">
+	<div id="main" style=" width: 450px; float: left;">
 	</div>
-	<div id="main1" style="height: 400px; width: 450px; float: left;">
+	<div id="main1" style=" width: 450px; float: left;">
 	</div>
-
-
 	<script src="../asset/js/echarts-plain-original.js"></script>
 	<script type="text/javascript" src="../asset/js/echartsHome.js"></script>
 	<script src="../asset/js/bootstrap.min.js"></script>
 	<script src="../asset/js/echartsExample.js"></script>
 
 	<script type="text/javascript">
+	window.onload=function()
+	{
+	var h=document.documentElement.clientHeight/2;//可见区域高度
+	var w=document.documentElement.clientWidth;//可见区域高度
+	var sm=document.getElementById('main');
+	sm.style.height=h+"px";
+	sm.style.width=w+"px";
+	var ss=document.getElementById('main1');
+	ss.style.height=h+"px";
+	ss.style.width=w+"px";
+	
+	}
 		$(document).ready(function() {
-			//加载收入完成图表数据
+			$.hori.setHeaderTitle("收入利润");
+			//加载收入利润图表数据
 			loadSrlrqsChart()
 		});
-		//加载收入完成图表数据
+		//加载收入利润图表数据
 		function loadSrlrqsChart() {
 			var url = $.hori.getconfig().appServerHost
 					+ "view/bi/loadSrlrqsChart/accsyBiReport/services/reqBiReportData";

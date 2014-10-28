@@ -43,7 +43,6 @@ var itcode;
 $(document).ready(function() {
 		 itcode = localStorage.getItem("itcode");
 		 $.hori.setHeaderTitle("图片新闻");
-	//加载通知公告列表
 	pullUpAction(itcode);
 });
 var myScroll, pullDownEl, pullDownOffset, pullUpEl, pullUpOffset, generatedCount = 0;
@@ -101,8 +100,9 @@ function pullUpAction(itcode) {
 							if(list.length<10){
 								$('#pullUpLabel').text("没有更多数据！");
 							}
+							var tmpViewModel = ko.mapping.fromJS(list);
 							for (var i = 0; i < list.length; i++) {
-								viewModel.list.push(list[i]);
+								viewModel.list.push(tmpViewModel()[i]);
 							}
 							myScroll.refresh();
 						}
@@ -178,10 +178,10 @@ function loaded() {
 					<a  data-bind="click:showDetail"  >
 					<img data-bind="attr:{'src':tpxwImage}" style="margin-left: 10px;margin-top: 10px;" />
 					<h3 style="white-space: normal;">
-						<span data-bind="text: contentTitle" />
+						<span style="margin-right: 20px;" data-bind="text: contentTitle" />
 					</h3>
 
-					<p style="text-align: right;"><span style="margin-right: 20px;" data-bind="text:creatTime"></span></p>
+					<p style="text-align: right;"><span style="margin-right: 30px;" data-bind="text:creatTime"></span></p>
 				</a></li>
 			</ul>
 		</div>

@@ -47,17 +47,17 @@ $(document).ready(function() {
 		 moreCurrentName= localStorage.getItem("moreCurrentName");
 		 switch (moreCurrentName){
 		 case "GT_HomePage_SiteArea_jttz":
-			 $.hori.setHeaderTitle("通知公告");
+			 $.hori.setHeaderTitle("通知通知");
 				break;
 			case "GT_HomePage_SiteArea_jtxw":
-				 $.hori.setHeaderTitle("集团通知");
+				 $.hori.setHeaderTitle("集团新闻");
 				break;
 			case "GT_HomePage_SiteArea_zgsxw": 
 				 $.hori.setHeaderTitle("成员单位新闻");
 				break;
 		 
 		 }
-	//加载通知公告列表
+	//加载集团通知列表
 	pullUpAction(itcode);
 });
 	var myScroll, pullDownEl, pullDownOffset, pullUpEl, pullUpOffset, generatedCount = 0;
