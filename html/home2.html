@@ -2,7 +2,8 @@
 <head>
 <title>首页</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
 <link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" />
 <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
 <link rel="stylesheet" href="../lib/swiper/idangerous.swiper.css">
@@ -33,6 +34,7 @@
 				hori.backPage(1);
 			});
 			//ios 隐藏邮件图标
+			alert(window.screen.width);
 			createUser();
 			var itcode = localStorage.getItem("itcode");
 			getTuBiao();
@@ -43,8 +45,7 @@
 	//请示待办
 	function loadTaskList() {
 		$.hori.showLoading();
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl
-						+ "viewhome/html/task.html");
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl + "viewhome/html/task.html");
 	}
 	//请示查阅
 	function loadqueryList() {
@@ -57,40 +58,45 @@
 	function loadNewsList(typeName) {
 		localStorage.setItem("moreCurrentName", typeName);
 		$.hori.showLoading();
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl
-				+ 'viewhome/html/news/newsList.html');
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/news/newsList.html');
 	}
 	//BI
 	function loadBI() {
 		$.hori.showLoading();
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/bi.html');
 	}
-	var  cookie_userstore;
+	var cookie_userstore;
 	function createUser() {
-		$.hori.getCookies(function(clientCookie){
-			try{
-			var key="data-userstore";
-			cookie_userstore=new RegExp(encodeURIComponent(key) + '=([^;]*)').exec(clientCookie);
-				if(cookie_userstore){
-					localStorage.setItem("cookie_userstore",cookie_userstore[1]);
-					var serverDomain=new RegExp('^https?://(.*?)(?=:|/)').exec($.hori.getconfig().appServerHost);
-					if(serverDomain){
-						$.cookie('data-userstore', cookie_userstore[1], {expires: 7, path: '/', domain:serverDomain[1] , secure: false});
-					}else{
+		$.hori.getCookies(function(clientCookie) {
+			try {
+				var key = "data-userstore";
+				cookie_userstore = new RegExp(encodeURIComponent(key) + '=([^;]*)').exec(clientCookie);
+				if (cookie_userstore) {
+					localStorage.setItem("cookie_userstore", cookie_userstore[1]);
+					var serverDomain = new RegExp('^https?://(.*?)(?=:|/)').exec($.hori.getconfig().appServerHost);
+					if (serverDomain) {
+						$.cookie('data-userstore', cookie_userstore[1], {
+							expires : 7,
+							path : '/',
+							domain : serverDomain[1],
+							secure : false
+						});
+					} else {
 						alert("获取配置文件异常");
 					}
-					
-				}else{
+
+				} else {
 					alert("获取cookie失败");
 				}
-			}catch(e){
+			} catch (e) {
 				alert(e.message);
 			}
 		});
-		
+
 		$.hori.ajax({
 			"type" : "get",
-			"url" : $.hori.getconfig().appServerHost+"/view/oa/currentuser/docapp/genertec/persontasks.nsf/frmPage?openform",
+			"url" : $.hori.getconfig().appServerHost
+					+ "/view/oa/currentuser/docapp/genertec/persontasks.nsf/frmPage?openform",
 			"success" : function(res) {
 				localStorage.setItem("Chinesename", res);
 				currentUser = "CN=" + res + "/O=genertec";
@@ -98,26 +104,70 @@
 				$.hori.hideLoading();
 			},
 			"error" : function(res) {
-				
+
 			}
 		});
 	}
 	//获取图标个数
 	function getTuBiao() {
-		var jsonData = [ {"id":1,"name":"集团新闻","img":"../assets/home/news.png","target":"loadJtxw()"},
-		                 {"id":2,"name":"集团通知","img":"../assets/home/tzgg.png","target":"loadNewsList('GT_HomePage_SiteArea_jttz')"},
-		                 {"id":3,"name":"成员单位新闻","img":"../assets/home/cydwxw.png","target":"loadNewsList('GT_HomePage_SiteArea_zgsxw')"},
-		                 {"id":4,"name":"公文待办","img":"../assets/home/task.png","target":"loadTaskList()"},
-		                 {"id":5,"name":"公文查阅","img":"../assets/home/gwcy.png","target":"loadqueryList()"},
-		                 {"id":6,"name":"经营数据","img":"../assets/home/jysj.png","target":"loadBI()"},
-		                 {"id":7,"name":"电子期刊","img":"../assets/home/dzqk.gif","target":""},
-		                 {"id":8,"name":"聘免公告","img":"../assets/home/doc.png","target":""},
-		                 {"id":9,"name":"科技动态","img":"../assets/home/kgxw.gif","target":""},
-		                 {"id":10,"name":"政策法规资讯","img":"../assets/home/icon2.gif","target":"loadZcfg()"},
-		                 {"id":11,"name":"安全生产","img":"../assets/home/aqsc.png","target":"loadAqsczbb()"}
-		                 ];
+		var jsonData = [ {
+			"id" : 1,
+			"name" : "集团新闻",
+			"img" : "../assets/home/news.png",
+			"target" : "loadJtxw()"
+		}, {
+			"id" : 2,
+			"name" : "集团通知",
+			"img" : "../assets/home/tzgg.png",
+			"target" : "loadNewsList('GT_HomePage_SiteArea_jttz')"
+		}, {
+			"id" : 3,
+			"name" : "成员单位新闻",
+			"img" : "../assets/home/cydwxw.png",
+			"target" : "loadNewsList('GT_HomePage_SiteArea_zgsxw')"
+		}, {
+			"id" : 4,
+			"name" : "公文待办",
+			"img" : "../assets/home/task.png",
+			"target" : "loadTaskList()"
+		}, {
+			"id" : 5,
+			"name" : "公文查阅",
+			"img" : "../assets/home/gwcy.png",
+			"target" : "loadqueryList()"
+		}, {
+			"id" : 6,
+			"name" : "经营数据",
+			"img" : "../assets/home/jysj.png",
+			"target" : "loadBI()"
+		}, {
+			"id" : 7,
+			"name" : "电子期刊",
+			"img" : "../assets/home/dzqk.gif",
+			"target" : ""
+		}, {
+			"id" : 8,
+			"name" : "聘免公告",
+			"img" : "../assets/home/doc.png",
+			"target" : ""
+		}, {
+			"id" : 9,
+			"name" : "科技动态",
+			"img" : "../assets/home/kgxw.gif",
+			"target" : ""
+		}, {
+			"id" : 10,
+			"name" : "政策法规资讯",
+			"img" : "../assets/home/icon2.gif",
+			"target" : "loadZcfg()"
+		}, {
+			"id" : 11,
+			"name" : "安全生产",
+			"img" : "../assets/home/aqsc.png",
+			"target" : "loadAqsczbb()"
+		} ];
 		var data = new Object();
-		data.list=jsonData;
+		data.list = jsonData;
 		render(data);
 	}
 
@@ -127,58 +177,64 @@
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/watchlist.html');
 	}
 	//加载图片新闻子页面
-	function loadJtxw(){
+	function loadJtxw() {
 		$.hori.showLoading();
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/jtxwz.html');
 	}
 	//加载政策法规资讯子页面
-	function loadZcfg(){
+	function loadZcfg() {
 		$.hori.showLoading();
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/zcfgz.html');
-		
+
 	}
 	function render(data) {
 		console.log(data);
 		var viewModel = ko.mapping.fromJS(data);
-		ko.applyBindings(viewModel,document.getElementById("divOne"));
+		ko.applyBindings(viewModel, document.getElementById("divOne"));
 	}
 </script>
 <style>
- #divxs{
-width:33%;
-margin-bottom:20px;
-margin-top:20px
+
+   @media  only screen and (min-width: 1070px) and (max-width: 1081px) {
+  .imgToDo {
+    width:10em;
+  }
+  .divxs {
+		width: 33.333%;
+		margin-top: 500px
+	}
 } 
-/* @media screen and (min-width: 600px) and (max-width: 1900px) {
-  #imgToDo {
-    width:200px;
-    hright:200px;
-  }
+@media  screen and (min-width: 400px) and (max-width: 800px) {
+	.imgToDo {
+		width: 4.5em;
+	}
+	.divxs {
+		width: 33.333%;
+		margin-top: 20px
+	}
 }
-@media screen and (min-width: 600px) and (max-width: 1900px) {
-  #imgToDo {
-    width:200px;
-    hright:200px;
-  }
-}
-@media screen and (min-width: 400px) and (max-width: 900px)and(min-height: 400px) and(max-height: 400px){
-  #imgToDo {
-    width:200px;
-    hright:200px;
-  } */
-}
+
+@media screen and (min-width: 310px) and (max-width: 330px) {
+	.imgToDo {
+		width: 3.6em;
+	}
+	.divxs {
+		width: 33.333%;
+		margin-top: 20px
+	}
+} 
 </style>
 </head>
 <body>
 	<div data-role="content" align="center">
 		<div class="ui-grid-b" id="divOne">
-		<div data-bind="foreach: list" style="width:100%;">
-			<div class="ui-block-c" id="divxs" >
-				<a href="javascript:void(0);" data-bind="attr:{'onclick':target}" > <img
-					id="imgToDo" data-bind="attr:{'src':img}" class="module-icon"/>
-				</a><br />
-				<span style="color: #434343;"><strong data-bind="text:name"></strong></span>
-			</div>
+			<div data-bind="foreach: list" style="width: 100%;">
+				<div class="ui-block-b divxs">
+					<a href="javascript:void(0);" data-bind="attr:{'onclick':target}">
+						<img class="imgToDo " data-bind="attr:{'src':img}" />
+					</a><br /> <span style="color: #434343;"><strong
+						data-bind="text:name"></strong></span>
+				</div>
 			</div>
 		</div>
 	</div>

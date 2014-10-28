@@ -42,6 +42,47 @@ display: inline-block;	}
 </style>
 
 <script>
+$(document).ready(function() {
+
+	var hori = $.hori;
+	try {
+		hori.setHeaderTitle("登录");
+		/*隐藏后退按钮*/
+		hori.hideBackBtn();
+	} catch (e) {
+		alert(e.message);
+	}
+
+});
+function doSearch() {
+
+	try {
+		var skey = $("#searchKey").val();
+		skey = encodeURI(skey);
+		var random = new Date().getTime();
+		var url = $.hori.getconfig().appServerHost
+				+ "view/safety/watchList/Application/SafetyProBasic.nsf/SearchHolidayDutyForMobile?open";
+		url = url + "&data-random=" + random + "&data-result=text"
+	} catch (e) {
+	}
+	var data = 'key=' + skey;
+
+	$.hori.ajax({
+		"type" : "post",
+		"url" : url,
+		"data" : data,
+		"success" : function(res) {
+
+			console.log(res);
+		//	var json = JSON.parse(res);
+
+		},
+		"error" : function(res) {
+			alert(res);
+			$.hori.hideLoading();
+		}
+	})
+}
 //跳转到详情页面
 function loadListDetails() {
 		$.hori.showLoading();
@@ -57,9 +98,9 @@ function loadListDetails() {
 
 		<div style=" margin-left: 15px;">
 		<table><tr ><td width="95%" height="20px" >
-			<input type="text" value=""/></td><td>
+			<input id="searchKey" type="text" value=""/></td><td>
 		<a href="#search" data-role="button" data-inline="true" data-rel="dialog" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="f" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c ui-btn-up-f">
-		<span class="ui-btn-inner" style="width:45px;height:20px;"><span class="ui-btn-text" style="color: white">搜索</span></span></a>
+		<span class="ui-btn-inner" style="width:45px;height:20px;"><span class="ui-btn-text" style="color: white" onclick="doSearch()">搜索</span></span></a>
 		</td></tr></table>
 		</div>
 
