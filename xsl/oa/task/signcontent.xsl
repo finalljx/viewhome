@@ -96,7 +96,7 @@
 					</head>
 					<body>
 						<div id="notice" data-role="page">
-							<form id="form" action="http://192.168.1.110:90/view/oa/signsubmit{//form[@name='_frmWebFlow']/@action}" method="post">
+							<form id="form" action="/view/oa/signsubmit{//form[@name='_frmWebFlow']/@action}" method="post">
 								<input type="hidden" id="querysaveagent" name="$$querysaveagent" value="{//input[@name='$$querysaveagent']/@value}"/>
 								<div data-role="content" align="center">
 								<div class="ui-grid-b">

@@ -24,6 +24,7 @@
 			var view="";
 			var dataid = ""
 			function pullUpAction () {
+				$.hori.showLoading();
 				setTimeout(function () {
 					//vwDocByDate,vwtoArchive,vwDocByArchvied
 					//querydoing querytoArchive queryArchvied
@@ -85,9 +86,17 @@
 						"url":url,
 						"success":function(res){
 							$("#moredata").remove();
+							if(res.indexOf("无内容")!="-1"){
+								var divs = document.getElementsByName("more");
+								for(var i=0; i<divs.length; i++)
+								{
+									divs[i].style.display='none';
+								}
+							}
 							$("#"+dataid).append(res).listview("refresh");
 							myStartTaskLoad=true;
 							myScroll.refresh();
+							$.hori.hideLoading();
 						},
 						"error":function(res){
 							alert(res);
@@ -178,7 +187,7 @@
 		<script type="text/javascript">
 		//内请切换
 		function queryListForType(view){
-			
+			$.hori.showLoading();
 			Astart=1;Bstart=1;Cstart=1;
 			if(view=="vwDocByDate"){
 				template="queryForDoing";
@@ -200,6 +209,7 @@
 					$("#querydataList").empty();
 					$("#signdataList").empty();
 					$("#querydataList").append(res).listview("refresh");
+					$.hori.hideLoading();
 					myScroll.refresh();
 					signLoad=true;
 				},
@@ -231,6 +241,7 @@
 
 		//会签切换
 		function signListForType(value){
+			$.hori.showLoading();
 			//alert("huiqian");
 			localStorage.setItem("addmore","no");
 			dstart=1;estart=1;fstart=1;
@@ -260,6 +271,7 @@
 					$("#signdataList").empty();
 					$("#querydataList").empty();
 					$("#signdataList").append(res).listview("refresh");
+					$.hori.hideLoading();
 					myScroll.refresh();
 
 				},
@@ -270,7 +282,19 @@
 			});
 		}
 		//内请表单展示页面
+		var y1 = null;//这个设置为全局
 		function loadPageForm(str){
+			if (y1 == null){
+				y1 = new Date().getTime();
+			}else{       
+				var y2 = new Date().getTime();
+				if(y2 - y1 < 500){
+					y1 = y2;
+					return;
+				}else{
+					y1 = y2;
+				}
+			}
 			localStorage.setItem("click","1");
 			var unid = $(str).data("unid");
 			localStorage.setItem("unid",unid);
@@ -279,8 +303,21 @@
 			$.hori.loadPage(targetURL);
 		}
 		//会签表单展示页面
+		var t1 = null;//这个设置为全局
 		function loadsignPageForm(str){
 		//vwDocByDate,vwtoArchive,vwDocByArchvied
+			$.hori.showLoading();
+			if (t1 == null){
+				t1 = new Date().getTime();
+			}else{       
+				var t2 = new Date().getTime();
+				if(t2 - t1 < 500){
+					t1 = t2;
+					return;
+				}else{
+					t1 = t2;
+				}
+			}
 			localStorage.setItem("click","2");
 			var templatecon ="contentsign";
 			var unid = $(str).data("unid");
