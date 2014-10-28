@@ -3,30 +3,10 @@
 
 	<xsl:output method="html" indent="yes"/>
 	<xsl:template match="/">
-	<script>
-			<![CDATA[
-				var time;
-				$(document).ready(function(){
-					var now = new Date();
-					var   year=now.getFullYear()-1;   
-					var   month=now.getMonth()+1;   
-					var   date=now.getDate();   
-					var   hour=now.getHours();   
-					var   minute=now.getMinutes();   
-					var   second=now.getSeconds();
-					time=year+"-"+month+"-"+date+" "+hour+":"+minute+":"+second;
-					//var yy = "2014-09-24 09:34:55";
-					//if(time>yy){alert(1)};
-					//if(time<yy){alert(2)};
-					//alert(time);
-				});
-			]]>
-		</script>
 			<xsl:if test="count(//div[@id='viewValue']//table/tbody/tr[position()&gt;1])=0">
-				<li><a>无内容</a></li>
+				<div name="nodata"><a>无内容</a></div>
 			</xsl:if>
 			<xsl:if test="count(//div[@id='viewValue']//table/tbody/tr[position()&gt;1])!=0">
-				<br/>
 				<xsl:apply-templates select="//div[@id='viewValue']//table/tbody/tr[position()&gt;1]" />
 			</xsl:if>
 	</xsl:template>
@@ -47,7 +27,7 @@
 						<xsl:value-of select="//input[@id='time']/@value"/>
 						<p>
 							类型:<font color="#0080FF"><xsl:value-of select="td[4]/."/></font>
-							来源:<font color="#0080FF"><xsl:value-of select="td[5]/."/></font>
+							来源:<font color="#0080FF"><xsl:value-of select="td[5]/."/></font><br/><br/>
 							状态:<font color="#0080FF"><xsl:value-of select="td[6]/."/></font>
 							时间:<font name="formtime" color="#0080FF"><xsl:value-of select="$formtime"/></font>
 						</p>

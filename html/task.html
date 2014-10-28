@@ -8,17 +8,11 @@
 	<script type="application/javascript" src="../assets/iscroll.js"></script>
 	<link href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" rel="stylesheet"></link>
 	<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
-	<link href="../lib/jquery-mobile/jquery-mobile-fluid960.css" rel="stylesheet"></link>
-	<script type="application/javascript" src="../assets/iscroll.js"></script>
 	<script src="../lib/jquery/jquery.min.js"></script>
 	<script src="../lib/jquery-cookie/jquery.cookie.js"></script>
-	<script src="../lib/encrypt/encrypt.js"></script>
 	<script src="../lib/json/json2.js"></script>
 	<script src="../lib/hori/hori.js?tag=21369"></script>
 	<script src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
-	<script src="../lib/knockout/knockout.js"></script>
-	<script src="../lib/knockout/knockout.mapping.js"></script>
-	<script src="../lib/swiper/idangerous.swiper.min.js"></script>
 	<script src="../lib/app/task/app.js"></script>
 	<script src="../config/web/config.js"></script>
 	<style>
@@ -43,10 +37,12 @@
 				<div id="wrapper" style="overflow: scroll;width: 99%;margin-left: -10px;height:100%;">
 					<div id="scroller">
 						<div>
+						<br/>
 							<ul id="listcontent" data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow" style="margin-top: 30px;">
+								
 							</ul>
 						</div>
-						<div id="pullUp" align="center" class="" style="display:none;line-height:3em;margin-top:-1em;">
+						<div id="pullUp" name="nodata" align="center" class="" style="display:none;line-height:3em;margin-top:-1em;">
 							<span class="pullUpLabel">上拉加载更多...</span>
 						</div>
 						<div>

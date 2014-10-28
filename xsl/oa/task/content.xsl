@@ -20,7 +20,6 @@
 					<head>
 					<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 					<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
-					<script type="application/javascript" src="/view/assets/iscroll.js"></script>
 					<link rel="stylesheet" href="/view/lib/jquery-mobile/jquery.mobile.min.css" />
 					<link rel="stylesheet" href="/view/assets/jquery.mobile-sugon.css" />
 					<script src="/view/lib/jquery/jquery.min.js"></script>
@@ -32,24 +31,22 @@
 							$(document).ready(function(){
 								var hori=$.hori;
 								/*设置标题*/
-								hori.setHeaderTitle("详单");
-								//alert(document.cookie);
+								hori.setHeaderTitle("集团内部请示报告");
+								$.hori.hideLoading();
 							});
 							//viewfile 附件函数
 							function viewfile(url){
-								
 								localStorage.setItem("attachmentUrl",url);
-								$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
-							}
-							function test(val){
-								alert(val);
+								var fileurl = $.hori.getconfig().appServerHost+"view/html/attachmentShowForm.html";
+								var xmlurl ="viewhome/xml/AttachView.xml";
+								$.hori.loadPage(fileurl,xmlurl);
 							}
 							function submit(value){
 								var sel = $("#fldAttitude").val();
-								if(sel == null || sel==""){
+								/* if(sel == null || sel==""){
 									alert('请填写您的意见');
 									return ;
-								}
+								} **/
 								//提交
 								if(value=="reject"){
 									var question = window.confirm("确定驳回吗?"); 
@@ -74,9 +71,9 @@
 								$.mobile.loading('show', {  
 									text: '加载中...', //加载器中显示的文字  
 									textVisible: true, //是否显示文字  
-									theme: 'a',        //加载器主题样式a-e  
-									textonly: false,   //是否只显示文字  
-									html: ""           //要显示的html内容，如图片等  
+									theme: 'a',        //加载器主题样式a-e
+									textonly: false,   //是否只显示文字
+									html: ""           //要显示的html内容，如图片等
 								});
 								if(type == "submit"){
 									$("#querysaveagent").val("agtFlowDeal");
@@ -142,13 +139,13 @@
 											</xsl:call-template>
 									</ul>
 								</div>
+								<xsl:if test="count(//textarea[@name='fldAttitude'])!=0">
 									<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
-									<li data-role="list-divider">审批意见2</li>
+									<li data-role="list-divider">审批意见</li>
 										<li>
 											<table style="border:0;padding:0;margin:0;" width="100%" border="0">
 												<tr style="width:100%">
 													<td style="width:70%" align="left">
-														
 													</td>
 													<td style="width:30%" align="right">
 														<select onChange='$("#fldAttitude").val(this.value);' data-theme="a" data-mini='true' data-icon="gear" data-native-menu="true">
@@ -169,10 +166,10 @@
 											</table>
 										</li>
 									 </ul>
+								</xsl:if>
 									<div data-role="collapsible" data-theme="f" data-content-theme="d">
 										<h4>领导指示</h4>
 										<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
-											<!-- <li data-role="list-divider">领导指示</li> -->
 											<li>
 												<xsl:if test="count(//td[@class='top']//table/tbody)=0">
 													<font color="red" size="3">无领导指示</font>

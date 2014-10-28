@@ -113,6 +113,7 @@
 									error:function(response){
 										$.mobile.hidePageLoadingMsg();
 										alert(result);
+
 										setTimeout("$.hori.backPage(1)",1000);
 									}
 								});

@@ -32,7 +32,8 @@
 							$(document).ready(function(){
 								var hori=$.hori;
 								/*设置标题*/
-								hori.setHeaderTitle("单据内容");
+								hori.setHeaderTitle("集团文件系统会签处理单");
+								$.hori.hideLoading();
 							});
 							//viewfile 附件函数
 							function viewfile(url){
@@ -43,10 +44,10 @@
 							
 							function submit(value){
 								var sel = $("#fldAttitude").val();
-								if(sel == null || sel==""){
+								/*if(sel == null || sel==""){
 									alert('请填写您的意见');
 									return ;
-								}
+								}**/
 								//提交
 								if(value=="reject"){
 									var question = window.confirm("确定驳回吗?"); 
@@ -85,7 +86,6 @@
 									$("#hfldAction").val("fankui");
 									$("#form").submit();
 								}
-								
 							}
 						]]>
 						</script>
@@ -117,7 +117,10 @@
 									</xsl:if>
 								</div>
 								<xsl:if test="count(//table[@class='tbl'])!=0">
-									<h3><xsl:value-of select="//div[@class='style1']/." /></h3>
+								<h3><xsl:value-of select="substring-after(//table[@class='tbl' and @width='90%']/tbody/tr[3]/.,'标　　题：')"/></h3>
+								</xsl:if>
+								<xsl:if test="count(//input[@name='fldSubject'])!=0">
+									<h3><xsl:value-of select="//input[@name='fldSubject']/@value" /></h3>
 								</xsl:if>
 								
 								<div data-role="collapsible" data-collapsed="false" data-theme="f" data-content-theme="d">
@@ -131,6 +134,7 @@
 											</xsl:call-template>
 									</ul>
 								</div>
+								<xsl:if test="count(//textarea[@name='fldAttitude'])!=0">
 									<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
 									<li data-role="list-divider">审批意见</li>
 										<li>
@@ -157,16 +161,17 @@
 											</table>
 										</li>
 									 </ul>
+								</xsl:if>
 									<div data-role="collapsible" data-collapsed="false" data-theme="f" data-content-theme="d">
 										<h4>会签信息</h4>
 									<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
 										<li>
 											<xsl:choose>
+												<xsl:when test="count(//input[@name='fldSubject'])!=0">
+													<xsl:apply-templates select="//input[@name='fldSubject']" mode="inputbasedata"/>
+												</xsl:when>
 												<xsl:when test="count(//table[@class='tbl'])!=0">
 													<xsl:apply-templates select="//table[@class='tbl' and @width='90%']/tbody" mode="basedata"/>
-												</xsl:when>
-												<xsl:when test="count(//table[@class='tableClass'])!=0">
-													<xsl:apply-templates select="//table[@class='tableClass']/tbody" mode="basedata"/>
 												</xsl:when>
 												<xsl:otherwise>
 														<font color="red" size="3">无</font>
@@ -246,15 +251,25 @@
 	</xsl:template>
 
 	
-	<!-- 处理基本信息 select="tr[5]/table/tbody/tr"-->
-	<xsl:template match="tbody" mode="basedata">
-		<xsl:value-of select="tr[3]/."/><hr/>
+	<!-- 处理基本信息input -->
+	<xsl:template match="input" mode="inputbasedata">
 		<xsl:variable name="years" select="substring-after(//input[@name='fldswrq']/@value,'/')"/>
 		<xsl:variable name="year" select="substring-after($years,'/')"/>
 		<xsl:variable name="day" select="substring-before($years,'/')"/>
 		<xsl:variable name="month" select="substring-before(//input[@name='fldswrq']/@value,'/')"/>
-		<xsl:value-of select="substring-before(tr[5]/.,'收 文 号')"/><hr/>
-		<!-- 收文日期:<xsl:value-of select="$year"/>-<xsl:value-of select="$month"/>-<xsl:value-of select="$day"/><hr/> -->
+		收文日期:<xsl:value-of select="$year"/>-<xsl:value-of select="$month"/>-<xsl:value-of select="$day"/><hr/>
+		来文单位:<xsl:value-of select="//input[@name='fldLwjg']/@value"/><hr/>
+		收文类型:<xsl:value-of select="//input[@name='fldswlx']/@value"/><hr/>
+		来文份数:<xsl:value-of select="//input[@name='fldFs']/@value"/><hr/>
+	</xsl:template>
+	<!-- 处理基本信息 select="tr[5]/table/tbody/tr"-->
+	<xsl:template match="tbody" mode="basedata">
+		<xsl:variable name="years" select="substring-after(substring-before(tr[5]/.,'收 文 号'),'：')"/>
+		<xsl:variable name="yday" select="substring-after($years,'/')"/>
+		<xsl:variable name="year" select="substring-after($yday,'/')"/>
+		<xsl:variable name="month" select="substring-before($years,'/')"/>
+		<xsl:variable name="day" select="substring-before($yday,'/')"/>
+		收文日期：<xsl:value-of select="$year"/>-<xsl:value-of select="$month"/>-<xsl:value-of select="$day"/><hr/>
 		<xsl:value-of select="substring-before(tr[6]/.,'来文字号')"/><hr/>
 		<xsl:value-of select="substring-before(tr[7]/.,'收文来源')"/><hr/>
 		<xsl:value-of select="tr[8]/."/><hr/>
