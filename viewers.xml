@@ -233,4 +233,7 @@
         <rule mode="replace" regex="&#160;" value=" " />
         </view>
 	</viewer>
+	<viewer id="safety" type="remote" source="http://webseal.genertec.com.cn"  encoding="gb2312">
+        <view id="watchList" template="news/newsList.jsp" encoding="UTF-8" />
+	</viewer>
 </viewers>

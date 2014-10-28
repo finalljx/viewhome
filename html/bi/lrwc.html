@@ -29,9 +29,9 @@ a {
 	<!-- 利润完成 -->
 	<div >
 	<div style="float:right;">
-	<div id="yusuan" align="left"></div>
-	<div id="leiji" align="left"></div>
-	<div id="bili" align="left"></div>
+	<div id="yusuan" align="left" style="font-size:1.3em;"></div>
+	<div id="leiji" align="left" style="font-size:1.3em;"></div>
+	<div id="bili" align="left" style="font-size:1.3em;"></div>
 	</div>
 	<div id="main"  style="height: 400px">
 	</div>
@@ -68,6 +68,8 @@ a {
                 	reportdata=json.reportdata;
                 	var seriesname=reportdata.seriesname.split('|');
                 	var seriesdata=reportdata.seriesdata.split('|');
+                	var one=seriesdata[1]/seriesdata[0]-0.1;
+                	var two=seriesdata[2]/100+0.1;
                 	var lrwc=seriesdata[1];
                 	var b=seriesname[0]+":"+seriesdata[0]+reportdata.primaryunit;
                 	document.getElementById("yusuan").innerHTML=b;
@@ -75,7 +77,7 @@ a {
                 	document.getElementById("leiji").innerHTML=c;
                 	var d=seriesname[2]+":"+seriesdata[2]+"%";
                 	document.getElementById("bili").innerHTML=d;
-                	var ww=(Math.ceil((seriesdata[1])/10))*10;
+                	var ww=(Math.ceil((seriesdata[0])/10))*10;
                 	draw(ww,lrwc);
                 },
                 "error":function(res){
