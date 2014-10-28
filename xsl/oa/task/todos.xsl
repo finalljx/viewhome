@@ -4,7 +4,9 @@
 	<xsl:output method="html" indent="yes"/>
 	<xsl:template match="/">
 			<xsl:if test="count(//div[@id='viewValue']//table/tbody/tr[position()&gt;1])=0">
-				<div name="nodata"><a>无内容</a></div>
+				<li name="nodata">
+					<div style="width:100%;" align="center"><h3>无内容</h3></div>
+				</li>
 			</xsl:if>
 			<xsl:if test="count(//div[@id='viewValue']//table/tbody/tr[position()&gt;1])!=0">
 				<xsl:apply-templates select="//div[@id='viewValue']//table/tbody/tr[position()&gt;1]" />

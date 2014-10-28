@@ -25,6 +25,7 @@
 			var hori = $.hori;
 			/*设置标题*/
 			hori.setHeaderTitle("首页");
+			$.hori.showLoading();
 			/*隐藏后退按钮*/
 			hori.hideBackBtn();
 			/*注册注销事件*/
@@ -94,6 +95,7 @@
 				localStorage.setItem("Chinesename", res);
 				currentUser = "CN=" + res + "/O=genertec";
 				localStorage.setItem("itcodetasklist", currentUser);
+				$.hori.hideLoading();
 			},
 			"error" : function(res) {
 				

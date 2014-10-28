@@ -122,7 +122,7 @@
 									#faqdiv{position:absolute;width:80%; left:50%; top:50%; margin-left:-40%; min-height:300px; height:auto; z-index:100; background-color:#fff;}
 								</style>
 								<!-- 选人提交 -->
-								<form action="http://192.168.1.110:90/view/oa/responsesubmit{//form[1]/@action}" method="post">
+								<form action="/view/oa/responsesubmit{//form[1]/@action}" method="post">
 									<ul data-role="listview" data-inset="true">
 										<li data-role="list-divider"></li>
 										<xsl:apply-templates select="//table[@class='tableClass']//tr" mode="choose"/>
@@ -162,7 +162,7 @@
 							</xsl:when>
 							<!-- 表单驳回确认 -->
 							<xsl:when test="contains(//url/text(), 'frmDenySubmit')">
-								<form action="http://192.168.1.110:90/view/oa/responsesubmit{//form[1]/@action}" method="post">
+								<form action="/view/oa/responsesubmit{//form[1]/@action}" method="post">
 									<ul data-role="listview" data-inset="true">
 										<li data-role="list-divider"></li>
 										<xsl:apply-templates select="//table[@class='tableClass']//tr" mode="choose"/>
@@ -190,7 +190,7 @@
 							<xsl:when test="contains(//url/text(), 'frmBranchSelecter')">
 								<xsl:choose>
 									<xsl:when test="//td[@class='msgok_msg']">
-										<form action="http://192.168.1.110:90/view/oa/signsubmit{//form[1]/@action}" method="post" data-rel="dialog">
+										<form action="/view/oa/signsubmit{//form[1]/@action}" method="post" data-rel="dialog">
 											<ul data-role="listview" data-inset="true">
 												<li data-role="list-divider">
 												</li>
@@ -219,7 +219,7 @@
 										</form>
 									</xsl:when>
 									<xsl:otherwise>
-										<form action="http://192.168.1.110:90/view/oa/signsubmit{//form[1]/@action}" method="post" data-rel="dialog">
+										<form action="/view/oa/signsubmit{//form[1]/@action}" method="post" data-rel="dialog">
 											<xsl:choose>
 												<xsl:when test="contains(//div[@class='Toolbar']/@onclick, 'agSaveSelBranch')">
 													<input type="hidden" id="querysaveagent" name="$$querysaveagent" value="agSaveSelBranch" />
@@ -400,7 +400,7 @@
 								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
 								<input type="hidden" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
 								<!-- <a href="javascript:void(0)" onclick="clearperson();" style="margin-left:30px;" data-role="button" data-inline="true">清空</a> -->
-								<a href="javascript:void(0)" onclick="userselect('http://192.168.1.110:90/view/oa/userselectsignsub/docapp/indishare/addresstree.nsf/vwUserBydepPath?readviewentries&amp;restricttocategory=_53_&amp;count=500&amp;start=1')" data-role="button" data-inline="true" data-theme="b">选人yu06
+								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectsignsub/docapp/indishare/addresstree.nsf/vwUserBydepPath?readviewentries&amp;restricttocategory=_53_&amp;count=500&amp;start=1')" data-role="button" data-inline="true" data-theme="b">选人yu06
 								</a>
 							</fieldset>
 							
@@ -413,7 +413,7 @@
 								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
 								<input type="hidden" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
 								<!-- <a href="javascript:void(0)" style="margin-left:30px;" onclick="clearperson();" data-role="button" data-inline="true">清空</a> -->
-								<a href="javascript:void(0)" onclick="userselect('http://192.168.1.110:90/view/oa/userselectorg/docapp/{$dbpath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}')" data-role="button" data-inline="true" data-theme="b">选人yu09</a>
+								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/docapp/{$dbpath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}')" data-role="button" data-inline="true" data-theme="b">选人yu09</a>
 							</fieldset>
 						</li>
 					</xsl:when>
