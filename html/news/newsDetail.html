@@ -37,7 +37,7 @@ p{
 			<div style="clear: both;">
 				<span data-bind="html:richText" ></span>
 			</div>
-			<div style="clear: both; display: inline;" id="fujian">
+			<div style="clear: both; display: inline;" id="fujian" data-bind="if:$root.attachmentList">
 				<ul data-bind="foreach: attachmentList">
 					<li><a data-bind="click:viewfile" ><span
 							data-bind="text: attachment"></span></a></li>
