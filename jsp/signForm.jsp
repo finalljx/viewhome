@@ -80,6 +80,7 @@
 	
 	
 	Elements file_unid = doc.select("file_unid");
+	if(file_unid.size()>0){
 	
 	Elements doc_unid = doc.select("doc_unid");
 	String[] strUrl=new String[file_unid.size()];
@@ -101,6 +102,8 @@
 	taskJson.put("lianjie", strUrl);
 	System.out.println(strUrl[0]);
 	taskJson.put("fileName", nameArr);
+	}
+	
 	out.print(taskJson);
 %>
 

@@ -49,8 +49,9 @@ var jsonData=new Object();
 						res = res.replace(/&amp;nbsp;/g, "　");
 						
 						var list = JSON.parse(res);
-						
+					
 						list.content[1]=list.content[1].replace("&nbsp;","")
+						if(null!=list.lianjie){
 						for (var i = 0; i < list.lianjie.length; i++) {
 							var j = list.fileName[i]
 									.split(".");
@@ -66,11 +67,16 @@ var jsonData=new Object();
 							item.lianjie =list.lianjie[i];
 							file.push(item);
 						}
-						jsonData.json=list;
-						renderDetail();
 						jsonData.file =file;
 						console.log(jsonData);
 						renderDetail2();
+						}
+						jsonData.json=list;
+					
+						renderDetail();
+						
+					
+						
 
 						$("#yjTable").html(list.agyj.replace("/genertec",""));
 
@@ -91,7 +97,7 @@ var jsonData=new Object();
 		console.log(viewModelDetail);
 		ko.applyBindings(viewModelDetail,document.getElementById("table2"));
 	}
-	
+	 
 	function viewfile(item){
 		var url=item.lianjie();
 		url=url.replace(/\&amp;/g,"&");
