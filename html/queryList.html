@@ -85,6 +85,13 @@
 						"url":url,
 						"success":function(res){
 							$("#moredata").remove();
+							if(res.indexOf("无内容")!="-1"){
+								var divs = document.getElementsByName("more");
+								for(var i=0; i<divs.length; i++)
+								{
+									divs[i].style.display='none';
+								}
+							}
 							$("#"+dataid).append(res).listview("refresh");
 							myStartTaskLoad=true;
 							myScroll.refresh();

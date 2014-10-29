@@ -11,6 +11,9 @@
 	<xsl:variable name="unidstr">
 	<xsl:value-of select="substring-before(substring-after(//param[@name='to']/@value,'unid='),'&amp;seluser')"/>
 	</xsl:variable>
+	<xsl:variable name="dbpath">
+	<xsl:value-of select="//param[@name='fldFromDB']/@value"/>
+	</xsl:variable>
 
 	<xsl:template match="/">
 		<html lang="zh_cn">
@@ -43,6 +46,16 @@
 							<!-- 表单选择人员 -->
 							<xsl:when test="contains(//url/text(), 'frmSubmitPage')">
 								<script>
+									function showorHide(id){
+										//trSelectYj  trWriteYj
+										if(id=="0"){
+											$("#trWriteYj").css("display","none");
+											$("#trSelectYj").css("display","block");
+										}else if(id=="1"){
+											$("#trSelectYj").css("display","none");
+											$("#trWriteYj").css("display","block");
+										}
+									}
 									function choose(ischeck, username){
 										if(ischeck){
 											if($('#fldXyspr').val()!=''){
@@ -92,11 +105,17 @@
 									}
 									function hideuserselect(){
 										var val = $('input:radio:checked').val();
-										if(val==""){
-											alert("请选择人员");
+										console.log(val);
+										var number = val.indexOf("genertec");
+										if(number!="-1"){
+											var CHname = val.substring(number+9,val.length);
+											$('#forshow').attr('value',CHname);
+											$('#fldXyspr').attr('value',val);
+											$("#faqdiv").css("display","none");
+										}else if(number=="-1"){
+											$("#faqdiv").css("display","none");
 										}
-										$('#fldXyspr').attr('value',val);
-										$("#faqdiv").css("display","none");
+										
 									}
 								</script>
 								<style type="text/css">
@@ -113,20 +132,28 @@
 											<button type="submit" data-theme="f" name="$$querysaveagent" value="submitConfirm">确定yu01</button>
 										</div>
 										<div class="ui-block-b">
-											<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="window.history.go(-2)">取消</a>
+											<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">取消</a>
 										</div>
 									</div>
 									<xsl:apply-templates select="//input[@type='hidden']" mode="hidden"/>
 									<xsl:apply-templates select="//div[contains(@style,'display:none')]//input" mode="hidden"/>
 								</form>
-
+								<script>
+									<![CDATA[
+										function cancelSubmit(){
+											document.location.reload();
+										}
+									]]>
+								</script>
 								<script>
 									<![CDATA[
 									$('form').submit(function(){
-										var person = $("#fldXyspr").val();
-										if(person == null || person == ""){
-											alert('请选择下一步审批人!');
-											return false;
+										if($("#fldXyspr").length>0){
+											var person = $("#fldXyspr").val();
+											if(person == null || person == ""){
+												alert('请选择下一步审批人!');
+												return false;
+											}
 										}
 										return true;
 									});
@@ -145,12 +172,19 @@
 											<button type="submit" data-theme="f" name="$$querysaveagent" value="agtFlowDeny">确定yu02</button>
 										</div>
 										<div class="ui-block-b">
-											<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="window.history.go(-1)">取消</a>
+											<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">取消</a>
 										</div>
 									</div>
 									<xsl:apply-templates select="//input[@type='hidden']" mode="hidden"/>
 									<xsl:apply-templates select="//div[contains(@style,'display:none')]//input" mode="hidden"/>
 								</form>
+								<script>
+									<![CDATA[
+										function cancelSubmit(){
+											document.location.reload();
+										}
+									]]>
+								</script>
 							</xsl:when>
 							<!-- 表单流程分支 -->
 							<xsl:when test="contains(//url/text(), 'frmBranchSelecter')">
@@ -172,13 +206,28 @@
 												<div class="ui-block-a">
 												</div>
 												<div class="ui-block-b">
-													<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="window.history.go(-2)">确定yu03</a>
+													<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">确定yu03</a>
 												</div>
 											</div>
+											<script>
+												<![CDATA[
+													function cancelSubmit(){
+														document.location.reload();
+													}
+												]]>
+											</script>
 										</form>
 									</xsl:when>
 									<xsl:otherwise>
 										<form action="/view/oa/signsubmit{//form[1]/@action}" method="post" data-rel="dialog">
+											<xsl:choose>
+												<xsl:when test="contains(//div[@class='Toolbar']/@onclick, 'agSaveSelBranch')">
+													<input type="hidden" id="querysaveagent" name="$$querysaveagent" value="agSaveSelBranch" />
+												</xsl:when>
+												<xsl:otherwise>
+													<input type="hidden" id="querysaveagent" name="$$querysaveagent" value="{//input[@name='$$querysaveagent']/@value}" />
+												</xsl:otherwise>
+											</xsl:choose>
 											<ul data-role="listview" data-inset="true">
 												<li data-role="list-divider"></li>
 												<xsl:apply-templates select="//table[@bgcolor='#eeeeee']//tr[position()&lt;last()]" mode="branch"/>
@@ -188,12 +237,19 @@
 													<button type="submit" data-theme="f" name="$$querysaveagent" value="agSaveSelBranch">确定yu04</button>
 												</div>
 												<div class="ui-block-b">
-													<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="window.history.go(-1)">取消</a>
+													<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">取消</a>
 												</div>
 											</div>
 											<xsl:apply-templates select="//input[@type='hidden']" mode="hidden"/>
 											<xsl:apply-templates select="//div[contains(@style,'display:none')]//input" mode="hidden"/>
 										</form>
+										<script>
+											<![CDATA[
+												function cancelSubmit(){
+													document.location.reload();
+												}
+											]]>
+										</script>
 									</xsl:otherwise>
 								</xsl:choose>
 								
@@ -201,26 +257,34 @@
 							<!-- 表单错误提示 -->
 							<xsl:when test="contains(//url/text(), 'Seq=')">
 								<ul data-role="listview" data-inset="true">
-									<li data-role="list-divider">
-										<div data-role="controlgroup" data-type="horizontal" style="width:100%;" align="right">
-											<a data-role="button" href="javascript:void(0);" onclick="window.history.go(-1)">返回</a>
-										</div>
-									</li>
+									<li data-role="list-divider"></li>
 									<li>
-										<xsl:if test="//body/script"><xsl:value-of select="substring-before(substring-after(//body/script/text(),'('),')')"/></xsl:if>
-										<xsl:if test="not(//body/script)"><xsl:value-of select="//body/text()"/></xsl:if>
-										
+										<xsl:choose>
+											<xsl:when test="//body/script">接收成功</xsl:when>
+											<xsl:when test="not(//body/script)"><xsl:value-of select="//body/text()"/></xsl:when>
+											<xsl:otherwise>操作成功</xsl:otherwise>
+										</xsl:choose>
 									</li>
 									<li data-role="list-divider"></li>
 								</ul>
+								<div class="ui-grid-a">
+									<div class="ui-block-a"></div>
+									<div class="ui-block-b">
+										<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">返回</a>
+									</div>
+									<script>
+										<![CDATA[
+											function cancelSubmit(){
+												//document.location.reload();
+												$.hori.backPage(1);
+											}
+										]]>
+									</script>
+								</div>
 							</xsl:when>
 							<xsl:otherwise>
 								<ul data-role="listview" data-inset="true">
-									<li data-role="list-divider">
-										<div data-role="controlgroup" data-type="horizontal" style="width:100%;" align="right">
-											<a data-role="button" href="javascript:void(0);" onclick="window.history.go(-1)">返回</a>
-										</div>
-									</li>
+									<li data-role="list-divider"></li>
 									<li>
 										<xsl:choose>
 											<xsl:when test="//fieldset"><xsl:value-of select="//fieldset//table/."/></xsl:when>
@@ -230,6 +294,20 @@
 									</li>
 									<li data-role="list-divider"></li>
 								</ul>
+								<div class="ui-grid-a">
+									<div class="ui-block-a"></div>
+									<div class="ui-block-b">
+										<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">返回</a>
+									</div>
+									<script>
+										<![CDATA[
+											function cancelSubmit(){
+												//document.location.reload();
+												$.hori.backPage(1);
+											}
+										]]>
+									</script>
+								</div>
 							</xsl:otherwise>
 						</xsl:choose>
 					</div><!-- /content -->
@@ -275,7 +353,6 @@
 	<xsl:template match="text()" mode="branchcontent"></xsl:template>
 	<xsl:template match="br" mode="branchcontent"></xsl:template>
 
-
 	
 	<!-- 流程人员选择 -->
 	<xsl:template match="tr" mode="choose">
@@ -286,6 +363,31 @@
 				<input type="hidden" readonly="true" value="{//input[@name='fldSelHuiqianDept']/@value}" name="fldSelHuiqianDept"/>
 				<input type="hidden" readonly="true" value="{//input[@name='fldSelDept']/@value}" name="fldSelDept"/>
 			</xsl:when>
+			<xsl:when test="contains(.,'意见反馈')">
+				<li data-role="fieldcontain">
+					<fieldset data-role="controlgroup">
+						<legend><xsl:value-of select="td[@class='tdLabel']/."/></legend>
+						<xsl:apply-templates select="td[@class='tdContent']/." mode="fankuimind"/>
+					</fieldset>
+				</li>
+			</xsl:when>
+			<xsl:when test="contains(.,'请选择意见') or contains(., '请选择同步反馈意见的部门')">
+				<li data-role="fieldcontain" style="{./@style}" id="trSelectYj">
+					<fieldset data-role="controlgroup">
+						<legend>请选择意见:</legend>
+						<xsl:if test="count(//tr[@bgcolor='#E0E0E0'])=0">
+							<font size="3">没有可选择的意见，请直接填写!</font>
+						</xsl:if>
+						<xsl:apply-templates select="//tr[@bgcolor='#E0E0E0']" mode="choosemind"/>
+					</fieldset>
+				</li>
+				<li data-role="fieldcontain" style="display:none" id="trWriteYj">
+					<fieldset data-role="controlgroup" data-type="horizontal">
+						<legend>请填写意见:</legend>
+						<textarea name="fldIdea" rows="7" cols="50"></textarea>
+					</fieldset>
+				</li>
+			</xsl:when>
 			<xsl:when test="contains(.,'下一环节审批人')">
 				<!--对选人员按钮进行判断，如果调用方法为SelectPerson(),则是普通选择；-->
 				<!--如果调用方法为SelectPersonAdv()；则是给定范围的选择-->
@@ -295,9 +397,10 @@
 						<li data-role="fieldcontain">
 							<fieldset data-role="controlgroup" data-type="horizontal">
 								<legend>下一环节审批人:</legend>
-								<input type="text" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
-								<a href="javascript:void(0)" onclick="clearperson();" style="margin-left:30px;" data-role="button" data-inline="true">清空</a>
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/indishare/addresstree.nsf/wUserList?openform&amp;code=53&amp;mode=1&amp;scope=1&amp;order=1')" data-role="button" data-inline="true" data-theme="b">选人yu06
+								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
+								<input type="hidden" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
+								<!-- <a href="javascript:void(0)" onclick="clearperson();" style="margin-left:30px;" data-role="button" data-inline="true">清空</a> -->
+								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectsignsub/docapp/indishare/addresstree.nsf/vwUserBydepPath?readviewentries&amp;restricttocategory=_53_&amp;count=500&amp;start=1')" data-role="button" data-inline="true" data-theme="b">选人yu06
 								</a>
 							</fieldset>
 							
@@ -307,9 +410,10 @@
 						<li data-role="fieldcontain">
 							<fieldset data-role="controlgroup" data-type="horizontal">
 								<legend>下一环节审批人:</legend>
-								<input type="text" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
-								<a href="javascript:void(0)" style="margin-left:30px;" onclick="clearperson();" data-role="button" data-inline="true">清空</a>
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/docapp/genertec/dep1/qsbg_1.nsf/(wAddressAdv)?OpenForm&amp;unid={$unidstr}')" data-role="button" data-inline="true" data-theme="b">选人yu09</a>
+								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
+								<input type="hidden" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
+								<!-- <a href="javascript:void(0)" style="margin-left:30px;" onclick="clearperson();" data-role="button" data-inline="true">清空</a> -->
+								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/docapp/{$dbpath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}')" data-role="button" data-inline="true" data-theme="b">选人yu09</a>
 							</fieldset>
 						</li>
 					</xsl:when>
@@ -324,17 +428,46 @@
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
+			
 			<xsl:when test="td[@class='tdLabel']">
+				<xsl:if test="not(contains(td[@class='tdLabel']/.,'是否邮件'))">
 				<li data-role="fieldcontain">
 					<fieldset data-role="controlgroup">
 						<legend><xsl:value-of select="td[@class='tdLabel']/."/></legend>
 						<xsl:apply-templates select="td[@class='tdContent']/." mode="submit"/>
 					</fieldset>
 				</li>
+				</xsl:if>
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
-
+	<xsl:template match="input" mode="fankuimind">
+		<xsl:if test="@type='radio'">
+			<input type="{@type}" id="{@value}" name="{@name}" value="{@value}" onclick="showorHide(this.id)">
+				<xsl:if test="@checked">
+					<xsl:attribute name="checked">checked</xsl:attribute>
+				</xsl:if>
+			</input>
+			<label for="{@value}"><xsl:value-of select="./following::text()"/></label>
+		</xsl:if>
+	</xsl:template>
+	<xsl:template match="text()" mode="fankuimind">
+		<xsl:if test="not(..//input)">
+			<xsl:value-of select="."/>
+		</xsl:if>
+	</xsl:template>
+	<xsl:template match="br" mode="fankuimind"></xsl:template>
+	<!-- 审批意见 -->
+	<xsl:template match="tr" mode="choosemind">
+				<xsl:variable name="num" select="position()-1"/>
+				<input type="checkbox" name="SelectyjNum" id="{$num}" value="{$num}"/>
+				<label for="{$num}">
+						<xsl:value-of select="td[1]/."/>:<xsl:value-of select="substring-before(td[2]/.,'/')"/><br/>
+						<xsl:value-of select="td[3]/."/>:<xsl:value-of select="td[4]/."/><br/>
+						<xsl:value-of select="td[5]/."/>:<xsl:value-of select="td[6]/."/><br/>
+						意  见:<xsl:value-of select="//tr[@bgcolor='#F0F0F0']/td[2]/."/>
+				</label>
+	</xsl:template>
 	<xsl:template match="input" mode="submit">
 		<xsl:if test="@type='radio'">
 			<input type="{@type}" id="{@value}" name="{@name}" value="{@value}">
@@ -351,4 +484,6 @@
 		</xsl:if>
 	</xsl:template>
 	<xsl:template match="br" mode="submit"></xsl:template>
+
+	
 </xsl:stylesheet>

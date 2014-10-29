@@ -5,8 +5,8 @@
 		<xsl:apply-templates select="//div[@id='viewValue']//table/tbody/tr[position()&gt;1]" />
 
 		<xsl:if test="count(//div[@id='viewValue']//table/tbody/tr[position()&gt;1])=0">
-			<li id="more">
-				<div style="width:100%;" align="center"><h3>无数据</h3></div>
+			<li name="more">
+				<div style="width:100%;" align="center"><h3>无内容</h3></div>
 			</li>
 		</xsl:if>
 		<xsl:if test="count(//div[@id='viewValue']//table/tbody/tr[position()&gt;1])!=0">

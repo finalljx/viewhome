@@ -117,15 +117,6 @@
 			$.mobile.loading("hide")
 		}, 1000);
 	}
-	//加载待办列表
-	function loadTask() {
-		document.getElementById("tabbox").style.display='none';//更改ipad页面中tab 是否显示。
-		localStorage.setItem("click", "task");
-		$.getScript("../lib/app/task/app.js");
-		setTimeout(function() {
-			$.mobile.loading("hide")
-		}, 1000);
-	}
 	//加载安全生产
 	function loadAqscList(){
 		//alert(2);
@@ -153,20 +144,29 @@
 		
 		
 	}
+	//加载待办列表
+	function loadTask() {
+		document.getElementById("tabbox").style.display='none';//更改ipad页面中tab 是否显示。
+		localStorage.setItem("click", "task");
+		//$.getScript("../lib/app/task/app.js");
+		$("#middleContent").load("task.html", function(a, b, c) {
+			document.getElementById("middleContent").style.width = '80%';
+			document.getElementById('rightContent').style.width = '0%'; 
+		});
+	}
 	//获取中文名  获取待办列表时用
 	function createUser() {
-		$.hori
-				.ajax({
-					"type" : "get",
-					"url" : $.hori.getconfig().appServerHost+"/view/oa/currentuser/docapp/genertec/persontasks.nsf/frmPage?openform",
-					"success" : function(res) {
-						//localStorage.setItem("Chinesename", res);
-						currentUser = "CN=" + res + "/O=genertec";
-						localStorage.setItem("Chinesename", currentUser);
-					},
-					"error" : function(res) {
-					}
-				});
+		$.hori.ajax({
+			"type" : "get",
+			"url" : $.hori.getconfig().appServerHost+"/view/oa/currentuser/docapp/genertec/persontasks.nsf/frmPage?openform",
+			"success" : function(res) {
+				//localStorage.setItem("Chinesename", res);
+				currentUser = "CN=" + res + "/O=genertec";
+				localStorage.setItem("Chinesename", currentUser);
+			},
+			"error" : function(res) {
+			}
+		});
 	}
 </script>
 <style>

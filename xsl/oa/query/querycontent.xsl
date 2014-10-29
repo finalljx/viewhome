@@ -13,27 +13,11 @@
 		<xsl:choose><xsl:when test="contains(//url/text(),'/0/')"><xsl:value-of select="substring-before(substring-after(//url/text(),'/0/'),'?')" /></xsl:when><xsl:when test="contains(//url/text(),'/vwDocByDate/')"><xsl:value-of select="substring-before(substring-after(//url/text(),'/vwDocByDate/'),'?')" /></xsl:when><xsl:otherwise><xsl:value-of select="substring-before(substring-after(substring-after(//url/text(),'nsf/'),'/'),'?')" /></xsl:otherwise></xsl:choose>
 	</xsl:variable>
 	<xsl:template match="/">
-	<html lang="zh_cn">
-		<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
-		<script type="application/javascript" src="/view/assets/iscroll.js"></script>
-		<link rel="stylesheet" href="/view/lib/jquery-mobile/jquery.mobile.min.css" />
-		<link rel="stylesheet" href="/view/assets/jquery.mobile-sugon.css" />
-		<script src="/view/lib/jquery/jquery.min.js"></script>
-		<script src="/view/lib/hori/hori.js?tag=21369"></script>
-		<script src="/view/lib/jquery-mobile/jquery.mobile.min.js"></script>
-		<script src="/view/config/web/config.js"></script>
 			<script>
 			<![CDATA[
-				$(document).ready(function(){
-					var hori=$.hori;
-					/*设置标题*/
-					hori.setHeaderTitle("单据内容");
-				});
 				//viewfile 附件函数
 				function viewfile(url){
-					//alert(url);
+					alert(url);
 					localStorage.setItem("attachmentUrl",url);
 					$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
 				}
@@ -43,8 +27,7 @@
 				.ui-btn-text{text-align: center;}
 				.ui-listview {background: #D61800;}
 			</style>
-		</head>
-		<body>
+		
 			<div id="notice" data-role="page">
 					<div data-role="content" align="center">
 					<h3><xsl:value-of select="substring-after(//table[@id='table1']/tbody/tr[4]/.,':')" /></h3>
@@ -97,8 +80,7 @@
 						</div>
 					</div>
 			</div>
-		</body>
-	</html>
+		
 	</xsl:template>
 	
 	<!-- 将隐藏控件传入 -->
