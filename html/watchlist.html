@@ -4,7 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
-<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" />
+<link rel="stylesheet"
+	href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" />
 <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
 <link rel="stylesheet" href="../lib/swiper/idangerous.swiper.css">
 <script src="../lib/jquery/jquery.min.js"></script>
@@ -12,124 +13,165 @@
 <script src="../lib/encrypt/encrypt.js"></script>
 <script src="../lib/json/json2.js"></script>
 <script src="../lib/hori/hori.js?tag=21369"></script>
-<script src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
+<script src="../lib/knockout/knockout.js"></script>
+<script src="../lib/knockout/knockout.mapping.js"></script>
+<script
+	src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
 <script src="../lib/swiper/idangerous.swiper.min.js"></script>
 <script src="../config/web/config.js"></script>
-		
-<style type="text/css">
- .ui-li .ui-btn-inner, .ui-li-static.ui-li {
- 
-padding: .5em 5px;
-}
-.ui-li-desc {
-font-size: 12px;
-font-weight: 100%;
-margin: -.1em 0 .6em;
-font-weight: 400;
-display: block;
-overflow: hidden;
-white-space: nowrap;
 
+<style type="text/css">
+.ui-li .ui-btn-inner, .ui-li-static.ui-li {
+	padding: .5em 5px;
 }
-.ui-btn-inner{
- width:300px; height:60px;
-}	
+
+.ui-li-desc {
+	font-size: 12px;
+	font-weight: 100%;
+	margin: -.1em 0 .6em;
+	font-weight: 400;
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.ui-btn-inner {
+	width: 300px;
+	height: 60px;
+}
 
 .ui-field-contain .ui-input-search {
-width: 50%;
-display: inline-block;	}
-		
+	width: 50%;
+	display: inline-block;
+}
 </style>
 
 <script>
-$(document).ready(function() {
+	var jsonData = new Object();
 
-	var hori = $.hori;
-	try {
-		hori.setHeaderTitle("登录");
-		/*隐藏后退按钮*/
-		hori.hideBackBtn();
-	} catch (e) {
-		alert(e.message);
-	}
+	$(document).ready(function() {
 
-});
-function doSearch() {
-
-	try {
-		var skey = $("#searchKey").val();
-		skey = encodeURI(skey);
-		var random = new Date().getTime();
-		var url = $.hori.getconfig().appServerHost
-				+ "view/safety/watchList/Application/SafetyProBasic.nsf/SearchHolidayDutyForMobile?open";
-		url = url + "&data-random=" + random + "&data-result=text"
-	} catch (e) {
-	}
-	var data = 'key=' + skey;
-
-	$.hori.ajax({
-		"type" : "post",
-		"url" : url,
-		"data" : data,
-		"success" : function(res) {
-
-			console.log(res);
-		//	var json = JSON.parse(res);
-
-		},
-		"error" : function(res) {
-			alert(res);
-			$.hori.hideLoading();
+		var hori = $.hori;
+		try {
+			hori.setHeaderTitle("登录");
+			/*隐藏后退按钮*/
+			hori.hideBackBtn();
+		} catch (e) {
+			alert(e.message);
 		}
-	})
-}
-//跳转到详情页面
-function loadListDetails() {
+
+	});
+	function doSearch() {
+
+		try {
+			var skey = $("#searchKey").val();
+			skey = encodeURI(skey);
+			var random = new Date().getTime();
+			var url = $.hori.getconfig().appServerHost
+					+ "view/safety/watchList/Application/SafetyProBasic.nsf/SearchHolidayDutyForMobile?open";
+			url = url + "&data-random=" + random + "&data-result=text"
+		} catch (e) {
+		}
+		var data = 'key=' + skey;
+
+		$.hori.ajax({
+			"type" : "post",
+			"url" : url,
+			"data" : data,
+			"success" : function(res) {
+
+				res1 = {
+					"data" : [ {
+						"DeptID" : "1351",
+						"Date" : "2013-12-23",
+						"StPsnCN" : "史海",
+						"Dept" : "中国仪器进出口(集团)公司",
+						"Holiday" : "元旦"
+					}, {
+						"DeptID" : "1368",
+						"Date" : "2013-12-23",
+						"StPsnCN" : "史海",
+						"Dept" : "上海英斯泰克照明器材厂",
+						"Holiday" : "元旦"
+					}, {
+						"DeptID" : "1392",
+						"Date" : "2013-12-23",
+						"StPsnCN" : "徐冬波",
+						"Dept" : "哈尔滨量具刃具集团有限责任公司总部",
+						"Holiday" : "元旦"
+					} ],
+
+					"flag" : true,
+					"flagMessage" : "查询成功"
+				};
+				jsonData.list = res1;
+				render();
+			},
+			"error" : function(res) {
+				alert(res);
+				$.hori.hideLoading();
+			}
+		})
+	}
+	//跳转到详情页面
+	function loadListDetails() {
 		$.hori.showLoading();
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl
-				+ 'viewhome/html/listDetails.html');
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/listDetails.html');
 	}
 
+	function render() {
+		viewModel = ko.mapping.fromJS(jsonData);
+		ko.applyBindings(viewModel);
+	}
 </script>
-</head> 
-<body> 
+</head>
+<body>
 
 	<div data-role="page" class="type-interior">
 
-		<div style=" margin-left: 15px;">
-		<table><tr ><td width="95%" height="20px" >
-			<input id="searchKey" type="text" value=""/></td><td>
-		<a href="#search" data-role="button" data-inline="true" data-rel="dialog" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="f" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c ui-btn-up-f">
-		<span class="ui-btn-inner" style="width:45px;height:20px;"><span class="ui-btn-text" style="color: white" onclick="doSearch()">搜索</span></span></a>
-		</td></tr></table>
+		<div style="margin-left: 15px;">
+			<table>
+				<tr>
+					<td width="95%" height="20px"><input id="searchKey"
+						type="text" value="" /></td>
+					<td><a href="#search" data-role="button" data-inline="true"
+						data-rel="dialog" data-corners="true" data-shadow="true"
+						data-iconshadow="true" data-wrapperels="span" data-theme="f"
+						class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c ui-btn-up-f">
+							<span class="ui-btn-inner" style="width: 45px; height: 20px;"><span
+								class="ui-btn-text" style="color: white" onclick="doSearch()">搜索</span></span>
+					</a></td>
+				</tr>
+			</table>
 		</div>
 
-	<div data-role="content" >
-			<div>
-				<ul data-role="listview" data-inset="true" data-theme="d">
-					<li data-icon="false" onclick="loadListDetails()"><a onclick="loadListDetails()"
-						data-mini="true" >
-							<span style="float:left;width:50%;"><p>序号：<font color="blue">1</font></p><p>填报人：<font color="blue">柳林</font></p><label><font size="2">公司名称：</font><font color="blue" size="1">中国邮电器材集团公司</font></label></span>
-							<span style="float:right;width:50%;"><p>填报日期：<font color="blue">2013-02-27</font></p><p>节日名称：<font color="blue">元旦</font></p></span>
-						</a>
-					</li>
-					<li data-icon="false" onclick="loadListDetails()"><a 
-						data-mini="true" >
-							<span style="float:left;width:50%;"><p>序号：<font color="blue">2</font></p><p>填报人：<font color="blue">柳林</font></p><label><font size="2">公司名称：</font><font color="blue" size="1">中国邮电器材集团公司</font></label></span>
-							<span style="float:right;width:50%;"><p>填报日期：<font color="blue">2013-01-23</font></p><p>节日名称：<font color="blue">春节</font></p></span>
-						</a>
-					</li>
-					<li data-icon="false"><a onclick="loadListDetails()"
-						data-mini="true" >
-							<span style="float:left;width:50%;"><p>序号：<font color="blue">3</font></p><p>填报人：<font color="blue">马志豪</font></p><label><font size="2">公司名称：</font><font color="blue" size="1">中国邮电器材集团公司总部</font></label></span>
-							<span style="float:right;width:50%;"><p>填报日期：<font color="blue">2013-05-21</font></p><p>节日名称：<font color="blue">端午节</font></p></span>
-						</a>
-					</li>
-				</ul>
-			</div>
-			
-	</div><!-- /page -->
+		<div data-role="content">
+			<ul data-role="listview" data-bind="foreach: $root.list.data()">
+				<li data-icon="false" ><a
+					data-mini="true"> <span
+						style="float: left; width: 50%;"><p>
+								序号：<font color="blue"><span
+									data-bind="text:$root.list.data()[$index()].DeptID()"></span></font>
+							</p>
+							<p>
+								填报人：<font color="blue"><span
+									data-bind="text:$root.list.data()[$index()].StPsnCN()"></span></font>
+							</p> <label><font size="2">公司名称：</font><font color="blue"
+								size="1"><span
+									data-bind="text:$root.list.data()[$index()].Dept()"></span></font></label></span> <span
+						style="float: right; width: 50%;"><p>
+								填报日期：<font color="blue"><span
+									data-bind="text:$root.list.data()[$index()].Date()"></span></font>
+							</p>
+							<p>
+								节日名称：<font color="blue"><span
+									data-bind="text:$root.list.data()[0].Holiday()"></span></font>
+							</p></span>
+				</a></li>
+			</ul>
 
-	</body>
-	</html>
-	
+		</div>
+		<!-- /page -->
+</body>
+</html>
+
