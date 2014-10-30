@@ -25,7 +25,7 @@
 	Document doc = Jsoup.parse(responseXml);
 	Element content1 =doc.getElementById("table1");
 	String content=content1.toString().replaceAll("/genertec", "");
-	
+	System.out.println(content);
 	taskJson.put("content", content);
 	Element agyj1=doc.getElementById("agyj");
 	String agyj=agyj1.toString().replaceAll("/genertec", "");
@@ -64,16 +64,6 @@
 	}
 	
 	out.print(taskJson);
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

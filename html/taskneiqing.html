@@ -39,7 +39,7 @@
 				var loadurl = $.hori.getconfig().appServerHost + "view/oa/"
 						+ template + "/" + unid;
 				$.hori.ajax({
-					"type" : "post",
+					"type" : "get",
 					"url" : loadurl,
 					"data" : "",
 					"success" : function(res) {
@@ -48,29 +48,28 @@
 						res = res.replace(/&amp;nbsp;/g, "　");
 
 						var list = JSON.parse(res);
-
-						$(".content").html(list.content);
-
 						$("#agyjDiv").html(list.agyj);
+						$("#hidden").html(list.hidden);
+						//$(".content").html(list.content);
 
-						if (null != list.lianjie) {
-							for ( var i = 0; i < list.lianjie.length; i++) {
-								var j = list.fileName[i].split(".");
-								list.lianjie[i] = url + list.lianjie[i] + "."
-										+ j[1];
+						// 						if (null != list.lianjie) {
+						// 							for ( var i = 0; i < list.lianjie.length; i++) {
+						// 								var j = list.fileName[i].split(".");
+						// 								list.lianjie[i] = url + list.lianjie[i] + "."
+						// 										+ j[1];
 
-							}
-							var file = new Array();
-							for ( var i = 0; i < list.lianjie.length; i++) {
-								var item = new Object();
-								item.fileName = list.fileName[i];
-								item.lianjie = list.lianjie[i];
-								file.push(item);
-							}
-							jsonData.file = file;
-							console.log(jsonData);
-							renderDetail2();
-						}
+						// 							}
+						// 							var file = new Array();
+						// 							for ( var i = 0; i < list.lianjie.length; i++) {
+						// 								var item = new Object();
+						// 								item.fileName = list.fileName[i];
+						// 								item.lianjie = list.lianjie[i];
+						// 								file.push(item);
+						// 							}
+						// 							jsonData.file = file;
+						// 							console.log(jsonData);
+						// 							renderDetail2();
+						// 						}
 
 					},
 					"error" : function(res) {
@@ -111,26 +110,32 @@
 
 </head>
 <body>
-	<div class="content"></div>
-	 
-	<div align="center" style="margin-top: 20px;">
-		<div style="width: 100%;">
-            <table   style="width: 90%">
-              <tr><td><span><font face="宋体" size="4"><b>正文附件：</b></font></span></td>
-              </tr>
-            </table>
-			<TABLE class="fjTable" style="width: 90%" class="fj" id="table2"
-				style="width: 100%"data-bind="foreach: file">
-				
-				<TR >
-					<TD bgcolor="#f0f0f0" width="100%"><a
-						data-bind="click:viewfile"><span data-bind="text: fileName"></span></a></TD>
-				</TR>
-			</TABLE>
+
+
+	<form action="" name="neiqing">
+		<div class="content"></div>
+
+		<div align="center" style="margin-top: 20px;">
+			<div style="width: 100%;">
+				<table style="width: 90%">
+					<tr>
+						<td><span><font face="宋体" size="4"><b>正文附件：</b></font></span></td>
+					</tr>
+				</table>
+				<TABLE class="fjTable" style="width: 90%" class="fj" id="table2"
+					style="width: 100%" data-bind="foreach: file">
+
+					<TR>
+						<TD bgcolor="#f0f0f0" width="100%"><a
+							data-bind="click:viewfile"><span data-bind="text: fileName"></span></a></TD>
+					</TR>
+				</TABLE>
+			</div>
+
+
 		</div>
-
-
-	</div>
-	<div id="agyjDiv" align="center"></div>
+		<div id="agyjDiv" align="center"></div>
+		<div id="hidden"></div>
+	</form>
 </body>
 </html>

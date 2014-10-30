@@ -22,11 +22,15 @@
 	JSONObject taskJson = new JSONObject();
 	Query q = Query.getInstance(request);
 	String responseXml = q.getContent();
-	
 	Document doc = Jsoup.parse(responseXml);
-	Elements content1 =doc.select("#table1");
-	System.out.println(content1);
+	Elements hidden=doc.select("input[type=hidden]");
+	System.out.println(hidden);
+	String agyj=doc.getElementById("agyj").toString().replaceAll("/genertec", "");
+	System.out.println(agyj+"====================================");
+	taskJson.put("hidden",hidden);
+	taskJson.put("agyj", agyj);
 	
+	out.print(taskJson);
 	
 	
 %>
