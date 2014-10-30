@@ -96,7 +96,7 @@
 		$.hori.ajax({
 			"type" : "get",
 			"url" : $.hori.getconfig().appServerHost
-					+ "/view/oa/currentuser/docapp/genertec/persontasks.nsf/frmPage?openform",
+					+ "/view/oa/currentuser/doctest/genertec/persontasks.nsf/frmPage?openform",
 			"success" : function(res) {
 				localStorage.setItem("Chinesename", res);
 				currentUser = "CN=" + res + "/O=genertec";
@@ -104,7 +104,7 @@
 				$.hori.hideLoading();
 			},
 			"error" : function(res) {
-
+				alert("获取当前登陆人失败");
 			}
 		});
 	}
