@@ -31,7 +31,7 @@ a {
 	<div id="leiji" align="left" style="font-size:1.3em;"></div>
 	<div id="bili" align="left" style="font-size:1.3em;"></div>
 	</div>
-	<div id="main" style="height: 400px">
+	<div id="main" style="height: 400px; padding-top: 50px;">
 	
 	</div>
 	<script src="../asset/js/echarts-plain-original.js"></script>
@@ -85,6 +85,7 @@ a {
     }
 	function draw(ww,srwc,colorOne,colorTwo){
 		var option = {
+				animation:false,
 				toolbox : {
 					show : false,
 					feature : {
@@ -118,7 +119,8 @@ a {
 						splitNumber : 10, // 每份split细分多少段
 						length : 4, // 属性length控制线长
 						lineStyle : { // 属性lineStyle控制线条样式
-							color : '#292421'
+							color : '#F5F5F5'
+								//color : '#292421'
 						}
 					},
 					axisLabel : { // 坐标轴文本标签，详见axis.axisLabel
@@ -139,6 +141,7 @@ a {
 					},
 					title : {
 						show : true,
+						margin:200, 
 						offsetCenter : [ 0, '-40%' ], // x, y，单位px
 						textStyle : { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
 							fontWeight : 'bolder'

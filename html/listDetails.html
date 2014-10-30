@@ -29,6 +29,22 @@ white-space: nowrap;
 		
 		
 </style>
+<script type="text/javascript">
+$(document).ready(function() {
+
+    var hori = $.hori;
+    try {
+        hori.setHeaderTitle("登录");
+        /*隐藏后退按钮*/
+        //hori.hideBackBtn();
+        
+        
+    } catch (e) {
+        alert(e.message);
+    }
+
+});
+</script>
 </head> 
 <body> 
 

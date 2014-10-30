@@ -1,126 +1,167 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
 <head>
-	<title>重置密码</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0"/>
-	<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" /> 
-	<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" /> 
-	<script src="../lib/jquery/jquery.min.js"></script>		
-	<script src="../lib/jquery-cookie/jquery.cookie.js"></script>	
-	<script src="../lib/encrypt/encrypt.js"></script>
-	<script src="../lib/json/json2.js"></script>
-	<script src="../lib/hori/hori.js?tag=21369"></script>
-	<script src="../lib/jquery-mobile/jquery.mobile.min.js"></script>
-	<script src="../config/web/config.js"></script>
-	<style>
-		a{text-decoration:none;}
-	</style>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			var hori=$.hori;
-			try{
-				hori.setHeaderTitle("重置密码");
-				/*隐藏后退按钮*/
-				hori.hideBackBtn();
-			}catch(e){
-				alert(e.message);
-			}
-		});
-		function reset(){
-			var username = $.trim($("#username").val());
-			var password = $("#password").val();
-			if(username == ""){
-				alert("请输入用户名!");
-				return;
-			}
-			if(password == ""){
-				alert("请输入密码!");
-				return;
-			}
-			$.hori.showLoading();
-			try{
-				var random = new Date().getTime();
-				var url=$.hori.getconfig().appServerHost+"view/oa/loginvalidate/pkmslogin.form";
-				url = url + "?data-random="+random;
-			}catch(e){}
-			var data="username="+username+"&password="+password+"&login-form-type=pwd&data-userid="+username+"&data-password=Password&data-login=true";
-			$.hori.ajax({
-				"type":"post",
-				"url":url,
-				"data":data,
-				"success":function(res){
-					
-				},
-				"error":function(res){
-					alert(res+"222");
-					$.hori.hideLoading();
-				}
-			})
+<title>重置密码</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" />
+<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
+<script src="../lib/jquery/jquery.min.js"></script>
+<script src="../lib/jquery-cookie/jquery.cookie.js"></script>
+<script src="../lib/encrypt/encrypt.js"></script>
+<script src="../lib/json/json2.js"></script>
+<script src="../lib/hori/hori.js?tag=21369"></script>
+<script src="../lib/jquery-mobile/jquery.mobile.min.js"></script>
+<script src="../config/web/config.js"></script>
+<style>
+a {
+	text-decoration: none;
+}
+</style>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var hori = $.hori;
+		try {
+			hori.setHeaderTitle("重置密码");
+			/*隐藏后退按钮*/
+			hori.hideBackBtn();
+		} catch (e) {
+			alert(e.message);
 		}
-	</script>
+	});
+
+	//获取验证码
+	function getCaptcha() {
+		var url = $.hori.getconfig().appServerHost + "view/guide/getCaptcha/Customer/index.jsp?data-result=text"
+		$.hori.ajax({
+			"type" : "post",
+			"url" : url,
+			"headers":{
+				"Access-Control-Allow-Origin": true
+			},
+			"data" : $('#forgetPwdForm').serialize(),
+			"success" : function(res) {
+			    alert(res);
+			},
+			"error" : function(res) {
+				alert(res + "222");
+				$.hori.hideLoading();
+			}
+		})
+	}
+	function reset() {
+		var username = $.trim($("#username").val());
+		var password = $("#password").val();
+		if (username == "") {
+			alert("请输入用户名!");
+			return;
+		}
+		if (password == "") {
+			alert("请输入密码!");
+			return;
+		}
+		$.hori.showLoading();
+		try {
+			var random = new Date().getTime();
+			var url = $.hori.getconfig().appServerHost
+					+ "view/oa/loginvalidate/pkmslogin.form";
+			url = url + "?data-random=" + random;
+		} catch (e) {
+		}
+		var data = "username=" + username + "&password=" + password
+				+ "&login-form-type=pwd&data-userid=" + username
+				+ "&data-password=Password&data-login=true";
+		$.hori.ajax({
+			"type" : "post",
+			"url" : url,
+			"data" : data,
+			"success" : function(res) {
+
+			},
+			"error" : function(res) {
+				alert(res + "222");
+				$.hori.hideLoading();
+			}
+		})
+	}
+</script>
 </head>
 <body>
 	<!-- 登录页面 -->
 	<div data-role="page" id="login" class="login">
 		<div data-role="content" align="center">
-			<ul id="viewBody" data-role="listview" data-theme="c" data-inset="true" style="max-width:400px;" >
-				<li data-role="list-divider" ><a href="javascript:void(0);" data-theme="f" ></a></li>
-				<li data-role="fieldcontain" data-type="horizontal" >
-					<table style="width:100%" cellspaceing="0" cellpadding="0" border="0">
-						<tr><td>
-						<strong>帐&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;号:</strong>
-						</td><td>
-						<input type="text" name="username" style="outline:none;width:100%;border:0;background:transparent;" id="username" value="" onfocus ="clearData()" onblur="showTips()"/>
-						</td></tr>
-					</table>
-				</li>
-				<li data-role="fieldcontain">
-					<table style="width:100%" cellspaceing="0" cellpadding="0" border="0">
-						<tr><td>
-						<strong>姓&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;名:</strong>
-						</td><td>
-						<input type="text" name="CHname" style="outline:none;width:100%;border:0;background:transparent;" id="CHname" value=""/>
-						</td></tr>
-					</table>
-				</li>
-				<li data-role="fieldcontain">
-					<table style="width:100%" cellspaceing="0" cellpadding="0" border="0">
-						<tr><td>
-						<strong>身份证号:</strong>
-						</td><td>
-						<input type="text" name="number" style="outline:none;width:100%;border:0;background:transparent;" id="number" value=""/>
-						</td></tr>
-					</table>
-				</li>
-				<li data-role="fieldcontain">
-					<table style="width:100%" cellspaceing="0" cellpadding="0" border="0">
-						<tr><td>
-						<strong>验证码&#160;&#160;&#160;&#160;:</strong>
-						</td><td>
-						<input type="text" name="imageCode" id="imageCode" style="width:80px;"/>
-						</td>
-						<td>
-						<a data-role="button" data-theme="f" data-mini="true" onclick="">获取验证码</a>
-						</td></tr>
-					</table>
-				</li>
-		</ul>
+			<form id="forgetPwdForm">
+			     <input type="text" name="abc" value="123456"/>
+				<ul id="viewBody" data-role="listview" data-theme="c"
+					data-inset="true" style="max-width: 400px;">
+					<li data-role="list-divider"><a href="javascript:void(0);"
+						data-theme="f"></a></li>
+					<li data-role="fieldcontain" data-type="horizontal">
+						<table style="width: 100%" cellspaceing="0" cellpadding="0"
+							border="0">
+							<tr>
+								<td><strong>帐&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;号:</strong>
+								</td>
+								<td><input type="text" name="username"
+									style="outline: none; width: 100%; border: 0; background: transparent;"
+									id="username" value="" onfocus="clearData()"
+									onblur="showTips()" /></td>
+							</tr>
+						</table>
+					</li>
+					<li data-role="fieldcontain">
+						<table style="width: 100%" cellspaceing="0" cellpadding="0"
+							border="0">
+							<tr>
+								<td><strong>姓&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;名:</strong>
+								</td>
+								<td><input type="text" name="CHname"
+									style="outline: none; width: 100%; border: 0; background: transparent;"
+									id="CHname" value="" /></td>
+							</tr>
+						</table>
+					</li>
+					<li data-role="fieldcontain">
+						<table style="width: 100%" cellspaceing="0" cellpadding="0"
+							border="0">
+							<tr>
+								<td><strong>身份证号:</strong></td>
+								<td><input type="text" name="number"
+									style="outline: none; width: 100%; border: 0; background: transparent;"
+									id="number" value="" /></td>
+							</tr>
+						</table>
+					</li>
+					<li data-role="fieldcontain">
+						<table style="width: 100%" cellspaceing="0" cellpadding="0"
+							border="0">
+							<tr>
+								<td><strong>验证码&#160;&#160;&#160;&#160;:</strong></td>
+								<td><input type="text" name="imageCode" id="imageCode"
+									style="width: 80px;" /></td>
+								<td><a data-role="button" href="javascript:void(0)"
+									data-theme="f" data-mini="true" onclick="getCaptcha();">获取验证码</a>
+								</td>
+							</tr>
+						</table>
+					</li>
+				</ul>
+			</form>
 			<div class="ui-grid-d">
-				<div class="ui-block-a">
-				</div>
-				<div class="ui-block-b">
-				</div>
+				<div class="ui-block-a"></div>
+				<div class="ui-block-b"></div>
 				<div class="ui-block-c" style="width: 200px;">
-					<a href="javascript:void(0)"  onclick="reset()" data-theme="f" data-role="button" data-icon="false">重置密码</a>
+					<a href="javascript:void(0)" onclick="reset()" data-theme="f"
+						data-role="button" data-icon="false">重置密码</a>
 				</div>
-				<div class="ui-block-d">
-				</div>
-				<div class="ui-block-e">
-				</div>
+				<div class="ui-block-d"></div>
+				<div class="ui-block-e"></div>
 			</div>
 
-			<div style="max-width:400px;background-color: #ADADAD;display: none;" border="1px" >
+			<div
+				style="max-width: 400px; background-color: #ADADAD; display: none;"
+				border="1px">
 				<p>密码重置成功，新密码已发送到188****8890
 			</div>
 
