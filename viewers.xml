@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <viewers>
 	<viewer id="oa" type="remote" source="http://webseal.genertec.com.cn" 	encoding="gb2312">
-		<!-- 登陆验证 $.hori.backPage(1)-->
+		<!-- 登陆验证 -->
 		<view id="loginvalidate" template="login/loginValidate.jsp"	encoding="utf-8" />
 		<view id="loginOut" template="login/loginOut.jsp"	encoding="gb2312" />
 		<view id="loginOut2" template="login/loginOut.jsp"	encoding="utf-8" />
