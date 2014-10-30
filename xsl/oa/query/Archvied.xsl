@@ -18,7 +18,7 @@
 
 	<xsl:template match="tr">
 		<li>
-			<xsl:variable name="unid"><xsl:value-of select="td[2]/input/@value"/></xsl:variable>
+			<xsl:variable name="unid"><xsl:value-of select="td[3]/font/a/@href"/></xsl:variable>
 			<a href="javascript:void(0)" onclick="loadPageForm(this);" data-unid="{$unid}" data-icon="arrow-r" data-iconpos="right">
 				<h3><xsl:value-of select="td[5]/."/></h3>
 				<p>
