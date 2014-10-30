@@ -139,6 +139,7 @@
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
 		<!-- 请示查阅内请办理中展示内容 -->
+		<view id="neiqingsign" template="neiqingform.jsp"></view>
 		<view id="querycontent" template="oa/query/querycontent.xsl" encoding="GBK">
 			<rule mode="replace" regex="&amp;nbsp;" value="" />
 			<rule mode="replace" regex="&lt;!" value="&amp;lt;!" />

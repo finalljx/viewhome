@@ -275,8 +275,11 @@
 		//内请表单展示页面
 		function loadPageForm(str){
 			localStorage.setItem("click4","1");
+			var templatecon="neiqingsign"
+			localStorage.setItem("contemplate",templatecon);
 			var unid = $(str).data("unid");
 			localStorage.setItem("unid",unid);
+			alert($(str).data("unid"));
 			var loadurl= $.hori.getconfig().appServerHost+"view/html/neiqingform.html";
 			$.hori.loadPage(loadurl);
 		}
