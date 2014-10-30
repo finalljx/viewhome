@@ -16,6 +16,31 @@
 			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
+		<!-- 代办unid -->
+		<view id="getunid" template="oa/task/getunid.xsl" encoding="GBK">
+			<!-- 源数据是符合标签形式的字符串，转换成真正的字符串（把'<','>' 替换成真正的标签）-->
+			<rule mode="replace" regex="&amp;nbsp;" value="" />
+			<rule mode="replace" regex="&lt;!" value="&amp;lt;!" />
+			<rule mode="replace" regex="&lt;/!" value="&amp;lt;/!" />
+			<rule mode="replace" regex="!&gt;" value="!&amp;gt;" />
+			<rule mode="replace" regex="&lt;file_unid&gt;" value="&amp;lt;file_unid&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_unid&gt;" value="&amp;lt;/file_unid&amp;gt;" />
+			<rule mode="replace" regex="&lt;file_name&gt;" value="&amp;lt;file_name&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_name&gt;" value="&amp;lt;/file_name&amp;gt;" />
+			<rule mode="replace" regex="&lt;file_size&gt;" value="&amp;lt;file_size&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_size&gt;" value="&amp;lt;/file_size&amp;gt;" />
+			<rule mode="replace" regex="&lt;file_create&gt;" value="&amp;lt;file_create&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_create&gt;" value="&amp;lt;/file_create&amp;gt;" />
+
+			<rule mode="replace" regex="&lt;file_update&gt;" value="&amp;lt;file_update&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_update&gt;" value="&amp;lt;/file_update&amp;gt;" />
+
+			<rule mode="replace" regex="&lt;file_editmodel&gt;" value="&amp;lt;file_editmodel&amp;gt;" />
+			<rule mode="replace" regex="&lt;/file_editmodel&gt;" value="&amp;lt;/file_editmodel&amp;gt;" />
+
+			<rule mode="replace" regex="&lt;doc_unid&gt;" value="&amp;lt;doc_unid&amp;gt;" />
+			<rule mode="replace" regex="&lt;/doc_unid&gt;" value="&amp;lt;/doc_unid&amp;gt;" />
+		</view>
 		<!-- 请示代办展示内容 -->
 		<view id="todoscontent" template="oa/task/content.xsl" encoding="GBK">
 			<!-- 源数据是符合标签形式的字符串，转换成真正的字符串（把'<','>' 替换成真正的标签） -->
