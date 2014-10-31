@@ -17,7 +17,20 @@
 <script src="../lib/swiper/idangerous.swiper.min.js"></script>
 <script src="../lib/app/home/news.js"></script>
 <script src="../config/web/config.js"></script>
+<script>
+/* function loadA() {
+	$.hori.showLoading();
+	$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/newsList.html');
+} */
 
+function loadNewsList(typeName) {
+	localStorage.setItem("moreCurrentName", typeName);
+	//moreCurrentName = "GT_HomePage_SiteArea_aqsc";
+	$.hori.showLoading();
+	$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/news/newsList.html');
+}
+
+</script>
 </head>
 <body>
 	<div data-role="page" id="home"
@@ -26,13 +39,13 @@
 			
 			<div class="ui-grid-b" id="divOne">
 				<div class="ui-block-b">
-					<a href="javascript:void(0);" onclick="loadTpxwList()"> <img
+					<a href="javascript:void(0);" onClick="loadNewsList('GT_HomePage_SiteArea_aqsc')"> <img
 						id="imgToDo" src="../assets/home/dbsy.gif" class="module-icon" />
 					</a> <br />
 					<span style="color: #434343;"><strong>安全环保</strong></span>
 				</div>
 				<div class="ui-block-b">
-					<a href="javascript:void(0);" onclick="loadNewsList('GT_HomePage_SiteArea_jtxw')"> <img
+					<a href="javascript:void(0);"  onClick="loadNewsList('GT_HomePage_SiteArea_zcfg')"> <img
 						id="imgSearch" class="module-icon" src="../assets/home/icon2.gif" />
 					</a> <br />
 					<span style="color: #434343;"><strong>政策法规</strong></span>
