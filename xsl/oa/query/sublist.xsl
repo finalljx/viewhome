@@ -17,13 +17,13 @@
 	</xsl:template>
 
 	<xsl:template match="tr">
-		<li href="">
+		<li href="" data-icon="false">
 			<xsl:variable name="unid"><xsl:value-of select="td[2]/input/@value"/></xsl:variable>
 			<a href="javascript:void(0)" onclick="loadPageForm('/view/oamobile/contentmobile/{$unid}');" data-icon="arrow-r" data-iconpos="right">
 				<h3><xsl:value-of select="td[3]/."/><xsl:value-of select="td[2]/@value"/></h3>
-				<p>
+				<p style="font-size: 14px;">
 					类型:<font color="#0080FF"><xsl:value-of select="td[4]/."/></font>
-					来源:<font color="#0080FF"><xsl:value-of select="td[5]/."/></font>
+					来源:<font color="#0080FF"><xsl:value-of select="td[5]/."/></font><br/><br/>
 					状态:<font color="#0080FF"><xsl:value-of select="td[6]/."/></font>
 					时间:<font color="#0080FF"><xsl:value-of select="td[7]/."/></font>
 				</p>

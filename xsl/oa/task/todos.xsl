@@ -10,6 +10,9 @@
 			</xsl:if>
 			<xsl:if test="count(//div[@id='viewValue']//table/tbody/tr[position()&gt;1])!=0">
 				<xsl:apply-templates select="//div[@id='viewValue']//table/tbody/tr[position()&gt;1]" />
+				<xsl:if test="count(//div[@id='viewValue']//table/tbody/tr[position()&gt;1])&lt;15">
+					<p style="display:none">tasknumber</p>
+				</xsl:if>
 			</xsl:if>
 	</xsl:template>
 	<xsl:template match="tr">
@@ -27,7 +30,7 @@
 							</span>
 						</h3>
 						<xsl:value-of select="//input[@id='time']/@value"/>
-						<p>
+						<p style="font-size: 14px;">
 							类型:<font color="#0080FF"><xsl:value-of select="td[4]/."/></font>
 							来源:<font color="#0080FF"><xsl:value-of select="td[5]/."/></font><br/><br/>
 							状态:<font color="#0080FF"><xsl:value-of select="td[6]/."/></font>

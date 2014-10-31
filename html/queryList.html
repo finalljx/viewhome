@@ -35,7 +35,7 @@
 						view = "vwDocByDate";
 						dataid = "querydataList";
 						dbpath="/docapp/genertec/dep1/qsbg_1.nsf";
-						Astart=Astart+2;
+						Astart=Astart+15;
 						start=Astart;
 					}
 					if(type=="querytoArchive"){
@@ -43,7 +43,7 @@
 						view = "vwtoArchive";
 						dataid = "querydataList";
 						dbpath="/docapp/genertec/dep1/qsbg_1.nsf";
-						Bstart=Bstart+2;
+						Bstart=Bstart+15;
 						start=Bstart;
 					}
 					if(type=="queryArchvied"){
@@ -51,7 +51,7 @@
 						view = "vwDocByArchvied";
 						dataid = "querydataList";
 						dbpath="/docapp/genertec/dep1/qsbg_1.nsf";
-						Cstart=Cstart+2;
+						Cstart=Cstart+15;
 						start=Cstart;
 					}
 					//signForDoing signtoArchive signArchvied
@@ -60,7 +60,7 @@
 						view = "vwDocByDate";
 						dataid = "signdataList";
 						dbpath = localStorage.getItem("singdbPath");
-						dstart=dstart+2;
+						dstart=dstart+15;
 						start=dstart;
 					}
 					if(type=="signtoArchive"){
@@ -68,7 +68,7 @@
 						view = "vwtoArchive";
 						dataid = "signdataList";
 						dbpath = localStorage.getItem("singdbPath");
-						estart=estart+2;
+						estart=estart+15;
 						start=estart;
 					}
 					if(type=="signArchvied"){
@@ -76,11 +76,11 @@
 						view = "vwDocByArchvied";
 						dataid = "signdataList";
 						dbpath = localStorage.getItem("singdbPath");
-						fstart=fstart+2;
+						fstart=fstart+15;
 						start=fstart;
 					}
 					//alert(template+"===="+dbpath+"==="+start);
-					var url=$.hori.getconfig().appServerHost+"view/oa/"+template+dbpath+"/myview?openform&view="+view+"&start="+start+"&count=2";
+					var url=$.hori.getconfig().appServerHost+"view/oa/"+template+dbpath+"/myview?openform&view="+view+"&start="+start+"&count=15";
 					$.hori.ajax({
 						"type":"post",
 						"url":url,
@@ -201,7 +201,7 @@
 				localStorage.setItem("type","queryArchvied");
 				template="Archvied";
 			}
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/docapp/genertec/dep1/qsbg_1.nsf/myview?openform&view="+view+"&start=1&count=100";
+			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/docapp/genertec/dep1/qsbg_1.nsf/myview?openform&view="+view+"&start=1&count=15";
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
@@ -262,7 +262,7 @@
 			}
 			var singdbPath = localStorage.getItem("singdbPath");
 			//alert(singdbPath);
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/myview?openform&view="+view+"&start=1&count=100";
+			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/myview?openform&view="+view+"&start=1&count=15";
 			//alert(url);
 			$.hori.ajax({
 				"type":"post",
@@ -273,7 +273,7 @@
 					$("#signdataList").append(res).listview("refresh");
 					$.hori.hideLoading();
 					myScroll.refresh();
-
+					
 				},
 				"error":function(res){
 					alert(res);
@@ -305,7 +305,6 @@
 		//会签表单展示页面
 		var t1 = null;//这个设置为全局
 		function loadsignPageForm(str){
-		//vwDocByDate,vwtoArchive,vwDocByArchvied
 			$.hori.showLoading();
 			if (t1 == null){
 				t1 = new Date().getTime();
