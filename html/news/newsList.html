@@ -8,7 +8,7 @@
 <script type="application/javascript" src="../../assets/iscroll.js"></script>
 <link rel="stylesheet"
 	href="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" />
-<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
+<link rel="stylesheet" href="../../assets/jquery.mobile-sugon.css" />
 <script src="../../lib/jquery/jquery.min.js"></script>
 <script src="../../lib/encrypt/encrypt.js"></script>
 <script src="../../lib/json/json2.js"></script>
@@ -26,7 +26,7 @@ a {
 .ui-listview .ui-li-has-thumb>img:first-child, .ui-listview .ui-li-has-thumb>.ui-btn>img:first-child,
 	.ui-listview .ui-li-has-thumb .ui-li-thumb {
 	position: absolute;
-	left: 5;
+	left: 10px; 
 	top: auto;
 	bottom: auto;
 	max-width: 5em;
@@ -35,9 +35,9 @@ a {
 
 #wrapper {
 	position: fixed;
-	top: 0px;
-	bottom: 48px;
-	width: 100%;
+	top: 10px;
+	bottom: 0px;
+	left: 0px;
 }
 </style>
 <script type="text/javascript">
@@ -209,13 +209,13 @@ a {
 					<div id="scroller">
 						<p></p>
 						<ul  data-bind="foreach: list" id="querydataList"
-							data-role="listview" data-inset="true">
+							data-role="listview" data-inset="false">
 							<li data-icon="false"><a data-bind="click:showDetail">
 									<h3 style="white-space: normal;">
 										<span data-bind="text: contentTitle"></span>
 									</h3>
 									<p style="text-align: right;">
-										<span data-bind="text:creatTime"></span>
+										<span style="margin-right: 20px;" data-bind="text:creatTime"></span>
 									</p>
 							</a></li>
 						</ul>
