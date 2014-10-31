@@ -7,7 +7,6 @@
 <link rel="stylesheet"
 	href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" />
 <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
-<link rel="stylesheet" href="../lib/swiper/idangerous.swiper.css">
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/jquery-cookie/jquery.cookie.js"></script>
 <script src="../lib/encrypt/encrypt.js"></script>
@@ -17,7 +16,6 @@
 <script src="../lib/knockout/knockout.mapping.js"></script>
 <script
 	src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
-<script src="../lib/swiper/idangerous.swiper.min.js"></script>
 <script src="../config/web/config.js"></script>
 
 <style type="text/css">
@@ -53,7 +51,7 @@
 
 		var hori = $.hori;
 		try {
-			hori.setHeaderTitle("登录");
+			hori.setHeaderTitle("安全生产");
 			/*隐藏后退按钮*/
 			hori.hideBackBtn();
 		} catch (e) {
@@ -68,7 +66,7 @@
 			skey = encodeURI(skey);
 			var random = new Date().getTime();
 			var url = $.hori.getconfig().appServerHost
-					+ "view/safety/watchList/Application/SafetyProBasic.nsf/SearchHolidayDutyForMobile?open";
+					+ "view/safety/watchList/Application/Safety/SafetyProBasic.nsf/SearchHolidayDutyForMobile?open";
 			url = url + "&data-random=" + random + "&data-result=text"
 		} catch (e) {
 		}
@@ -79,7 +77,7 @@
 			"url" : url,
 			"data" : data,
 			"success" : function(res) {
-				console.log();
+				console.log(res);
 				res1 = {
 					"data" : [ {
 						"DeptID" : "1351",

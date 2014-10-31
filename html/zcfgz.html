@@ -14,10 +14,17 @@
 <script src="../lib/json/json2.js"></script>
 <script src="../lib/hori/hori.js?tag=21369"></script>
 <script src="../lib/jquery-mobile/jquery.mobile.min.js"></script>
-<script src="../lib/swiper/idangerous.swiper.min.js"></script>
-<script src="../lib/app/home/news.js"></script>
 <script src="../config/web/config.js"></script>
-
+<script type="text/javascript">
+$(document).ready(function() {
+    try {
+        var hori = $.hori;
+        /*设置标题*/
+        hori.setHeaderTitle("政策法规资讯");
+    } catch (e) {
+    }
+});
+</script>
 </head>
 <body>
 	<div data-role="page" id="home"

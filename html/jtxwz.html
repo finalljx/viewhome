@@ -20,6 +20,14 @@
 
 </head>
 <script type="text/javascript">
+	$(document).ready(function() {
+	    try {
+	        var hori = $.hori;
+	        /*设置标题*/
+	        hori.setHeaderTitle("集团新闻");
+	    } catch (e) {
+	    }
+	});
 //图片新闻
 	function loadTpxwList() {
 		$.hori.showLoading();
