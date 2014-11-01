@@ -14,7 +14,7 @@
 <script src="../lib/jquery-mobile/jquery.mobile.min.js"></script>
 <script src="../config/web/config.js"></script>
 
-<link rel="stylesheet" href="../lib/app/home/css/news.css">
+<!-- <link rel="stylesheet" href="../lib/app/home/css/news.css"> -->
 <script src="../lib/knockout/knockout.js"></script>
 <script src="../lib/knockout/knockout.mapping.js"></script>
 
@@ -98,12 +98,27 @@
 						+ "viewhome/html/"+url);
 	}
 </script>
+<style>
+.divxs {
+    width: 33.333%;
+    margin-top: 15px
+}
+.ui-content{padding:5px;}
+a {
+    text-decoration: none;
+}
+
+.module-icon {
+    width: 5em;
+    height: 5em;
+}
+</style>
 </head>
 <body>
 <div data-role="content" align="center">
 		<div class="ui-grid-b" id="divBi">
 		<div data-bind="foreach: list" style="width:100%;">
-			<div class="ui-block-c"style="width:33.3%;margin-bottom:20px;margin-top:20px;">
+			<div class="ui-block-b divxs">
 				<a  data-bind="click:loadBi" > <img
 					id="imgToDo" data-bind="attr:{'src':img}" class="module-icon"/>
 				</a> <br /> 
