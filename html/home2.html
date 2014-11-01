@@ -26,7 +26,7 @@
 			var hori = $.hori;
 			/*设置标题*/
 			hori.setHeaderTitle("首页");
-			$.hori.showLoading();
+			//$.hori.showLoading();
 			/*隐藏后退按钮*/
 			hori.hideBackBtn();
 			/*注册注销事件*/
@@ -36,7 +36,7 @@
 			//ios 隐藏邮件图标
 			createUser();
 			var itcode = localStorage.getItem("itcode");
-			getTuBiao();
+			getModulesConfig();
 		} catch (e) {
 			alert(e.message);
 		}
@@ -44,35 +44,42 @@
 	//请示待办
 	function loadTaskList() {
 		$.hori.showLoading();
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl + "viewhome/html/task.html");
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl
+				+ "viewhome/html/task.html");
 	}
 	//请示查阅
 	function loadqueryList() {
 		localStorage.setItem("click", "1");
 		localStorage.setItem("addmore", "no");
 		$.hori.showLoading();
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/queryList.html');
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl
+				+ 'viewhome/html/queryList.html');
 	}
 	//加载新闻列表
 	function loadNewsList(typeName) {
 		localStorage.setItem("moreCurrentName", typeName);
 		$.hori.showLoading();
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/news/newsList.html');
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl
+				+ 'viewhome/html/news/newsList.html');
 	}
 	//BI
 	function loadBI() {
 		$.hori.showLoading();
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/bi.html');
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl
+				+ 'viewhome/html/bi.html');
 	}
 	var cookie_userstore;
 	function createUser() {
 		$.hori.getCookies(function(clientCookie) {
 			try {
 				var key = "data-userstore";
-				cookie_userstore = new RegExp(encodeURIComponent(key) + '=([^;]*)').exec(clientCookie);
+				cookie_userstore = new RegExp(encodeURIComponent(key)
+						+ '=([^;]*)').exec(clientCookie);
 				if (cookie_userstore) {
-					localStorage.setItem("cookie_userstore", cookie_userstore[1]);
-					var serverDomain = new RegExp('^https?://(.*?)(?=:|/)').exec($.hori.getconfig().appServerHost);
+					localStorage.setItem("cookie_userstore",
+							cookie_userstore[1]);
+					var serverDomain = new RegExp('^https?://(.*?)(?=:|/)')
+							.exec($.hori.getconfig().appServerHost);
 					if (serverDomain) {
 						$.cookie('data-userstore', cookie_userstore[1], {
 							expires : 7,
@@ -92,32 +99,33 @@
 			}
 		});
 
-		$.hori.ajax({
-			"type" : "get",
-			"url" : $.hori.getconfig().appServerHost
-					+ "/view/oa/currentuser/doctest/genertec/persontasks.nsf/frmPage?openform",
-			"success" : function(res) {
-				localStorage.setItem("Chinesename", res);
-				currentUser = "CN=" + res + "/O=genertec";
-				localStorage.setItem("itcodetasklist", currentUser);
-				$.hori.hideLoading();
-			},
-			"error" : function(res) {
-				alert("获取当前登陆人失败");
-			}
-		});
+		$.hori
+				.ajax({
+					"type" : "get",
+					"url" : $.hori.getconfig().appServerHost
+							+ "/view/oa/currentuser/doctest/genertec/persontasks.nsf/frmPage?openform",
+					"success" : function(res) {
+						localStorage.setItem("Chinesename", res);
+						currentUser = "CN=" + res + "/O=genertec";
+						localStorage.setItem("itcodetasklist", currentUser);
+						$.hori.hideLoading();
+					},
+					"error" : function(res) {
+						alert("获取当前登陆人失败");
+					}
+				});
 	}
-	//获取图标个数
-	function getTuBiao() {
+	//获取模块配置
+	function getModulesConfig() {
 		var jsonData = [ {
 			"id" : 1,
 			"name" : "集团新闻",
-			"img" : "../assets/home/news.png",
+			"img" : "../assets/home/jtxw.png",
 			"target" : "loadJtxw()"
 		}, {
 			"id" : 2,
 			"name" : "集团通知",
-			"img" : "../assets/home/tzgg.png",
+			"img" : "../assets/home/jttz.png",
 			"target" : "loadNewsList('GT_HomePage_SiteArea_jttz')"
 		}, {
 			"id" : 3,
@@ -127,7 +135,7 @@
 		}, {
 			"id" : 4,
 			"name" : "公文待办",
-			"img" : "../assets/home/task.png",
+			"img" : "../assets/home/gwdb.png",
 			"target" : "loadTaskList()"
 		}, {
 			"id" : 5,
@@ -142,22 +150,22 @@
 		}, {
 			"id" : 7,
 			"name" : "电子期刊",
-			"img" : "../assets/home/dzqk.gif",
+			"img" : "../assets/home/dzqk.png",
 			"target" : ""
 		}, {
 			"id" : 8,
 			"name" : "聘免公告",
-			"img" : "../assets/home/doc.png",
-			"target" : ""
+			"img" : "../assets/home/pmgg.png",
+			"target" : "loadPmgg()"
 		}, {
 			"id" : 9,
 			"name" : "科技动态",
-			"img" : "../assets/home/kgxw.gif",
-			"target" : ""
+			"img" : "../assets/home/kjdt.png",
+			"target" : "loadKjdt()"
 		}, {
 			"id" : 10,
 			"name" : "政策法规资讯",
-			"img" : "../assets/home/icon2.gif",
+			"img" : "../assets/home/zcfg.png",
 			"target" : "loadZcfg()"
 		}, {
 			"id" : 11,
@@ -173,17 +181,37 @@
 	//安全生产值班表列表
 	function loadAqsczbb() {
 		$.hori.showLoading();
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/watchlist.html');
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl
+				+ 'viewhome/html/watchlist.html');
 	}
+	
+	//聘免公告
+	function loadPmgg(typeName) {
+	typeName = "GT_HomePage_SiteArea_pmgg";
+	localStorage.setItem("moreCurrentName", typeName);
+	$.hori.showLoading();
+	$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/news/newsList.html');
+}
+	
+	//科技动态
+	function loadKjdt(typeName) {
+	typeName = "GT_HomePage_SiteArea_kjdt";
+	localStorage.setItem("moreCurrentName", typeName);
+	$.hori.showLoading();
+	$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/news/newsList.html');
+}
+	
 	//加载图片新闻子页面
 	function loadJtxw() {
 		$.hori.showLoading();
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/jtxwz.html');
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl
+				+ 'viewhome/html/jtxwz.html');
 	}
 	//加载政策法规资讯子页面
 	function loadZcfg() {
 		$.hori.showLoading();
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/zcfgz.html');
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl
+				+ 'viewhome/html/zcfgz.html');
 
 	}
 	function render(data) {
@@ -193,12 +221,11 @@
 	}
 </script>
 <style>
-
 .divxs {
-		width: 33.333%;
-		margin-top: 20px
-	}
-  /*  @media  only screen and (min-width: 1070px) and (max-width: 1081px) {
+	width: 33.333%;
+	margin-top: 20px
+}
+/*  @media  only screen and (min-width: 1070px) and (max-width: 1081px) {
   .imgToDo {
     width:10em;
   }
