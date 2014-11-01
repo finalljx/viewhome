@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+
+a {
+	text-decoration: none;
+}
+
+.module-icon {
+	width: 5em;
+	height: 5em;
+}

@@ -33,6 +33,17 @@ a {
 	padding: 2px;
 	background-color: rgba(127, 127, 127, 0.5);
 }
+
+.big_light{
+    width: 30px;
+    height: 30px;
+    margin-top:12px;
+}
+
+.small_light{
+    width: 12px;
+    height: 12px;
+}
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -109,29 +120,29 @@ a {
 							var busiName = busiData[i].busiName;
 							if (30 == busiData[i].now) {
 								imgString = imgString
-										+ "<li style='line-height:50px;'><div style='float:left;clear:both;width:"+imgStringWidth+";'><font size='2'>"
+										+ "<li style='line-height:50px;'><div style='float:left;clear:both;width:"+imgStringWidth+";min-width:65px;'>"
 										+ busiName
-										+ "</font></div><div style='float:left;width:"+imgwidth+";'><img src='img/dahong.png'></img></div>"
+										+ "</div><div style='float:left;width:"+imgwidth+";'><img src='img/dahong.png' class='big_light'/></div>"
 							} else {
 								imgString = imgString
-										+ "<li style='line-height:50px;'><div style='float:left;clear:both;width:"+imgStringWidth+";'><font size='2'>"
+										+ "<li style='line-height:50px;'><div style='float:left;clear:both;width:"+imgStringWidth+";min-width:65px;'>"
 										+ busiName
-										+ "</div><div style='float:left;width:"+imgwidth+";'><img src='img/dalv.png'></img></div>"
+										+ "</div><div style='float:left;width:"+imgwidth+";'><img src='img/dalv.png' class='big_light'/></div>"
 							}
 							var imageType = busiData[i].imageType.split('|');
 							for (var j = 0; j < imageType.length - 1; j++) {
 								if (10 == imageType[j]) {
 									imgString = imgString
-											+ "<div style='float:left;width:"+tbImgWidth+";line-height:60px;'><img src='img/xiaolv.png'></img></div>";
+											+ "<div style='float:left;width:"+tbImgWidth+";line-height:60px;'><img src='img/xiaolv.png' class='small_light'/></div>";
 								} else if (20 == imageType[j]) {
 									imgString = imgString
-											+ "<div style='float:left;width:"+tbImgWidth+";line-height:60px;'><img src='img/xiaohuang.png'></img></div>";
+											+ "<div style='float:left;width:"+tbImgWidth+";line-height:60px;'><img src='img/xiaohuang.png' class='small_light'/></div>";
 								} else if (30 == imageType[j]) {
 									imgString = imgString
-											+ "<div style='float:left;width:"+tbImgWidth+";line-height:60px;'><img src='img/xiaohong.png'></img></div>";
+											+ "<div style='float:left;width:"+tbImgWidth+";line-height:60px;'><img src='img/xiaohong.png' class='small_light'/></div>";
 								} else {
 									imgString = imgString
-											+ "<div style='float:left;width:"+tbImgWidth+";line-height:60px;'><img src='img/xiaohui.png'></img></div>";
+											+ "<div style='float:left;width:"+tbImgWidth+";line-height:60px;'><img src='img/xiaohui.png' class='small_light'/></div>";
 								}
 							}
 							imgString = imgString + "</li>";
