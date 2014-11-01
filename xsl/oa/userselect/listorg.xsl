@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 	<xsl:template match="/">
-		<li data-icon="false">
-			<!-- <div data-role="controlgroup" data-type="horizontal" style="width:100%;" align="right">
-				<a data-role="button" href="" onclick="hideuserselect()" data-theme="f">确定</a>
-			</div> -->
-			<a data-role="button" href="" onclick="hideuserselect()" data-theme="f" style="padding-left: 300;">确定</a>
+	<li >
+			<div>
+				
+				<a href="" onclick="hideuserselect()" style="width:40%" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-first-child ui-last-child ui-btn-up-f" ><span class="ui-btn-inner"><span class="ui-btn-text">确定</span></span></a>
+
+				<a   href="" onclick='$("#faqdiv").hide()' style="width:40%;float:right"  class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-first-child ui-last-child ui-btn-up-f" ><span class="ui-btn-inner"><span class="ui-btn-text">取消</span></span></a>
+			</div>
+			
 		</li>
-		<li data-role="fieldcontain" style="" class="ui-field-contain ui-body ui-br ui-li ui-li-static ui-btn-up-c ui-last-child">
-			<fieldset data-role="controlgroup">
-				<legend></legend>
-				<xsl:apply-templates select="//select[@id='EntryList_1']//option" />
-			</fieldset>
+		<li data-role="list-divider">
+			
 		</li>
+		<xsl:apply-templates select="//select[@id='EntryList_1']//option" />
 		<xsl:if test="count(//select[@id='EntryList_1']//option)=0">
 			<li><a>无组织</a></li>
 		</xsl:if>
@@ -20,7 +21,7 @@
 	</xsl:template>
 	<xsl:template match="option">
 		<li>
-			<input type="radio" name="personval" id="{.}" value="{.}"/><label for="{.}"><xsl:value-of select="substring-before(.,'/')"/></label>
+			<input type="radio" name="personval" value="{.}"/><label><xsl:value-of select="substring-before(.,'/')"/></label>
 		</li>
 	</xsl:template>
 </xsl:stylesheet>
