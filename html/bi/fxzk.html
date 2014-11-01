@@ -27,7 +27,7 @@ a {
 }
 
 .top_year {
-	font-size: 8px;
+	font-size: 14px;
 	position: fixed;
 	color: #FFF;
 	padding: 2px;
@@ -153,7 +153,7 @@ a {
 		//1月份显示div对象
 		var targetMonth = document.getElementById("targetMonth");
 		if (targetMonth) {
-			var x = targetMonth.offsetLeft;
+			var x = targetMonth.offsetLeft - 5;
 			var y = targetMonth.offsetTop - 20;
 			$(".top_year").css("left", x+'px');
 			$(".top_year").css("top", y+'px');

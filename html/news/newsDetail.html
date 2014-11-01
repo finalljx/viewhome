@@ -106,9 +106,11 @@ p {
 		//重置ID
 	}
 	function viewfile(item){
-		var url=item.attachmentSource()+"&data-convert=office";
+		var cookie_userstore = localStorage.getItem("cookie_userstore");
+		var url=item.attachmentSource()+"&data-convert=office&data-userstore=" + cookie_userstore;
 		url=url.replace(/\&amp;/g,"&");
 		localStorage.setItem("attachmentUrl",url);
+		alert(url);
 		$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
 	}
 	
@@ -133,7 +135,7 @@ p {
 			</div>
 			
 			
-			<div style="background-color: rgba(127,127,127,0.5);">
+			<div style="background-color: rgba(127,127,127,0.3);">
 				<p>
 				<div style="float: left;">
 					发布时间：<span data-bind="text: creatTime"></span>
@@ -150,7 +152,7 @@ p {
 			</div>
 			</div>
 			 <div style="clear: both; display: inline;" id="fujian" data-bind="if:$root.list">
-			 <a style="float: left;color: black;">附件列表:</a>
+			 <a style="float: left;color: black; margin-left: 15px;">附件列表:</a>
 				<ul data-bind="foreach: list" style="list-style-type:none;">
 					<li data-icon="false" style="float: left;">
 					<a data-bind="click:viewfile" ><span
