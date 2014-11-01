@@ -16,35 +16,42 @@
 <script src="../lib/jquery-mobile/jquery.mobile.min.js"></script>
 <script src="../config/web/config.js"></script>
 <script type="text/javascript">
-$(document).ready(function() {
-    try {
-        var hori = $.hori;
-        /*设置标题*/
-        hori.setHeaderTitle("政策法规资讯");
-    } catch (e) {
-    }
-});
+	$(document).ready(function() {
+		try {
+			var hori = $.hori;
+			/*设置标题*/
+			hori.setHeaderTitle("政策法规资讯");
+		} catch (e) {
+		}
+	});
+	function loadNewsList(typeName) {
+		localStorage.setItem("moreCurrentName", typeName);
+		//moreCurrentName = "GT_HomePage_SiteArea_aqsc";
+		$.hori.showLoading();
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl
+				+ 'viewhome/html/news/newsList.html');
+	}
 </script>
 </head>
 <body>
 	<div data-role="page" id="home"
 		style="background: url(../assets/home/bg_empty.jpg); -moz-background-size: cover; background-repeat: repeat;">
 		<div data-role="content" align="center">
-			
+
 			<div class="ui-grid-b" id="divOne">
 				<div class="ui-block-b">
-					<a href="javascript:void(0);" onclick="loadTpxwList()"> <img
-						id="imgToDo" src="../assets/home/dbsy.gif" class="module-icon" />
-					</a> <br />
-					<span style="color: #434343;"><strong>安全环保</strong></span>
+					<a href="javascript:void(0);"
+						onClick="loadNewsList('GT_HomePage_SiteArea_aqsc')"> <img
+						id="imgToDo" src="../assets/home/aqhb.png" class="module-icon" />
+					</a> <br /> <span style="color: #434343;"><strong>安全环保</strong></span>
 				</div>
 				<div class="ui-block-b">
-					<a href="javascript:void(0);" onclick="loadNewsList('GT_HomePage_SiteArea_jtxw')"> <img
-						id="imgSearch" class="module-icon" src="../assets/home/icon2.gif" />
-					</a> <br />
-					<span style="color: #434343;"><strong>政策法规</strong></span>
+					<a href="javascript:void(0);"
+						onClick="loadNewsList('GT_HomePage_SiteArea_zcfg')"> <img
+						id="imgSearch" class="module-icon" src="../assets/home/zcfg.png" />
+					</a> <br /> <span style="color: #434343;"><strong>政策法规</strong></span>
 				</div>
-				
+
 			</div>
 			<p>
 		</div>
