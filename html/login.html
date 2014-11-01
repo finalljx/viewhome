@@ -35,6 +35,9 @@
 				hori.setHeaderTitle("登录");
 				/*隐藏后退按钮*/
 				hori.hideBackBtn();
+				//删除cookie
+				$.cookie("JSESSIONID",null,{path:"/"});
+				$.cookie("data-userstore",null,{path:"/"})
 			}catch(e){
 				alert(e.message);
 			}
@@ -113,7 +116,7 @@
 						registdevice();
 						}else{
 							$.hori.hideLoading();
-							alert("登录失败", + json.msg);
+							alert("登录失败:" + json.msg);
 						}
 
 				},
