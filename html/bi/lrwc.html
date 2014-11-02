@@ -28,13 +28,17 @@ a {
 <body>
 	<!-- 利润完成 -->
 	<div >
-	<div style="float:right;">
+<!-- 	<div style="float:right;">
 	<div id="yusuan" align="left" style="font-size:1.3em;"></div>
 	<div id="leiji" align="left" style="font-size:1.3em;"></div>
 	<div id="bili" align="left" style="font-size:1.3em;"></div>
-	</div>
+	</div> -->
 	<div id="main"  style="height: 400px">
 	</div>
+	<div style="float:left; margin-left: 50px;">
+    <div id="yusuan" align="left" style="font-size:1.3em;"></div>
+    <div id="leiji" align="left" style="font-size:1.3em;"></div>
+    <div id="bili" align="left" style="font-size:1.3em;"></div>
 	</div>
 	<script src="../asset/js/echarts-plain-original.js"></script>
 	<script src="../asset/js/echartsHome.js"></script>
@@ -113,10 +117,10 @@ a {
 					max: ljwcz,   
 					axisLine : { // 坐标轴线
 						lineStyle : { // 属性lineStyle控制线条样式
-							color : [ [ colorOne, '#FFD700' ], [ colorTwo, '#7CFC00' ],
-	                                    [ 1, '#A066D3' ] ],
-	                            width : 50
-						}
+                            color : [ [ colorOne, '#FFCC66' ], [ colorTwo, '#3399ff' ],
+                                    [ 1, '#A066D3' ] ],
+                            width : 50
+                        }
 					},
 					axisTick : { // 坐标轴小标记
 						splitNumber : 10, // 每份split细分多少段
