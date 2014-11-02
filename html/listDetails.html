@@ -1,110 +1,47 @@
-<!DOCTYPE html> 
 <html>
-	<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1"> 
-	<title>安全生产值班表详情 </title> 
-	
-	<link rel="stylesheet" href="/view/lib/jquery-mobile/jquery.mobile.min.css" /> 
-	
-		<script src="/view/lib/jquery/jquery.min.js"></script>		
-		
-		<script src="/view/lib/jquery-mobile/jquery.mobile.min.js"></script>
-		
-<style type="text/css">
- .ui-li .ui-btn-inner, .ui-li-static.ui-li {
- 
-padding: .5em 5px;
-display: block;
-}
-.ui-li-desc {
-font-size: 12px;
-font-weight: 400;
-display: block;
-margin: -.1em 0 .6em;
-text-overflow: ellipsis;
-overflow: hidden;
-white-space: nowrap;
-}
-		
-		
-</style>
-<script type="text/javascript">
-$(document).ready(function() {
 
-    var hori = $.hori;
-    try {
-        hori.setHeaderTitle("登录");
-        /*隐藏后退按钮*/
-        //hori.hideBackBtn();
-        
-        
-    } catch (e) {
-        alert(e.message);
-    }
+<head>
+    <title>安全生产值班表详情</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-});
-</script>
-</head> 
-<body> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0"/>
 
-	<div data-role="page" class="type-interior">
+    <link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" />
 
-		<div data-role="header" data-theme="b">
-		<p style="text-align:center;">安全生产值班表详情</p>
-	</div><!-- /header -->
+    <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
 
-	<div data-role="content">
-	       <p style="text-align:center;">中国邮电器材公司</p>
-			<div>
-				<ul data-role="listview" data-inset="true" data-theme="d"
-					style="word-wrap: break-word"   >
-					<li data-role="list-divider">
-					<a>安全生产值班列表</a>
-					</li> 
-					<li data-icon="false"><a onclick="app.openDoc(this);return false"
-						data-mini="true" >
-							<p style="float:left;">序号：<p>1</p><p>值班时间：<font color="blue">2014-04-03</font></p><p>值班领导：<font color="blue"></font></p><p>联系电话：</p>
-									<p>值班员：</p><p>联系电话：</p>
-									</a>
-					</li>
-					<li data-icon="false"><a onclick="app.openDoc(this);return false"
-						data-mini="true" >
-							<p style="float:left;">序号：<p>2</p><p>值班时间：<font color="#0000FF">2014-01-01</font></p><p>值班领导：<font color="blue"></font></p><p>联系电话：</p>
-									<p>值班员：</p><p>联系电话：</p>
-									</a>
-					</li>
-				</ul>
-			</div>
-			<div>
-				<ul data-role="listview" data-inset="true" data-theme="d"
-					style="word-wrap: break-word"   >
-					<li data-role="list-divider">
-					<a>节假日期间生产安排情况</a>
-					</li> 
-					<li data-icon="false" ><a onclick="app.openDoc(this);return false"
-						 data-iconpos="right" data-mini="true" style="background:#fffff;">
-							<p><span style="float:left;white-space:pre-wrap;">2014年元旦期间我公司共有132名员工加班，其中北京中邮苑宾馆有限公司35人，中邮普泰通信服务股份有限公司5人，　中邮时代电讯科技有限公司21人，鸿讯物流有限公司29人，　中国邮电器材中南公司42人。</span></p>
-					</a></li>
-					
-				</ul>
-			</div>
-			<div>
-				<ul data-role="listview" data-inset="true" data-theme="d"
-					style="word-wrap: break-word"   >
-					<li data-role="list-divider">
-					<a>安全保证措施</a>
-					</li> 
-					<li data-icon="false" ><a onclick="app.openDoc(this);return false"
-						 data-iconpos="right" data-mini="true" style="background:#fffff;">
-							<p><span style="float:left;white-space:pre-wrap;">节假日期间，要求各单位妥善安排好值班和安全保卫等工作，值班人员坚守岗位，尽职尽责，值班当日移动电话24小时保持开机状态，遇到紧急、重大情况必须及时报告。</span></p>
-					</a></li>
-					
-				</ul>
-			</div>
 
-	</div><!-- /page -->
+    <script src="../lib/jquery/jquery.min.js"></script>
+    <script src="../lib/encrypt/encrypt.js"></script>
+    <script src="../lib/json/json2.js"></script>
+    <script src="../lib/hori/hori.js?tag=21369"></script>
+    <script src="../config/web/config.js"></script>
+    <script src="../lib/app/watchlist/app.js"></script>
+    <script src="../lib/template/template.js"></script>
+</head>
+<body>
 
-	</body>
-	</html>
-	
+<div>
+    <ul  data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+        <li data-corners="false" data-shadow="false" data-iconshadow="true"
+            data-wrapperels="div" data-icon="arrow-r" data-iconpos="right"
+            data-theme="c"
+            class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-first-child ui-last-child ui-btn-up-c"><div
+                class="ui-btn-inner ui-li">
+            <div class="ui-btn-text">
+                <a class="ui-link-inherit">
+                    <h3 data-bind="text: title" class="ui-li-heading">数据加载中…………</h3>
+                    <span data-bind="text: taskState"></span>
+                    </p>
+                </a>
+            </div>
+            <span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span>
+        </div>
+        </li>
+    </ul>
+</div>
+</body>
+
+
+</html>
+
