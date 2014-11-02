@@ -111,6 +111,7 @@
 		<!-- 流程组织选择 -->
 		<view id="userselectorg" template="oa/userselect/listorg.xsl">
 			<rule mode="remove" regex="&amp;nbsp;"/>
+			
 		</view>
 		<!-- 会签流程人员选择 -->
 		<view id="userselect" template="oa/userselect/signlistorg.xsl" encoding="utf-8">

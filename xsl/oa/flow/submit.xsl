@@ -101,6 +101,10 @@
 									function hideuserselect(){
 										//radio
 										var val = $('input:radio:checked').val();
+										
+										//替换掉回车和换行
+										val=val.replace(/[\n\r]/g,"");
+										
 										var number = val.indexOf("genertec");
 										if(number!="-1"){
 											var num = val.indexOf("/");
@@ -121,6 +125,8 @@
 										$("input[name='chooseperson']:checked").each(function(){
 											personstr+=$(this).val()+",";
 										})
+
+										personstr=personstr.replace(/[\n\r]/g,"");
 										personstr=personstr.substring(0,personstr.length-1);
 										//console.log(personstr);
 										var number2 = personstr.indexOf("genertec");
