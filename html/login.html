@@ -23,12 +23,12 @@
 			if(localStorage.getItem("data-saveusername")=="true"){
 				var username=localStorage.getItem("username");
 				if(username==null){
-					username="用户名/itcode";
+					username="用户名";
 				}
 				$("#username").attr("value", username);
 				$('#saveusername').attr("checked", true).checkboxradio("refresh");
 			}else{
-				$("#username").val("用户名/itcode");
+				$("#username").val("用户名");
 				$("#username").css("color", "#9e9e9e");
 				$('#saveusername').removeAttr("checked").checkboxradio("refresh");
 			}
@@ -51,7 +51,7 @@
 			$("#captcha").attr("src",$.hori.getconfig().appServerHost + "/servlet/captcha");
 		}
 		function clearData (){
-			if($.trim($("#username").val())=="用户名/itcode"){
+			if($.trim($("#username").val())=="用户名"){
 				$("#username").val("");
 				$("#username").css("color", "#0F0E0E");
 			}else{
@@ -63,7 +63,7 @@
 			var userName=$.trim($("#username").val());
 			if($.trim($("#username").val())==""){	
 				$("#username").css("color", "#9e9e9e");				
-				$("#username").attr("value", "用户名/itcode");
+				$("#username").attr("value", "用户名");
 				
 			}else{
 				$("#username").css("color", "#0F0E0E");
