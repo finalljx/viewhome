@@ -10,6 +10,9 @@
 			</xsl:if>
 			<xsl:if test="count(//div[@id='viewValue']//table/tbody/tr[position()&gt;1])!=0">
 				<xsl:apply-templates select="//div[@id='viewValue']//table/tbody/tr[position()&gt;1]" />
+				<xsl:if test="count(//div[@id='viewValue']//table/tbody/tr[position()&gt;1])&lt;15">
+					<p style="display:none">tasknumber</p>
+				</xsl:if>
 			</xsl:if>
 	</xsl:template>
 	<xsl:template match="tr">
