@@ -18,15 +18,17 @@
 	</style>
 	<script type="text/javascript">
 		$(document).ready(function(){
+			//获取验证码
+			getCaptcha();
 			if(localStorage.getItem("data-saveusername")=="true"){
 				var username=localStorage.getItem("username");
 				if(username==null){
-					username="用户名/itcode";
+					username="用户名";
 				}
 				$("#username").attr("value", username);
 				$('#saveusername').attr("checked", true).checkboxradio("refresh");
 			}else{
-				$("#username").val("用户名/itcode");
+				$("#username").val("用户名");
 				$("#username").css("color", "#9e9e9e");
 				$('#saveusername').removeAttr("checked").checkboxradio("refresh");
 			}
@@ -35,14 +37,21 @@
 				hori.setHeaderTitle("登录");
 				/*隐藏后退按钮*/
 				hori.hideBackBtn();
+				//删除cookie
+				$.cookie("JSESSIONID",null,{path:"/"});
+				$.cookie("data-userstore",null,{path:"/"})
 			}catch(e){
 				alert(e.message);
 			}
 			//注销登录
 			loginout();
 		});
+		
+		function getCaptcha(){
+			$("#captcha").attr("src",$.hori.getconfig().appServerHost + "/servlet/captcha");
+		}
 		function clearData (){
-			if($.trim($("#username").val())=="用户名/itcode"){
+			if($.trim($("#username").val())=="用户名"){
 				$("#username").val("");
 				$("#username").css("color", "#0F0E0E");
 			}else{
@@ -54,7 +63,7 @@
 			var userName=$.trim($("#username").val());
 			if($.trim($("#username").val())==""){	
 				$("#username").css("color", "#9e9e9e");				
-				$("#username").attr("value", "用户名/itcode");
+				$("#username").attr("value", "用户名");
 				
 			}else{
 				$("#username").css("color", "#0F0E0E");
@@ -62,6 +71,8 @@
 			return false;
 		}
 		function login(){
+// 			$.hori.loadPage($.hori.getconfig().serverBaseUrl+"viewhome/html/home2.html", "viewhome/xml/digihome.xml");
+// 			return;
 			var username = $.trim($("#username").val());
 			var password = $("#password").val();
 			if(username == ""){
@@ -89,8 +100,6 @@
 						//本地存储itcode 和oaServerName
 						localStorage.setItem("oaServerName",$.hori.getconfig().oaServerName)
 						localStorage.setItem("itcode",username);
-						localStorage.setItem("click", "news");
-						//$.cookie("itcode",username,{"expires":360000,path:"/"})
 						saveUserInfoToLocal(username);
 						
 						var targetURL= $.hori.getconfig().serverBaseUrl+"viewhome/html/ipad.html";	
@@ -100,7 +109,6 @@
 						if(localStorage.getItem("loginRedirectUrl")!=null){
 							targetURL=localStorage.getItem("loginRedirectUrl");
 							localStorage.removeItem("loginRedirectUrl");
-							
 						}else{
 							componentURL = "viewhome/xml/digihome.xml";
 						}
@@ -115,7 +123,7 @@
 						registdevice();
 						}else{
 							$.hori.hideLoading();
-							alert("登录失败", + json.msg);
+							alert("登录失败:" + json.msg);
 						}
 
 				},
@@ -197,8 +205,8 @@
 				<li data-role="list-divider" ><a href="javascript:void(0);" data-theme="f" ></a></li>
 				<li data-role="fieldcontain" data-type="horizontal" >
 					<table style="width:100%" cellspaceing="0" cellpadding="0" border="0">
-						<tr><td>
-						<strong>帐&#160;&#160;&#160;&#160;号:</strong>
+						<tr><td style="min-width:56px">
+						<strong>用户名:</strong>
 						</td><td>
 						<input type="text" name="username" style="outline:none;width:100%;border:0;background:transparent;" id="username" value="" onfocus ="clearData()" onblur="showTips()"/>
 						</td></tr>
@@ -206,7 +214,7 @@
 				</li>
 				<li data-role="fieldcontain">
 					<table style="width:100%" cellspaceing="0" cellpadding="0" border="0">
-						<tr><td>
+						<tr><td style="min-width:56px">
 						<strong>密&#160;&#160;&#160;&#160;码:</strong>
 						</td><td>
 						<input type="password" name="password" style="outline:none;width:100%;border:0;background:transparent;" id="password" value=""/>
@@ -215,13 +223,14 @@
 				</li>
 				<li data-role="fieldcontain">
 					<table style="width:100%" cellspaceing="0" cellpadding="0" border="0">
-						<tr><td>
+						<tr><td style="min-width:56px">
 						<strong>验证码:</strong>
 						</td><td>
 						<input type="text" name="imageCode" id="imageCode" style="width:80px;"/>
 						</td>
-						<td>
-						<a data-role="button" data-theme="f" data-mini="true" onclick="">1234</a>
+						<td style="text-align: right;">
+						<!-- <a data-role="button" data-theme="f" data-mini="true" onclick="">1234</a> -->
+						<img id="captcha" onclick="getCaptcha();" style="width: 100px;margin-left: 10px;text-align: right;">
 						</td></tr>
 					</table>
 				</li>

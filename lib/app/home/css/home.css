@@ -1,0 +1,132 @@
+a {
+    text-decoration: none;
+}
+
+#wrapper {
+    position: fixed;
+    top: 0px;
+    bottom: 48px;
+    width: 84%;
+    overflow: scroll;
+}
+
+#tabbox {
+    width: 600px;
+    overflow: hidden;
+    margin: 0 auto;
+    width: 86%;
+    overflow: hidden;
+    margin-left: 9%;
+    align: center
+}
+
+.tab_conbox {
+    border: 1px solid #999;
+    border-top: none;
+}
+
+.tab_con {
+    display: none;
+}
+
+.tabs {
+    height: 32px;
+    border-bottom: 1px solid #999;
+    border-left: 1px solid #999;
+    width: 100%;
+}
+
+.tabs li {
+    height: 31px;
+    line-height: 31px;
+    float: left;
+    border: 1px solid #999;
+    border-left: none;
+    margin-bottom: -1px;
+    background: #e0e0e0;
+    overflow: hidden;
+    position: relative;
+}
+
+.tabs li a {
+    display: block;
+    padding: 0 20px;
+    border: 1px solid #fff;
+    outline: none;
+}
+
+.tabs li a:hover {
+    background: #ccc;
+}
+
+.tabs .thistab, .tabs .thistab a:hover {
+    background: #fff;
+    border-bottom: 1px solid #fff;
+}
+
+a {
+    text-decoration: none;
+}
+
+.ui-listview .ui-li-has-thumb>img:first-child, .ui-listview .ui-li-has-thumb>.ui-btn>img:first-child,
+    .ui-listview .ui-li-has-thumb .ui-li-thumb {
+    position: absolute;
+    left: 5;
+    top: auto;
+    bottom: auto;
+    max-width: 5em;
+    max-height: 5em;
+}
+
+#middleContent {
+    border: 0px;
+    padding: 3px;
+    PADDING: 0px;
+    LINE-HEIGHT: 20px;
+    OVERFLOW: auto;
+    margin-left: 10px;
+    width: 40%;
+    selection：background: #a7bd06;
+    color: #FFF;
+}
+
+#rightContent {
+    border: 0px;
+    padding: 3px;
+    PADDING: 0px;
+    LINE-HEIGHT: 20px;
+    OVERFLOW: auto;
+    margin-left: 10px;
+    margin-top: 0px;
+    width: 60%
+}
+
+#ul {
+    border: 0px;
+    padding: 3px;
+    PADDING: 0px;
+    LINE-HEIGHT: 20px;
+    OVERFLOW: auto;
+    width: 100%;
+}
+
+.bubble-count {
+    font-size: 11px;
+    font-weight: bold;
+    padding: .2em .5em;
+    margin-left: -.5em;
+}
+
+.container_12 .grid_2 {
+    width: 8%;
+    min-width: 80px;
+}
+
+.left_module {
+    padding: 5px;
+}
+
+.left_module .icon {
+    width: 60px;
+    height: 60px;
+}

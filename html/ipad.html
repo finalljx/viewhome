@@ -6,352 +6,53 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0">
 
-<link href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" rel="stylesheet"></link>
-<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
+<link
+	href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css"
+	rel="stylesheet" />
 <link href="../lib/jquery-mobile/jquery-mobile-fluid960.css"
-	rel="stylesheet"></link>
+	rel="stylesheet" />
+<link href="../lib/app/home/css/home.css" rel="stylesheet" />
 <script type="application/javascript" src="../assets/iscroll.js"></script>
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/jquery-cookie/jquery.cookie.js"></script>
 <script src="../lib/encrypt/encrypt.js"></script>
 <script src="../lib/json/json2.js"></script>
 <script src="../lib/hori/hori.js?tag=21369"></script>
-<script src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
+<script
+	src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
 <script src="../lib/knockout/knockout.js"></script>
 <script src="../lib/knockout/knockout.mapping.js"></script>
-<script src="../lib/swiper/idangerous.swiper.min.js"></script>
-<script src="../lib/app/home/news.js"></script>
+<script src="../lib/app/home/app.js"></script>
 <script src="../lib/app/home/tabChange.js"></script>
 <script src="../config/web/config.js"></script>
 <script src="asset/js/echarts-plain-original.js"></script>
-	<script type="text/javascript" src="asset/js/echartsHome.js"></script>
-	<script src="asset/js/bootstrap.min.js"></script>
-	<script src="asset/js/echartsExample.js"></script>
-
-<script type="text/javascript">
-	$(document).ready(function() {
-		createUser();
-		try {
-			var hori = $.hori;
-			hori.hideBackBtn();
-			/*注册注销事件*/
-			hori.registerEvent("case", "navButtonTouchUp", function() {
-				hori.backPage(1);
-			});
-			//ios 隐藏邮件图标
-
-			if (hori.getMobileType() == "apple") {
-				$("#divMail").hide();
-			}
-			var itcode = localStorage.getItem("itcode");
-			var clickVal = localStorage.getItem("click");
-			if(clickVal=="task"){
-				loadTask();
-			}else if(clickVal=="news"){
-				loadMiddleContent();
-			}else if(clickVal=="querytask"){
-				loadqueryList();
-			}
-		} catch (e) {
-			alert(e.message);
-		}
-	});
-    //中间页面
-	function loadMiddleContent() {
-		localStorage.setItem("click", "news");
-		$.getScript("../lib/app/home/tpxwList.js");
-		$("#middleContent").load("news/tpxwList.html", function(a, b, c) {
-			$("#querydataList").listview();   
-		});
-		setTimeout(function() {
-			$.mobile.loading("hide")
-		}, 1000);
-	}
-	//页面右侧
-	function loadRightContent() {
-		localStorage.setItem("moreCurrentName","GT_HomePage_SiteArea_tpxw");
-		$.getScript("../lib/app/home/newsDetail.js");
-		setTimeout(function() {
-			$.mobile.loading("hide");
-		}, 1000);
-	}
-	//加载BI右侧页面
-	function loadRightBIContent(itemBi) {
-		var biId=itemBi.reportId();
-		
-		switch (biId){
-		case 1:
-			$.getScript("../lib/app/home/bi/jyts.js");
-			break;
-		case 6:
-			$.getScript("../lib/app/home/bi/srlrqs.js");
-			break;
-		case 11:
-			$.getScript("../lib/app/home/bi/srwc.js");
-			break;
-		case 16:
-			$.getScript("../lib/app/home/bi/lrwc.js");
-			break;
-		case 21:
-			$.getScript("../lib/app/home/bi/fxzk.js");
-			break;
-		case 31:
-			$.getScript("../lib/app/home/bi/srbk.js");
-			break;
-		case 36:
-			$.getScript("../lib/app/home/bi/lrbk.js");
-			break;
-		case 66:
-			$.getScript("../lib/app/home/bi/srlr.js");
-			break;
-		}
-		
-		setTimeout(function() {
-			$.mobile.loading("hide")
-		}, 1000);
-	}
-	//加载BI 中间页面
-	function loadMiddleBIContent() {
-		$.getScript("../lib/app/home/app.js");
-		setTimeout(function() {
-			$.mobile.loading("hide")
-		}, 1000);
-	}
-	//加载安全生产
-	function loadAqscList(){
-		//alert(2);
-		document.getElementById("tabbox").style.display="none";
-			document.getElementById("middleContent").style.width = '80%';
-		$("#middleContent").load("aqscList.html", function(a, b, c) {
-			//alert(1);
-			//$("#querydataList").listview();
-		});
-		setTimeout(function() {
-			$.mobile.loading("hide")
-		}, 1000);
-	}
-	
-	//加载请示查阅
-	function loadqueryList() {
-		localStorage.setItem("click", "querytask");
-		localStorage.setItem("click4", "1");
-		 document.getElementById("tabbox").style.display='none';//更改ipad页面中tab 是否显示。
-		  $("#middleContent").load("queryList.html", function(a, b, c) {
-			
-		document.getElementById("middleContent").style.width = '80%';
-		document.getElementById('rightContent').style.width = '0%';
-		});
-		
-		
-	}
-	//加载待办列表
-	function loadTask() {
-		document.getElementById("tabbox").style.display='none';//更改ipad页面中tab 是否显示。
-		localStorage.setItem("click", "task");
-		//$.getScript("../lib/app/task/app.js");
-		$("#middleContent").load("task.html", function(a, b, c) {
-			document.getElementById("middleContent").style.width = '80%';
-			document.getElementById('rightContent').style.width = '0%'; 
-		});
-	}
-	//获取中文名  获取待办列表时用
-	function createUser() {
-		$.hori.ajax({
-			"type" : "get",
-			"url" : $.hori.getconfig().appServerHost+"/view/oa/currentuser/docapp/genertec/persontasks.nsf/frmPage?openform",
-			"success" : function(res) {
-				//localStorage.setItem("Chinesename", res);
-				currentUser = "CN=" + res + "/O=genertec";
-				localStorage.setItem("Chinesename", currentUser);
-			},
-			"error" : function(res) {
-			}
-		});
-	}
-</script>
-<style>
-a {
-	text-decoration: none;
-}
-#wrapper {
-	position: fixed;
-	top: 0px;
-	bottom: 48px;
-	width: 84%;
-	overflow: scroll;
-}
-
-#tabbox {
-	width: 600px;
-	overflow: hidden;
-	margin: 0 auto;
-	width:86%;
-	 overflow: hidden; 
-	 margin-left:16%;
-	 align: center
-}
-
-.tab_conbox {
-	border: 1px solid #999;
-	border-top: none;
-}
-
-.tab_con {
-	display: none;
-}
-
-.tabs {
-	height: 32px;
-	border-bottom: 1px solid #999;
-	border-left: 1px solid #999;
-	width: 100%;
-}
-
-.tabs li {
-	height: 31px;
-	line-height: 31px;
-	float: left;
-	border: 1px solid #999;
-	border-left: none;
-	margin-bottom: -1px;
-	background: #e0e0e0;
-	overflow: hidden;
-	position: relative;
-}
-
-.tabs li a {
-	display: block;
-	padding: 0 20px;
-	border: 1px solid #fff;
-	outline: none;
-}
-
-.tabs li a:hover {
-	background: #ccc;
-}
-
-.tabs .thistab, .tabs .thistab a:hover {
-	background: #fff;
-	border-bottom: 1px solid #fff;
-}
-
-a {
-	text-decoration: none;
-}
-
-.ui-listview .ui-li-has-thumb>img:first-child, .ui-listview .ui-li-has-thumb>.ui-btn>img:first-child,
-	.ui-listview .ui-li-has-thumb .ui-li-thumb {
-	position: absolute;
-	left: 5;
-	top: auto;
-	bottom: auto; 
-	max-width: 5em;
-	max-height: 5em;
-}
-
-
-
-#middleContent{
-border:0px;
-padding:3px; 
-PADDING:0px;  
-LINE-HEIGHT: 20px; 
-OVERFLOW: auto;
-margin-left: 10px;
-width:40%;
-selection：background:#a7bd06;color:#FFF;
-}
-#rightContent{
-border:0px;
-padding:3px; 
-PADDING:0px;  
-LINE-HEIGHT: 20px; 
-OVERFLOW: auto;
-margin-left: 10px;
-margin-top:0px;
-width:50%
-}
-#ul{
-border:0px;
-padding:3px; 
-PADDING:0px;  
-LINE-HEIGHT: 20px; 
-OVERFLOW: auto;
-width:100%;
-}
-.bubble-count {
-	font-size: 11px;
-	font-weight: bold;
-	padding: .2em .5em;
-	margin-left: -.5em;
-}
-.container_12 .grid_2 {
-width: 13%;
-}
-</style>
-
-<script >//修改div高度，与屏幕适应
-var sm;//中间属性
-var sr;//右侧属性
-var sul;
-
-window.onload=function()
-{
-var h=document.documentElement.clientHeight;//可见区域高度
-sm=document.getElementById('middleContent');
-sm.style.height=h+"px";
-sr=document.getElementById('rightContent');
-sr.style.height=h+"px";
-sul=document.getElementById('ul');
-sul.style.height=h+"px";
-}
-</script>
-
+<script type="text/javascript" src="asset/js/echartsHome.js"></script>
+<script src="asset/js/bootstrap.min.js"></script>
+<script src="asset/js/echartsExample.js"></script>
 </head>
-<body class="ui-mobile-viewport ui-overlay-c" style="overflow-y: hidden; ">
-	<div class="container_12" style="width:100%;">
-		<div class="grid_2" >
+<body class="ui-mobile-viewport ui-overlay-c"
+	style="overflow-y: hidden;">
+	<div class="container_12" style="width: 100%;">
+		<div class="grid_2">
 			<ul data-inset="true" id="ul"
 				class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
-				<li data-corners="false" data-shadow="false" 
-					data-wrapperels="div" 
+				<li data-corners="false" data-shadow="false" data-wrapperels="div"
 					data-theme="c"
 					class="ui-btn 
-					ui-li-has-arrow ui-li ui-first-child ui-btn-hover-c"><div
+                    ui-li-has-arrow ui-li ui-first-child ui-btn-hover-c"><div
 						class="ui-btn-inner ui-li">
-						<div class="ui-btn-text" style="text-align:center;">
-							<a onclick="loadMiddleContent()" class="ui-link-inherit"><img src="../assets/home/mail.png" width="100px" height="80px"/></a>
-						<br><span>新闻</span>
+						<div class="ui-btn-text left_module" style="text-align: center;">
+							<a onclick="loadMiddleContent()" class="ui-link-inherit"><img
+								src="../assets/home/sy.png" class="icon" /></a> <br> <span>首页</span>
 						</div>
 					</div></li>
 				<li data-corners="false" data-shadow="false" data-iconshadow="true"
 					data-wrapperels="div" data-icon="arrow-r" data-iconpos="right"
-					data-theme="c"
-					class="ui-btn  ui-li-has-arrow ui-li ui-btn-up-c"><div
+					data-theme="c" class="ui-btn  ui-li-has-arrow ui-li ui-btn-up-c"><div
 						class="ui-btn-inner ui-li">
-						<div class="ui-btn-text" style="text-align:center;">
-							<a onclick="loadTask()" class="ui-link-inherit"><img src="../assets/home/news.png" width="100px" height="80px"/></a>
-							<br><span>代办</span>
-						</div>
-					</div></li>
-				<li data-corners="false" data-shadow="false" data-iconshadow="true"
-					data-wrapperels="div" data-icon="arrow-r" data-iconpos="right"
-					data-theme="c"
-					class="ui-btn ui-btn-up-c  ui-li-has-arrow ui-li"><div
-						class="ui-btn-inner ui-li">
-						<div class="ui-btn-text" style="text-align:center;">
-							<a onclick="loadMiddleBIContent()" class="ui-link-inherit"><img src="../assets/home/bi.png" width="100px" height="80px"/></a>
-							<br><span>bi图表</span>
-						</div>
-					</div></li>
-				<li data-corners="false" data-shadow="false" data-iconshadow="true"
-					data-wrapperels="div" data-icon="arrow-r" data-iconpos="right"
-					data-theme="c"
-					class="ui-btn ui-btn-up-c  ui-li-has-arrow ui-li"><div
-						class="ui-btn-inner ui-li">
-						<div class="ui-btn-text" style="text-align:center;">
-							<a href="#" onClick="loadAqscList()" class="ui-link-inherit"><img src="../assets/home/news.png" width="100px" height="80px" /></a>
-							<br><span>安全生产值班表</span>
+						<div class="ui-btn-text  left_module" style="text-align: center;">
+							<a onclick="loadTask()" class="ui-link-inherit"><img
+								src="../assets/home/gwdb.png" class="icon" /></a> <br> <span>公文待办</span>
 						</div>
 					</div></li>
 				<li data-corners="false" data-shadow="false" data-iconshadow="true"
@@ -359,39 +60,76 @@ sul.style.height=h+"px";
 					data-theme="c"
 					class="ui-btn ui-btn-up-c  ui-li-has-arrow ui-li ui-last-child"><div
 						class="ui-btn-inner ui-li">
-						<div class="ui-btn-text" style="text-align:center;">
-							<a onclick="loadqueryList()" href="#" class="ui-link-inherit"><img src="../assets/home/news.png" width="100px" height="80px"/></a>
-							<br><span>请示查阅</span>
+						<div class="ui-btn-text  left_module" style="text-align: center;">
+							<a onclick="loadqueryList()" href="#" class="ui-link-inherit"><img
+								src="../assets/home/gwcy.png" class="icon" /></a> <br> <span>公文查阅</span>
 						</div>
 					</div></li>
+				<li data-corners="false" data-shadow="false" data-iconshadow="true"
+					data-wrapperels="div" data-icon="arrow-r" data-iconpos="right"
+					data-theme="c" class="ui-btn ui-btn-up-c  ui-li-has-arrow ui-li"><div
+						class="ui-btn-inner ui-li">
+						<div class="ui-btn-text  left_module" style="text-align: center;">
+							<a onclick="loadMiddleBIContent()" class="ui-link-inherit"><img
+								src="../assets/home/jysj.png" class="icon" /></a> <br> <span>经营数据</span>
+						</div>
+					</div></li>
+				<li data-corners="false" data-shadow="false" data-iconshadow="true"
+					data-wrapperels="div" data-icon="arrow-r" data-iconpos="right"
+					data-theme="c" class="ui-btn ui-btn-up-c  ui-li-has-arrow ui-li"><div
+						class="ui-btn-inner ui-li">
+						<div class="ui-btn-text  left_module" style="text-align: center;">
+							<a href="#" onClick="loadAqscList()" class="ui-link-inherit"><img
+								src="../assets/home/aqsc.png" class="icon" /></a> <br> <span>安全生产</span>
+						</div>
+					</div></li>
+				<li data-corners="false" data-shadow="false" data-iconshadow="true"
+					data-wrapperels="div" data-icon="arrow-r" data-iconpos="right"
+					data-theme="c" class="ui-btn ui-btn-up-c  ui-li-has-arrow ui-li"><div
+						class="ui-btn-inner ui-li">
+						<div class="ui-btn-text  left_module" style="text-align: center;">
+							<a href="#" onClick="loadDzqkList()" class="ui-link-inherit"><img
+								src="../assets/home/dzqk.png" class="icon" /></a> <br> <span>电子期刊</span>
+						</div>
+					</div></li>
+
 			</ul>
 		</div>
-	<div id="tabbox">
-		<div style="align:center;">
-		<ul class="tabs" id="tabs" style="-webkit-padding-start: 0px;border-bottom: 1px  #ededed; ">
-			<li><a
-				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('tpxw')">图片新闻</a></li>
-			<li><a
-				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('jttz')">通知公告</a></li>
-			<li><a
-				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('jtxw')">集团新闻</a></li>
-			<li><a
-				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('zgsxw')">成员单位新闻</a></li>
-				<li><a
-				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('zgsxw')">聘免公告</a></li>
-				<li><a
-				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('zgsxw')">科技动态</a></li>
-				<li><a
-				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('zgsxw')">政策法规资讯</a></li>
-				<li><a
-				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('zgsxw')">成员单位新闻</a></li>
-			
-		</ul>
+		<div id="tabbox">
+			<div style="align: center;">
+				<ul class="tabs" id="tabs"
+					style="-webkit-padding-start: 0px; border-bottom: 1px #ededed;">
+					<li><a
+						style="text-decoration: none; color: #000; font-size: 14px;"
+						onclick="changelb('tpxw')">图片新闻</a></li>
+					<li><a
+						style="text-decoration: none; color: #000; font-size: 14px;"
+						onclick="changelb('jttz')">集团通知</a></li>
+					<li><a
+						style="text-decoration: none; color: #000; font-size: 14px;"
+						onclick="changelb('jtxw')">集团新闻</a></li>
+					<li><a
+						style="text-decoration: none; color: #000; font-size: 14px;"
+						onclick="changelb('zgsxw')">成员单位新闻</a></li>
+					<li><a
+						style="text-decoration: none; color: #000; font-size: 14px;"
+						onclick="changelb('pmgg')">聘免公告</a></li>
+					<li><a
+						style="text-decoration: none; color: #000; font-size: 14px;"
+						onclick="changelb('kjdt')">科技动态</a></li>
+					<li><a
+						style="text-decoration: none; color: #000; font-size: 14px;"
+						onclick="changelb('aqsc')">安全环保</a></li>
+					<li><a
+						style="text-decoration: none; color: #000; font-size: 14px;"
+						onclick="changelb('zcfg')">政策法规</a></li>
+
+				</ul>
+			</div>
 		</div>
-	</div> 
-		<div class="grid_5" id="middleContent" >正在加载中...</div>
-		<div class="grid_5" id="rightContent" >正在加载中...</div>
+		<div class="grid_5" id="middleContent">正在加载中...</div>
+		<div class="grid_5" id="rightContent">正在加载中...</div>
 	</div>
-	
+
 </body>
 </html>
