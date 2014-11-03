@@ -270,8 +270,10 @@
         <rule mode="replace" regex="&#160;" value=" " />
         </view>
 	</viewer>
-	<viewer id="guide" type="remote" source="http://192.168.1.166:6010/Customer" encoding="utf-8">
+	<viewer id="guide" type="remote" source="http://10.1.31.181:9080/getUserinfo" encoding="gb2312">
 	    <view id="getCaptcha" template="guide/guide.jsp" />
+	    <view id="getInfo" template="guide/guide.jsp" />
+	    <view id="updateMo" template="guide/guide.jsp" />
 	</viewer>
 	<viewer id="safety" type="remote" source="http://webseal.genertec.com.cn/oa"  encoding="gb2312">
         <view id="watchList" template="safety/safety.jsp" encoding="UTF-8" />
