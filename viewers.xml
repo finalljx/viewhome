@@ -73,7 +73,7 @@
 			<rule mode="replace" regex="&lt;/doc_unid&gt;" value="&amp;lt;/doc_unid&amp;gt;" />
 		</view>
 		<!-- 请示代办会签展示内容 -->
-		<view id="tasksign" template="tasksign.jsp"></view>
+		<view id="tasksign" template="tasksign.jsp" encoding="GBK"></view>
 		<view id="signcontent" template="oa/task/signcontent.xsl" encoding="GBK">
 			<!-- 源数据是符合标签形式的字符串，转换成真正的字符串（把'<','>' 替换成真正的标签） -->
 			

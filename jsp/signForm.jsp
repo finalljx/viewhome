@@ -24,6 +24,7 @@
 	String responseXml = q.getContent();
 	Document doc = Jsoup.parse(responseXml);
 	Elements content = doc.getElementsByClass("tdd");
+	System.out.println(content);
 
 	String str[] = new String[5];
 	

@@ -1,10 +1,200 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>移动办公</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+
+<link
+	href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css"
+	rel="stylesheet"></link>
+<link rel="stylesheet" href="assets/jquery.mobile-sugon.css" />
+<link href="../lib/jquery-mobile/jquery-mobile-fluid960.css"
+	rel="stylesheet"></link>
+<script type="application/javascript" src="assets/iscroll.js"></script>
+<script src="../lib/jquery/jquery.min.js"></script>
+<script src="../lib/jquery-cookie/jquery.cookie.js"></script>
+<script src="../lib/encrypt/encrypt.js"></script>
+<script src="../lib/json/json2.js"></script>
+<script src="../lib/hori/hori.js?tag=21369"></script>
+<script
+	src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
+<script src="../lib/knockout/knockout.js"></script>
+<script src="../lib/knockout/knockout.mapping.js"></script>
+<script src="../lib/swiper/idangerous.swiper.min.js"></script>
+<script src="../config/web/config.js"></script>
+<script src="asset/js/bootstrap.min.js"></script>
+
+<script>
+	var jsonData = new Object();
+
+	$(document).ready(
+			function() {
+				$.hori.showLoading();
+				//$.hori.hideLoading();
+				$.hori.setHeaderTitle("表单");
+				var config = $.hori.getconfig();
+				var itcode = localStorage.getItem("Chinesename");
+				var template = localStorage.getItem("contemplate");
+				var unid = localStorage.getItem("taskConUrl");
+				var loadurl = $.hori.getconfig().appServerHost + "view/oa/"
+						+ template + "/" + unid;
+				alert(loadurl);
+				$.hori.ajax({
+					"type" : "post",
+					"url" : loadurl,
+					"data" : "",
+					"success" : function(res) {
+						var url = $.hori.getconfig().appServerHost
+								+ "view/oa/file/docapp/";
+						res = res.replace(/&amp;nbsp;/g, "　");
+
+						var list = JSON.parse(res);
+
+// 						if (null != list.lianjie) {
+// 							for ( var i = 0; i < list.lianjie.length; i++) {
+// 								var j = list.fileName[i].split(".");
+// 								list.lianjie[i] = url + list.lianjie[i] + "."
+// 										+ j[1];
+
+// 							}
+// 							var file = new Array();
+// 							for ( var i = 0; i < list.lianjie.length; i++) {
+// 								var item = new Object();
+// 								item.fileName = list.fileName[i];
+// 								item.lianjie = list.lianjie[i];
+// 								file.push(item);
+// 							}
+// 							jsonData.file = file;
+// 							console.log(jsonData);
+// 							renderDetail2();
+// 						}
+// 						list.agyj.replace("?", " ")
+						console.log(list.agyj);
+						$("#yjTable").html(list.agyj);
+						$("#hidden").html(list.hidden);
+
+					},
+					"error" : function(res) {
+						$.hori.hideLoading();
+					}
+				});
+			});
+
+	function renderDetail() {
+		var viewModelDetail = ko.mapping.fromJS(jsonData);
+		console.log(viewModelDetail);
+		ko.applyBindings(viewModelDetail, document.getElementById("table1"));
+	}
+	function renderDetail2() {
+		var viewModelDetail = ko.mapping.fromJS(jsonData);
+		console.log(viewModelDetail);
+		ko.applyBindings(viewModelDetail, document.getElementById("table2"));
+	}
+
+	function viewfile(item) {
+		var url = item.lianjie();
+		url = url.replace(/\&amp;/g, "&");
+		console.log(item.lianjie());
+
+		localStorage.setItem("attachmentUrl", url);
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl
+				+ "viewhome/html/attachmentShowForm.html",
+				$.hori.getconfig().serverBaseUrl
+						+ "viewhome/xml/AttachView.xml");
+	}
+</script>
+<style type="text/css">
+.arrow {
+	float: center;
+	width: 85%;
+}
+</style>
+
 </head>
 <body>
+	<form action="" name="sign">
+		<div id="daiban">
+			<div align="center">
+				<h2>会签处理单</h2>
+			</div>
+			<div align="center">
+
+				<TABLE class=hqTable id="table1" style="width: 85%" id="table1">
+					<TBODY>
+						<TR bgColor=#e0e0e0>
+							<TD class=hqLabel width="10%">标&nbsp;&nbsp;&nbsp;题</TD>
+							<TD class=hqContent width="90%" colspan="3"><span
+								data-bind="text:$root.json.content()[0]"></span></TD>
+
+						</TR>
+
+						<TR bgcolor="#f0f0f0">
+							<TD class=hqLabel width="10%">收文日期</TD>
+							<TD class=hqContent width="40%"><span
+								data-bind="text:$root.json.content()[1]"></span></TD>
+							<TD class=hqLabel width="10%">收文来源</TD>
+							<TD class=hqContent width="40%"><span
+								data-bind="text:$root.json.content()[2]"></span></TD>
+
+						</TR>
+
+						<TR bgColor=#e0e0e0>
+							<TD class=hqLabel width="10%">来文单位</TD>
+							<TD class=hqContent width="40%"><span
+								data-bind="text:$root.json.content()[3]"></span></TD>
+							<TD class=hqLabel width="10%">来问字号</TD>
+							<TD class=hqContent width="40%"><span
+								data-bind="text:$root.json.content()[4]"></span></TD>
+
+						</TR>
+
+					</TBODY>
+				</TABLE>
+
+			</div>
+			<div align="center" style="margin-top: 20px;">
+				<div style="width: 100%;">
+					<table style="width: 85%">
+						<tr>
+							<td><span><font face="宋体" size="4"><b>正文附件：</b></font></span>
+							</td>
+						</tr>
+					</table>
+					<TABLE class="fjTable" style="width: 85%" class="fj" id="table2"
+						data-bind="foreach: file">
+
+						<TR>
+							<TD bgcolor="#f0f0f0" width="100%"><a
+								data-bind="click:viewfile"><span data-bind="text: fileName"></span></a></TD>
+						</TR>
+					</TABLE>
+				</div>
+
+
+			</div>
+
+			<div class="yjdiv" align="center" style="margin-top: 20px;">
+
+				<table style="width: 85%">
+					<tr>
+						<td>审批意见：</td>
+					</tr>
+					<tr style="width: 100%;">
+						<td style="width: 100%;"><table id="yjTable"
+								style="width: 100%;">
+
+							</table></td>
+					</tr>
+				</table>
+
+
+			</div>
+
+		</div>
+		<div id="hidden"></div>
+	</form>
 
 </body>
 </html>
