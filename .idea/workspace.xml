@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cf281ca1-2841-44bb-a775-10cd32660846" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/app/watchlist/app.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/xsl/digi/watchlist/content.xsl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/jsp/watchlist/watchlist.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/web/config.js" afterPath="$PROJECT_DIR$/config/web/config.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/listDetails.html" afterPath="$PROJECT_DIR$/html/listDetails.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viewers.xml" afterPath="$PROJECT_DIR$/viewers.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/watchlist.html" afterPath="$PROJECT_DIR$/html/watchlist.html" />
+    </list>
+    <ignored path="viewhome.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="viewhome" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="viewers.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/viewers.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="96" column="71" selection-start="6145" selection-end="6145" vertical-scroll-proportion="0.0" vertical-offset="1330" max-vertical-offset="6004">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="content.xsl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/xsl/digi/mobile/content.xsl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="14" column="49" selection-start="460" selection-end="460" vertical-scroll-proportion="16.72" vertical-offset="684" max-vertical-offset="14497">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="home2.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/html/home2.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="171" column="35" selection-start="4692" selection-end="4692" vertical-scroll-proportion="-12.892858" vertical-offset="2888" max-vertical-offset="5263">
+              <folding>
+                <marker date="1414918379822" expanded="true" signature="1043:1439" placeholder="{...}" />
+                <marker date="1414918379822" expanded="true" signature="1051:1410" placeholder="{...}" />
+                <marker date="1414918379822" expanded="true" signature="1078:1086" placeholder="/*...*/" />
+                <marker date="1414918379822" expanded="true" signature="1120:1130" placeholder="/*...*/" />
+                <marker date="1414918379822" expanded="true" signature="1242:1262" placeholder="{...}" />
+                <marker date="1414918379822" expanded="true" signature="1421:1435" placeholder="{...}" />
+                <marker date="1414918379822" expanded="true" signature="1497:1586" placeholder="{...}" />
+                <marker date="1414918379822" expanded="true" signature="1646:1818" placeholder="{...}" />
+                <marker date="1414918379822" expanded="true" signature="2297:3414" placeholder="{...}" />
+                <marker date="1414918379822" expanded="true" signature="2639:2807" placeholder="{...}" />
+                <marker date="1414918379822" expanded="true" signature="2695:2798" placeholder="{&quot;expires&quot;: 7...}" />
+                <marker date="1414918379822" expanded="true" signature="2813:2846" placeholder="{...}" />
+                <marker date="1414918379822" expanded="true" signature="3447:5190" placeholder="{...}" />
+                <marker date="1414918379822" expanded="true" signature="3857:3964" placeholder="{&quot;id&quot;: 4...}" />
+                <marker date="1414918379822" expanded="true" signature="4484:4590" placeholder="{&quot;id&quot;: 10...}" />
+                <marker date="1414918379822" expanded="true" signature="4592:4699" placeholder="{&quot;id&quot;: 11...}" />
+                <marker date="1414918379822" expanded="true" signature="5359:5430" placeholder="{...}" />
+                <marker date="1414918379822" expanded="true" signature="5509:5579" placeholder="{...}" />
+                <marker date="1414918379822" expanded="true" signature="5925:5957" placeholder="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="watchlist.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/html/watchlist.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="72" column="51" selection-start="2715" selection-end="2715" vertical-scroll-proportion="0.6111111" vertical-offset="950" max-vertical-offset="2679">
+              <folding>
+                <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#a#0;n#td#1;n#tr#0;n#table#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#span#0;n#a#0;n#td#1;n#tr#0;n#table#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <marker date="1414923932258" expanded="true" signature="4274:5090" placeholder="..." />
+                <marker date="1414923932258" expanded="true" signature="4274:5040" placeholder="..." />
+                <marker date="1414923932258" expanded="true" signature="4414:5004" placeholder="..." />
+                <marker date="1414923932258" expanded="true" signature="4453:4987" placeholder="..." />
+                <marker date="1414923932258" expanded="true" signature="4761:4786" placeholder="..." />
+                <marker date="1414923932258" expanded="true" signature="4787:4969" placeholder="..." />
+                <marker date="1414923932258" expanded="true" signature="4787:4969" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/web/config.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="8" column="45" selection-start="282" selection-end="282" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="361">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="listDetails.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/html/listDetails.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="15" column="48" selection-start="545" selection-end="545" vertical-scroll-proportion="-8.142858" vertical-offset="57" max-vertical-offset="1007">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/app/watchlist/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="161" selection-start="511" selection-end="511" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="741">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="appform.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/html/appform.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="1504" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="988">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitLogSettings">
+    <option name="myDateState">
+      <MyDateState />
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/xsl/digi/watchlist/content.xsl" />
+        <option value="$PROJECT_DIR$/jsp/watchlist/watchlist.jsp" />
+        <option value="$PROJECT_DIR$/html/listDetails.html" />
+        <option value="$PROJECT_DIR$/config/web/config.js" />
+        <option value="$PROJECT_DIR$/lib/app/watchlist/app.js" />
+        <option value="$PROJECT_DIR$/viewers.xml" />
+        <option value="$PROJECT_DIR$/html/watchlist.html" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="20" />
+    <option name="width" value="1428" />
+    <option name="height" value="876" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="viewhome" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="viewhome" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="viewhome" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="viewhome" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="viewhome" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="viewhome" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="viewhome" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="watchlist" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="viewhome" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="viewhome" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\mainhome\mobile\viewhome\jsp\watchlist" />
+      <recent name="D:\mainhome\mobile\viewhome\lib\app\watchlist" />
+      <recent name="D:\mainhome\mobile\viewhome\xsl\digi\watchlist" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="scope" value="ALL" />
+      <option name="testName" />
+      <method />
+    </configuration>
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="name" value="Dart" />
+      <option name="saveOutputToFile" value="false" />
+      <option name="showConsoleOnStdErr" value="false" />
+      <option name="showConsoleOnStdOut" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="">
+      <browser start="false" url="" with-js-debugger="false" />
+      <method />
+    </configuration>
+    <list size="0" />
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cf281ca1-2841-44bb-a775-10cd32660846" name="Default" comment="" />
+      <created>1414914456928</created>
+      <updated>1414914456928</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="20" y="0" width="1428" height="876" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32882273" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.67117727" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="myTodoPanelSettings">
+      <TodoPanelSettings />
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/html/home2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="171" column="35" selection-start="4692" selection-end="4692" vertical-scroll-proportion="-12.892858" vertical-offset="2888" max-vertical-offset="5263">
+          <folding>
+            <marker date="1414918379822" expanded="true" signature="1043:1439" placeholder="{...}" />
+            <marker date="1414918379822" expanded="true" signature="1051:1410" placeholder="{...}" />
+            <marker date="1414918379822" expanded="true" signature="1078:1086" placeholder="/*...*/" />
+            <marker date="1414918379822" expanded="true" signature="1120:1130" placeholder="/*...*/" />
+            <marker date="1414918379822" expanded="true" signature="1242:1262" placeholder="{...}" />
+            <marker date="1414918379822" expanded="true" signature="1421:1435" placeholder="{...}" />
+            <marker date="1414918379822" expanded="true" signature="1497:1586" placeholder="{...}" />
+            <marker date="1414918379822" expanded="true" signature="1646:1818" placeholder="{...}" />
+            <marker date="1414918379822" expanded="true" signature="2297:3414" placeholder="{...}" />
+            <marker date="1414918379822" expanded="true" signature="2639:2807" placeholder="{...}" />
+            <marker date="1414918379822" expanded="true" signature="2695:2798" placeholder="{&quot;expires&quot;: 7...}" />
+            <marker date="1414918379822" expanded="true" signature="2813:2846" placeholder="{...}" />
+            <marker date="1414918379822" expanded="true" signature="3447:5190" placeholder="{...}" />
+            <marker date="1414918379822" expanded="true" signature="3857:3964" placeholder="{&quot;id&quot;: 4...}" />
+            <marker date="1414918379822" expanded="true" signature="4484:4590" placeholder="{&quot;id&quot;: 10...}" />
+            <marker date="1414918379822" expanded="true" signature="4592:4699" placeholder="{&quot;id&quot;: 11...}" />
+            <marker date="1414918379822" expanded="true" signature="5359:5430" placeholder="{...}" />
+            <marker date="1414918379822" expanded="true" signature="5509:5579" placeholder="{...}" />
+            <marker date="1414918379822" expanded="true" signature="5925:5957" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/app/appform/appneiqing.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="712">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/app/appform/appsign.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="712">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/app/appform/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="18" selection-start="495" selection-end="495" vertical-scroll-proportion="0.34691012" vertical-offset="0" max-vertical-offset="712">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jsp/taskList.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="36" selection-start="881" selection-end="881" vertical-scroll-proportion="-0.4592145" vertical-offset="684" max-vertical-offset="1957">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/html/task.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="26" selection-start="987" selection-end="987" vertical-scroll-proportion="0.602719" vertical-offset="0" max-vertical-offset="1311">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/web/config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="45" selection-start="282" selection-end="282" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="361">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/arttemplate/template.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="68" selection-start="141" selection-end="141" vertical-scroll-proportion="0.027181689" vertical-offset="0" max-vertical-offset="699">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xsl/digi/mobile/content.xsl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="49" selection-start="460" selection-end="460" vertical-scroll-proportion="16.72" vertical-offset="684" max-vertical-offset="14497">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/html/listDetails.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="48" selection-start="545" selection-end="545" vertical-scroll-proportion="-8.142858" vertical-offset="57" max-vertical-offset="1007">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/html/appform.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="1504" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="988">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/app/watchlist/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="161" selection-start="511" selection-end="511" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="741">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/viewers.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="96" column="71" selection-start="6145" selection-end="6145" vertical-scroll-proportion="0.0" vertical-offset="1330" max-vertical-offset="6004">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/html/watchlist.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="72" column="51" selection-start="2715" selection-end="2715" vertical-scroll-proportion="0.6111111" vertical-offset="950" max-vertical-offset="2679">
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#a#0;n#td#1;n#tr#0;n#table#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#span#0;n#a#0;n#td#1;n#tr#0;n#table#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1414923932258" expanded="true" signature="4274:5090" placeholder="..." />
+            <marker date="1414923932258" expanded="true" signature="4274:5040" placeholder="..." />
+            <marker date="1414923932258" expanded="true" signature="4414:5004" placeholder="..." />
+            <marker date="1414923932258" expanded="true" signature="4453:4987" placeholder="..." />
+            <marker date="1414923932258" expanded="true" signature="4761:4786" placeholder="..." />
+            <marker date="1414923932258" expanded="true" signature="4787:4969" placeholder="..." />
+            <marker date="1414923932258" expanded="true" signature="4787:4969" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
+
