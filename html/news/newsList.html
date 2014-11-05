@@ -21,18 +21,22 @@
 <style>
 a {
 	text-decoration: none;
-	
 }
 
-.ui-content .ui-listview, .ui-panel-inner>.ui-listview{
-	margin:0;
+.ui-content .ui-listview, .ui-panel-inner>.ui-listview {
+	margin: 0;
 }
+
 #wrapper {
 	position: fixed;
 	top: 10px;
 	bottom: 0px;
 	left: 0px;
-	width:100%;
+	width: 100%;
+}
+
+.department_name {
+	color: blue;
 }
 </style>
 <script type="text/javascript">
@@ -42,7 +46,7 @@ a {
 		itcode = localStorage.getItem("itcode");
 		moreCurrentName = localStorage.getItem("moreCurrentName");
 		//默认隐藏列表显示
-		$("#newsList").css("display","none");
+		$("#newsList").css("display", "none");
 		switch (moreCurrentName) {
 		case "GT_HomePage_SiteArea_jttz":
 			$.hori.setHeaderTitle("集团通知");
@@ -65,7 +69,7 @@ a {
 		case "GT_HomePage_SiteArea_zcfg":
 			$.hori.setHeaderTitle("政策法规");
 			break;
-		    
+
 		}
 		//加载集团通知列表
 		pullUpAction(itcode);
@@ -101,8 +105,8 @@ a {
 								"url" : url,
 								"data" : data,
 								"success" : function(res) {
-									$("#newsList").css("display","");
-									$("#divDataLoading").css("display","none");
+									$("#newsList").css("display", "");
+									$("#divDataLoading").css("display", "none");
 									var list = JSON.parse(res);
 									/* for ( var item in list) {
 										var targetURL = "http://10.1.32.61/appdata/WcmNewsImage/" + list[item].contentName + "/"
@@ -111,6 +115,11 @@ a {
 									} */
 									var myDate = new Date();
 									for (var i = 0; i < list.length; i++) {
+										if (moreCurrentName == 'GT_HomePage_SiteArea_zgsxw') { //如果为成员单位新闻，添加新闻所属公司
+											list[i].contentTitle = "["
+													+ list[i].department + "]"
+													+ list[i].contentTitle;
+										}
 										var time = list[i].creatTime.substr(0,
 												4);
 										if (time == myDate.getFullYear()) {
@@ -215,7 +224,7 @@ a {
 				<div id="wrapper">
 					<div id="scroller">
 						<p></p>
-						<ul  data-bind="foreach: list" id="querydataList"
+						<ul data-bind="foreach: list" id="querydataList"
 							data-role="listview" data-inset="false">
 							<li data-icon="false"><a data-bind="click:showDetail">
 									<h3 style="white-space: normal;">
