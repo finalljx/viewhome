@@ -5,9 +5,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
-	<link
-	href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
-	rel="stylesheet">
 <link rel="stylesheet"
 	href="../../lib/jquery-mobile/jquery.mobile.min.css" />
 <script src="../../lib/jquery/jquery.min.js"></script>
@@ -16,6 +13,7 @@
 <script src="../../lib/json/json2.js"></script>
 <script src="../../lib/hori/hori.js?tag=21369"></script>
 <script src="../../lib/jquery-mobile/jquery.mobile.min.js"></script>
+<script src="../asset/js/echarts-plain-original.js"></script>
 <script src="../../config/web/config.js"></script>
 <style>
 a {
@@ -26,123 +24,126 @@ a {
 </head>
 <body>
 	<!-- 利润板块-->
-	<div id="main" style="height: 400px;margin-top: 20px;">
-	</div>
-	<script src="../asset/js/echarts-plain-original.js"></script>
-	<script type="text/javascript" src="../asset/js/echartsHome.js"></script>
-	<script src="../asset/js/bootstrap.min.js"></script>
-	<script src="../asset/js/echartsExample.js"></script>
-<script type="text/javascript">
+	<div id="main" style="height: 400px; margin-top: 20px;"></div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$.hori.setHeaderTitle("收入板块");
+			//加载收入板块图表数据
+			loadSrbkChart();
+		});
 
-	$(document).ready(function(){
-		$.hori.setHeaderTitle("收入板块");
 		//加载收入板块图表数据
-		loadSrwcChart();
-	});
-	
-	//加载收入完成图表数据
-	function loadSrwcChart(){
-            var url = $.hori.getconfig().appServerHost+"view/bi/loadJytsChart/accsyBiReport/services/reqBiReportData";
-            var temp = "$lt;?xml version='1.0' encoding='utf-8'?$gt;$lt;root$gt;$lt;reportdata$gt;$lt;reportid$gt;31$lt;/reportid$gt;$lt;/reportdata$gt;$lt;/root$gt;";
-            var soap ="<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='http://webservice.biz.digiwin.com'>";
-                soap+='<soapenv:Header/><soapenv:Body>';
-                soap+='<web:viewReportById>';
-                soap+='<web:in0>'+temp+'</web:in0>';
-                soap+='</web:viewReportById>';
-                soap+=' </soapenv:Body></soapenv:Envelope>';
-            var data = "data-xml="+soap;
-            
-            $.hori.ajax({
-                "type":"post",
-                "url":url,
-                "data":data,
-                "success":function(res){
-                	var cWidth=window.screen.width;
-                	var fontSize;
-                	if(cWidth<720){
-                		fontSize=12;
-                	}else{
-                		fontSize=18;
-                	}
-                	var json=JSON.parse(res);
-                	var reportdata=json.reportdata;
-                	var title=reportdata.title;
-                	var year=reportdata.year;
-                	var month=reportdata.month;
-                	var primaryunit=reportdata.primaryunit;
-                	var category=reportdata.category.split('|');
-                	var seriesdata=reportdata.seriesdata.split('|');
-                	loadlrbk(title,year,month,primaryunit,category,seriesdata,fontSize); 
-        		
-                },
-                "error":function(res){
-                    alert("error:" + res);
-                    $.hori.hideLoading();
-                }
-            });
-    }
+		function loadSrbkChart() {
+			var url = $.hori.getconfig().appServerHost
+					+ "view/bi/loadJytsChart/accsyBiReport/services/reqBiReportData";
+			var temp = "$lt;?xml version='1.0' encoding='utf-8'?$gt;$lt;root$gt;$lt;reportdata$gt;$lt;reportid$gt;31$lt;/reportid$gt;$lt;/reportdata$gt;$lt;/root$gt;";
+			var soap = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='http://webservice.biz.digiwin.com'>";
+			soap += '<soapenv:Header/><soapenv:Body>';
+			soap += '<web:viewReportById>';
+			soap += '<web:in0>' + temp + '</web:in0>';
+			soap += '</web:viewReportById>';
+			soap += ' </soapenv:Body></soapenv:Envelope>';
+			var data = "data-xml=" + soap;
 
-	function loadlrbk(title,year,month,primaryunit,category,seriesdata,fontSize) {
-	var option = 
-	        {
-			    animation:false,
-	            tooltip : {
-	                trigger: 'item',
-	                formatter: "{a} <br/>{b} : {c} ({d}%)"
-	            },
-	            color: ['#e40218','#fdf001','#b5c606','#32cd32','#76c7c0',
-	                    '#1596ab','#e98434','#409736','#ff6600','#40e0d0',
-	                    '#1e90ff','#ff6347','#7b68ee','#00fa9a','#ffd700',
-	                    '#6699FF','#ff6666','#3cb371','#b8860b','#30e0e0'
-	                    ],
-	            legend: {
-	            	
-	                data:category,
-	                x:'left',
-	                	// 主题，主题
-		                textStyle: {
-		                    fontSize: fontSize
-		                }
-	            },
-	            toolbox: {
-	                show : false,
-	                feature : {
-	                    mark : {show: false},
-	                    dataView : {show: false, readOnly: false},
-	                    restore : {show: false},
-	                    saveAsImage : {show: false}
-	                }
-	            },
-	            series : [
-	                {
-	                	itemStyle : {
-	                        normal : {
-	                            label : {
-	                                position : 'outer',
-	                                formatter : '{d}%'
-	                            },
-	                        }
-	                    },
-	                    name:title,
-	                    type:'pie',
-	                    center: ['50%', '60%'],
-	                    radius: '50%',
-	                    data:[
-	                        {value: seriesdata[0],  name: category[0]},
-	                        {value: seriesdata[1],  name: category[1]},
-	                        {value: seriesdata[2],  name: category[2]},
-	                        {value: seriesdata[3],  name: category[3]},
-	                        {value: seriesdata[4], name: category[4]},
-	                        {value: seriesdata[5], name: category[5]},
-	                        {value: seriesdata[6], name: category[6]},
-	                        {value: seriesdata[7], name: category[7]}
-	                    ]
-	                }
-	            ]
-	        };
-	var myChart = echarts.init(document.getElementById('main'));
-	myChart.setOption(option);
-	}
+			$.hori.ajax({
+				"type" : "post",
+				"url" : url,
+				"data" : data,
+				"success" : function(res) {
+					var cWidth = window.screen.width;
+					var fontSize;
+					if (cWidth < 720) {
+						fontSize = 12;
+					} else {
+						fontSize = 18;
+					}
+					var json = JSON.parse(res);
+					var reportdata = json.reportdata;
+					var title = reportdata.title;
+					var year = reportdata.year;
+					var month = reportdata.month;
+					var primaryunit = reportdata.primaryunit;
+					var category = reportdata.category.split('|');
+					var seriesdata = reportdata.seriesdata.split('|');
+					loadlrbk(title, year, month, primaryunit, category,
+							seriesdata, fontSize);
+
+				},
+				"error" : function(res) {
+					alert("error:" + res);
+					$.hori.hideLoading();
+				}
+			});
+		}
+
+		function loadlrbk(title, year, month, primaryunit, category,
+				seriesdata, fontSize) {
+			var option = {
+				animation : false,
+				tooltip : {
+					trigger : 'item',
+					formatter : "{a} <br/>{b} : {c} ({d}%)"
+				},
+				color : [ '#e40218', '#fdf001', '#b5c606', '#32cd32',
+						'#76c7c0', '#1596ab', '#e98434', '#409736', '#ff6600',
+						'#40e0d0', '#1e90ff', '#ff6347', '#7b68ee', '#00fa9a',
+						'#ffd700', '#6699FF', '#ff6666', '#3cb371', '#b8860b',
+						'#30e0e0' ],
+				legend : {
+					data : category,
+					x : 'left',
+					margin : 200,
+					// 主题，主题
+					textStyle : {
+						fontSize : fontSize
+					}
+				},
+				toolbox : {
+					show : false
+				},
+				series : [ {
+					itemStyle : {
+						normal : {
+							label : {
+								position : 'outer',
+								formatter : '{d}%'
+							},
+						}
+					},
+					name : title,
+					type : 'pie',
+					center : [ '50%', '60%' ],
+					radius : '50%',
+					data : [ {
+						value : seriesdata[0],
+						name : category[0]
+					}, {
+						value : seriesdata[1],
+						name : category[1]
+					}, {
+						value : seriesdata[2],
+						name : category[2]
+					}, {
+						value : seriesdata[3],
+						name : category[3]
+					}, {
+						value : seriesdata[4],
+						name : category[4]
+					}, {
+						value : seriesdata[5],
+						name : category[5]
+					}, {
+						value : seriesdata[6],
+						name : category[6]
+					}, {
+						value : seriesdata[7],
+						name : category[7]
+					} ]
+				} ]
+			};
+			var myChart = echarts.init(document.getElementById('main'));
+			myChart.setOption(option);
+		}
 	</script>
 </body>
 </html>
