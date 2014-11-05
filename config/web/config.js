@@ -2,12 +2,12 @@
 	hori.getconfig=function(){
 
 		return{
-			"oaServerName":"V7dev/DigiWin",
-			"oaMsgServer":"V7dev/DigiWin",
-			"oaMobileServer":"V7dev/DigiWin",
-			"serverBaseUrl":"http://localhost:80/",
+			"oaServerName":"OAServer01/crsc",
+			"oaMsgServer":"OAServer01/crsc",
+			"oaMobileServer":"OAServer01/crsc",
+			"serverBaseUrl":"http://localhost:90/",
 			"encryptKey":"horiTech",
-			"appServerHost":"http://localhost:80/"
+			"appServerHost":"http://localhost:90/"
 		};
 	};
 })($.hori);
