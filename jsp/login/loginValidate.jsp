@@ -37,6 +37,12 @@
 					}else if(loginCode.equals("7")){
 						json.put("success", false);
 						json.put("msg","用户未被授权访问系统,请联系管理员。");
+					}else if(loginCode.equals("8")){
+						json.put("success", false);
+						json.put("msg","业务系统认证失败。");
+					}else if(loginCode.equals("9")){
+						json.put("success", false);
+						json.put("msg","服务器超出用户访问数量。");
 					}else if(formAction.contains("names.nsf")){
 						json.put("success", false);
 						json.put("msg","用户名和密码错误！");
