@@ -71,7 +71,7 @@
 								$.mobile.loading('show', {  
 									text: '加载中...', //加载器中显示的文字  
 									textVisible: true, //是否显示文字  
-									theme: 'a',        //加载器主题样式
+									theme: 'a',        //加载器主题样式a-e
 									textonly: false,   //是否只显示文字
 									html: ""           //要显示的html内容，如图片等
 								});
@@ -127,6 +127,17 @@
 									</xsl:if>
 								</div>
 								<h3><xsl:value-of select="substring-after(//table[@id='table1']/tbody/tr[4]/.,':')" /></h3>
+								<h3><xsl:value-of select="//input[@name='fldSubject']/@value" /></h3>
+								<xsl:if test="//div[contains(@onclick, 'huiqian')]">
+									<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
+										<li data-role="fieldcontain">
+											<fieldset data-role="controlgroup" data-type="horizontal">
+												<legend for="fldFwbh">请示编号:</legend>
+												<input name="fldFwbh" id="fldFwbh" type="text" value="{//input[@name='fldFwbh']/@value}"/> 
+											</fieldset>
+										</li>
+									</ul>
+								</xsl:if>
 								<div data-role="collapsible" data-collapsed="false" data-theme="f" data-content-theme="d">
 									<h4>附件</h4>
 									<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
@@ -248,7 +259,7 @@
 		<xsl:variable name="type" select="translate($filetype, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/>
 		<xsl:if test="not(contains($fileunids, $fileunid))">
 				<li>
-					<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/docapp/{$dbPath}/0/{$docunid}/$file/{$fileunid}.{$filetype}')">
+					<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/doctest/{$dbPath}/0/{$docunid}/$file/{$fileunid}.{$filetype}')">
 					<xsl:value-of select="$file"/></a>
 				</li>
 		</xsl:if>

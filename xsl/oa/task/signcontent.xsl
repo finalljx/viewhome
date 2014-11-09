@@ -75,6 +75,7 @@
 									$("#form").submit();
 								}else if(type=="reject"){
 									$("#querysaveagent").val("agtFlowDeny");
+									$("#hfldAction").val("huiqian");
 									$("#form").submit();
 								}else if(type=="receive"){
 									$("#querysaveagent").val("agtResponse");
@@ -108,6 +109,11 @@
 									<xsl:if test="//div[contains(@onclick, 'agtFlowDeal')]">
 										<div class="ui-block-b" style="padding-bottom:5px;" align="center">
 											<a data-role="button" value="reject" onclick="submit('submit');" data-mini='true' data-theme="f">55提　交</a>
+										</div>
+									</xsl:if>
+									<xsl:if test="//div[contains(@onclick, 'agtFlowDeny')]">
+										<div class="ui-block-b" style="padding-bottom:5px;" align="center">
+											<a data-role="button" value="reject" onclick="submit('reject');" data-mini='true' data-theme="f">驳 回</a>
 										</div>
 									</xsl:if>
 									<xsl:if test="//div[contains(@onclick, 'agtResponse')]">
@@ -238,7 +244,7 @@
 		<xsl:variable name="type" select="translate($filetype, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/>
 		<xsl:if test="not(contains($fileunids, $fileunid))">
 				<li>
-					<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/docapp/{$dbPath}/0/{$docunid}/$file/{$fileunid}.{$filetype}')">
+					<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/doctest/{$dbPath}/0/{$docunid}/$file/{$fileunid}.{$filetype}')">
 					<xsl:value-of select="$file"/></a>
 				</li>
 		</xsl:if>
