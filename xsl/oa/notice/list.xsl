@@ -16,7 +16,7 @@
 				<div data-role="page" data-iscroll="enable" class="type-home">
 					<div data-role="header">
 						<a data-icon="home" data-role="button" href="/bridge/home.html">返回</a>
-						<h1>通知公告</h1>
+						<h1>集团通知</h1>
 					</div><!-- /header -->
 				
 					<div data-role="content" align="center">

@@ -24,72 +24,42 @@
 			var view="";
 			var dataid = ""
 			function pullUpAction () {
-				$.hori.showLoading();
 				setTimeout(function () {
+					//vwDocByDate,vwtoArchive,vwDocByArchvied
+					//querydoing querytoArchive queryArchvied
 					var type = localStorage.getItem("type");
 					var dbpath = "";
-					if(type=="searchqueryForDoing"){
-						template="searchqueryForDoing";
-						view = "vwDocByDate";
-						dataid = "querydataList";
-						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
-						Astart=Astart+5;
-						start=Astart;
-					}
 					if(type=="querydoing"){
 						template="queryForDoing";
 						view = "vwDocByDate";
 						dataid = "querydataList";
-						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
-						Astart=Astart+5;
+						dbpath="/docapp/genertec/dep1/qsbg_1.nsf";
+						Astart=Astart+2;
 						start=Astart;
 					}
 					if(type=="querytoArchive"){
 						template="toArchive";
 						view = "vwtoArchive";
 						dataid = "querydataList";
-						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
-						Bstart=Bstart+5;
-						start=Bstart;
-					}
-					if(type=="searchquerytoArchive"){
-						template="searchquerytoArchive";
-						view = "vwtoArchive";
-						dataid = "querydataList";
-						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
-						Bstart=Bstart+5;
+						dbpath="/docapp/genertec/dep1/qsbg_1.nsf";
+						Bstart=Bstart+2;
 						start=Bstart;
 					}
 					if(type=="queryArchvied"){
 						template="Archvied";
-						view = "vwDocByArchived";
+						view = "vwDocByArchvied";
 						dataid = "querydataList";
-						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
-						Cstart=Cstart+5;
+						dbpath="/docapp/genertec/dep1/qsbg_1.nsf";
+						Cstart=Cstart+2;
 						start=Cstart;
 					}
-					if(type=="searchqueryArchvied"){
-						template="searchqueryArchvied";
-						view = "vwDocByArchived";
-						dataid = "querydataList";
-						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
-						Cstart=Cstart+5;
-						start=Cstart;
-					}
+					//signForDoing signtoArchive signArchvied
 					if(type=="signForDoing"){
 						template="signForDoing";
 						view = "vwDocByDate";
 						dataid = "signdataList";
 						dbpath = localStorage.getItem("singdbPath");
-						dstart=dstart+5;
-						start=dstart;
-					}
-					if(type=="searchsignForDoing"){
-						template="searchsignForDoing";
-						view = "vwDocByDate";
-						dataid = "signdataList";
-						dbpath = localStorage.getItem("singdbPath");
-						dstart=dstart+5;
+						dstart=dstart+2;
 						start=dstart;
 					}
 					if(type=="signtoArchive"){
@@ -97,41 +67,19 @@
 						view = "vwtoArchive";
 						dataid = "signdataList";
 						dbpath = localStorage.getItem("singdbPath");
-						estart=estart+5;
-						start=estart;
-					}
-					if(type=="searchsigntoArchive"){
-						template="searchsigntoArchive";
-						view = "vwtoArchive";
-						dataid = "signdataList";
-						dbpath = localStorage.getItem("singdbPath");
-						estart=estart+5;
+						estart=estart+2;
 						start=estart;
 					}
 					if(type=="signArchvied"){
 						template="signArchvied";
-						view = "vwDocByArchived";
+						view = "vwDocByArchvied";
 						dataid = "signdataList";
 						dbpath = localStorage.getItem("singdbPath");
-						fstart=fstart+5;
+						fstart=fstart+2;
 						start=fstart;
 					}
-					if(type=="searchsignArchvied"){
-						template="searchsignArchvied";
-						view = "vwDocByArchived";
-						dataid = "signdataList";
-						dbpath = localStorage.getItem("singdbPath");
-						fstart=fstart+5;
-						start=fstart;
-					}
-					var searchVal = localStorage.getItem("searchVal");
-					var searchkey = localStorage.getItem("searchkey");
-					if(searchVal=="no"){
-						var url=$.hori.getconfig().appServerHost+"view/oa/"+template+dbpath+"/myview?openform&view="+view+"&start="+start+"&count=15";
-					}else if(searchVal=="yes"){
-						var url=$.hori.getconfig().appServerHost+"view/oa/"+template+dbpath+"/"+view+"?searchview&count=15&query="+searchkey+"&view="+view+"&start="+start;
-					}
-					alert(url);
+					//alert(template+"===="+dbpath+"==="+start);
+					var url=$.hori.getconfig().appServerHost+"view/oa/"+template+dbpath+"/myview?openform&view="+view+"&start="+start+"&count=2";
 					$.hori.ajax({
 						"type":"post",
 						"url":url,
@@ -147,7 +95,6 @@
 							$("#"+dataid).append(res).listview("refresh");
 							myStartTaskLoad=true;
 							myScroll.refresh();
-							$.hori.hideLoading();
 						},
 						"error":function(res){
 							alert(res);
@@ -203,28 +150,24 @@
 			//获取会签tab
 			getsignpath();
 			
-			$("#tab").tabs({beforeActivate:function(event,ui){
-				//alert(ui.newTab.context.dataset.id);
-				tabid=ui.newTab.context.dataset.id;
-				//内请
-				if(tabid=="queryList"){
-					queryListForType($('#querytype').val());
-					$("#moredata").remove();
-					$("#queryselect").css("display", "block");
-					$("#querySearch").css("display", "block");
-					$("#signselect").css("display", "none");
-					$("#signSearch").css("display", "none");
-				}
-				//会签
-				if(tabid=="signList"){
-					signListForType($('#signtype').val());
-					$("#moredata").remove();
-					$("#signselect").css("display", "block");
-					$("#signSearch").css("display", "block");
-					$("#queryselect").css("display", "none");
-					$("#querySearch").css("display", "none");
-				}
-		}})
+			 $("#tab").tabs({beforeActivate:function(event,ui){
+					//alert(ui.newTab.context.dataset.id);
+					tabid=ui.newTab.context.dataset.id;
+					//内请
+					if(tabid=="queryList"){
+						queryListForType($('#querytype').val());
+						$("#moredata").remove();
+						$("#queryselect").css("display", "block");
+						$("#signselect").css("display", "none");
+					}
+					//会签
+					if(tabid=="signList"){
+						signListForType($('#signtype').val());
+						$("#moredata").remove();
+						$("#signselect").css("display", "block");
+						$("#queryselect").css("display", "none");
+					}
+			}}) 
 			var onlist=localStorage.getItem("click4");
 			if(onlist=="1"){
 				$("#ui-id-1").click()	
@@ -242,9 +185,8 @@
 		<script type="text/javascript">
 		//内请切换
 		function queryListForType(view){
-			$.hori.showLoading();
+			//alert("neiqing");
 			Astart=1;Bstart=1;Cstart=1;
-			localStorage.setItem("searchVal", "no");
 			if(view=="vwDocByDate"){
 				template="queryForDoing";
 				localStorage.setItem("type","querydoing");
@@ -256,9 +198,8 @@
 			if(view=="vwDocByArchvied"){
 				localStorage.setItem("type","queryArchvied");
 				template="Archvied";
-				view="vwDocByArchived";
 			}
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/doctest/genertec/dep1/qsbg_1.nsf/myview?openform&view="+view+"&start=1&count=5";
+			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/docapp/genertec/dep1/qsbg_1.nsf/myview?openform&view="+view+"&start=1&count=10";
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
@@ -282,15 +223,15 @@
 		
 		//获取会签类型库
 		function getsignpath(){
+			
 			$.hori.ajax({
 				"type":"post",
-				"url":$.hori.getconfig().appServerHost+"/view/oa/signtype/doctest/genertec/mgrengine.nsf/createNavigator?openAgent&divIndex=001",
+				"url":$.hori.getconfig().appServerHost+"/view/oa/signtype/docapp/genertec/mgrengine.nsf/createNavigator?openAgent&divIndex=001",
 				"success":function(res){
-					//alert(res);
-					//doctest/genertec/dep26/hqk_26.nsf
+					//docapp/genertec/dep26/hqk_26.nsf
 					//用于测试写死，正式时要放开
-					//singdbPath = res; 
-					singdbPath="/doctest/genertec/dep26/hqk_26.nsf";
+					//singdbPath = res;
+					singdbPath="/docapp/genertec/dep251/hqk_251.nsf";
 					localStorage.setItem("singdbPath",singdbPath);
 				},
 				"error":function(res){
@@ -301,8 +242,8 @@
 
 		//会签切换
 		function signListForType(value){
-			$.hori.showLoading();
-			localStorage.setItem("searchVal", "no");
+			//alert("huiqian");
+			localStorage.setItem("addmore","no");
 			dstart=1;estart=1;fstart=1;
 			if(value=="doing"){
 				template="signForDoing";
@@ -320,7 +261,7 @@
 				localStorage.setItem("type","signArchvied");
 			}
 			var singdbPath = localStorage.getItem("singdbPath");
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/myview?openform&view="+view+"&start=1&count=5";
+			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/myview?openform&view="+view+"&start=1&count=10";
 			
 			$.hori.ajax({
 				"type":"post",
@@ -356,104 +297,18 @@
 			var templatecon ="contentsign";
 			localStorage.setItem("contemplate",templatecon);
 			var unid = $(str).data("unid");
-			alert($(str).data("unid"));
 			localStorage.setItem("unid",unid);
 			//alert(unid);return;
 			var loadurl= $.hori.getconfig().appServerHost+"view/html/signform.html";
 			$.hori.loadPage(loadurl);
 		}
-		
-		function querysearchlist(){
-			var searchkey=$("#querysearchKey").val();
-			localStorage.setItem("searchkey", searchkey);
-			alert(searchkey);
-			var view = $('option:selected', '#querytype').val();
-			alert(view);
-			$.hori.showLoading();
-			Astart=1;Bstart=1;Cstart=1;
-			localStorage.setItem("searchVal", "yes");
-			if(view=="vwDocByDate"){
-				template="searchqueryForDoing";
-				localStorage.setItem("type","searchqueryForDoing");
-			}
-			if(view=="vwtoArchive"){
-				template="searchquerytoArchive";
-				localStorage.setItem("type","searchquerytoArchive");
-			}
-			if(view=="vwDocByArchvied"){
-				localStorage.setItem("type","searchqueryArchvied");
-				template="searchqueryArchvied";
-			}
-			//
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/doctest/genertec/dep1/qsbg_1.nsf/"+view+"?SearchView&count=5&Query="+searchkey+"&view="+view;
-			$.hori.ajax({
-				"type":"post",
-				"url":url,
-				"success":function(res){
-					$("#querydataList").empty();
-					$("#signdataList").empty();
-					$("#querydataList").append(res).listview("refresh");
-					$.hori.hideLoading();
-					myScroll.refresh();
-					signLoad=true;
-				},
-				"error":function(res){
-					alert(res);
-					$.hori.hideLoading();
-				}
-			});
-		}
-		function signsearchlist(){
-			var searchkey=$("#signsearchKey").val();
-			localStorage.setItem("searchkey", searchkey);
-			alert(searchkey);
-			var value = $('option:selected', '#signtype').val();
-			alert(value);
-			$.hori.showLoading();
-			dstart=1;estart=1;fstart=1;
-			localStorage.setItem("searchVal", "yes");
-			if(value=="doing"){
-				template="searchsignForDoing";
-				view="vwDocByDate";
-				localStorage.setItem("type","searchsignForDoing");
-			}
-			if(value=="todo"){
-				template="searchsigntoArchive";
-				view="vwtoArchive";
-				localStorage.setItem("type","searchsigntoArchive");
-			}
-			if(value=="did"){
-				template="searchsignArchvied";
-				view="vwDocByArchived";
-				localStorage.setItem("type","searchsignArchvied");
-			}
-			var singdbPath = localStorage.getItem("singdbPath");
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/"+view+"?SearchView&count=5&Query="+searchkey+"&view="+view;
-			alert(url);
-			$.hori.ajax({
-				"type":"post",
-				"url":url,
-				"success":function(res){
-					$("#signdataList").empty();
-					$("#querydataList").empty();
-					$("#signdataList").append(res).listview("refresh");
-					$.hori.hideLoading();
-					myScroll.refresh();
-					
-				},
-				"error":function(res){
-					alert(res);
-					$.hori.hideLoading();
-				}
-			});
-		}
 	</script>
 		<style>
 		#wrapper {
 			position: fixed;
-			top: 170px;
+			top: 108px;
 			bottom: 48px;
-			width: 80%;
+			width: 100%;
 			overflow: scroll;
 		}
 	</style>
@@ -461,6 +316,7 @@
 <body>
 	<div  style="margin:0px;padding:0px;">
 		<div data-role="content">
+		
 			<div data-role="tabs" id="tab">
 		      	<div data-role="navbar">
 				    <ul>
@@ -469,7 +325,7 @@
 				    </ul>
 		      	</div>
 				<div id="queryselect" align="center" class="ui-grid-b">
-						<div class="ui-block-a" style="min-width:10em">
+						<div class="ui-block-a">
 							<select name="querytype" id="querytype" onChange="queryListForType(this.value)" data-theme="a"  data-native-menu="true">
 							<option value="vwDocByDate">办理中</option>
 							<option value="vwtoArchive">待归档</option>
@@ -479,20 +335,10 @@
 						<div class="ui-block-b"></div>
 						<div class="ui-block-c"></div>
 				</div>
-				<div id="querySearch" align="center" class="ui-grid-b">
-					<div class="ui-block-a">
-						<input id="querysearchKey" type="text" value=""/>
-					</div>
-					<div class="ui-block-b">
-						<a href="#" onclick="querysearchlist()" data-role="button" data-inline="true" data-theme="f" class="ui-btn-corner-all ui-btn-up-c ui-btn-up-f ui-btn ui-btn-inline ui-shadow" style="color: white">搜索</a>
-					</div>
-					<div class="ui-block-c">
-					</div>
-				</div>
 				<div id="signselect" align="center" class="ui-grid-b" style="display:none">
 						<div class="ui-block-a"></div>
 						<div class="ui-block-b"></div>
-						<div class="ui-block-c" style="min-width:10em">
+						<div class="ui-block-c">
 							<select name="signtype" id="signtype" onChange="signListForType(this.value)" data-theme="a"  data-native-menu="true">
 								<option value="doing">办理中</option>
 								<option value="todo">待归档</option>
@@ -500,39 +346,29 @@
 							</select>
 						</div>
 				</div>
-				<div id="signSearch" align="center" class="ui-grid-b" style="display:none">
-					<div class="ui-block-a">
-						<input id="signsearchKey" type="text" value=""/>
-					</div>
-					<div class="ui-block-b">
-						<a href="#" onclick="signsearchlist()" data-role="button" data-inline="true" data-theme="f" class="ui-btn-corner-all ui-btn-up-c ui-btn-up-f ui-btn ui-btn-inline ui-shadow" style="color: white">搜索</a>
-					</div>
-					<div class="ui-block-c">
-					</div>
-				</div>
 				<div id="wrapper">
 					<div id="scroller">
 						<div id="pullDown"></div>
 			      <div id="two">
-						<ul id="querydataList"  data-role="listview" data-inset="true">
+						<ul id="querydataList"  data-role="listview" data-inset="true" style="width:85%;">
 							<li id="moredata" style="display:none"><div id="pullUp" align="center">
 								<span class="pullUpLabel">上划加载更多...</span>
 							</div></li>
 						</ul>
-						<br/>
+					
 			      </div>
 			      <div id="three">
-					   <ul id="signdataList" data-role="listview" data-inset="true">
-							<li id="moredata" style="display:none"><div id="pullUp" align="center">
-									<span class="pullUpLabel">上划加载更多...</span>
-								</div></li>
-					   </ul>
-						<br/>
+			       <ul id="signdataList" data-role="listview" data-inset="true" style="width:85%;">
+						<li id="moredata" style="display:none"><div id="pullUp" align="center">
+								<span class="pullUpLabel">上划加载更多...</span>
+							</div></li>
+				   </ul>
 			      </div>
 		    </div>
 			</div>
-			</div>			
+			</div>
 		</div>	
+		<br/><br/><br/>
 	</div>		
 </body>
 </html>

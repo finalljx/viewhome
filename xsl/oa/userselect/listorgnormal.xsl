@@ -13,13 +13,13 @@
 		<li data-role="list-divider">
 			
 		</li>
-		<xsl:apply-templates select="//select[@id='EntryList_1']//option" />
-		<xsl:if test="count(//select[@id='EntryList_1']//option)=0">
+		<xsl:apply-templates select="//viewentry//entrydata" />
+		<xsl:if test="count(//viewentry//entrydata)=0">
 			<li><a>无组织</a></li>
 		</xsl:if>
 		<li data-role="list-divider"></li>
 	</xsl:template>
-	<xsl:template match="option">
+	<xsl:template match="entrydata">
 		<li>
 			<input type="radio" name="personval" value="{.}"/><label><xsl:value-of select="substring-before(.,'/')"/></label>
 		</li>

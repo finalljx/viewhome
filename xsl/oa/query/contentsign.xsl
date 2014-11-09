@@ -29,7 +29,6 @@
 							});
 							//viewfile 附件函数
 							function viewfile(url){
-								console.log(url);return;
 								localStorage.setItem("attachmentUrl",url);
 								$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
 							}
@@ -150,7 +149,7 @@
 		<xsl:variable name="type" select="translate($filetype, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/>
 		<xsl:if test="not(contains($fileunids, $fileunid))">
 				<li>
-					<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/docapp/{$dbPath}/0/{$docunid}/$file/{$fileunid}.{$filetype}')">
+					<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/doctest/{$dbPath}/0/{$docunid}/$file/{$fileunid}.{$filetype}')">
 					<xsl:value-of select="$file"/></a>
 				</li>
 		</xsl:if>
