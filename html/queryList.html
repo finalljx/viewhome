@@ -444,6 +444,7 @@
 			}
 			var singdbPath = localStorage.getItem("singdbPath");
 			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/"+view+"?SearchView&count=5&Query="+searchkey+"&view="+view;
+			alert(url);
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
@@ -534,14 +535,15 @@
 								<span class="pullUpLabel">上划加载更多...</span>
 							</div></li>
 						</ul>
-					
+						<br/>
 			      </div>
 			      <div id="three">
-			       <ul id="signdataList" data-role="listview" data-inset="true">
-						<li id="moredata" style="display:none"><div id="pullUp" align="center">
-								<span class="pullUpLabel">上划加载更多...</span>
-							</div></li>
-				   </ul>
+					   <ul id="signdataList" data-role="listview" data-inset="true">
+							<li id="moredata" style="display:none"><div id="pullUp" align="center">
+									<span class="pullUpLabel">上划加载更多...</span>
+								</div></li>
+					   </ul>
+						<br/>
 			      </div>
 		    </div>
 			</div>

@@ -4,9 +4,9 @@
 			"oaServerName":"mobile2.sugon.com",
 			"oaMsgServer":"mobile2.sugon.com",
 			"oaMobileServer":"mobile2.sugon.com",
-			"serverBaseUrl":"http://127.0.0.1:8080/",
+			"serverBaseUrl":"http://192.168.1.110:90/",
 			"encryptKey":"horiTech",
-			"appServerHost":"http://127.0.0.1:8080/",
+			"appServerHost":"http://192.168.1.110:90/",
 			"appKey":"mobile"
 		};
 	};
