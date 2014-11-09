@@ -33,9 +33,24 @@ a {
 
 	//获取验证码
 	function getCaptcha() {
-		var url = $.hori.getconfig().appServerHost + "view/guide/getCaptcha/Customer/index.jsp?data-result=text"
+		var un_name = $.trim($("#cn_name").val());
+		var username = $.trim($("#user_name").val());
+		var number = $("#id_number").val();
+		if (username == "") {
+			alert("请输入账号!");
+			return;
+		}
+		if (un_name == "") {
+			alert("请输入姓名!");
+			return;
+		}
+		if (number == "") {
+			alert("请输入身份证号!");
+			return;
+		}
+		var url = $.hori.getconfig().appServerHost + "view/forgetwd/loginvalidate1/resetPWsendSMS"
 		$.hori.ajax({
-			"type" : "post",
+			"type" : "get",
 			"url" : url,
 			"headers":{
 				"Access-Control-Allow-Origin": true
@@ -51,39 +66,72 @@ a {
 		})
 	}
 	function reset() {
-		var username = $.trim($("#username").val());
-		var password = $("#password").val();
+		var un_name = $.trim($("#cn_name").val());
+		var username = $.trim($("#user_name").val());
+		var number = $("#id_number").val();
 		if (username == "") {
-			alert("请输入用户名!");
+			alert("请输入账号!");
 			return;
 		}
-		if (password == "") {
-			alert("请输入密码!");
+		if (un_name == "") {
+			alert("请输入姓名!");
+			return;
+		}
+		if (number == "") {
+			alert("请输入身份证号!");
 			return;
 		}
 		$.hori.showLoading();
 		try {
 			var random = new Date().getTime();
 			var url = $.hori.getconfig().appServerHost
-					+ "view/oa/loginvalidate/pkmslogin.form";
+					+ "view/forgetwd/loginvalidate2/resetPWsubmit";
 			url = url + "?data-random=" + random;
 		} catch (e) {
 		}
-		var data = "username=" + username + "&password=" + password
-				+ "&login-form-type=pwd&data-userid=" + username
-				+ "&data-password=Password&data-login=true";
 		$.hori.ajax({
-			"type" : "post",
+			"type" : "get",
 			"url" : url,
-			"data" : data,
+			"data" :  $("#forgetPwdForm").serialize(),
 			"success" : function(res) {
-
+				alert(res);
 			},
 			"error" : function(res) {
 				alert(res + "222");
 				$.hori.hideLoading();
 			}
 		})
+	}
+	//查询用户信息方法
+	function doSearch() {
+		$.hori.showLoading();
+		try {
+			var random = new Date().getTime();
+			var url = $.hori.getconfig().appServerHost
+					+ "view/guide/getInfo/getUserinfo/";
+			url = url + "?data-random=" + random + "&data-result=text";
+		} catch (e) {
+		}
+		$.hori.ajax({
+			"type" : "post",
+			"url" : url,
+			"data" : $("#forgetPwdForm").serialize(),
+			"success" : function(res) {
+				alert(res);
+				var jdata = JSON.parse(res);
+				document.getElementById("Mobile_number").value=jdata.mobile_number;
+				reset();
+				if (jdata.rtn_code && jdata.rtn_code == "2000") { //判断是否正确返回 
+				} else { //未正确查询到结果
+					alert(jdata.rtn_msg);
+				}
+			},
+			"error" : function(res) {
+				alert("查询失败：" + res);
+				$.hori.hideLoading();
+			}
+		})
+		
 	}
 </script>
 </head>
@@ -92,7 +140,6 @@ a {
 	<div data-role="page" id="login" class="login">
 		<div data-role="content" align="center">
 			<form id="forgetPwdForm">
-			     <input type="text" name="abc" value="123456"/>
 				<ul id="viewBody" data-role="listview" data-theme="c"
 					data-inset="true" style="max-width: 400px;">
 					<li data-role="list-divider"><a href="javascript:void(0);"
@@ -103,9 +150,11 @@ a {
 							<tr>
 								<td><strong>帐&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;号:</strong>
 								</td>
-								<td><input type="text" name="username"
+								<td><input type="hidden" id="Okey" name="Okey" value="Fwad1Zfv8XnXHoEDkOjSX2XldzwNnG72"/>
+								<input type="hidden" id="Mobile_number" name="Mobile_number" value=""/>
+								<input type="text" name="user_name"
 									style="outline: none; width: 100%; border: 0; background: transparent;"
-									id="username" value="" onfocus="clearData()"
+									id="user_name" value="geyuxi" onfocus="clearData()"
 									onblur="showTips()" /></td>
 							</tr>
 						</table>
@@ -116,9 +165,9 @@ a {
 							<tr>
 								<td><strong>姓&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;名:</strong>
 								</td>
-								<td><input type="text" name="CHname"
+								<td><input type="text" name="cn_name"
 									style="outline: none; width: 100%; border: 0; background: transparent;"
-									id="CHname" value="" /></td>
+									id="cn_name" value="葛玉喜" /></td>
 							</tr>
 						</table>
 					</li>
@@ -127,9 +176,9 @@ a {
 							border="0">
 							<tr>
 								<td><strong>身份证号:</strong></td>
-								<td><input type="text" name="number"
+								<td><input type="text" name="id_number"
 									style="outline: none; width: 100%; border: 0; background: transparent;"
-									id="number" value="" /></td>
+									id="id_number" value="220882198401195538" /></td>
 							</tr>
 						</table>
 					</li>
@@ -152,7 +201,7 @@ a {
 				<div class="ui-block-a"></div>
 				<div class="ui-block-b"></div>
 				<div class="ui-block-c" style="width: 200px;">
-					<a href="javascript:void(0)" onclick="reset()" data-theme="f"
+					<a href="javascript:void(0)" onclick="doSearch()" data-theme="f"
 						data-role="button" data-icon="false">重置密码</a>
 				</div>
 				<div class="ui-block-d"></div>
