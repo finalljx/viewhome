@@ -30,10 +30,37 @@ p {
 <script type="text/javascript">
 	$(document).ready(function() {
 		/*设置标题*/
-		$.hori.setHeaderTitle("新闻详情");
+		setHead();
 		//加载新闻详情
 		getWcmNewsData();
 	});
+	
+	//设置标题
+	function setHead(){
+		moreCurrentName = localStorage.getItem("moreCurrentName");
+        switch (moreCurrentName) {
+        case "GT_HomePage_SiteArea_jttz":
+            $.hori.setHeaderTitle("通知详情");
+            break;
+        case "GT_HomePage_SiteArea_jtxw":
+        case "GT_HomePage_SiteArea_zgsxw":
+        case "GT_HomePage_SiteArea_tpxw":
+            $.hori.setHeaderTitle("新闻详情");
+            break;
+        case "GT_HomePage_SiteArea_kjdt":
+            $.hori.setHeaderTitle("科技动态详情");
+            break;
+        case "GT_HomePage_SiteArea_pmgg":
+            $.hori.setHeaderTitle("聘免公告详情");
+            break;
+        case "GT_HomePage_SiteArea_aqsc":
+            $.hori.setHeaderTitle("安全环保详情");
+            break;
+        case "GT_HomePage_SiteArea_zcfg":
+            $.hori.setHeaderTitle("政策法规详情");
+            break;
+        }
+	}
 	//加载新闻详情
 	function getWcmNewsData() {
 		var currentContentName = localStorage.getItem("currentContentName");

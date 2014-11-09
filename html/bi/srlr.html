@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>收入完成</title>
+<title>收入利润</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
-<link
-	href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
-	rel="stylesheet">
 <link rel="stylesheet"
 	href="../../lib/jquery-mobile/jquery.mobile.min.css" />
 <script src="../../lib/jquery/jquery.min.js"></script>
@@ -16,6 +13,7 @@
 <script src="../../lib/json/json2.js"></script>
 <script src="../../lib/hori/hori.js?tag=21369"></script>
 <script src="../../lib/jquery-mobile/jquery.mobile.min.js"></script>
+<script src="../asset/js/echarts-plain-original.js"></script>
 <script src="../../config/web/config.js"></script>
 <style>
 a {
@@ -30,11 +28,6 @@ a {
 	</div>
 	<div id="main1" style=" width: 450px; float: left;">
 	</div>
-	<script src="../asset/js/echarts-plain-original.js"></script>
-	<script type="text/javascript" src="../asset/js/echartsHome.js"></script>
-	<script src="../asset/js/bootstrap.min.js"></script>
-	<script src="../asset/js/echartsExample.js"></script>
-
 	<script type="text/javascript">
 	window.onload=function()
 	{
@@ -51,7 +44,7 @@ a {
 		$(document).ready(function() {
 			$.hori.setHeaderTitle("收入利润");
 			//加载收入利润图表数据
-			loadSrlrqsChart()
+			loadSrlrqsChart();
 		});
 		//加载收入利润图表数据
 		function loadSrlrqsChart() {
@@ -71,6 +64,13 @@ a {
 				"url" : url,
 				"data" : data,
 				"success" : function(res) {
+					var cWidth = window.screen.width;
+                    var fontSize;
+                    if (cWidth < 720) {
+                        fontSize = 12;
+                    } else {
+                        fontSize = 18;
+                    }
 					var json = JSON.parse(res);
 					console.log(res);
 					var income = json.reportdata.income;
@@ -91,7 +91,7 @@ a {
 					var seriesdata2 = profit.seriesdata.split('|');
 					var serieschart2 = profit.serieschart.split('|');
 					loadSrlrqs2(title, seriesname2, seriesdata2, category2,
-							serieschart, year, month);
+							serieschart, year, month,fontSize);
 				},
 				"error" : function(res) {
 					alert("error:" + res);
@@ -102,24 +102,21 @@ a {
 	</script>
 	<script type="text/javascript">
 		function loadSrlrqs(title, seriesname, seriesdata, category,
-				serieschart, year, month) {
+				serieschart, year, month,fontSize) {
 			var option = {
 				animation:false,
 				tooltip : {
 					trigger : 'axis'
 				},
 				toolbox : {
-					show : false,
-					feature : {
-						magicType : {
-							show : false,
-							type : [ 'bar', 'line' ]
-						},
-					}
+					show : false
 				},
 				calculable : false,
 				legend : {
-					data : seriesname
+					data : seriesname,
+					textStyle:{
+						fontSize:fontSize
+					}
 				},
 				dataRange : {
 					x : 0
