@@ -3,8 +3,7 @@
     <title>安全生产值班表详情</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0"/>
-    <link rel="stylesheet"
-          href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css"/>
+    <link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css"/>
     <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css"/>
     <script src="../lib/jquery/jquery.min.js"></script>
     <script src="../lib/jquery-cookie/jquery.cookie.js"></script>
@@ -12,10 +11,8 @@
     <script src="../lib/json/json2.js"></script>
     <script src="../lib/hori/hori.js?tag=21369"></script>
     <script src="../lib/arttemplate/template.js"></script>
-    <script
-            src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
+    <script src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
     <script src="../config/web/config.js"></script>
-
     <style type="text/css">
         .ui-li .ui-btn-inner, .ui-li-static.ui-li {
             padding: .5em 5px;
@@ -46,10 +43,10 @@
 
 
         function doSearch() {
-
+			$.hori.showLoading();
             try {
                 var skey = $("#searchKey").val();
-                skey = encodeURI(skey);
+                //skey = encodeURI(skey);
                 var random = new Date().getTime();
                 var cookie_userstore = localStorage.getItem("cookie_userstore");
                 var url = $.hori.getconfig().appServerHost + "view/safety/watchList/Application/Safety/SafetyProBasic.nsf/SearchHolidayDutyForMobile?open";
@@ -72,7 +69,7 @@
                     }else{
                         alert(dataObj.flagMessage);
                     }
-
+					$.hori.hideLoading();
                 },
                 "error": function (res) {
                     alert(res);
@@ -114,21 +111,22 @@
     <div data-role="content" id="listContent">
 
     </div>
-    <script id="watchlist" type="text/html">
-        <ul data-role="listview">
-            {{each data as rowObj i}}
-            <a data-mini="true" data-docunid='{{rowObj["docunid"]}}' onclick="loadListDetails(this)">
-                <li data-icon="false">
 
-                    <p> 序号：<span> {{rowObj["DeptID"]}}</span></p>
-                    <p> 填报人：<span > {{rowObj["StPsnCN"]}}</span></p>
-                    <label><font size="2">公司名称：</font><font color="blue"  size="1"><span >{{rowObj["Dept"]}}</span> </font></label>
-                       <span   style="float: right; width: 50%;"><p>  填报日期：<font color="blue"><span >{{rowObj["Date"]}}</span></font> </p>
-                        <p>  节日名称：<font color="blue"><span >{{rowObj["Holiday"]}}</span> </font> </p></span>
-            </li>
-            </a>
-            {{/each}}
-        </ul>
+    <script id="watchlist" type="text/html">
+		<ul  data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+			{{each data as rowObj i}}
+			<li href="#" data-icon="false" class="ui-first-child ui-last-child">
+				<a href="javascript:void(0)" data-docunid='{{rowObj["docunid"]}}' onclick="loadListDetails(this)" class="ui-btn">
+					<h3 style="white-space: normal;"><span>{{rowObj["Dept"]}}</span></h3>
+					<p style="font-size: 14px;line-height: 2em;"> 
+						序号：<font color="#0080FF"> {{rowObj["DeptID"]}}</font>
+						填报人：<font color="#0080FF"> {{rowObj["StPsnCN"]}}</font><br/>
+						填报日期：<font color="#0080FF">{{rowObj["Date"]}}</font>
+						节日名称：<font color="#0080FF">{{rowObj["Holiday"]}}</font> 
+					</p></a>
+			</li>
+			{{/each}}
+		</ul>
     </script>
     <!-- /page -->
 </body>

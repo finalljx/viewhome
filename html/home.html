@@ -23,6 +23,7 @@
 <script type="text/javascript">
 	var currentUser = "";
 	$(document).ready(function() {
+		
 		try {
 			var hori = $.hori;
 			/*设置标题*/
@@ -38,7 +39,7 @@
 			var itcode = localStorage.getItem("itcode");
 			//默认先加载图片新闻
 			getNewsList(itcode, "GT_HomePage_SiteArea_tpxw", 6, 1);
-			//加载通知公告
+			//加载集团通知
 			getNewsList(itcode, "GT_HomePage_SiteArea_jttz", 4, 1);
 			//加载集团新闻
 			getNewsList(itcode, "GT_HomePage_SiteArea_jtxw", 4, 1);
@@ -57,7 +58,7 @@
 	//请示查阅
 	function loadqueryList() {
 		localStorage.setItem("click", "1");
-		localStorage.setItem("addmore", "no");
+		localStorage.setItem("searchVal", "no");
 		$.hori.showLoading();
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl
 				+ 'viewhome/html/queryList.html');

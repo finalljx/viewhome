@@ -91,6 +91,7 @@ p {
 				res=res.replace(/http:\/\/webseal.genertec.com.cn/g,url).replace(/&amp;amp;/g,"&");
 				res=res.replace(/CACHEID=.*?\\/g,'data-result=file\\\" width=\\\"'+widthImg+'\\');
 				res=res.replace(/style=.*?\\"/g,"");
+				
 				 var data = JSON.parse(res);
 				if ( data.attachmentSource!=undefined) {
 					document.getElementById("fujian").style.display = "inline";
@@ -106,7 +107,6 @@ p {
 					var dataArrayName = data.attachment.split("|");
 					var dataArraySource = data.attachmentSource.split("|");
 					for(var i=0; i<dataArraySource.length;i++){
-						dataArraySource[i]=$.hori.getconfig().appServerHost+'view/oa/file/'+dataArraySource[i];
 						dataArraySource[i]=dataArraySource[i].replace('http://webseal.genertec.com.cn/',"");
 					} 
 					
@@ -134,7 +134,7 @@ p {
 	}
 	function viewfile(item){
 		var cookie_userstore = localStorage.getItem("cookie_userstore");
-		var url=item.attachmentSource()+"&data-convert=office&data-userstore=" + cookie_userstore;
+		var url=item.attachmentSource()+"&data-convert=office";
 		url=url.replace(/\&amp;/g,"&");
 		localStorage.setItem("attachmentUrl",url);
 		alert(url);
@@ -183,7 +183,7 @@ p {
 				<ul data-bind="foreach: list" style="list-style-type:none;">
 					<li data-icon="false" style="float: left;">
 					<a data-bind="click:viewfile" ><span
-							data-bind="text: attachment"></span></a></li>
+							data-bind="text: attachment"></span></a></li><br/>
 				</ul>
 			</div> 
 		</div>
