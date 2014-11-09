@@ -17,7 +17,9 @@ a {
     width: 86%;
     overflow: hidden;
     margin-left: 9%;
-    align: center
+    position:absolute;
+    top:0px;
+    left:1%;
 }
 
 .tab_conbox {
