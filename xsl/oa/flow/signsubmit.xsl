@@ -103,9 +103,12 @@
 										$("#faqdiv").css("display", "block");
 
 									}
+									<![CDATA[
 									function hideuserselect(){
 										var val = $('input:radio:checked').val();
 										console.log(val);
+										//替换掉回车和换行
+										val=val.replace(/[\n\r]/g,"");
 										var number = val.indexOf("genertec");
 										if(number!="-1"){
 											var CHname = val.substring(number+9,val.length);
@@ -115,8 +118,33 @@
 										}else if(number=="-1"){
 											$("#faqdiv").css("display","none");
 										}
-										
+										//checkbox
+										var personstr="";
+										$("input[name='chooseperson']:checked").each(function(){
+											personstr+=$(this).val()+",";
+										})
+										personstr=personstr.replace(/[\n\r]/g,"");
+										personstr=personstr.substring(0,personstr.length-1);
+										var none = personstr.indexOf("/");
+										if(none!="-1"){
+											var number2 = personstr.indexOf(",");
+											var personName="";
+											if(number2!="-1"){
+												var personstrCH = personstr.split(",");
+												for(var i=0;i<personstrCH.length;i++){
+													var num3 = personstrCH[i].indexOf("/");
+													personName+= personstrCH[i].substring(0,num3)+",";
+												}
+											}else{
+												var num3 = personstr.indexOf("/");
+												personName= personstr.substring(0,num3)
+											}
+											$('#forshow').val(personName);
+											$('#fldXyspr').attr('value',personstr);
+										}
+										$("#faqdiv").css("display","none");
 									}
+									]]>
 								</script>
 								<style type="text/css">
 									#faqdiv{position:absolute;width:80%; left:50%; top:50%; margin-left:-40%; min-height:300px; height:auto; z-index:100; background-color:#fff;}
@@ -129,7 +157,7 @@
 									</ul>
 									<div class="ui-grid-a">
 										<div class="ui-block-a">
-											<button type="submit" data-theme="f" name="$$querysaveagent" value="submitConfirm">确定</button>
+											<button type="submit" data-theme="f" name="$$querysaveagent" value="submitConfirm">确定1</button>
 										</div>
 										<div class="ui-block-b">
 											<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">取消</a>
@@ -169,7 +197,7 @@
 									</ul>
 									<div class="ui-grid-a">
 										<div class="ui-block-a">
-											<button type="submit" data-theme="f" name="$$querysaveagent" value="agtFlowDeny">确定</button>
+											<button type="submit" data-theme="f" name="$$querysaveagent" value="agtFlowDeny">确定2</button>
 										</div>
 										<div class="ui-block-b">
 											<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">取消</a>
@@ -206,7 +234,7 @@
 												<div class="ui-block-a">
 												</div>
 												<div class="ui-block-b">
-													<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">确定</a>
+													<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">确定3</a>
 												</div>
 											</div>
 											<script>
@@ -234,7 +262,7 @@
 											</ul>
 											<div class="ui-grid-a">
 												<div class="ui-block-a">
-													<button type="submit" data-theme="f" name="$$querysaveagent" value="agSaveSelBranch">确定</button>
+													<button type="submit" data-theme="f" name="$$querysaveagent" value="agSaveSelBranch">确定4</button>
 												</div>
 												<div class="ui-block-b">
 													<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">取消</a>
@@ -253,6 +281,39 @@
 									</xsl:otherwise>
 								</xsl:choose>
 								
+							</xsl:when>
+							<xsl:when test="count(//td[@class='msgok_msg'])!=0">
+								<ul data-role="listview" data-inset="true">
+									<li data-role="list-divider"></li>
+									<li>
+										<div style="100%;text-align:center;" align="center">
+											<div align="center">
+												<xsl:if test="contains(//h2/., 'Form processed')">表单已处理</xsl:if>
+												<xsl:if test="contains(//td[@class='msgok_msg']/.,'/')">
+													<xsl:value-of select="//td[@class='msgok_msg']/."/>
+												</xsl:if>
+												<xsl:if test="not(contains(//td[@class='msgok_msg']/.,'/'))">
+													<xsl:value-of select="//td[@class='msgok_msg']/."/>
+												</xsl:if>
+											</div>
+										</div>
+									</li>
+									<li data-role="list-divider"></li>
+								</ul>
+								<div class="ui-grid-a">
+									<div class="ui-block-a"></div>
+									<div class="ui-block-b">
+										<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">返回</a>
+									</div>
+									<script>
+										<![CDATA[
+											function cancelSubmit(){
+												//document.location.reload();
+												$.hori.backPage(1);
+											}
+										]]>
+									</script>
+								</div>
 							</xsl:when>
 							<!-- 表单错误提示 -->
 							<xsl:when test="contains(//url/text(), 'Seq=')">
@@ -399,8 +460,12 @@
 								<legend>下一环节审批人:</legend>
 								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
 								<input type="hidden" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
+								<input type="hidden" name="Address" value="fldXyspr"/>
+								<input type="hidden" name="fldMailSend" value="no"/>
+								<input type="hidden" name="selectedYjNum" value=""/>
+								<input type="hidden" name="selectedYjtocld" value=""/>
 								<!-- <a href="javascript:void(0)" onclick="clearperson();" style="margin-left:30px;" data-role="button" data-inline="true">清空</a> -->
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectsignsub/doctest/indishare/addresstree.nsf/vwUserBydepPath?readviewentries&amp;restricttocategory=_53_&amp;count=500&amp;start=1')" data-role="button" data-inline="true" data-theme="b">选人
+								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/doctest/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10')" data-role="button" data-inline="true" data-theme="b">选人2
 								</a>
 							</fieldset>
 							
@@ -412,8 +477,8 @@
 								<legend>下一环节审批人:</legend>
 								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
 								<input type="hidden" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
-								<!-- <a href="javascript:void(0)" style="margin-left:30px;" onclick="clearperson();" data-role="button" data-inline="true">清空</a> -->
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/doctest/{$dbpath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}')" data-role="button" data-inline="true" data-theme="b">选人</a>
+								<!--<a href="javascript:void(0)" style="margin-left:30px;" onclick="clearperson();" data-role="button" data-inline="true">清空</a> -->
+								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/doctest/{$dbpath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}')" data-role="button" data-inline="true" data-theme="b">选人1</a>
 							</fieldset>
 						</li>
 					</xsl:when>

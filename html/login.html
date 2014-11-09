@@ -37,9 +37,14 @@
 				hori.setHeaderTitle("登录");
 				/*隐藏后退按钮*/
 				hori.hideBackBtn();
+				hori.registerEvent("case", "casePresented", function() {
+					
+				// 调用代办条数
 				//删除cookie
-				$.cookie("JSESSIONID",null,{path:"/"});
-				$.cookie("data-userstore",null,{path:"/"})
+					$.cookie("JSESSIONID",null,{path:"/"});
+					$.cookie("data-userstore",null,{path:"/"})
+			});
+				
 			}catch(e){
 				alert(e.message);
 			}
@@ -123,7 +128,7 @@
 						registdevice();
 						}else{
 							$.hori.hideLoading();
-							alert("登录失败:" + json.msg);
+							alert(json.msg);
 						}
 
 				},

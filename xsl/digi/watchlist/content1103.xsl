@@ -103,11 +103,14 @@
 						<script id="_dxTbl" type="text/html">
 						<![CDATA[
 							<% for (var i = 0; i < data.length; i ++) { %>
+								<div data-role="collapsible" data-theme="a" data-content-theme="d">
+									<h3>第<%= i+1 %>行</h3>
 									<ul data-role="listview" data-inset="true" data-theme="d">
 										<% for (var j = 0; j < head.length; j ++) { %>
 											<li ><%= head[j].title %> ：<%= data[i][head[j].dataid] %></li>
 										<% } %>
 									</ul>
+								</div>
 							<% } %>
 						]]>
 						</script>
@@ -135,12 +138,10 @@
 								
 									<xsl:apply-templates select="//div[@name='Fck_HTML']//fieldentry"/>
 								</ul>
-								<ul data-role="listview" data-inset="true" data-theme="d">
-									<li data-role="list-divider">安全保证措施</li>
 								
-									<li>　　<xsl:apply-templates select="//fieldentry[@id='Safety']/value/."/></li>
-								</ul>
-								<!-- <ul data-role="listview" data-inset="true" data-theme="d">
+
+						
+								<ul data-role="listview" data-inset="true" data-theme="d">
 									<li data-role="list-divider">附件信息</li>
 									<xsl:if test="//input[@name='AttachInfo']/@value =''">
 									<li>
@@ -152,7 +153,7 @@
 											<xsl:with-param name="info" select="//input[@name='AttachInfo']/@value"/>
 										</xsl:call-template>
 									</xsl:if>
-								</ul> -->
+								</ul>
 
 
 							</xsl:if>						
@@ -233,12 +234,100 @@
 					<div style='text-align:center;'><xsl:value-of select="@title" /></div>
 					<div style='padding-left:10px;'><xsl:apply-templates select="//textarea[@name=$sub]" mode="bx"/></div>
 				</xsl:when>
-				<xsl:otherwise>
-					<xsl:if test="contains(@id, 'HolSit')">
-						<li>
-						　　<xsl:value-of select="value/."/>
-						</li>
+
+				<!-- 新加了这个radio -->
+				<xsl:when test="@type='radio'">
+					<xsl:variable name="radioVal"><xsl:value-of select="concat('|',value/.)" /></xsl:variable>
+					<xsl:variable name="radioTxt"><xsl:value-of select="substring-before(text/., $radioVal)"/></xsl:variable>
+					<li>				
+					<xsl:value-of select="@title" />
+					<b>：</b>
+					
+					<xsl:if test="contains($radioTxt, ';')">
+						<xsl:variable name="radioTxt2"><xsl:value-of select="substring-after($radioTxt,';')"/></xsl:variable>
+
+						<xsl:if test="contains($radioTxt2, ';')">
+							<xsl:value-of select="substring-after($radioTxt2,';')"/>
+						</xsl:if>
+
+						<xsl:if test="not(contains($radioTxt2, ';'))">
+						<xsl:value-of select="$radioTxt2"/>
+						</xsl:if>
 					</xsl:if>
+										
+					<xsl:if test="not(contains($radioTxt, ';'))">
+						<xsl:value-of select="$radioTxt"/>
+					</xsl:if>
+					
+					</li>
+				</xsl:when>
+
+				<!-- 新加了这个select -->
+				<xsl:when test="@type='select'">
+					<xsl:variable name="selectVal"><xsl:value-of select="concat('|',value/.)" /></xsl:variable>
+					<xsl:variable name="selectTxt"><xsl:value-of select="substring-before(text/., $selectVal)"/></xsl:variable>
+					<li>				
+					<xsl:value-of select="@title" />
+					<b>：</b>
+					
+					<xsl:if test="contains($selectTxt, ';')">
+						<xsl:variable name="selectTxt2"><xsl:value-of select="substring-after($selectTxt,';')"/></xsl:variable>
+
+						<xsl:if test="contains($selectTxt2, ';')">
+							<xsl:variable name="selectTxt3"><xsl:value-of select="substring-after($selectTxt2,';')"/></xsl:variable>
+							<xsl:if test="contains($selectTxt3, ';')">
+								<xsl:variable name="selectTxt4"><xsl:value-of select="substring-after($selectTxt3,';')"/></xsl:variable>
+								<xsl:if test="contains($selectTxt4, ';')">
+									<xsl:value-of select="substring-after($selectTxt4,';')"/>
+								</xsl:if>
+
+								<xsl:if test="not(contains($selectTxt4, ';'))">
+									<xsl:value-of select="substring-after($selectTxt4,';')"/>
+								</xsl:if>
+							</xsl:if>
+
+							<xsl:if test="not(contains($selectTxt3, ';'))">
+								<xsl:value-of select="substring-after($selectTxt3,';')"/>
+							</xsl:if>
+						</xsl:if>
+
+						<xsl:if test="not(contains($selectTxt2, ';'))">
+						<xsl:value-of select="$selectTxt2"/>
+						</xsl:if>
+					</xsl:if>
+
+					<xsl:if test="not(contains($selectTxt, ';'))">
+						<xsl:value-of select="$selectTxt"/>
+					</xsl:if>
+					
+					</li>
+				</xsl:when>
+
+				<xsl:when test="@id = 'ToNodeId'">
+					<font  size="3">下一环节不唯一，请选择环节</font>
+				</xsl:when>
+				<xsl:when test="@id='MTTABLE'">
+					<li data-role="list-divider"><xsl:value-of select="@title" /></li>
+					<li><xsl:apply-templates select="//div[@name='Fck_HTML']//table[@id='tblListC']" mode="t1"/></li>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:if test="contains(@type, 'checkbox')">
+						<xsl:if test="not(value/.='')">			
+							<xsl:value-of select="@title" />
+							<b>：</b>												
+							<xsl:value-of select="value/."/>												
+							<br/><hr/>
+						</xsl:if>
+					</xsl:if>
+					<xsl:if test="not(contains(@type, 'checkbox') or contains(@id, 'ThisFlowMindInfoLog') or contains(@id, 'DynTbl_'))">
+							<li>
+							<xsl:value-of select="@title" />
+							<b>：</b>												
+							<xsl:value-of select="value/."/>												
+							</li>
+						
+					</xsl:if>
+					
 				</xsl:otherwise>
 
 			</xsl:choose>	

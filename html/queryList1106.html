@@ -26,22 +26,16 @@
 			function pullUpAction () {
 				$.hori.showLoading();
 				setTimeout(function () {
+					//vwDocByDate,vwtoArchive,vwDocByArchvied
+					//querydoing querytoArchive queryArchvied
 					var type = localStorage.getItem("type");
 					var dbpath = "";
-					if(type=="searchqueryForDoing"){
-						template="searchqueryForDoing";
-						view = "vwDocByDate";
-						dataid = "querydataList";
-						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
-						Astart=Astart+5;
-						start=Astart;
-					}
 					if(type=="querydoing"){
 						template="queryForDoing";
 						view = "vwDocByDate";
 						dataid = "querydataList";
 						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
-						Astart=Astart+5;
+						Astart=Astart+15;
 						start=Astart;
 					}
 					if(type=="querytoArchive"){
@@ -49,47 +43,24 @@
 						view = "vwtoArchive";
 						dataid = "querydataList";
 						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
-						Bstart=Bstart+5;
-						start=Bstart;
-					}
-					if(type=="searchquerytoArchive"){
-						template="searchquerytoArchive";
-						view = "vwtoArchive";
-						dataid = "querydataList";
-						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
-						Bstart=Bstart+5;
+						Bstart=Bstart+15;
 						start=Bstart;
 					}
 					if(type=="queryArchvied"){
 						template="Archvied";
-						view = "vwDocByArchived";
+						view = "vwDocByArchvied";
 						dataid = "querydataList";
 						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
-						Cstart=Cstart+5;
+						Cstart=Cstart+15;
 						start=Cstart;
 					}
-					if(type=="searchqueryArchvied"){
-						template="searchqueryArchvied";
-						view = "vwDocByArchived";
-						dataid = "querydataList";
-						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
-						Cstart=Cstart+5;
-						start=Cstart;
-					}
+					//signForDoing signtoArchive signArchvied
 					if(type=="signForDoing"){
 						template="signForDoing";
 						view = "vwDocByDate";
 						dataid = "signdataList";
 						dbpath = localStorage.getItem("singdbPath");
-						dstart=dstart+5;
-						start=dstart;
-					}
-					if(type=="searchsignForDoing"){
-						template="searchsignForDoing";
-						view = "vwDocByDate";
-						dataid = "signdataList";
-						dbpath = localStorage.getItem("singdbPath");
-						dstart=dstart+5;
+						dstart=dstart+15;
 						start=dstart;
 					}
 					if(type=="signtoArchive"){
@@ -97,41 +68,19 @@
 						view = "vwtoArchive";
 						dataid = "signdataList";
 						dbpath = localStorage.getItem("singdbPath");
-						estart=estart+5;
-						start=estart;
-					}
-					if(type=="searchsigntoArchive"){
-						template="searchsigntoArchive";
-						view = "vwtoArchive";
-						dataid = "signdataList";
-						dbpath = localStorage.getItem("singdbPath");
-						estart=estart+5;
+						estart=estart+15;
 						start=estart;
 					}
 					if(type=="signArchvied"){
 						template="signArchvied";
-						view = "vwDocByArchived";
+						view = "vwDocByArchvied";
 						dataid = "signdataList";
 						dbpath = localStorage.getItem("singdbPath");
-						fstart=fstart+5;
+						fstart=fstart+15;
 						start=fstart;
 					}
-					if(type=="searchsignArchvied"){
-						template="searchsignArchvied";
-						view = "vwDocByArchived";
-						dataid = "signdataList";
-						dbpath = localStorage.getItem("singdbPath");
-						fstart=fstart+5;
-						start=fstart;
-					}
-					var searchVal = localStorage.getItem("searchVal");
-					var searchkey = localStorage.getItem("searchkey");
-					if(searchVal=="no"){
-						var url=$.hori.getconfig().appServerHost+"view/oa/"+template+dbpath+"/myview?openform&view="+view+"&start="+start+"&count=15";
-					}else if(searchVal=="yes"){
-						var url=$.hori.getconfig().appServerHost+"view/oa/"+template+dbpath+"/"+view+"?searchview&count=15&query="+searchkey+"&view="+view+"&start="+start;
-					}
-					alert(url);
+					//alert(template+"===="+dbpath+"==="+start);
+					var url=$.hori.getconfig().appServerHost+"view/oa/"+template+dbpath+"/myview?openform&view="+view+"&start="+start+"&count=15";
 					$.hori.ajax({
 						"type":"post",
 						"url":url,
@@ -256,9 +205,8 @@
 			if(view=="vwDocByArchvied"){
 				localStorage.setItem("type","queryArchvied");
 				template="Archvied";
-				view="vwDocByArchived";
 			}
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/doctest/genertec/dep1/qsbg_1.nsf/myview?openform&view="+view+"&start=1&count=5";
+			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/doctest/genertec/dep1/qsbg_1.nsf/myview?openform&view="+view+"&start=1&count=15";
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
@@ -299,6 +247,7 @@
 		//会签切换
 		function signListForType(value){
 			$.hori.showLoading();
+			//alert("huiqian");
 			localStorage.setItem("searchVal", "no");
 			dstart=1;estart=1;fstart=1;
 			if(value=="doing"){
@@ -317,7 +266,9 @@
 				localStorage.setItem("type","signArchvied");
 			}
 			var singdbPath = localStorage.getItem("singdbPath");
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/myview?openform&view="+view+"&start=1&count=5";
+			//alert(singdbPath);
+			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/myview?openform&view="+view+"&start=1&count=15";
+			//alert(url);
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
@@ -352,6 +303,7 @@
 			localStorage.setItem("click","1");
 			var unid = $(str).data("unid");
 			localStorage.setItem("unid",unid);
+			alert(unid);return;
 			var targetURL= $.hori.getconfig().serverBaseUrl+"viewhome/html/neiqingform.html";
 			targetURL=encodeURI(targetURL);
 			$.hori.loadPage(targetURL);
@@ -374,92 +326,15 @@
 			localStorage.setItem("click","2");
 			var templatecon ="contentsign";
 			var unid = $(str).data("unid");
+			alert(unid);return;
 			localStorage.setItem("unid",unid);
 			var loadurl= $.hori.getconfig().serverBaseUrl+"viewhome/html/signform.html";
 			$.hori.loadPage(loadurl);
 		}
-		function querysearchlist(){
-			var searchkey=$("#querysearchKey").val();
-			localStorage.setItem("searchkey", searchkey);
+
+		function search(){
+			var searchkey=$("#searchKey").val();
 			alert(searchkey);
-			var view = $('option:selected', '#querytype').val();
-			alert(view);
-			$.hori.showLoading();
-			Astart=1;Bstart=1;Cstart=1;
-			localStorage.setItem("searchVal", "yes");
-			if(view=="vwDocByDate"){
-				template="searchqueryForDoing";
-				localStorage.setItem("type","searchqueryForDoing");
-			}
-			if(view=="vwtoArchive"){
-				template="searchquerytoArchive";
-				localStorage.setItem("type","searchquerytoArchive");
-			}
-			if(view=="vwDocByArchvied"){
-				localStorage.setItem("type","searchqueryArchvied");
-				template="searchqueryArchvied";
-			}
-			//
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/doctest/genertec/dep1/qsbg_1.nsf/"+view+"?SearchView&count=5&Query="+searchkey+"&view="+view;
-			$.hori.ajax({
-				"type":"post",
-				"url":url,
-				"success":function(res){
-					$("#querydataList").empty();
-					$("#signdataList").empty();
-					$("#querydataList").append(res).listview("refresh");
-					$.hori.hideLoading();
-					myScroll.refresh();
-					signLoad=true;
-				},
-				"error":function(res){
-					alert(res);
-					$.hori.hideLoading();
-				}
-			});
-		}
-		function signsearchlist(){
-			var searchkey=$("#signsearchKey").val();
-			localStorage.setItem("searchkey", searchkey);
-			alert(searchkey);
-			var value = $('option:selected', '#signtype').val();
-			alert(value);
-			$.hori.showLoading();
-			dstart=1;estart=1;fstart=1;
-			localStorage.setItem("searchVal", "yes");
-			if(value=="doing"){
-				template="searchsignForDoing";
-				view="vwDocByDate";
-				localStorage.setItem("type","searchsignForDoing");
-			}
-			if(value=="todo"){
-				template="searchsigntoArchive";
-				view="vwtoArchive";
-				localStorage.setItem("type","searchsigntoArchive");
-			}
-			if(value=="did"){
-				template="searchsignArchvied";
-				view="vwDocByArchived";
-				localStorage.setItem("type","searchsignArchvied");
-			}
-			var singdbPath = localStorage.getItem("singdbPath");
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/"+view+"?SearchView&count=5&Query="+searchkey+"&view="+view;
-			$.hori.ajax({
-				"type":"post",
-				"url":url,
-				"success":function(res){
-					$("#signdataList").empty();
-					$("#querydataList").empty();
-					$("#signdataList").append(res).listview("refresh");
-					$.hori.hideLoading();
-					myScroll.refresh();
-					
-				},
-				"error":function(res){
-					alert(res);
-					$.hori.hideLoading();
-				}
-			});
 		}
 	</script>
 		<style>
@@ -496,10 +371,10 @@
 				</div>
 				<div id="querySearch" align="center" class="ui-grid-b">
 					<div class="ui-block-a">
-						<input id="querysearchKey" type="text" value=""/>
+						<input id="searchKey" type="text" value=""/>
 					</div>
 					<div class="ui-block-b">
-						<a href="#" onclick="querysearchlist()" data-role="button" data-inline="true" data-theme="f" class="ui-btn-corner-all ui-btn-up-c ui-btn-up-f ui-btn ui-btn-inline ui-shadow" style="color: white">搜索</a>
+						<a href="#" onclick="search()" data-role="button" data-inline="true" data-theme="f" class="ui-btn-corner-all ui-btn-up-c ui-btn-up-f ui-btn ui-btn-inline ui-shadow" style="color: white">搜索</a>
 					</div>
 					<div class="ui-block-c">
 					</div>
@@ -517,10 +392,10 @@
 				</div>
 				<div id="signSearch" align="center" class="ui-grid-b" style="display:none">
 					<div class="ui-block-a">
-						<input id="signsearchKey" type="text" value=""/>
+						<input id="searchKey" type="text" value=""/>
 					</div>
 					<div class="ui-block-b">
-						<a href="#" onclick="signsearchlist()" data-role="button" data-inline="true" data-theme="f" class="ui-btn-corner-all ui-btn-up-c ui-btn-up-f ui-btn ui-btn-inline ui-shadow" style="color: white">搜索</a>
+						<a href="#" onclick="search()" data-role="button" data-inline="true" data-theme="f" class="ui-btn-corner-all ui-btn-up-c ui-btn-up-f ui-btn ui-btn-inline ui-shadow" style="color: white">搜索</a>
 					</div>
 					<div class="ui-block-c">
 					</div>

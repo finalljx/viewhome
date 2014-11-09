@@ -14,7 +14,6 @@
 	<xsl:variable name="dbPath">
 		<xsl:value-of select="//input[@name='dbpath' or @name='dbPath' or @name='dbPath1']/@value" />
 	</xsl:variable>
-
 	<xsl:template match="/">
 		<html lang="zh_cn">
 			<head>
@@ -32,7 +31,6 @@
 						<style>.ui-dialog .ui-header .ui-btn-icon-notext { display:none;} </style>
 						<h1>请确认提交信息</h1>
 					</div>
-
 					<div id="faqdiv" style="display:none;min-height:300px;" class="ui-overlay-shadow ui-corner-bottom ui-body-c">
 						<ul id="userselect" data-role="listview" data-inset="true">
 						
@@ -431,16 +429,16 @@
 				</li>
 			</xsl:when>
 			<xsl:when test="contains(.,'请选择会签审批人')">
-				<li data-role="fieldcontain" style="{./@style}" id="trSelectUser">
-					<fieldset data-role="controlgroup" data-type="horizontal">
-						<legend>请选择会签审批人:</legend>
-						<textarea id="forshowcheck" name="forshowcheck"></textarea>
-						<input type="hidden" id="fldXyspr" name="fldXyspr" value="" readonly="true"  data-inline="true"/>
-						<a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/doctest/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10')" data-role="button" data-inline="true" data-theme="b">选人员</a>
+				<!-- <li data-role="fieldcontain" style="{./@style}" id="trSelectUser">
+					<fieldset data-role="controlgroup" data-type="horizontal"> -->
+						<!-- <legend>请选择会签审批人:</legend>
+						<textarea id="forshowcheck" name="forshowcheck"></textarea> -->
+						<!-- <input type="hidden" id="fldXyspr" name="fldXyspr" value="" readonly="true"  data-inline="true"/> -->
+						<!-- <a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/doctest/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10')" data-role="button" data-inline="true" data-theme="b">选人员</a> -->
 						<!-- <a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/doctest/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10')" data-role="button" data-inline="true" data-theme="b">选角色</a> -->
-						<input id="fldXyspr" name="fldXyspr" type="hidden" value="{//input[@name='fldXyspr']/@value}"/>
+						<!-- <input id="fldXyspr" name="fldXyspr" type="hidden" value="{//input[@name='fldXyspr']/@value}"/>
 					</fieldset>
-				</li>
+				</li> -->
 			</xsl:when>
 			<xsl:when test="contains(.,'会 签　规 则')">
 				<li data-role="fieldcontain" style="{./@style}" id="{./@id}">
