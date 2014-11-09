@@ -6,24 +6,27 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0">
 
-<link href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" rel="stylesheet"></link>
-<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
+<link
+	href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css"
+	rel="stylesheet" />
 <link href="../lib/jquery-mobile/jquery-mobile-fluid960.css"
-	rel="stylesheet"></link>
+	rel="stylesheet" />
+<link href="../lib/app/home/css/home.css" rel="stylesheet" />
 <script type="application/javascript" src="../assets/iscroll.js"></script>
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/jquery-cookie/jquery.cookie.js"></script>
 <script src="../lib/encrypt/encrypt.js"></script>
 <script src="../lib/json/json2.js"></script>
 <script src="../lib/hori/hori.js?tag=21369"></script>
-<script src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
+<script
+	src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
 <script src="../lib/knockout/knockout.js"></script>
 <script src="../lib/knockout/knockout.mapping.js"></script>
-<script src="../lib/swiper/idangerous.swiper.min.js"></script>
-<script src="../lib/app/home/news.js"></script>
+<script src="../lib/app/home/app.js"></script>
 <script src="../lib/app/home/tabChange.js"></script>
 <script src="../config/web/config.js"></script>
 <script src="asset/js/echarts-plain-original.js"></script>
+<<<<<<< HEAD
 	<script type="text/javascript" src="asset/js/echartsHome.js"></script>
 	<script src="asset/js/bootstrap.min.js"></script>
 	<script src="asset/js/echartsExample.js"></script>
@@ -315,51 +318,35 @@ sul.style.height=h+"px";
 }
 </script>
 
+=======
+<script type="text/javascript" src="asset/js/echartsHome.js"></script>
+<script src="asset/js/bootstrap.min.js"></script>
+<script src="asset/js/echartsExample.js"></script>
+>>>>>>> 0dd324bc09331ac192002ad1dfc94cf0c310c701
 </head>
-<body class="ui-mobile-viewport ui-overlay-c" style="overflow-y: hidden; ">
-	<div class="container_12" style="width:100%;">
-		<div class="grid_2" >
+<body class="ui-mobile-viewport ui-overlay-c"
+	style="overflow-y: hidden;">
+	<div class="container_12" style="width: 100%;">
+		<div class="grid_2">
 			<ul data-inset="true" id="ul"
 				class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
-				<li data-corners="false" data-shadow="false" 
-					data-wrapperels="div" 
+				<li data-corners="false" data-shadow="false" data-wrapperels="div"
 					data-theme="c"
 					class="ui-btn 
-					ui-li-has-arrow ui-li ui-first-child ui-btn-hover-c"><div
+                    ui-li-has-arrow ui-li ui-first-child ui-btn-hover-c"><div
 						class="ui-btn-inner ui-li">
-						<div class="ui-btn-text" style="text-align:center;">
-							<a onclick="loadMiddleContent()" class="ui-link-inherit"><img src="../assets/home/mail.png" width="100px" height="80px"/></a>
-						<br><span>新闻</span>
+						<div class="ui-btn-text left_module" style="text-align: center;">
+							<a onclick="loadMiddleContent()" class="ui-link-inherit"><img
+								src="../assets/home/sy.png" class="icon" /></a> <br> <span>首页</span>
 						</div>
 					</div></li>
 				<li data-corners="false" data-shadow="false" data-iconshadow="true"
 					data-wrapperels="div" data-icon="arrow-r" data-iconpos="right"
-					data-theme="c"
-					class="ui-btn  ui-li-has-arrow ui-li ui-btn-up-c"><div
+					data-theme="c" class="ui-btn  ui-li-has-arrow ui-li ui-btn-up-c"><div
 						class="ui-btn-inner ui-li">
-						<div class="ui-btn-text" style="text-align:center;">
-							<a onclick="loadTask()" class="ui-link-inherit"><img src="../assets/home/news.png" width="100px" height="80px"/></a>
-							<br><span>代办</span>
-						</div>
-					</div></li>
-				<li data-corners="false" data-shadow="false" data-iconshadow="true"
-					data-wrapperels="div" data-icon="arrow-r" data-iconpos="right"
-					data-theme="c"
-					class="ui-btn ui-btn-up-c  ui-li-has-arrow ui-li"><div
-						class="ui-btn-inner ui-li">
-						<div class="ui-btn-text" style="text-align:center;">
-							<a onclick="loadMiddleBIContent()" class="ui-link-inherit"><img src="../assets/home/bi.png" width="100px" height="80px"/></a>
-							<br><span>bi图表</span>
-						</div>
-					</div></li>
-				<li data-corners="false" data-shadow="false" data-iconshadow="true"
-					data-wrapperels="div" data-icon="arrow-r" data-iconpos="right"
-					data-theme="c"
-					class="ui-btn ui-btn-up-c  ui-li-has-arrow ui-li"><div
-						class="ui-btn-inner ui-li">
-						<div class="ui-btn-text" style="text-align:center;">
-							<a href="#" onClick="loadAqscList()" class="ui-link-inherit"><img src="../assets/home/news.png" width="100px" height="80px" /></a>
-							<br><span>安全生产值班表</span>
+						<div class="ui-btn-text  left_module" style="text-align: center;">
+							<a onclick="loadTask()" class="ui-link-inherit"><img
+								src="../assets/home/gwdb.png" class="icon" /></a> <br> <span>公文待办</span>
 						</div>
 					</div></li>
 				<li data-corners="false" data-shadow="false" data-iconshadow="true"
@@ -367,39 +354,76 @@ sul.style.height=h+"px";
 					data-theme="c"
 					class="ui-btn ui-btn-up-c  ui-li-has-arrow ui-li ui-last-child"><div
 						class="ui-btn-inner ui-li">
-						<div class="ui-btn-text" style="text-align:center;">
-							<a onclick="loadqueryList()" href="#" class="ui-link-inherit"><img src="../assets/home/news.png" width="100px" height="80px"/></a>
-							<br><span>请示查阅</span>
+						<div class="ui-btn-text  left_module" style="text-align: center;">
+							<a onclick="loadqueryList()" href="#" class="ui-link-inherit"><img
+								src="../assets/home/gwcy.png" class="icon" /></a> <br> <span>公文查阅</span>
 						</div>
 					</div></li>
+				<li data-corners="false" data-shadow="false" data-iconshadow="true"
+					data-wrapperels="div" data-icon="arrow-r" data-iconpos="right"
+					data-theme="c" class="ui-btn ui-btn-up-c  ui-li-has-arrow ui-li"><div
+						class="ui-btn-inner ui-li">
+						<div class="ui-btn-text  left_module" style="text-align: center;">
+							<a onclick="loadMiddleBIContent()" class="ui-link-inherit"><img
+								src="../assets/home/jysj.png" class="icon" /></a> <br> <span>经营数据</span>
+						</div>
+					</div></li>
+				<li data-corners="false" data-shadow="false" data-iconshadow="true"
+					data-wrapperels="div" data-icon="arrow-r" data-iconpos="right"
+					data-theme="c" class="ui-btn ui-btn-up-c  ui-li-has-arrow ui-li"><div
+						class="ui-btn-inner ui-li">
+						<div class="ui-btn-text  left_module" style="text-align: center;">
+							<a href="#" onClick="loadAqscList()" class="ui-link-inherit"><img
+								src="../assets/home/aqsc.png" class="icon" /></a> <br> <span>安全生产</span>
+						</div>
+					</div></li>
+				<li data-corners="false" data-shadow="false" data-iconshadow="true"
+					data-wrapperels="div" data-icon="arrow-r" data-iconpos="right"
+					data-theme="c" class="ui-btn ui-btn-up-c  ui-li-has-arrow ui-li"><div
+						class="ui-btn-inner ui-li">
+						<div class="ui-btn-text  left_module" style="text-align: center;">
+							<a href="#" onClick="loadDzqkList()" class="ui-link-inherit"><img
+								src="../assets/home/dzqk.png" class="icon" /></a> <br> <span>电子期刊</span>
+						</div>
+					</div></li>
+
 			</ul>
 		</div>
-	<div id="tabbox">
-		<div style="align:center;">
-		<ul class="tabs" id="tabs" style="-webkit-padding-start: 0px;border-bottom: 1px  #ededed; ">
-			<li><a
-				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('tpxw')">图片新闻</a></li>
-			<li><a
-				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('jttz')">通知公告</a></li>
-			<li><a
-				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('jtxw')">集团新闻</a></li>
-			<li><a
-				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('zgsxw')">成员单位新闻</a></li>
-				<li><a
-				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('zgsxw')">聘免公告</a></li>
-				<li><a
-				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('zgsxw')">科技动态</a></li>
-				<li><a
-				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('zgsxw')">政策法规资讯</a></li>
-				<li><a
-				style="text-decoration: none; color: #000; font-size: 14px;" onclick="changelb('zgsxw')">成员单位新闻</a></li>
-			
-		</ul>
+		<div id="tabbox">
+			<div style="align: center;">
+				<ul class="tabs" id="tabs"
+					style="-webkit-padding-start: 0px; border-bottom: 1px #ededed;">
+					<li><a
+						style="text-decoration: none; color: #000; font-size: 14px;"
+						onclick="changelb('tpxw')">图片新闻</a></li>
+					<li><a
+						style="text-decoration: none; color: #000; font-size: 14px;"
+						onclick="changelb('jttz')">集团通知</a></li>
+					<li><a
+						style="text-decoration: none; color: #000; font-size: 14px;"
+						onclick="changelb('jtxw')">集团新闻</a></li>
+					<li><a
+						style="text-decoration: none; color: #000; font-size: 14px;"
+						onclick="changelb('zgsxw')">成员单位新闻</a></li>
+					<li><a
+						style="text-decoration: none; color: #000; font-size: 14px;"
+						onclick="changelb('pmgg')">聘免公告</a></li>
+					<li><a
+						style="text-decoration: none; color: #000; font-size: 14px;"
+						onclick="changelb('kjdt')">科技动态</a></li>
+					<li><a
+						style="text-decoration: none; color: #000; font-size: 14px;"
+						onclick="changelb('aqsc')">安全环保</a></li>
+					<li><a
+						style="text-decoration: none; color: #000; font-size: 14px;"
+						onclick="changelb('zcfg')">政策法规</a></li>
+
+				</ul>
+			</div>
 		</div>
-	</div> 
-		<div class="grid_5" id="middleContent" >正在加载中...</div>
-		<div class="grid_5" id="rightContent" >正在加载中...</div>
+		<div class="grid_5" id="middleContent">正在加载中...</div>
+		<div class="grid_5" id="rightContent">正在加载中...</div>
 	</div>
-	
+
 </body>
 </html>
