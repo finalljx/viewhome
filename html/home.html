@@ -57,7 +57,7 @@
 	//请示查阅
 	function loadqueryList() {
 		localStorage.setItem("click", "1");
-		localStorage.setItem("addmore", "no");
+		localStorage.setItem("searchVal", "no");
 		$.hori.showLoading();
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl
 				+ 'viewhome/html/queryList.html');

@@ -22,31 +22,26 @@
 		if(actionNode!=null){
 			formAction=actionNode.getStringValue();
 		}
-		System.out.println("aaaaasss"+formAction);
-		if(formAction.contains("pkmslogin.form")){
-			System.out.println("aaaaa");
-		}
+		System.out.println("==========================="+formAction);
+		
 		Node loginCodeNode = doc.selectSingleNode("//logincode/text()");
 		String loginCode="";
 		if(loginCodeNode!=null){
 			loginCode=loginCodeNode.getStringValue();
 		}
+		System.out.println("==========================="+loginCode);
 		if(loginCode.equals("9")){
 			json.put("success", false);
 			json.put("msg","用户超出授权数量,请联系管理员。");
 		}else if(loginCode.equals("8")){
 			json.put("success", false);
-			json.put("msg","业务系统认证失败,请确认用户名密码是否正确");
-		}
-		else if(loginCode.equals("10")){
+			json.put("msg","用户名和密码错误！");
+		}else if(loginCode.equals("10")){
 			json.put("success", false);
 			json.put("msg","用户超出设备邦定数量,请联系管理员。");
 		}else if(loginCode.equals("7")){
 			json.put("success", false);
 			json.put("msg","用户未被授权访问系统,请联系管理员。");
-		}else if(doc.selectSingleNode("//statuscode/text()").getStringValue().equals("400")){
-			json.put("success", false);
-			json.put("msg","业务系统异常,请联系管理员。");
 		}else if(formAction.contains("pkmslogin.form")){
 			json.put("success", false);
 			json.put("msg","用户名和密码错误！");
