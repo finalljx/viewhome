@@ -184,9 +184,20 @@ a {
 					}
 				});
 	}
-
+	var t1 = null;//这个设置为全局
 	//跳转新闻详情页
 	function showDetail(item, moreCurrentName) {
+		if (t1 == null){
+	        t1 = new Date().getTime();
+	    }else{       
+	        var t2 = new Date().getTime();
+	        if(t2 - t1 < 500){
+	            t1 = t2;
+	            return;
+	        }else{
+	            t1 = t2;
+	        }
+	    }
 		var contentName = item.contentName();
 		localStorage.setItem("currentContentName", contentName);
 		localStorage.setItem("moreCurrentName", "GT_HomePage_SiteArea_tpxw");
