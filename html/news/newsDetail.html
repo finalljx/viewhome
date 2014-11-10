@@ -82,9 +82,9 @@ p {
 			"type" : "post",
 			"url" : url,
 			"data" : data,
-			"headers" : {
-				"Authorization" : "Basic d3BzYWRtaW46R1RBZG1pbg=="
-			},
+// 			"headers" : {
+// 				"Authorization" : "Basic d3BzYWRtaW46R1RBZG1pbg=="
+// 			},
 			"success" : function(res) {
 				var widthImg=document.documentElement.clientWidth*0.8;
 				var url=$.hori.getconfig().appServerHost+"view/oa/file";
@@ -133,8 +133,7 @@ p {
 		//重置ID
 	}
 	function viewfile(item){
-		var cookie_userstore = localStorage.getItem("cookie_userstore");
-		var url=item.attachmentSource()+"&data-convert=office";
+		var url=item.attachmentSource()+"&data-convert=office&data-basic-auth-u=wpsadmin&data-basic-auth-p=GTAdmin";
 		url=url.replace(/\&amp;/g,"&");
 		localStorage.setItem("attachmentUrl",url);
 		alert(url);
