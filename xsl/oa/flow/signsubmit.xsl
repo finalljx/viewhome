@@ -157,7 +157,7 @@
 									</ul>
 									<div class="ui-grid-a">
 										<div class="ui-block-a">
-											<button type="submit" data-theme="f" name="$$querysaveagent" value="submitConfirm">确定1</button>
+											<button type="submit" data-theme="f" name="$$querysaveagent" value="submitConfirm">确定</button>
 										</div>
 										<div class="ui-block-b">
 											<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">取消</a>
@@ -197,7 +197,7 @@
 									</ul>
 									<div class="ui-grid-a">
 										<div class="ui-block-a">
-											<button type="submit" data-theme="f" name="$$querysaveagent" value="agtFlowDeny">确定2</button>
+											<button type="submit" data-theme="f" name="$$querysaveagent" value="agtFlowDeny">确定</button>
 										</div>
 										<div class="ui-block-b">
 											<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">取消</a>
@@ -234,7 +234,7 @@
 												<div class="ui-block-a">
 												</div>
 												<div class="ui-block-b">
-													<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">确定3</a>
+													<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">确定</a>
 												</div>
 											</div>
 											<script>
@@ -262,7 +262,7 @@
 											</ul>
 											<div class="ui-grid-a">
 												<div class="ui-block-a">
-													<button type="submit" data-theme="f" name="$$querysaveagent" value="agSaveSelBranch">确定4</button>
+													<button type="submit" data-theme="f" name="$$querysaveagent" value="agSaveSelBranch">确定</button>
 												</div>
 												<div class="ui-block-b">
 													<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">取消</a>
@@ -465,7 +465,7 @@
 								<input type="hidden" name="selectedYjNum" value=""/>
 								<input type="hidden" name="selectedYjtocld" value=""/>
 								<!-- <a href="javascript:void(0)" onclick="clearperson();" style="margin-left:30px;" data-role="button" data-inline="true">清空</a> -->
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/doctest/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10')" data-role="button" data-inline="true" data-theme="b">选人2
+								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/doctest/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10')" data-role="button" data-inline="true" data-theme="b">选　人
 								</a>
 							</fieldset>
 							
@@ -478,7 +478,7 @@
 								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
 								<input type="hidden" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
 								<!--<a href="javascript:void(0)" style="margin-left:30px;" onclick="clearperson();" data-role="button" data-inline="true">清空</a> -->
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/doctest/{$dbpath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}')" data-role="button" data-inline="true" data-theme="b">选人1</a>
+								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/doctest/{$dbpath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}')" data-role="button" data-inline="true" data-theme="b">选　人</a>
 							</fieldset>
 						</li>
 					</xsl:when>

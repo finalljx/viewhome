@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <viewers>
+   <!--  登陆向导密码重置 -->
+	<viewer id="forgetwd" type="remote" source="http://10.1.31.181:9080" 	encoding="GB2312">
+			<view id="loginvalidate1" template="login/loginValidate.jsp"	encoding="GB2312" />
+			<view id="loginvalidate2" template="login/loginValidate.jsp"	encoding="GB2312" />
+	</viewer>
 	<viewer id="oa" type="remote" source="http://webseal.genertec.com.cn" 	encoding="utf-8">
 		<!-- 登陆验证 $.hori.backPage(1)-->
 		<view id="loginvalidate" template="login/loginValidate.jsp"	encoding="utf-8" />
@@ -307,7 +312,7 @@
 		<view id="file" template="file.jsp" />
         <rule mode="replace" regex="&#160;" value=" " />
 	</viewer>
-	<viewer id="guide" type="remote" source="http://10.1.31.181:9080/getUserinfo" encoding="gb2312">
+	<viewer id="guide" type="remote" source="http://10.1.31.181:9080" encoding="gb2312">
 	    <view id="getCaptcha" template="guide/guide.jsp" />
 	    <view id="getInfo" template="guide/guide.jsp" />
 	    <view id="updateMo" template="guide/guide.jsp" />

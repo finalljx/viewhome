@@ -113,6 +113,10 @@ p {
 					var dataData = new Object();
 					var list = new Array();
 					for (var i = 0; i < dataArrayName.length; i++) {
+						var cut=dataArrayName[i].split(".")[1];
+						if(cut!="doc"&cut!="xls"&cut!="ppt"&cut!="pdf"&cut!="txt"){
+							dataArraySource[i]="aa";
+						}
 						var item = new Object();
 						item.attachment = dataArrayName[i];
 						item.attachmentSource = dataArraySource[i];
@@ -134,9 +138,11 @@ p {
 	}
 	function viewfile(item){
 		var url=item.attachmentSource()+"&data-convert=office&data-basic-auth-u=wpsadmin&data-basic-auth-p=GTAdmin";
+// 		if(item.attachmentSource()=="aa"){
+// 			alert("系统不能打开此文件！");return;
+// 		}
 		url=url.replace(/\&amp;/g,"&");
 		localStorage.setItem("attachmentUrl",url);
-		alert(url);
 		$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
 	}
 	

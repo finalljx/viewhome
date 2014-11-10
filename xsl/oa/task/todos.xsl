@@ -7,7 +7,7 @@
 	<xsl:output method="html" indent="yes"/>
 	<xsl:template match="/">
 			<xsl:if test="count(//div[@id='viewValue']//table/tbody/tr[position()&gt;1])=0">
-				<li name="nodata">
+				<li name="nodata" class="ui-li-static ui-body-inherit ui-first-child ui-last-child">
 					<div style="width:100%;" align="center"><h3>无内容</h3></div>
 				</li>
 			</xsl:if>
