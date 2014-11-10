@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <viewers>
-	<viewer id="oa" type="remote" source="http://webseal.genertec.com.cn" 	encoding="gb2312">
-		<!-- 登陆验证 -->
+	<!--  登陆向导密码重置 -->
+	<viewer id="forgetwd" type="remote" source="http://10.1.31.181:9080" 	encoding="GB2312">
+			<view id="loginvalidate1" template="login/loginValidate.jsp"	encoding="GB2312" />
+			<view id="loginvalidate2" template="login/loginValidate.jsp"	encoding="GB2312" />
+	</viewer>
+	<viewer id="guide" type="remote" source="http://10.1.31.181:9080" encoding="gb2312">
+	    <view id="getCaptcha" template="guide/guide.jsp" />
+	    <view id="getInfo" template="guide/guide.jsp" />
+	    <view id="updateMo" template="guide/guide.jsp" />
+	</viewer>
+	<viewer id="oa" type="remote" source="http://webseal.genertec.com.cn" 	encoding="utf-8">
+		<!-- 登陆验证 $.hori.backPage(1)-->
 		<view id="loginvalidate" template="login/loginValidate.jsp"	encoding="utf-8" />
 		<view id="loginOut" template="login/loginOut.jsp"	encoding="gb2312" />
 		<view id="loginOut2" template="login/loginOut.jsp"	encoding="utf-8" />
@@ -270,7 +280,7 @@
 	    </view>
 	    
 	</viewer>
-	<viewer id="news" type="remote" source="http://docapp.genertec.com.cn"  encoding="gb2312">
+	<viewer id="news" type="remote" source="http://webseal.genertec.com.cn"  encoding="gb2312">
         <view id="newsList" template="news/newsList.jsp" encoding="UTF-8" />
         <view id="newsDetail" template="news/newsDetail.jsp" encoding="UTF-8" >
         <rule mode="replace" regex="&#160;" value=" " />
