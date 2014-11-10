@@ -115,7 +115,7 @@ p {
 					for (var i = 0; i < dataArrayName.length; i++) {
 						var cut=dataArrayName[i].split(".")[1];
 						if(cut!="doc"&cut!="xls"&cut!="ppt"&cut!="pdf"&cut!="txt"){
-							dataArraySource[i]="aa";
+							dataArraySource[i]="noSupport";
 						}
 						var item = new Object();
 						item.attachment = dataArrayName[i];
@@ -137,7 +137,7 @@ p {
 		//重置ID
 	}
 	function viewfile(item){
-		if(item.attachmentSource()=="aa"){
+		if(item.attachmentSource()=="noSupport"){
 			alert("系统不能打开此文件！");return;
 		}
 		var cookie_userstore = localStorage.getItem("cookie_userstore");
