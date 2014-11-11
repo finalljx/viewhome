@@ -17,36 +17,93 @@
 <script src="../lib/encrypt/encrypt.js"></script>
 <script src="../lib/json/json2.js"></script>
 <script src="../lib/hori/hori.js?tag=21369"></script>
+<script src="../lib/arttemplate/template.js"></script>
 <script
 	src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
-<script src="../lib/knockout/knockout.js"></script>
-<script src="../lib/knockout/knockout.mapping.js"></script>
-<script src="../lib/swiper/idangerous.swiper.min.js"></script>
-<script src="../lib/app/home/news.js"></script>
-<script src="../lib/app/home/tabChange.js"></script>
 <script src="../config/web/config.js"></script>
-<script src="asset/js/echarts-plain-original.js"></script>
-<script type="text/javascript" src="asset/js/echartsHome.js"></script>
-<script src="asset/js/bootstrap.min.js"></script>
-<script src="asset/js/echartsExample.js"></script>
+
+<script>
+	function doSearch() {
+		$.hori.showLoading();
+		try {
+			var skey = $("#searchKey").val();
+			
+			 if(skey == null || skey.length == 0){
+				alert("关键词不能为空！");
+				return;
+			} 
+			if(skey != null){
+			//skey = encodeURI(skey);
+			var random = new Date().getTime();
+			var cookie_userstore = localStorage.getItem("cookie_userstore");
+			var url = $.hori.getconfig().appServerHost
+					+ "view/safety/watchList/Application/Safety/SafetyProBasic.nsf/SearchHolidayDutyForMobile?open";
+			url = url + "&data-random=" + random + "&data-result=text";}
+		} catch (e) {
+		}
+		var data = 'key=' + skey;
+
+		$.hori.ajax({
+			"type" : "post",
+			"url" : url,
+			"data" : data,
+			"success" : function(res) {
+				var jsonData = new Object();
+				var dataObj = JSON.parse(res);
+				//json {"data":[{"DeptID":"1351","Date":"2013-12-23","StPsnCN":"史海","Dept":"中国仪器进出口(集团)公司","Holiday":"元旦"}]}
+				if (dataObj.flag) {
+					var html = template('watchlist', dataObj);
+					$("#listContent").html(html);
+				} else {
+					alert(dataObj.flagMessage);
+				}
+				$.hori.hideLoading();
+			},
+			"error" : function(res) {
+				alert(res);
+				$.hori.hideLoading();
+			}
+		})
+	}
+	var t1 = null;//这个设置为全局
+	
+	//跳转到详情页面
+	 function loadListDetails(aElement) {
+        	if (t1 == null){
+                t1 = new Date().getTime();
+            }else{       
+                var t2 = new Date().getTime();
+                if(t2 - t1 < 500){
+                    t1 = t2;
+                    return;
+                }else{
+                    t1 = t2;
+                }
+            }
+            $.hori.showLoading();
+            var docunid=$(aElement).data("docunid");
+            localStorage.setItem("watchDocUnid",docunid);
+            //$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/listDetails_cbn.html');
+            
+            $("#rightContent").load("listDetailsForAQSC.html", function(a, b, c) {
+        	});
+        }
+</script>
 
 </head>
 <style>
-#wrapper {
-	position: fixed;
-	top: 55px;;
-	bottom: 48px;
-	width: 100%;
-}
 </style>
 <body>
+
 	<div style="margin-left: 15px;">
 		<table>
 			<tr>
-				<td width="95%" height="20px"><input type="text" value="" /></td>
+				<td width="95%" height="20px"><input id="searchKey" type="text"
+					value="中国邮电" /></td>
 				<td><a href="#search" data-role="button" data-inline="true"
-					data-rel="dialog" data-corners="true" data-shadow="true"
-					data-iconshadow="true" data-wrapperels="span" data-theme="f"
+					onclick="doSearch()" data-rel="dialog" data-corners="true"
+					data-shadow="true" data-iconshadow="true" data-wrapperels="span"
+					data-theme="f"
 					class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c ui-btn-up-f">
 						<span class="ui-btn-inner" style="width: 45px; height: 20px;"><span
 							class="ui-btn-text" style="color: white">搜索</span></span>
@@ -55,77 +112,26 @@
 		</table>
 	</div>
 
-	<div id="wrapper">
-		<ul id="querydataList" data-role="listview" data-inset="true">
-			<li data-icon="false"><a>
-					<h3 style="white-space: normal;">
-						<span>aseaaaaaaa</span>
-					</h3>
+	<div data-role="content" id="listContent"></div>
 
-			</a></li>
 
-			<li data-icon="false"><a>
-					<h3 style="white-space: normal;">
-						<span>aseaaaaaaa</span>
-					</h3>
-			</a></li>
 
-			<li data-icon="false"><a>
-					<h3 style="white-space: normal;">
-						<span>aseaaaaaaa</span>
-					</h3>
-			</a></li>
 
-			<li data-icon="false"><a>
-					<h3 style="white-space: normal;">
-						<span>aseaaaaaaa</span>
-					</h3>
-			</a></li>
-
-			<li data-icon="false"><a>
-					<h3 style="white-space: normal;">
-						<span>aseaaaaaaa</span>
-					</h3>
-			</a></li>
-
-			<li data-icon="false"><a>
-					<h3 style="white-space: normal;">
-						<span>aseaaaaaaa</span>
-					</h3>
-			</a></li>
-
-			<li data-icon="false"><a>
-					<h3 style="white-space: normal;">
-						<span>aseaaaaaaa</span>
-					</h3>
-			</a></li>
-
-			<li data-icon="false"><a>
-					<h3 style="white-space: normal;">
-						<span>aseaaaaaaa</span>
-					</h3>
-			</a></li>
-
-			<li data-icon="false"><a>
-					<h3 style="white-space: normal;">
-						<span>aseaaaaaaa</span>
-					</h3>
-			</a></li>
-
-			<li data-icon="false"><a>
-					<h3 style="white-space: normal;">
-						<span>aseaaaaaaa</span>
-					</h3>
-			</a></li>
-
-			<li data-icon="false"><a>
-					<h3 style="white-space: normal;">
-						<span>aseaaaaaaa</span>
-					</h3>
-			</a></li>
-
+	<script id="watchlist" type="text/html">
+		<ul  data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+			{{each data as rowObj i}}
+			<li href="#" data-icon="false" class="ui-first-child ui-last-child">
+				<a href="javascript:void(0)" data-docunid='{{rowObj["docunid"]}}' onclick="loadListDetails(this)" class="ui-btn">
+					<h3 style="white-space: normal;"><span>{{rowObj["Dept"]}}</span></h3>
+					<p style="font-size: 14px;line-height: 2em;"> 
+						序号：<font color="#0080FF"> {{rowObj["DeptID"]}}</font>
+						填报人：<font color="#0080FF"> {{rowObj["StPsnCN"]}}</font><br/>
+						填报日期：<font color="#0080FF">{{rowObj["Date"]}}</font>
+						节日名称：<font color="#0080FF">{{rowObj["Holiday"]}}</font> 
+					</p></a>
+			</li>
+			{{/each}}
 		</ul>
-	</div>
-	</div>
+    </script>
 </body>
 </html>
