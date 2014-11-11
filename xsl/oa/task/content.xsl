@@ -108,6 +108,9 @@
 		.ui-btn-text{text-align: center;}
 		.ui-listview {background:
 		#D61800;}
+		.rightHei { border-right: 1px solid #000000} 
+        .btmHei { border-bottom: 1px solid #000000} 
+        .ztDx { font-size: 16px;} 
 	</style>
 </head>
 <body>
