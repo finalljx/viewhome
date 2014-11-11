@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>移动办公</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+<script type="application/javascript" src="../assets/iscroll.js"></script>
+<link rel="stylesheet"
+	href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" />
+<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
+<script src="../lib/jquery/jquery.min.js"></script>
+<script src="../lib/encrypt/encrypt.js"></script>
+<script src="../lib/json/json2.js"></script>
+<script src="../lib/hori/hori.js?tag=21369"></script>
+<script src="../config/web/config.js"></script>
+<script
+	src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
+<script src="../lib/knockout/knockout.js"></script>
+<script src="../lib/knockout/knockout.mapping.js"></script>
+<style>
+a {
+	text-decoration: none;
+}
+
+.ui-listview .ui-li-has-thumb>img:first-child, .ui-listview .ui-li-has-thumb>.ui-btn>img:first-child,
+	.ui-listview .ui-li-has-thumb .ui-li-thumb {
+	position: absolute;
+	left: 10px;
+	top: auto;
+	bottom: auto;
+	max-width: 5em;
+	max-height: 5em;
+}
+</style>
+<script type="text/javascript">
+	var itcode;
+	$(document).ready(function() {
+		//默认隐藏列表显示
+		itcode = localStorage.getItem("itcode");
+		dzqkAction();
+	});
+	var jsonData = new Object();
+	var viewModel = new Object();
+	var myDate = new Date();
+	var thisYear = myDate.getFullYear();
+	function dzqkAction() {
+		var url = $.hori.getconfig().appServerHost + "/biz/mobile/periodical.jsp?year=" + thisYear;
+		$.hori.ajax({
+			"type" : "post",
+			"url" : url,
+			"headers" : {
+				"Authorization" : "Basic d3BzYWRtaW46R1RBZG1pbg=="
+			},
+			"success" : function(res) {
+				var jsonData = JSON.parse(res);
+				console.log(jsonData);
+				var json = new Object();
+				json.list = jsonData;
+				renderDzqk(json)
+			},
+			"error" : function(res) {
+				alert("error:" + res);
+				$.hori.hideLoading();
+			}
+
+		});
+	}
+	function renderDzqk(json) {
+		console.log(json);
+		viewModel = ko.mapping.fromJS(json);
+		ko.applyBindings(viewModel, document.getElementById("divOne"));
+	}
+</script>
+<style type="text/css">
+#divOne {
+	width: 100%;
+	height: 100%;
+	background-image: url(../assets/dzqk/wood.png);
+	-moz-background-size: 100% 100%;
+	-o-background-size: 100% 100%;
+	background-size: 100% 100%;
+	-moz-border-image: url(../assets/dzqk/wood.png) 0;
+	background-repeat: no-repeat\9;
+	background-image: none\9;
+}
+
+.ban {
+	margin-top:10px;
+	width: 100%;
+	background-color:black;
+	/* background-image: url(../assets/dzqk/background.png); */
+	-moz-background-size: 100% 100%;
+	-o-background-size: 100% 100%;
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	/* -moz-border-image: url(../assets/dzqk/background.png) 0; */
+	background-repeat: no-repeat\9;
+	background-image: none\9;
+}
+</style>
+</head>
+<body>
+	<div data-role="content" align="center">
+		<div class="ui-grid-b" id="divOne">
+			<div data-bind="foreach: list" style="width: 100%;height:100%;">
+				<div class="ui-block-b divxs" style="margin: 20px; width:250px;z-index:999;">
+					<a href="javascript:void(0);"> <img
+						class="imgToDo module-icon" src="../assets/dzqk/1.png" width=230
+						height=300> 
+					</a>
+				<div style=" z-index:2"><img alt="" src="../assets/dzqk/background.png" style="width: 290px;height: 80px;"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
