@@ -43,46 +43,36 @@
 		$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
 	}
 	
-	function submit(value){
-		var sel = $("#fldAttitude").val();
-		/*if(sel == null || sel==""){
-			alert('请填写您的意见');
-			return ;
-		}**/
-		//提交
-		if(value=="reject"){
-			var question = window.confirm("确定驳回吗?"); 
-		}else if(value=="submit"){
-			var question = window.confirm("确定提交吗?"); 
-		}else if(value=="fankui"){
-			var question = window.confirm("确定提交部门反馈吗?"); 
-		}
-		if(question){
-			post(value);
-		}
+	function signsubmit(value){
+		postForm(value);
 	}
-	function receive(val){
-		if(val=="receive"){
-			var question = window.confirm("确定接受吗?");
-		}
-		if(question){
-			post(val);
-		}
+	function signreceive(val){
+		postForm(val);
 	}
-	function post(type){
-		if(type == "submit"){
+	function postForm(type){
+		//客户端时，服务器通过截取当前url获取cookie_userstore
+		if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)||window.navigator.userAgent.match(/android/i)){
+			var locationurl=window.location.href;
+			var userstorenumber = locationurl.indexOf("data-userstore=");
+			var cookie_userstore= locationurl.substring(userstorenumber+15);
+			localStorage.setItem("cookie_userstore",cookie_userstore);
+			var formAction = $('#form').attr('action')+"&data-userstore="+cookie_userstore;
+			$('#form').attr('action', formAction);
+		}
+		if(type == "signsubmit"){
 			$("#querysaveagent").val("agtFlowDeal");
 			$("#hfldAction").val("huiqian");
 			$("#form").submit();
-		}else if(type=="reject"){
+		}else if(type=="signreject"){
 			$("#querysaveagent").val("agtFlowDeny");
+			$("#hfldAction").val("huiqian");
 			$("#form").submit();
-		}else if(type=="receive"){
+		}else if(type=="signreceive"){
 			$("#querysaveagent").val("agtResponse");
 			$("#fldswlx").val("部门会签");
 			//$("#hfldAction").val("huiqian");
 			$("#form").submit();
-		}else if(type=="fankui"){
+		}else if(type=="signfankui"){
 			$("#querysaveagent").val("agtExecuteAction");
 			$("#hfldAction").val("fankui");
 			$("#form").submit();
@@ -101,17 +91,22 @@
 		<div class="ui-grid-b" style="width: 90%; padding-left: 95px;">
 			<xsl:if test="//div[contains(@onclick, 'fankui')]">
 				<div class="ui-block-a" style="padding-bottom:5px;" align="center">
-					<a data-role="button" value="reject" onclick="submit('fankui');" data-mini='true' data-theme="c">部门反馈</a>
+					<a data-role="button"  onclick="signsubmit('signfankui');" data-mini='true' data-theme="c">部门反馈</a>
 				</div>
 			</xsl:if>
 			<xsl:if test="//div[contains(@onclick, 'agtFlowDeal')]">
 				<div class="ui-block-b" style="padding-bottom:5px;" align="center">
-					<a data-role="button" value="reject" onclick="submit('submit');" data-mini='true' data-theme="c">55提　交</a>
+					<a data-role="button"  onclick="signsubmit('signsubmit');" data-mini='true' data-theme="c">提　交</a>
+				</div>
+			</xsl:if>
+			<xsl:if test="//div[contains(@onclick, 'agtFlowDeny')]">
+				<div class="ui-block-b" style="padding-bottom:5px;" align="center">
+					<a data-role="button"  onclick="signsubmit('signreject');" data-mini='true' data-theme="c">驳 回</a>
 				</div>
 			</xsl:if>
 			<xsl:if test="//div[contains(@onclick, 'agtResponse')]">
 				<div class="ui-block-c" style="padding-bottom:5px;" align="center">
-					<a data-role="button" value="reject" onclick="receive('receive');" data-mini='true' data-theme="c">接  收</a>
+					<a data-role="button"  onclick="signreceive('signreceive');" data-mini='true' data-theme="c">接  收</a>
 				</div>
 			</xsl:if>
 		</div>
