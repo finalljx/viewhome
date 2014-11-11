@@ -131,7 +131,6 @@
 					}else if(searchVal=="yes"){
 						var url=$.hori.getconfig().appServerHost+"view/oa/"+template+dbpath+"/"+view+"?searchview&count=15&query="+searchkey+"&view="+view+"&start="+start;
 					}
-					alert(url);
 					$.hori.ajax({
 						"type":"post",
 						"url":url,
@@ -225,7 +224,6 @@
 					}
 			}})
 			var onlist=localStorage.getItem("click");
-			//alert(onlist);
 			if(onlist=="1"){
 				$("#ui-id-1").click()	
 			}
@@ -233,6 +231,17 @@
 			if(onlist=="2"){
 				$("#ui-id-2").click()	
 			}
+			hori.registerEvent("case", "casePresented", function() {
+				var onlist=localStorage.getItem("click");
+				if(onlist=="1"){
+					$("#ui-id-1").click()	
+				}
+
+				if(onlist=="2"){
+					$("#ui-id-2").click()	
+				}
+			});
+			
 			if(tabid=="queryList"){
 				queryListForType($('#querytype').val());
 			}
@@ -381,9 +390,9 @@
 		function querysearchlist(){
 			var searchkey=$("#querysearchKey").val();
 			localStorage.setItem("searchkey", searchkey);
-			alert(searchkey);
+			//alert(searchkey);
 			var view = $('option:selected', '#querytype').val();
-			alert(view);
+			//alert(view);
 			$.hori.showLoading();
 			Astart=1;Bstart=1;Cstart=1;
 			localStorage.setItem("searchVal", "yes");
@@ -421,9 +430,9 @@
 		function signsearchlist(){
 			var searchkey=$("#signsearchKey").val();
 			localStorage.setItem("searchkey", searchkey);
-			alert(searchkey);
+			//alert(searchkey);
 			var value = $('option:selected', '#signtype').val();
-			alert(value);
+			//alert(value);
 			$.hori.showLoading();
 			dstart=1;estart=1;fstart=1;
 			localStorage.setItem("searchVal", "yes");
@@ -444,7 +453,7 @@
 			}
 			var singdbPath = localStorage.getItem("singdbPath");
 			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/"+view+"?SearchView&count=5&Query="+searchkey+"&view="+view;
-			alert(url);
+			//alert(url);
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
@@ -468,7 +477,7 @@
 			position: fixed;
 			top: 170px;
 			bottom: 48px;
-			width: 95%;
+			width: 90%;
 			overflow: scroll;
 		}
 	</style>
@@ -485,8 +494,8 @@
 				    </ul>
 		      	</div>
 				<div id="queryselect" align="center" class="ui-grid-b">
-						<div class="ui-block-a" style="min-width:10em">
-							<select name="querytype" id="querytype" onChange="queryListForType(this.value)" data-theme="a"  data-native-menu="true">
+						<div class="ui-block-a">
+							<select name="querytype" data-mini="true" id="querytype" onChange="queryListForType(this.value)" data-theme="a"  data-native-menu="true">
 							<option value="vwDocByDate">办理中</option>
 							<option value="vwtoArchive">待归档</option>
 							<option value="vwDocByArchvied">已归档</option>
@@ -495,36 +504,32 @@
 						<div class="ui-block-b"></div>
 						<div class="ui-block-c"></div>
 				</div>
-				<div id="querySearch" align="center" class="ui-grid-b">
-					<div class="ui-block-a">
-						<input id="querysearchKey" type="text" value=""/>
-					</div>
-					<div class="ui-block-b">
-						<a href="#" onclick="querysearchlist()" data-role="button" data-inline="true" data-theme="f" class="ui-btn-corner-all ui-btn-up-c ui-btn-up-f ui-btn ui-btn-inline ui-shadow" style="color: white">搜索</a>
-					</div>
-					<div class="ui-block-c">
-					</div>
+				<div id="querySearch">
+					<table>
+						<tr>
+							<td width="93%" height="20px"><input id="querysearchKey" type="text" value=""/></td>
+							<td><a href="#" onclick="querysearchlist()" data-role="button" data-mini='true' data-theme="f" class="ui-btn-corner-all ui-btn-up-c ui-btn-up-f ui-btn ui-btn-inline ui-shadow" style="color: white">搜索</a></td>
+						</tr>
+					</table>
 				</div>
 				<div id="signselect" align="center" class="ui-grid-b" style="display:none">
 						<div class="ui-block-a"></div>
 						<div class="ui-block-b"></div>
-						<div class="ui-block-c" style="min-width:10em">
-							<select name="signtype" id="signtype" onChange="signListForType(this.value)" data-theme="a"  data-native-menu="true">
+						<div class="ui-block-c">
+							<select name="signtype" data-mini="true" id="signtype" onChange="signListForType(this.value)" data-theme="a"  data-native-menu="true">
 								<option value="doing">办理中</option>
 								<option value="todo">待归档</option>
 								<option value="did">已归档</option>
 							</select>
 						</div>
 				</div>
-				<div id="signSearch" align="center" class="ui-grid-b" style="display:none">
-					<div class="ui-block-a">
-						<input id="signsearchKey" type="text" value=""/>
-					</div>
-					<div class="ui-block-b">
-						<a href="#" onclick="signsearchlist()" data-role="button" data-inline="true" data-theme="f" class="ui-btn-corner-all ui-btn-up-c ui-btn-up-f ui-btn ui-btn-inline ui-shadow" style="color: white">搜索</a>
-					</div>
-					<div class="ui-block-c">
-					</div>
+				<div id="signSearch" style="display:none">
+					<table>
+						<tr>
+							<td width="93%" height="20px"><input id="signsearchKey" type="text" value=""/></td>
+							<td><a href="#" onclick="signsearchlist()" data-role="button" data-inline="true" data-theme="f" class="ui-btn-corner-all ui-btn-up-c ui-btn-up-f ui-btn ui-btn-inline ui-shadow" style="color: white">搜索</a></td>
+						</tr>
+					</table>
 				</div>
 				<div id="wrapper">
 					<div id="scroller">
