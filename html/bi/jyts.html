@@ -47,7 +47,6 @@ a {
 					"data" : data,
 					"success" : function(res) {
 						res = res.replace(/\s\s/g, "</p><p>");
-						console.log(res);
 						var jsonObj = JSON.parse(res);
 						document.getElementById("aa").innerHTML = jsonObj.reportdata.datatext;
 

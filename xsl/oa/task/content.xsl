@@ -23,6 +23,8 @@
 					<link rel="stylesheet" href="/view/lib/jquery-mobile/jquery.mobile.min.css" />
 					<link rel="stylesheet" href="/view/assets/jquery.mobile-sugon.css" />
 					<script src="/view/lib/jquery/jquery.min.js"></script>
+					<script src="/view/lib/encrypt/encrypt.js"></script>
+					<script src="/view/lib/json/json2.js"></script>
 					<script src="/view/lib/hori/hori.js?tag=21369"></script>
 					<script src="/view/lib/jquery-mobile/jquery.mobile.min.js"></script>
 					<script src="/view/config/web/config.js"></script>
@@ -41,52 +43,49 @@
 								var xmlurl ="viewhome/xml/AttachView.xml";
 								$.hori.loadPage(fileurl,xmlurl);
 							}
-							function submit(value){
-								var sel = $("#fldAttitude").val();
-								/* if(sel == null || sel==""){
-									alert('请填写您的意见');
-									return ;
-								} **/
-								//提交
-								if(value=="reject"){
-									var question = window.confirm("确定驳回吗?"); 
-								}else if(value=="submit"){
-									var question = window.confirm("确定提交吗?"); 
-								}else if(value=="save"){
-									var question = window.confirm("确定保存吗?"); 
-								}else if(value=="sign"){
+							function querysubmit(value){
+								var question;
+								if(value=="queryreject"){
+									question = window.confirm("确定驳回吗?"); 
+								}else if(value=="querysubmit"){
+									question = window.confirm("确定提交吗?"); 
+								}else if(value=="querysave"){
+									question = window.confirm("确定保存吗?"); 
+								}else if(value=="querysign"){
 									var huiqiandanwei = $("#huiqiandanwei").val();
 									if(huiqiandanwei==""||huiqiandanwei==null){
 										alert("发起内请时没有选择会签流程，手机端不能处理，请到电脑上处理！");
 										return false;
 									}
-									var question = window.confirm("确定会签吗?"); 
+									question = window.confirm("确定会签吗?"); 
 								}
 								if(question){
-									post(value);
+									postForm(value);
 								}
 							}
 
-							function post(type){
-								$.mobile.loading('show', {  
-									text: '加载中...', //加载器中显示的文字  
-									textVisible: true, //是否显示文字  
-									theme: 'a',        //加载器主题样式a-e
-									textonly: false,   //是否只显示文字
-									html: ""           //要显示的html内容，如图片等
-								});
-								if(type == "submit"){
+							function postForm(type){
+								//客户端时，服务器通过截取当前url获取cookie_userstore
+								if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)||window.navigator.userAgent.match(/android/i)){
+									var locationurl=window.location.href;
+									var userstorenumber = locationurl.indexOf("data-userstore=");
+									var cookie_userstore= locationurl.substring(userstorenumber+15);
+									localStorage.setItem("cookie_userstore",cookie_userstore)
+									var formAction = $('#form').attr('action')+"&data-userstore="+cookie_userstore;
+									$('#form').attr('action', formAction);
+								}
+								if(type == "querysubmit"){
 									$("#querysaveagent").val("agtFlowDeal");
 									$("#form").submit();
-								}else if(type=="reject"){
+								}else if(type=="queryreject"){
 									$("#querysaveagent").val("agtFlowDeny");
 									$("#form").submit();
-								}else if(type=="save"){
+								}else if(type=="querysave"){
 									$("#querysaveagent").val("agtSaveDraftNoExit");
 									$("#form").submit();
 									//document.location.reload();
 									//$.hori.backPage(1)
-								}else if(type=="sign"){
+								}else if(type=="querysign"){
 									$("#querysaveagent").val("agtExecuteAction");
 									$("#hfldAction").val("huiqian");
 									$("#form").submit();
@@ -107,22 +106,22 @@
 								<div class="ui-grid-c">
 									<xsl:if test="//div[contains(@onclick, 'agtFlowDeal')]">
 										<div class="ui-block-a" style="padding-bottom:5px;" align="center">
-											<a data-role="button" value="submit" onclick="submit('submit');" data-mini='true' data-theme="f">提 交</a>
+											<a data-role="button" value="submit" onclick="querysubmit('querysubmit');" data-mini='true' data-theme="f">提 交</a>
 										</div>
 									</xsl:if>
 									<xsl:if test="//div[contains(@onclick, 'agtFlowDeny')]">
 										<div class="ui-block-b" style="padding-bottom:5px;" align="center">
-											<a data-role="button" value="reject" onclick="submit('reject');" data-mini='true' data-theme="f">驳 回</a>
+											<a data-role="button" value="reject" onclick="querysubmit('queryreject');" data-mini='true' data-theme="f">驳 回</a>
 										</div>
 									</xsl:if>
 									<xsl:if test="//div[contains(@onclick, 'huiqian')]">
 										<div class="ui-block-c" style="padding-bottom:5px;" align="center">
-											<a data-role="button" value="oprate" onclick="submit('sign');" data-mini='true' data-theme="f">会 签</a>
+											<a data-role="button" value="oprate" onclick="querysubmit('querysign');" data-mini='true' data-theme="f">会 签</a>
 										</div>
 									</xsl:if>
 									<xsl:if test="//*[@name='fldAttitude']">
 										<div class="ui-block-d" style="padding-bottom:5px;" align="center">
-											<a data-role="button" value="reject" onclick="submit('save');" data-mini='true' data-theme="f">保 存</a>
+											<a data-role="button" value="reject" onclick="querysubmit('querysave');" data-mini='true' data-theme="f">保 存</a>
 										</div>
 									</xsl:if>
 								</div>
@@ -161,11 +160,10 @@
 													<td style="width:30%" align="right">
 														<select onChange='$("#fldAttitude").val(this.value);' data-theme="a" data-mini='true' data-icon="gear" data-native-menu="true">
 															<option selected="unselected">常用语</option>
-															<option value="同意！">同意！</option>
-															<option value="不同意！">不同意！</option>
-															<option value="返回再议。">返回再议。</option>
-															<option value="请尽快处理。">请尽快处理。</option>
-															<option value="请修改后重新提交。">请修改后重新提交。</option>
+															<option value="同意">同意</option>
+															<option value="不同意">不同意</option>
+															<option value="通过">通过</option>
+															<option value="已阅">已阅</option>
 														</select>
 													</td>
 												</tr>

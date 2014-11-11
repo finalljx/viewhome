@@ -1,0 +1,43 @@
+<!DOCTYPE html> 
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<title>在线安装 </title> 
+	
+	<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" />
+<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
+<link rel="stylesheet" href="../lib/app/home/css/home.css">
+<script src="../lib/jquery/jquery.min.js"></script>
+<script src="../lib/jquery-cookie/jquery.cookie.js"></script>
+<script src="../lib/encrypt/encrypt.js"></script>
+<script src="../lib/json/json2.js"></script>
+<script src="../lib/hori/hori.js?tag=21369"></script>
+<script src="../lib/jquery-mobile/jquery.mobile.min.js"></script>
+<script src="../config/web/config.js"></script>
+		<script>
+		$(document).ready(function(){
+			$("#confirm").click(function(){
+				alert("ok");
+			});
+		});
+</script>
+
+</head> 
+<body> 
+
+		<a href="#dialog" id="confirm" class="ui-btn">confirm</a>	
+		
+		<div data-role="page" id="dialog" data-dialog="true">
+        <div data-role="header" data-theme="b">
+		<h1>Dialog</h1>
+		</div>
+        <div role="main" class="ui-content">
+		<h1>Delete page?</h1>
+		<p>确定执行click吗？</p>
+		<a href="#"class="ui-btn ui-shadow ui-corner-all ui-btn-a">Confirm</a>
+		<a href="#" data-rel="back" class="ui-btn ui-shadow ui-corner-all ui-btn-a">Cancel</a>
+</div>
+</div>
+</body>
+</html>
