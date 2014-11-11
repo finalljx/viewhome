@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+
+<title>电子期刊</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+<script type="application/javascript" src="../assets/iscroll.js"></script>
+<link
+	href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css"
+	rel="stylesheet"></link>
+<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
+<script src="../lib/jquery/jquery.min.js"></script>
+<script src="../lib/jquery-cookie/jquery.cookie.js"></script>
+<script src="../lib/json/json2.js"></script>
+<script src="../lib/hori/hori.js?tag=21369"></script>
+<script
+	src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
+
+<script src="../config/web/config.js"></script>
+<script src="../lib/knockout/knockout.js"></script>
+<script src="../lib/knockout/knockout.mapping.js"></script>
+<script type="text/javascript">
+	var jsonData = new Object();
+	$(document).ready(
+			function() {
+				$("#dzqkList").css("display", "none");
+				$.hori.setHeaderTitle("电子期刊");
+				$.hori.showLoading();
+				var Url = $.hori.getconfig().appServerHost
+						+ "/biz/mobile/periodical.jsp";
+				$.hori.ajax({
+					"type" : "get",
+					"url" : Url,
+					"success" : function(res) {
+						$("#dzqkList").css("display", "");
+						$("#divDataLoading").css("display", "none");
+						var list = JSON.parse(res);
+						var file = new Array();
+						for ( var i = 0; i < list.length; i++) {
+							var item = new Object();
+							item.fileName = "通用时代" + list[i].PERYEAR
+									+ "年第" + list[i].PERNUM + "期";
+							item.lianjie = list[i].PERURL;
+							file.push(item);
+						}
+						jsonData.file = file;
+						console.log(jsonData);
+						renderDetail();
+					},
+					"error" : function(res) {
+						$.hori.hideLoading();
+					}
+				});
+
+			});
+    function viewFile(item){
+    	var url=$.hori.getconfig().serverBaseUrl+"view/tpxw/file"+item.lianjie()+"?data-convert=office";
+    	alert(url);
+		localStorage.setItem("attachmentUrl",url);
+		$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
+    	
+    }
+	function renderDetail() {
+		var viewModelDetail = ko.mapping.fromJS(jsonData);
+		console.log(viewModelDetail);
+		ko.applyBindings(viewModelDetail, document.getElementById("dzqkList"));
+	}
+</script>
+</head>
+<body>
+	<div data-role="content" align="center">
+		<div id="divDataLoading">
+			<ul data-role="listview" data-inset="true">
+				<li>数据加载中……</li>
+			</ul>
+		</div>
+		<div>
+			<ul id="dzqkList" data-bind="foreach: file" data-role="listview" class="ui-listview ui-listview-inset ui-corner-all ui-shadow" data-inset="true">
+				<li class="ui-first-child ui-last-child" data-icon="false"><a data-bind="click: viewFile"><p></p> <span data-bind="text: fileName"></span>
+				<p></p>
+				</a></li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>
