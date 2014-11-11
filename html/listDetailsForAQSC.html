@@ -1,0 +1,72 @@
+<html>
+<head>
+    <title>安全生产值班表详情</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0"/>
+    <link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" />
+    <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
+    <script src="../lib/jquery/jquery.min.js"></script>
+    <script src="../lib/encrypt/encrypt.js"></script>
+    <script src="../lib/json/json2.js"></script>
+    <script src="../lib/hori/hori.js?tag=21369"></script>
+    <script src="../config/web/config.js"></script>
+    <script src="../lib/template/template.js"></script>
+    
+    <script>
+    
+    $(document).ready(function(){
+	$.hori.showLoading();
+	$.hori.setHeaderTitle("安全生产值班表详情");
+	var config=$.hori.getconfig();
+	var itcode=localStorage.getItem("itcode");
+    var docunid=localStorage.getItem("watchDocUnid");
+	var oaServerName=localStorage.getItem("oaServerName");
+	var serverUrl=$.hori.getconfig().appServerHost+"view/oa/watchlistInfo";
+	
+	var dataSource="/Produce/DigiFlowMobile.nsf/showform?openform&login&apptype=&appserver=&appdbpath=Application/Safety/SafetyProBasic.nsf&appdocunid="+docunid;
+	var localServer=$.hori.getconfig().serverBaseUrl;
+	serverUrl=serverUrl+dataSource;
+	
+		$.hori.ajax({
+			"type":"post",
+			"url":serverUrl,
+			"data":"",
+			"success":function(htmlStr){
+				htmlStr=htmlStr.replace(/&nbsp;/g," ");
+				alert(htmlStr);
+				$("#rightContent").html(htmlStr);
+// 				$("body").html(htmlStr);
+				//var jqscript=document.createElement("script");
+				//jqscript.src="../lib/jquery-mobile/jquery.mobile.min.js";
+				//$("head").after(jqscript);
+				$.hori.hideLoading();
+			},
+			"error":function(res){
+				$.hori.hideLoading();
+			}
+			});
+    });
+    </script>
+</head>
+<body>
+<div>
+    <ul  data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+        <li data-corners="false" data-shadow="false" data-iconshadow="true"
+            data-wrapperels="div" data-icon="arrow-r" data-iconpos="right"
+            data-theme="c"
+            class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-first-child ui-last-child ui-btn-up-c"><div
+                class="ui-btn-inner ui-li">
+            <div class="ui-btn-text">
+                <a class="ui-link-inherit">
+                    <h3 data-bind="text: title" class="ui-li-heading">数据加载中…………</h3>
+                    <span data-bind="text: taskState"></span>
+                    </p>
+                </a>
+            </div>
+            <span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span>
+        </div>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
