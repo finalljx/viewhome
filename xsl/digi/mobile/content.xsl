@@ -374,15 +374,14 @@
 		<li>
 		<xsl:choose>
 			<xsl:when test="contains($info, ';')">
-		<!--  		<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{functx:left-trim(substring-before($info, '(')}'));"  data-role="button"><xsl:value-of select="substring-before($info, '(')"/></a>-->
+				<!--  <a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{functx:left-trim(substring-before($info, '(')}'));"  data-role="button"><xsl:value-of select="substring-before($info, '(')"/></a>-->
 				<xsl:call-template name="file">
 					<xsl:with-param name="info" select="substring-after($info, ';')"/>
 				</xsl:call-template>
 			</xsl:when>
 
 			<xsl:when test="contains($info, '(')">
-				<!--  <a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{functx:left-trim(substring-before($info, '(')}'));"  data-role="button"><xsl:value-of select="substring-before($info, '(')"/></a>-->
-				
+			<!-- 	<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{functx:left-trim(substring-before($info, '(')}'));"  data-role="button"><xsl:value-of select="substring-before($info, '(')"/></a>-->
 			</xsl:when>
 			<xsl:otherwise>
 				<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{$info}');"  data-role="button"><xsl:value-of select="$info"/></a>
