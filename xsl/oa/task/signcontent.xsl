@@ -43,30 +43,10 @@
 							}
 							
 							function signsubmit(value){
-								var sel = $("#fldAttitude").val();
-								/*if(sel == null || sel==""){
-									alert('请填写您的意见');
-									return ;
-								}**/
-								//提交
-								if(value=="signreject"){
-									var question = window.confirm("确定驳回吗?"); 
-								}else if(value=="signsubmit"){
-									var question = window.confirm("确定提交吗?"); 
-								}else if(value=="signfankui"){
-									var question = window.confirm("确定提交部门反馈吗?"); 
-								}
-								if(question){
-									postForm(value);
-								}
+								postForm(value);
 							}
 							function signreceive(val){
-								if(val=="signreceive"){
-									var question = window.confirm("确定接受吗?");
-								}
-								if(question){
-									postForm(val);
-								}
+								postForm(val);
 							}
 							function postForm(type){
 								//客户端时，服务器通过截取当前url获取cookie_userstore
@@ -117,7 +97,7 @@
 									</xsl:if>
 									<xsl:if test="//div[contains(@onclick, 'agtFlowDeal')]">
 										<div class="ui-block-b" style="padding-bottom:5px;" align="center">
-											<a data-role="button" value="reject" onclick="signsubmit('signsubmit');" data-mini='true' data-theme="f">55提　交</a>
+											<a data-role="button" value="reject" onclick="signsubmit('signsubmit');" data-mini='true' data-theme="f">提　交</a>
 										</div>
 									</xsl:if>
 									<xsl:if test="//div[contains(@onclick, 'agtFlowDeny')]">

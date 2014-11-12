@@ -44,24 +44,15 @@
 								$.hori.loadPage(fileurl,xmlurl);
 							}
 							function querysubmit(value){
-								var question;
-								if(value=="queryreject"){
-									question = window.confirm("确定驳回吗?"); 
-								}else if(value=="querysubmit"){
-									question = window.confirm("确定提交吗?"); 
-								}else if(value=="querysave"){
-									question = window.confirm("确定保存吗?"); 
-								}else if(value=="querysign"){
+								if(value=="querysign"){
 									var huiqiandanwei = $("#huiqiandanwei").val();
 									if(huiqiandanwei==""||huiqiandanwei==null){
 										alert("发起内请时没有选择会签流程，手机端不能处理，请到电脑上处理！");
 										return false;
 									}
-									question = window.confirm("确定会签吗?"); 
 								}
-								if(question){
-									postForm(value);
-								}
+								postForm(value);
+								
 							}
 
 							function postForm(type){
