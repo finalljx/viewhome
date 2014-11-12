@@ -34,7 +34,7 @@ function openmail(){
 }
 
 
-
+//气泡中待办数量
 function inittodos(){
 	if (icount!=gcount){
 		
@@ -45,7 +45,6 @@ function inittodos(){
 				"url":url,
 				"data":"data-xml=yes^~^app|8|vwTaskUnDoneForMobile|vwTaskUnDoneForMobile^~^msg|5|msgByDateDownUnRdView|msgByDateDownRdView^~^flowinfo|5|FlowUndoView|FlowDoneView",
 				"success":function(res){
-					
 					var json = JSON.parse(res);
 					if(json.exception!=""){
 						alert(json.exception);
@@ -157,11 +156,11 @@ var icount=0;
 				$.hori.getconfig().serverBaseUrl
 						+ 'viewhome/xml/searchContact.xml')
 	}
-	function loadNews() {
+	/* function loadNews() {
 		$.hori.showLoading();
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl
 				+ 'viewhome/html/newsList.html');
-	}
+	} */
 	function createUser() {
 		var url = $.hori.getconfig().appServerHost
 				+ "view/oa/?data-action=createuser";
@@ -170,7 +169,7 @@ var icount=0;
 			"url" : url,
 			"data" : "",
 			"success" : function(res) {
-
+				alert(res);
 			},
 			"error" : function(res) {
 
@@ -208,7 +207,7 @@ a {
 			<div class="ui-grid-b" id="divOne">
 				<div class="ui-block-a">
 					<a href="javascript:void(0);" onclick="loadTaskList()" class="ui-link"> <img id="imgToDo" width="68" height="68" src="../assets/home/task.png">
-					</a> <span id="spanTodo" class="bubble-count ui-btn-up-c ui-btn-corner-all" style="position: fixed; top: 15px; left: 359.5px;">5</span> <br>
+					</a> <span id="spanTodo" class="bubble-count ui-btn-up-c ui-btn-corner-all" style="position: fixed; top: 15px; left: 359.5px;">0</span> <br>
 					<span style="color: #434343"><strong>待办事宜</strong></span>
 				</div>
 				<div class="ui-block-b">
