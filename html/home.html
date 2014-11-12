@@ -192,18 +192,8 @@ a {
 </style>
 </head>
 <body class="ui-mobile-viewport ui-overlay-c">
-
 	<div data-role="page" id="home" style="background-image: url(../assets/home/bg_empty.jpg); min-height: 100%; background-position: initial initial; background-repeat: repeat repeat;" data-url="home" tabindex="0" class="ui-page ui-body-c ui-page-active">
-		<!--
-			<div data-role="header">
-				<a data-icon="home" data-role="button" data-rel="back">返回</a>
-				<h1>首页</h1>
-				<a data-icon="home" data-role="button" href="javascript:void(0)" onclick="pushtest();" >推送</a>
-			</div>
-			-->
 		<div data-role="content" align="center" class="ui-content" role="main">
-
-			<!--  -->
 			<div class="ui-grid-b" id="divOne">
 				<div class="ui-block-a">
 					<a href="javascript:void(0);" onclick="loadTaskList()" class="ui-link"> <img id="imgToDo" width="68" height="68" src="../assets/home/task.png">
@@ -211,37 +201,15 @@ a {
 					<span style="color: #434343"><strong>待办事宜</strong></span>
 				</div>
 				<div class="ui-block-b">
-					<a href="javascript:void(0);" onclick="loadUnreadMsgList()" class="ui-link">
-						<img width="68" height="68" src="../assets/home/msg.png">
-					</a> <br> <span style="color: #434343"><strong>未读消息</strong></span>
-				</div>
-				<div class="ui-block-c">
-					<a href="javascript:void(0);" onclick="loadNews()" class="ui-link">
-						<img width="68" height="68" src="../assets/home/news.png">
-					</a> <br> <span style="color: #434343"><strong>企业新闻</strong></span>
-				</div>
-			</div>
-			<br>
-
-			<div class="ui-grid-b">
-
-
-				<div class="ui-block-a">
 					<a href="javascript:void(0)" onclick="loadContact()" class="ui-link"> <img width="68" height="68" src="../assets/home/tel.png">
 					</a> <br> <span style="color: #434343"><strong>电话查询</strong></span>
 				</div>
-
-
-				<div class="ui-block-b" id="divMail">
+				<div class="ui-block-c" id="divMail">
 					<a href="javascript:void(0);" onclick="openmail()" class="ui-link"> <img width="68" height="68" src="../assets/home/mail.png">
 					</a> <br> <span style="color: #434343"><strong>个人邮件</strong></span>
 				</div>
-
 			</div>
 			<br>
-
-
-
 		</div>
 	</div>
 
