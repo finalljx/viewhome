@@ -48,6 +48,10 @@
 			$.hori.showLoading();
             try {
                 var skey = $("#searchKey").val();
+                if(skey == null || skey.length == 0){
+    				alert("关键词不能为空！");
+    				return;
+    			} 
                 //skey = encodeURI(skey);
                 var random = new Date().getTime();
                 var cookie_userstore = localStorage.getItem("cookie_userstore");
