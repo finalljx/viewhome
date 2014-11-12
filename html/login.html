@@ -40,15 +40,14 @@
 				//每次登陆清楚cookie
 				hori.registerEvent("case", "casePresented", function() {
 					$.hori.clearCookies(function(res) {
-						//返回值转json失败，转成数组
-						var response = res.split(":");
-						var resNum = response[1].indexOf("}");
-						var responseStr = response[1].substring(0,resNum);
-						if(responseStr){
-							
-						}else{
-							alert("清除cookies失败。");
-						}
+						var result = JSON.parse(res);
+                        if(result){
+                            if(result.success){
+                                console.log("console:clear cookies success");
+                            }
+                        }else{
+                            console.log("console:clear cookies failed");
+                        }
 					});
 				});
 			}catch(e){
