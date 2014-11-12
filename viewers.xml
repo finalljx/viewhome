@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <viewers>
-	<viewer id="oa" type="remote" source="http://mobile2.sugon.com" 	encoding="gb2312">
+	<viewer id="oa" type="remote" source="http://oatest1.crsc.isc" 	encoding="gb2312">
 		<!-- 登陆验证 -->
-		<view id="loginvalidate" template="login/loginValidate.jsp"	encoding="gb18030" />
+		<view id="loginvalidate" template="login/loginValidate.jsp"	encoding="utf-8" />
 		<!-- 代办载入更多 -->
 		<view id="todosmobilesub" template="digi/todosmobilesublist.xsl"
 			encoding="utf-8">
@@ -61,7 +61,7 @@
 		<view id="newsfile" template="" />
 
 	</viewer>
-	<viewer id="oamobile" type="remote" source="http://mobile2.sugon.com" encoding="gb2312">
+	<viewer id="oamobile" type="remote" source="http://oatest1.crsc.isc/" encoding="gb2312">
 		<!-- 代办条数，气泡显示 -->
 		<view id="todosnum" template="todosNumber.jsp" encoding="utf-8" />
 		<!-- 手机待办列表 -->
@@ -153,5 +153,5 @@
 			<rule mode="replace" regex=":" value="_"/>
 		</view>
 	</viewer>
-	<viewer id="oamsg" type="remote" source="http://mobile2.sugon.com"	encoding="gb2312"></viewer>
+	<viewer id="oamsg" type="remote" source="http://oatest1.crsc.isc/"	encoding="gb2312"></viewer>
 </viewers>
