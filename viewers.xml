@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <viewers>
-	<viewer id="oa" type="remote" source="http://oatest1.crsc.isc" 	encoding="gb2312">
+	<viewer id="oa" type="remote" source="http://oa-t.crsc.isc" 	encoding="gb2312">
 		<!-- 登陆验证 -->
 		<view id="loginvalidate" template="login/loginValidate.jsp"	encoding="utf-8" />
 		<!-- 代办载入更多 -->
@@ -49,7 +49,7 @@
 		<view id="phonenumber" template="digi/phonenumber/index.xsl">
 			<rule mode="replace" regex="height:100" value="" />
 		</view>
-		<view id="phonenumberrequest" template="contact.jsp">
+		<view id="phonenumberrequest" template="contact.jsp" encoding="utf-8">
 			<rule mode="replace" regex="height:100" value="" />
 			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
@@ -61,13 +61,13 @@
 		<view id="newsfile" template="" />
 
 	</viewer>
-	<viewer id="oamobile" type="remote" source="http://oatest1.crsc.isc/" encoding="gb2312">
+	<viewer id="oamobile" type="remote" source="http://oa-t.crsc.isc/" encoding="gb2312">
 		<!-- 代办条数，气泡显示 -->
 		<view id="todosnum" template="todosNumber.jsp" encoding="utf-8" />
 		<!-- 手机待办列表 -->
 		<view id="todosmobile" template="taskList.jsp" encoding="utf-8" />
 		<!-- 代办展示内容 -->
-		<view id="contentmobile" template="digi/mobile/content.xsl">
+		<view id="contentmobile" template="digi/mobile/content.xsl" encoding="utf-8">
 			<!-- 源数据是符合标签形式的字符串，转换成真正的字符串（把'<','>' 替换成真正的标签） -->
 
 			<rule mode="replace" regex="0 " value="0&#160;" />
@@ -153,5 +153,5 @@
 			<rule mode="replace" regex=":" value="_"/>
 		</view>
 	</viewer>
-	<viewer id="oamsg" type="remote" source="http://oatest1.crsc.isc/"	encoding="gb2312"></viewer>
+	<viewer id="oamsg" type="remote" source="http://oa-t.crsc.isc/"	encoding="gb2312"></viewer>
 </viewers>
