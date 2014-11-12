@@ -4,27 +4,35 @@
 		<title>移动办公</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0"/>
+
 		<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" /> 
-		<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" /> 		
+
+		<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" /> 
+
+		
 		<script src="../lib/jquery/jquery.min.js"></script>		
 		<script src="../lib/jquery-cookie/jquery.cookie.js"></script>	
 		<script src="../lib/encrypt/encrypt.js"></script>
 		<script src="../lib/json/json2.js"></script>
 		<script src="../lib/hori/hori.js?tag=21369"></script>
+		
 		<script src="../lib/jquery-mobile/jquery.mobile.min.js"></script>
-		<script src="../config/web/config.js"></script>		
+		
+		<script src="../config/web/config.js"></script>
+
+				
 		<style>
 			a{text-decoration:none;}
 		</style>
+		
+
 		<script type="text/javascript">
 			$(document).ready(function(){
 
-				if(localStorage.getItem("data-saveusername")=="true"){
+				
 
-					var username=localStorage.getItem("username");
-					if(username!=null){	
-						username=decrypt($.hori.getconfig().encryptKey,username);
-					}
+				if(localStorage.getItem("data-saveusername")=="true"){
+					var username=localStorage.getItem("itcode");
 					$("#username").attr("value", username);
 					$('#saveusername').attr("checked", true).checkboxradio("refresh");
 				}else{
@@ -34,7 +42,9 @@
 				}
 				if(localStorage.getItem("data-savepassword")=="true"){
 					var password=localStorage.getItem("password");
-					if(password!=null){	
+					if(password!=null){
+
+						
 						password=decrypt($.hori.getconfig().encryptKey,password);
 					}
 					$("#password").attr("value", password);
@@ -53,6 +63,9 @@
 					alert(e.message);
 				}
 				
+				
+				
+
 			});
 			function clearData (){			
 				
@@ -79,18 +92,22 @@
 			}	
 			function login(){
 				
+				
+				
 				var username = $.trim($("#username").val());
 				var password = $("#password").val();
 				if(username == ""){
 					alert("请输入用户名!");
 					return;
-				}				
+				}
+				
 	            
 				if(password == ""){
 					alert("请输入密码!");
 					return;
 				}
 				$.hori.showLoading();
+
 			
 				try{
 					var random = new Date().getTime();
@@ -99,14 +116,16 @@
 				}catch(e){}
 				var data = 'Username='+username+'&Password='+password+'&$PublicAccess=1&ReasonType=0&data-userid=Username&data-password=Password&data-login=true';
 				
+				
+				
 				$.hori.ajax({
 						"type":"post",
 						"url":url,
 						"data":data,
-						"success":function(res){							
-
+						"success":function(res){
 								var json = JSON.parse(res);
 								if(json.success){
+								
 									//本地存储itcode 和oaServerName
 									localStorage.setItem("oaServerName",$.hori.getconfig().oaServerName)
 									localStorage.setItem("itcode",username);
@@ -141,7 +160,7 @@
 
 						},
 						"error":function(res){
-							alert(res+"44");
+							alert(res);
 							$.hori.hideLoading();
 						}
 					})
@@ -185,6 +204,7 @@
 						alert("无法获取设备ID");
 						return;
 						}
+
 						$.hori.getDeviceToken(function(resulttoken){
 								if(resulttoken == ""){
 								//alert("无法获取设备token");
@@ -250,6 +270,7 @@
 					
 				</div>
 			</div>
+			
 		</div>
 	</body>
 </html>
