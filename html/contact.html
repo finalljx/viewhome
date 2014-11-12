@@ -26,19 +26,33 @@
 </head>
 <body>
 	<div id="list" data-role="page" class="type-home">
-		<div data-role="content" align="center">
+		<div data-role="content" >
 					
-			<div align="center" >
-				<input type="text" id="phonenumber" name="phonenumber" value="" />
-			</div>
+			<div style="margin-left: 15px;">
+        <table>
+            <tr>
+                <td width="95%" height="20px"><input id="phonenumber" name="phonenumber"
+                                                     type="text" value="admin"/></td>
+                <td><a href="#search" data-role="button" data-inline="true"
+                       data-rel="dialog" data-corners="true" data-shadow="true"
+                       data-iconshadow="true" data-wrapperels="span" data-theme="f"
+                       class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c ui-btn-up-f">
+							<span class="ui-btn-inner" style="width: 45px; height: 20px;"><span
+                                    class="ui-btn-text" style="color: white" onclick="app.searchContact()">搜索</span></span>
+                </a></td>
+            </tr>
+        </table>
+        </div>
+
 			<div id="divContact" >
 				<ul data-bind="foreach: contactlist" data-role="listview" data-inset="true" >
 					<li>		
+					<font>ITCode：<span data-bind="text: ITCode"></span></font><br>
 					<font>用户名：<span data-bind="text: userName"></span></font><br>
-					<font>部门名称：<span data-bind="text: deptName"></span></font><br>
-					<font>移动电话：<a href data-bind="attr: {href:dialNumber}"><span data-bind="text: telNumber"></span></a></font><br>
+					<font>员工编号:<span data-bind="text: dialNumber"></span></font><br>
+					<font>移动电话：<span data-bind="text: telNumber"></span></font><br>
 					<font>办公电话：<span data-bind="text: officeNumber"></span></font><br>
-					<font>邮箱：<a href data-bind="attr: {href:mailto}"><span data-bind="text: mail"></span></a></font><br>
+					
 					</li>
 				</ul>
 			</div>
