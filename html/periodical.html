@@ -56,8 +56,7 @@
 
 			});
     function viewFile(item){
-    	var url=$.hori.getconfig().serverBaseUrl+"view/tpxw/file"+item.lianjie()+"?data-convert=office";
-    	alert(url);
+    	var url=$.hori.getconfig().serverBaseUrl+"view/tpxw/file"+item.lianjie()+"?data-convert=office&data-application=" + $.hori.getconfig().appKey;
 		localStorage.setItem("attachmentUrl",url);
 		$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
     	
@@ -77,7 +76,7 @@
 			</ul>
 		</div>
 		<div>
-			<ul id="dzqkList" data-bind="foreach: file" data-role="listview" class="ui-listview ui-listview-inset ui-corner-all ui-shadow" data-inset="true">
+			<ul id="dzqkList" data-bind="foreach: file" data-role="listview" class="ui-listview" data-inset="false">
 				<li class="ui-first-child ui-last-child" data-icon="false"><a data-bind="click: viewFile"><p></p> <span data-bind="text: fileName"></span>
 				<p></p>
 				</a></li>
