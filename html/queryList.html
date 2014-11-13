@@ -33,7 +33,7 @@
 						view = "vwDocByDate";
 						dataid = "querydataList";
 						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
-						Astart=Astart+5;
+						Astart=Astart+10;
 						start=Astart;
 					}
 					if(type=="querydoing"){
@@ -41,7 +41,7 @@
 						view = "vwDocByDate";
 						dataid = "querydataList";
 						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
-						Astart=Astart+5;
+						Astart=Astart+10;
 						start=Astart;
 					}
 					if(type=="querytoArchive"){
@@ -49,7 +49,7 @@
 						view = "vwtoArchive";
 						dataid = "querydataList";
 						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
-						Bstart=Bstart+5;
+						Bstart=Bstart+10;
 						start=Bstart;
 					}
 					if(type=="searchquerytoArchive"){
@@ -57,7 +57,7 @@
 						view = "vwtoArchive";
 						dataid = "querydataList";
 						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
-						Bstart=Bstart+5;
+						Bstart=Bstart+10;
 						start=Bstart;
 					}
 					if(type=="queryArchvied"){
@@ -65,7 +65,7 @@
 						view = "vwDocByArchived";
 						dataid = "querydataList";
 						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
-						Cstart=Cstart+5;
+						Cstart=Cstart+10;
 						start=Cstart;
 					}
 					if(type=="searchqueryArchvied"){
@@ -73,7 +73,7 @@
 						view = "vwDocByArchived";
 						dataid = "querydataList";
 						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
-						Cstart=Cstart+5;
+						Cstart=Cstart+10;
 						start=Cstart;
 					}
 					if(type=="signForDoing"){
@@ -81,7 +81,7 @@
 						view = "vwDocByDate";
 						dataid = "signdataList";
 						dbpath = localStorage.getItem("singdbPath");
-						dstart=dstart+5;
+						dstart=dstart+10;
 						start=dstart;
 					}
 					if(type=="searchsignForDoing"){
@@ -89,7 +89,7 @@
 						view = "vwDocByDate";
 						dataid = "signdataList";
 						dbpath = localStorage.getItem("singdbPath");
-						dstart=dstart+5;
+						dstart=dstart+10;
 						start=dstart;
 					}
 					if(type=="signtoArchive"){
@@ -97,7 +97,7 @@
 						view = "vwtoArchive";
 						dataid = "signdataList";
 						dbpath = localStorage.getItem("singdbPath");
-						estart=estart+5;
+						estart=estart+10;
 						start=estart;
 					}
 					if(type=="searchsigntoArchive"){
@@ -105,7 +105,7 @@
 						view = "vwtoArchive";
 						dataid = "signdataList";
 						dbpath = localStorage.getItem("singdbPath");
-						estart=estart+5;
+						estart=estart+10;
 						start=estart;
 					}
 					if(type=="signArchvied"){
@@ -113,7 +113,7 @@
 						view = "vwDocByArchived";
 						dataid = "signdataList";
 						dbpath = localStorage.getItem("singdbPath");
-						fstart=fstart+5;
+						fstart=fstart+10;
 						start=fstart;
 					}
 					if(type=="searchsignArchvied"){
@@ -121,15 +121,15 @@
 						view = "vwDocByArchived";
 						dataid = "signdataList";
 						dbpath = localStorage.getItem("singdbPath");
-						fstart=fstart+5;
+						fstart=fstart+10;
 						start=fstart;
 					}
 					var searchVal = localStorage.getItem("searchVal");
 					var searchkey = localStorage.getItem("searchkey");
 					if(searchVal=="no"){
-						var url=$.hori.getconfig().appServerHost+"view/oa/"+template+dbpath+"/myview?openform&view="+view+"&start="+start+"&count=15";
+						var url=$.hori.getconfig().appServerHost+"view/oa/"+template+dbpath+"/myview?openform&view="+view+"&start="+start+"&count=10";
 					}else if(searchVal=="yes"){
-						var url=$.hori.getconfig().appServerHost+"view/oa/"+template+dbpath+"/"+view+"?searchview&count=15&query="+searchkey+"&view="+view+"&start="+start;
+						var url=$.hori.getconfig().appServerHost+"view/oa/"+template+dbpath+"/"+view+"?searchview&count=10&query="+searchkey+"&view="+view+"&start="+start;
 					}
 					$.hori.ajax({
 						"type":"post",
@@ -267,7 +267,7 @@
 				template="Archvied";
 				view="vwDocByArchived";
 			}
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/doctest/genertec/dep1/qsbg_1.nsf/myview?openform&view="+view+"&start=1&count=5";
+			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/doctest/genertec/dep1/qsbg_1.nsf/myview?openform&view="+view+"&start=1&count=10";
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
@@ -326,7 +326,7 @@
 				localStorage.setItem("type","signArchvied");
 			}
 			var singdbPath = localStorage.getItem("singdbPath");
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/myview?openform&view="+view+"&start=1&count=5";
+			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/myview?openform&view="+view+"&start=1&count=10";
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
@@ -409,7 +409,7 @@
 				template="searchqueryArchvied";
 			}
 			//
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/doctest/genertec/dep1/qsbg_1.nsf/"+view+"?SearchView&count=5&Query="+searchkey+"&view="+view;
+			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/doctest/genertec/dep1/qsbg_1.nsf/"+view+"?SearchView&count=10&Query="+searchkey+"&view="+view;
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
@@ -452,7 +452,7 @@
 				localStorage.setItem("type","searchsignArchvied");
 			}
 			var singdbPath = localStorage.getItem("singdbPath");
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/"+view+"?SearchView&count=5&Query="+searchkey+"&view="+view;
+			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/"+view+"?SearchView&count=10&Query="+searchkey+"&view="+view;
 			//alert(url);
 			$.hori.ajax({
 				"type":"post",
