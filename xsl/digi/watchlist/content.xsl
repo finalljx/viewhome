@@ -65,7 +65,7 @@
 								$("#div_DTblHtml").html( dxTblhtml ).trigger('create');
 
 							}else{
-								//$("#ul_dtable_list").hide();
+								$("#ul_dtable_list").hide();
 							}
 						}
 					]]>
@@ -133,12 +133,12 @@
 								<ul data-role="listview" data-inset="true" data-theme="d">
 									<li data-role="list-divider">节假日期间生产安排情况</li>
 								
-									<li><xsl:value-of select="//fieldentry[@id='HolSit']/value/."/></li>
+									<xsl:apply-templates select="//div[@name='Fck_HTML']//fieldentry"/>
 								</ul>
 								<ul data-role="listview" data-inset="true" data-theme="d">
 									<li data-role="list-divider">安全保证措施</li>
 								
-									<li><xsl:value-of select="//fieldentry[@id='Safety']/value/."/></li>
+									<li>　　<xsl:apply-templates select="//fieldentry[@id='Safety']/value/."/></li>
 								</ul>
 								<!-- <ul data-role="listview" data-inset="true" data-theme="d">
 									<li data-role="list-divider">附件信息</li>
