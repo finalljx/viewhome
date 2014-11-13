@@ -27,6 +27,7 @@ div p {
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
+		$("#guide").hide();
 		var hori = $.hori;
 		try {
 			hori.setHeaderTitle("首次登录向导");
@@ -37,6 +38,7 @@ div p {
 var fistBind=1;
 	//查询用户信息方法
 	function doSearch() {
+		
 		var username = $.trim($("#cn_name").val());
 		var number = $("#id_number").val();
 		if (username == "") {
@@ -67,19 +69,22 @@ var fistBind=1;
 				jdata.mobile_number=jdata.mobile_number.substring(0,3)+"****"+jdata.mobile_number.substring(7,11);
 				}
 				var data=new Object();
-				data.list=jdata;
+				data.list=jdata;alert("jdata.rtn_code="+jdata.rtn_code);
 				if (jdata.rtn_code && jdata.rtn_code == "2000") { //判断是否正确返回 
 					if(jdata.mobile_number==""){
 						document.getElementById("addphonenumber").style.display="block";
 					}
+					$("#guide").show();
 					render(data);
 				} else { //未正确查询到结果
 					alert(jdata.rtn_msg);
 				}
+				
 			},
 			"error" : function(res) {
 				alert("查询失败：" + res);
 				$.hori.hideLoading();
+				alert(2);
 			}
 		})
 	}
