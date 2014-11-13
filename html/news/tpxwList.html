@@ -88,16 +88,12 @@ a {
 									var cookie_userstore = localStorage
 											.getItem("cookie_userstore");
 									for ( var item in list) {
+										list[item].tpxwImage = list[item].tpxwImage.substring(list[item].tpxwImage.indexOf(".cn")+3);
 										var targetURL = $.hori.getconfig().appServerHost
 												+ 'view/tpxw/file/'
 												+ list[item].tpxwImage
-												+ "?data-result=file";
+												+ "?data-result=file&data-application=mobile";
 										list[item].tpxwImage = targetURL;
-										list[item].tpxwImage = list[item].tpxwImage
-												.replace(
-														"http://portal.genertec.com.cn/",
-														"").replace(/\&amp;/g,
-														"&");
 									}
 
 									var myDate = new Date();

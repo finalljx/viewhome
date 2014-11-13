@@ -30,6 +30,7 @@ p {
 <script type="text/javascript">
 	$(document).ready(function() {
 		/*设置标题*/
+		$.hori.showLoading();
 		setHead();
 		//加载新闻详情
 		getWcmNewsData();
@@ -89,9 +90,8 @@ p {
 				var widthImg=document.documentElement.clientWidth*0.8;
 				var url=$.hori.getconfig().appServerHost+"view/tpxw/file";
 				res=res.replace(/http:\/\/webseal.genertec.com.cn/g,url).replace(/&amp;amp;/g,"&");
-				res=res.replace(/CACHEID=.*?\\/g,'data-result=file\\\" width=\\\"'+widthImg+'\\');
+				res=res.replace(/CACHEID=.*?\\/g,'data-result=file&data-application=mobile\\\" width=\\\"'+widthImg+'\\');
 				res=res.replace(/style=.*?\\"/g,"");
-				
 				 var data = JSON.parse(res);
 				if ( data.attachmentSource!=undefined) {
 					document.getElementById("fujian").style.display = "inline";
@@ -107,7 +107,7 @@ p {
 					var dataArrayName = data.attachment.split("|");
 					var dataArraySource = data.attachmentSource.split("|");
 					for(var i=0; i<dataArraySource.length;i++){
-						dataArraySource[i]=dataArraySource[i].replace('http://webseal.genertec.com.cn/',"");
+						dataArraySource[i]=dataArraySource[i].replace('http://portal.genertec.com.cn/',"").replace('http://webseal.genertec.com.cn/',"");
 					} 
 					
 					var dataData = new Object();
@@ -127,7 +127,7 @@ p {
 					renderfj(dataData);
 				} 
 					render(data);
-					
+					$.hori.hideLoading();
 			},
 			"error" : function(res) {
 				alert("error:" + res);
