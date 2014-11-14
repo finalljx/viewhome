@@ -37,9 +37,19 @@
 				hori.setHeaderTitle("登录");
 				/*隐藏后退按钮*/
 				hori.hideBackBtn();
-				//删除cookie
-				$.cookie("JSESSIONID",null,{path:"/"});
-				$.cookie("data-userstore",null,{path:"/"})
+				//每次登陆清楚cookie
+				hori.registerEvent("case", "casePresented", function() {
+					$.hori.clearCookies(function(res) {
+						var result = JSON.parse(res);
+                        if(result){
+                            if(result.success){
+                                console.log("console:clear cookies success");
+                            }
+                        }else{
+                            console.log("console:clear cookies failed");
+                        }
+					});
+				});
 			}catch(e){
 				alert(e.message);
 			}

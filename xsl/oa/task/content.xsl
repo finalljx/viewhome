@@ -145,8 +145,8 @@
 					<tr><td colspan="4"><p align="center"><b>
 						<font size="5"><xsl:value-of select="//table[@id='table1']/tbody/tr[1]/." /></font></b></p></td>
 					</tr>
-					<tr><td align="right" colspan="4"><b><font size="4"><br/>
-						<xsl:value-of select="//table[@id='table1']/tbody/tr[2]/." /></font></b></td>
+					<tr><td><b><font size="4"><br/>
+						请示编号：</font></b></td><td style="width: 90%;"><input name="fldFwbh" data-mini="true" id="fldFwbh" type="text" value="{//input[@name='fldFwbh']/@value}"/></td>
 					</tr>
 					<tr><td colspan="4" style="border: 1px solid #000000;" class="top" height="120" valign="top"><b><br />
 						<font class="ztDx"><xsl:value-of select="//table[@id='table1']/tbody/tr[3]/." /></font></b></td>
@@ -284,11 +284,10 @@
 						<td width="227"> 
 						<select onChange='$("#fldAttitude").val(this.value);' data-theme="c" data-mini='true' data-icon="false" >
 							<option selected="unselected">常用语</option>
-							<option value="同意！">同意！</option>
-							<option value="不同意！">不同意！</option>
-							<option value="返回再议。">返回再议。</option>
-							<option value="请尽快处理。">请尽快处理。</option>
-							<option value="请修改后重新提交。">请修改后重新提交。</option>
+							<option value="同意">同意</option>
+							<option value="不同意">不同意</option>
+							<option value="通过">通过</option>
+							<option value="已阅">已阅</option>
 						</select>
 						<textarea id="fldAttitude" name="fldAttitude" style="width:600;height:100" rows="3" cols="30">
 						<xsl:value-of select="//textarea[@name='fldAttitude']/text()"/></textarea>

@@ -175,7 +175,7 @@
 		<view id="userselect" template="oa/userselect/signlistorg.xsl" encoding="utf-8">
 			<rule mode="remove" regex="&amp;nbsp;"/>
 		</view>
-		<view id="userselectuser" template="oa/userselect/listuser.xsl" encoding="utf-8">
+		<view id="userselectuser" template="oa/userselect/signlistuser.xsl" encoding="utf-8">
 			<rule mode="remove" regex="&amp;nbsp;"/>
 		</view>
 

@@ -131,7 +131,7 @@
 					}else if(searchVal=="yes"){
 						var url=$.hori.getconfig().appServerHost+"view/oa/"+template+dbpath+"/"+view+"?searchview&count=15&query="+searchkey+"&view="+view+"&start="+start;
 					}
-					alert(url);
+					//alert(url);
 					$.hori.ajax({
 						"type":"post",
 						"url":url,
@@ -272,6 +272,7 @@
 					}
 					myScroll.refresh();
 					signLoad=true;
+					$.hori.hideLoading();
 				},
 				"error":function(res){
 					alert(res);
@@ -330,7 +331,7 @@
 					$("#querydataList").empty();
 					$("#signdataList").append(res).listview("refresh");
 					myScroll.refresh();
-
+					$.hori.hideLoading();
 				},
 				"error":function(res){
 					alert(res);
@@ -339,24 +340,48 @@
 			});
 		}
 		//内请表单展示页面
+		var y1 = null;//这个设置为全局
 		function loadPageForm(str){
+			$.hori.showLoading();
+			if (y1 == null){
+				y1 = new Date().getTime();
+			}else{       
+				var y2 = new Date().getTime();
+				if(y2 - y1 < 500){
+					y1 = y2;
+					return;
+				}else{
+					y1 = y2;
+				}
+			}
 			localStorage.setItem("click4","1");
 			var templatecon="neiqingsign"
 			localStorage.setItem("contemplate",templatecon);
 			var unid = $(str).data("unid");
 			localStorage.setItem("unid",unid);
-			alert($(str).data("unid"));
 			var loadurl= $.hori.getconfig().appServerHost+"view/html/neiqingform.html";
 			$.hori.loadPage(loadurl);
 		}
 		//会签表单展示页面
+		var t1 = null;//这个设置为全局
 		function loadsignPageForm(str){
 		////vwDocByDate,vwtoArchive,vwDocByArchvied
+			$.hori.showLoading();
+			if (t1 == null){
+				t1 = new Date().getTime();
+			}else{       
+				var t2 = new Date().getTime();
+				if(t2 - t1 < 500){
+					t1 = t2;
+					return;
+				}else{
+					t1 = t2;
+				}
+			}
 			localStorage.setItem("click4","2");	
 			var templatecon ="contentsign";
 			localStorage.setItem("contemplate",templatecon);
 			var unid = $(str).data("unid");
-			alert($(str).data("unid"));
 			localStorage.setItem("unid",unid);
 			//alert(unid);return;
 			var loadurl= $.hori.getconfig().appServerHost+"view/html/signform.html";
@@ -366,9 +391,9 @@
 		function querysearchlist(){
 			var searchkey=$("#querysearchKey").val();
 			localStorage.setItem("searchkey", searchkey);
-			alert(searchkey);
+			//alert(searchkey);
 			var view = $('option:selected', '#querytype').val();
-			alert(view);
+			//alert(view);
 			$.hori.showLoading();
 			Astart=1;Bstart=1;Cstart=1;
 			localStorage.setItem("searchVal", "yes");
@@ -406,9 +431,9 @@
 		function signsearchlist(){
 			var searchkey=$("#signsearchKey").val();
 			localStorage.setItem("searchkey", searchkey);
-			alert(searchkey);
+			//alert(searchkey);
 			var value = $('option:selected', '#signtype').val();
-			alert(value);
+			//alert(value);
 			$.hori.showLoading();
 			dstart=1;estart=1;fstart=1;
 			localStorage.setItem("searchVal", "yes");
@@ -429,7 +454,7 @@
 			}
 			var singdbPath = localStorage.getItem("singdbPath");
 			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/"+view+"?SearchView&count=5&Query="+searchkey+"&view="+view;
-			alert(url);
+			//alert(url);
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
@@ -453,7 +478,7 @@
 			position: fixed;
 			top: 170px;
 			bottom: 48px;
-			width: 80%;
+			width: 85%;
 			overflow: scroll;
 		}
 	</style>
@@ -470,7 +495,7 @@
 		      	</div>
 				<div id="queryselect" align="center" class="ui-grid-b">
 						<div class="ui-block-a" style="min-width:10em">
-							<select name="querytype" id="querytype" onChange="queryListForType(this.value)" data-theme="a"  data-native-menu="true">
+							<select name="querytype" data-mini="true" id="querytype" onChange="queryListForType(this.value)" data-theme="a"  data-native-menu="true">
 							<option value="vwDocByDate">办理中</option>
 							<option value="vwtoArchive">待归档</option>
 							<option value="vwDocByArchvied">已归档</option>
@@ -479,36 +504,32 @@
 						<div class="ui-block-b"></div>
 						<div class="ui-block-c"></div>
 				</div>
-				<div id="querySearch" align="center" class="ui-grid-b">
-					<div class="ui-block-a">
-						<input id="querysearchKey" type="text" value=""/>
-					</div>
-					<div class="ui-block-b">
-						<a href="#" onclick="querysearchlist()" data-role="button" data-inline="true" data-theme="f" class="ui-btn-corner-all ui-btn-up-c ui-btn-up-f ui-btn ui-btn-inline ui-shadow" style="color: white">搜索</a>
-					</div>
-					<div class="ui-block-c">
-					</div>
+				<div id="querySearch">
+					<table>
+						<tr>
+							<td width="93%" height="20px"><input id="querysearchKey" type="text" value=""/></td>
+							<td><a href="#" onclick="querysearchlist()" data-role="button" data-mini='true' data-theme="f" class="ui-btn-corner-all ui-btn-up-c ui-btn-up-f ui-btn ui-btn-inline ui-shadow" style="color: white">搜索</a></td>
+						</tr>
+					</table>
 				</div>
 				<div id="signselect" align="center" class="ui-grid-b" style="display:none">
 						<div class="ui-block-a"></div>
 						<div class="ui-block-b"></div>
 						<div class="ui-block-c" style="min-width:10em">
-							<select name="signtype" id="signtype" onChange="signListForType(this.value)" data-theme="a"  data-native-menu="true">
+							<select name="signtype" data-mini="true" id="signtype" onChange="signListForType(this.value)" data-theme="a"  data-native-menu="true">
 								<option value="doing">办理中</option>
 								<option value="todo">待归档</option>
 								<option value="did">已归档</option>
 							</select>
 						</div>
 				</div>
-				<div id="signSearch" align="center" class="ui-grid-b" style="display:none">
-					<div class="ui-block-a">
-						<input id="signsearchKey" type="text" value=""/>
-					</div>
-					<div class="ui-block-b">
-						<a href="#" onclick="signsearchlist()" data-role="button" data-inline="true" data-theme="f" class="ui-btn-corner-all ui-btn-up-c ui-btn-up-f ui-btn ui-btn-inline ui-shadow" style="color: white">搜索</a>
-					</div>
-					<div class="ui-block-c">
-					</div>
+				<div id="signSearch" style="display:none">
+					<table>
+						<tr>
+							<td width="93%" height="20px"><input id="signsearchKey" type="text" value=""/></td>
+							<td><a href="#" onclick="signsearchlist()" data-role="button" data-inline="true" data-theme="f" class="ui-btn-corner-all ui-btn-up-c ui-btn-up-f ui-btn ui-btn-inline ui-shadow" style="color: white">搜索</a></td>
+						</tr>
+					</table>
 				</div>
 				<div id="wrapper">
 					<div id="scroller">
