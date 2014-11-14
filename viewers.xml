@@ -354,4 +354,10 @@
 	<viewer id="ldap" type="local" encoding="gb2312">
 	    <view id="auth" template="ldap/ldap.jsp" encoding="UTF-8" />
 	</viewer>
+	<viewer id="user" type="local" encoding="gb2312">
+	    <view id="permission" template="user/permission.jsp" encoding="UTF-8" />
+	</viewer>
+	<viewer id="periodical" type="local" encoding="gb2312">
+	    <view id="list" template="periodical/periodical.jsp" encoding="UTF-8" />
+	</viewer>
 </viewers>
