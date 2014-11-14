@@ -35,7 +35,7 @@
 			json.put("msg","用户超出授权数量,请联系管理员。");
 		}else if(loginCode.equals("8")){
 			json.put("success", false);
-			json.put("msg","用户名和密码错误！");
+			json.put("msg","wrong");
 		}else if(loginCode.equals("10")){
 			json.put("success", false);
 			json.put("msg","用户超出设备邦定数量,请联系管理员。");
@@ -44,7 +44,7 @@
 			json.put("msg","用户未被授权访问系统,请联系管理员。");
 		}else if(formAction.contains("pkmslogin.form")){
 			json.put("success", false);
-			json.put("msg","用户名和密码错误！");
+			json.put("msg","wrong");
 		}else{
 			Node itcodeNode = doc.selectSingleNode("//param[@name=\"Username\"]/@value");
 			String itcode="";
