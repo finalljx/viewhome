@@ -1,317 +1,365 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
 <head>
-	<title>移动办公</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0"/>
-	<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" /> 
-	<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" /> 
-	<script src="../lib/jquery/jquery.min.js"></script>		
-	<script src="../lib/jquery-cookie/jquery.cookie.js"></script>	
-	<script src="../lib/encrypt/encrypt.js"></script>
-	<script src="../lib/json/json2.js"></script>
-	<script src="../lib/hori/hori.js?tag=21369"></script>
-	<script src="../lib/jquery-mobile/jquery.mobile.min.js"></script>
-	<script src="../config/web/config.js"></script>
-	<style>
-		a{text-decoration:none;}
-	</style>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			//获取验证码
-			getCaptcha();
-			if(localStorage.getItem("data-saveusername")=="true"){
-				var username=localStorage.getItem("username");
-				if(username==null){
-					username="用户名";
-				}
-				$("#username").attr("value", username);
-				$('#saveusername').attr("checked", true).checkboxradio("refresh");
-			}else{
-				$("#username").val("用户名");
-				$("#username").css("color", "#9e9e9e");
-				$('#saveusername').removeAttr("checked").checkboxradio("refresh");
+<title>移动办公</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" />
+<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
+<script src="../lib/jquery/jquery.min.js"></script>
+<!-- jQuery招展，生成uuid -->
+<script src="../lib/jquery/jquery.uuid.js" />
+<script src="../lib/jquery-cookie/jquery.cookie.js"></script>
+<script src="../lib/encrypt/encrypt.js"></script>
+<script src="../lib/json/json2.js"></script>
+<script src="../lib/hori/hori.js?tag=21369"></script>
+<script src="../lib/jquery-mobile/jquery.mobile.min.js"></script>
+<script src="../config/web/config.js"></script>
+<style>
+a {
+	text-decoration: none;
+}
+</style>
+<script type="text/javascript">
+	//验证码id
+	var captcha_id = "";
+	$(document).ready(function() {
+		//获取验证码
+		getCaptcha();
+		if (localStorage.getItem("data-saveusername") == "true") {
+			var username = localStorage.getItem("username");
+			if (username == null) {
+				username = "用户名";
 			}
-			var hori=$.hori;
-			try{
-				hori.setHeaderTitle("登录");
-				/*隐藏后退按钮*/
-				hori.hideBackBtn();
-				//每次登陆清楚cookie
-				hori.registerEvent("case", "casePresented", function() {
-					$.hori.clearCookies(function(res) {
-						var result = JSON.parse(res);
-						if(result){
-							if(result.success){
-								console.log("console:clear cookies success");
-							}
-						}else{
-							console.log("console:clear cookies failed");
+			$("#username").attr("value", username);
+			$('#saveusername').attr("checked", true).checkboxradio("refresh");
+		} else {
+			$("#username").val("用户名");
+			$("#username").css("color", "#9e9e9e");
+			$('#saveusername').removeAttr("checked").checkboxradio("refresh");
+		}
+		var hori = $.hori;
+		try {
+			hori.setHeaderTitle("登录");
+			/*隐藏后退按钮*/
+			hori.hideBackBtn();
+			//每次登陆清楚cookie
+			hori.registerEvent("case", "casePresented", function() {
+				$.hori.clearCookies(function(res) {
+					var result = JSON.parse(res);
+					if (result) {
+						if (result.success) {
+							console.log("console:clear cookies success");
 						}
-					});
+					} else {
+						console.log("console:clear cookies failed");
+					}
 				});
-				
-			}catch(e){
-				alert(e.message);
-			}
-				//注销登录
-				loginout();
-		});
-		
-		function getCaptcha(){
-			$("#captcha").attr("src",$.hori.getconfig().appServerHost + "/servlet/captcha");
-		}
-		function clearData (){
-			if($.trim($("#username").val())=="用户名"){
-				$("#username").val("");
-				$("#username").css("color", "#0F0E0E");
-			}else{
-				
-			}
-			return false;
-		}
-		function showTips(){
-			var userName=$.trim($("#username").val());
-			if($.trim($("#username").val())==""){	
-				$("#username").css("color", "#9e9e9e");				
-				$("#username").attr("value", "用户名");
-				
-			}else{
-				$("#username").css("color", "#0F0E0E");
-			}
-			return false;
-		}
-		function login(){
-			var username = $.trim($("#username").val());
-			var password = $("#password").val();
-			if(username == ""){
-				alert("请输入用户名!");
-				return;
-			}
-			if(password == ""){
-				alert("请输入密码!");
-				return;
-			}
-			$.hori.showLoading();
-			//先验证4W人用户接口
-			try{
-				var random = new Date().getTime();
-				var url=$.hori.getconfig().appServerHost+"biz/mobile/ldap.jsp?it_code="+username+"&pwd="+password;
-				url = url + "&data-random="+random;
-			}catch(e){}
-			$.hori.ajax({
-				"type":"get",
-				"url":url,
-				"success":function(res){
-					var json = JSON.parse(res);
-					if(json.success){
-						websealValidation();
-					}else{
-						$.hori.hideLoading();
-						alert("用户名或密码错误。");
-					}
-				},
-				"error":function(res){
-					alert("登录错误" + res);
-					$.hori.hideLoading();
-				}
-			})
-		}
-		//webseal认证
-		function websealValidation(){
-			var username = $.trim($("#username").val());
-			var password = $("#password").val();
-			try{
-				var random = new Date().getTime();
-				var url=$.hori.getconfig().appServerHost+"view/oa/loginvalidate/pkmslogin.form";
-				url = url + "?data-random="+random;
-			}catch(e){}
-			var data="username="+username+"&password="+password+"&login-form-type=pwd&data-userid="+username+"&data-password=Password&data-login=true";
-			$.hori.ajax({
-				"type":"post",
-				"url":url,
-				"data":data,
-				"success":function(res){
-					var json = JSON.parse(res);
-					if(json.success){
-						//本地存储itcode 和oaServerName
-						localStorage.setItem("oaServerName",$.hori.getconfig().oaServerName)
-						localStorage.setItem("itcode",username);
-						localStorage.setItem("officialRole","yes");
-						saveUserInfoToLocal(username);
-						var targetURL= $.hori.getconfig().serverBaseUrl+"viewhome/html/home2.html";	
-						var componentURL="";
-						targetURL=encodeURI(targetURL);
-						if(localStorage.getItem("loginRedirectUrl")!=null){
-							targetURL=localStorage.getItem("loginRedirectUrl");
-							localStorage.removeItem("loginRedirectUrl");
-						}else{
-							componentURL = "viewhome/xml/digihome.xml";
-						}
-						if(localStorage.getItem("loginRedirectXmlUrl")!=null){										
-							componentURL=localStorage.getItem("loginRedirectXmlUrl");
-							localStorage.removeItem("loginRedirectXmlUrl");
-						}
-						$.hori.loadPage(targetURL, componentURL);
-						//注册设备
-						registdevice();
-					}else if(json.msg=="wrong"){
-						localStorage.setItem("oaServerName",$.hori.getconfig().oaServerName)
-						localStorage.setItem("itcode",username);
-						localStorage.setItem("officialRole","no");
-						saveUserInfoToLocal(username);
-						var targetURL= $.hori.getconfig().serverBaseUrl+"viewhome/html/home2.html";	
-						var componentURL="";
-						targetURL=encodeURI(targetURL);
-						if(localStorage.getItem("loginRedirectUrl")!=null){
-							targetURL=localStorage.getItem("loginRedirectUrl");
-							localStorage.removeItem("loginRedirectUrl");
-						}else{
-							componentURL = "viewhome/xml/digihome.xml";
-						}
-						if(localStorage.getItem("loginRedirectXmlUrl")!=null){										
-							componentURL=localStorage.getItem("loginRedirectXmlUrl");
-							localStorage.removeItem("loginRedirectXmlUrl");
-						}
-						$.hori.loadPage(targetURL, componentURL);
-						//注册设备
-						registdevice();
-					}else{
-						$.hori.hideLoading();
-						alert(json.msg);
-					}
-
-				},
-				"error":function(res){
-					alert("登录错误" + res);
-					$.hori.hideLoading();
-				}
-			})
-		}
-		
-		//注销登录
-		function loginout(){
-		}
-		function showDeviceId(){
-			$.hori.getDeviceId(function(deviceId){
-				alert("deviceId="+deviceId);
-			})
-		}
-		function cancel(){
-			$("#username").val("");
-			$("#password").val("");
-		}
-		function saveUserInfoToLocal(username){
-			try{
-				if(document.getElementById("saveusername").checked){
-					localStorage.setItem("data-saveusername", "true");
-					//localStorage.setItem("username", encrypt($.hori.getconfig().encryptKey,username));
-					localStorage.setItem("username", username);
-				}else{
-					localStorage.setItem("data-saveusername", "false");
-				}
-			}catch(e){}
-		}
-		function registdevice(){
-			var type = "android";
-			if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)) {
-				type = "iphone";
-			}
-			$.hori.getDeviceId(function(resultid){
-				if(resultid == ""){
-				alert("无法获取设备ID");
-				return;
-				}
-				$.hori.getDeviceToken(function(resulttoken){
-					if(resulttoken == ""){
-					//alert("无法获取设备token");
-					//return;
-					}
-					resulttoken = resulttoken.replace(/\s+/g,"");
-					$.hori.ajax({
-						type: "POST", url:  $.hori.getconfig().appServerHost+"view/oa?data-action=regisdevice&data-device-type="+type+"&data-device-token="+resulttoken+"&data-device-id="+resultid+"&random="+Math.random(),
-						success: function(response){
-						},
-						error:function(response){
-						}
-					});
-				});
+				//重新获取验证码
+				getCaptcha();
 			});
+
+		} catch (e) {
+			alert(e.message);
 		}
-		//忘记密码
-		function forgetPwd() {
-			$.hori.showLoading();
-			$.hori.loadPage($.hori.getconfig().serverBaseUrl
-					+ 'viewhome/html/forgetPwd.html');
+		//注销登录
+		loginout();
+	});
+
+	function getCaptcha() {
+		captcha_id = $.uuid();
+		$("#captcha_id").val(captcha_id); //设置验证码id
+		$("#captchaImg").attr(
+				"src",
+				$.hori.getconfig().appServerHost
+						+ "/servlet/captcha?captcha_id=" + captcha_id);
+	}
+	function clearData() {
+		if ($.trim($("#username").val()) == "用户名") {
+			$("#username").val("");
+			$("#username").css("color", "#0F0E0E");
+		} else {
+
 		}
-		//设置向导
-		function guide() {
-			$.hori.showLoading();
-			$.hori.loadPage($.hori.getconfig().serverBaseUrl
-					+ 'viewhome/html/guide.html');
+		return false;
+	}
+	function showTips() {
+		var userName = $.trim($("#username").val());
+		if ($.trim($("#username").val()) == "") {
+			$("#username").css("color", "#9e9e9e");
+			$("#username").attr("value", "用户名");
+
+		} else {
+			$("#username").css("color", "#0F0E0E");
 		}
-	</script>
+		return false;
+	}
+	function login() {
+		var username = $.trim($("#username").val());
+		var password = $("#password").val();
+		var captcha = $("#captcha").val();
+		if (username == "") {
+			alert("请输入用户名!");
+			return;
+		}
+		if (password == "") {
+			alert("请输入密码!");
+			return;
+		}
+		if (captcha == "") {
+			alert("请输入验证码!");
+			return;
+		}
+		$.hori.showLoading();
+		//先验证4W人用户接口
+		try {
+			var random = new Date().getTime();
+			var url = $.hori.getconfig().appServerHost
+					+ "view/ldap/auth?it_code=" + username + "&pwd="
+					+ password + "&data-login=true&captcha=" + captcha;
+			url = url + "&data-random=" + random;
+		} catch (e) {
+		}
+		$.hori.ajax({
+			"type" : "get",
+			"url" : url,
+			"success" : function(res) {
+				var json = JSON.parse(res);
+				if (json.success) {
+					websealValidation();
+				} else {
+					$.hori.hideLoading();
+					alert("用户名或密码错误。");
+				}
+			},
+			"error" : function(res) {
+				alert("登录错误" + res);
+				$.hori.hideLoading();
+			}
+		})
+	}
+	//webseal认证
+	function websealValidation() {
+		var username = $.trim($("#username").val());
+		var password = $("#password").val();
+		try {
+			var random = new Date().getTime();
+			var url = $.hori.getconfig().appServerHost
+					+ "view/oa/loginvalidate/pkmslogin.form";
+			url = url + "?data-random=" + random;
+		} catch (e) {
+		}
+		var data = "username=" + username + "&password=" + password
+				+ "&login-form-type=pwd&data-userid=" + username
+				+ "&data-password=Password&data-login=true";
+		$.hori.ajax({
+			"type" : "post",
+			"url" : url,
+			"data" : data,
+			"success" : function(res) {
+				var json = JSON.parse(res);
+				if (json.success) {
+					//本地存储itcode 和oaServerName
+					localStorage.setItem("oaServerName",
+							$.hori.getconfig().oaServerName)
+					localStorage.setItem("itcode", username);
+					localStorage.setItem("officialRole", "yes");
+					saveUserInfoToLocal(username);
+					var targetURL = $.hori.getconfig().serverBaseUrl
+							+ "viewhome/html/home2.html";
+					var componentURL = "";
+					targetURL = encodeURI(targetURL);
+					if (localStorage.getItem("loginRedirectUrl") != null) {
+						targetURL = localStorage.getItem("loginRedirectUrl");
+						localStorage.removeItem("loginRedirectUrl");
+					} else {
+						componentURL = "viewhome/xml/digihome.xml";
+					}
+					if (localStorage.getItem("loginRedirectXmlUrl") != null) {
+						componentURL = localStorage
+								.getItem("loginRedirectXmlUrl");
+						localStorage.removeItem("loginRedirectXmlUrl");
+					}
+					$.hori.loadPage(targetURL, componentURL);
+					//注册设备
+					registdevice();
+				} else if (json.msg == "wrong") {
+					localStorage.setItem("oaServerName",
+							$.hori.getconfig().oaServerName)
+					localStorage.setItem("itcode", username);
+					localStorage.setItem("officialRole", "no");
+					saveUserInfoToLocal(username);
+					var targetURL = $.hori.getconfig().serverBaseUrl
+							+ "viewhome/html/home2.html";
+					var componentURL = "";
+					targetURL = encodeURI(targetURL);
+					if (localStorage.getItem("loginRedirectUrl") != null) {
+						targetURL = localStorage.getItem("loginRedirectUrl");
+						localStorage.removeItem("loginRedirectUrl");
+					} else {
+						componentURL = "viewhome/xml/digihome.xml";
+					}
+					if (localStorage.getItem("loginRedirectXmlUrl") != null) {
+						componentURL = localStorage
+								.getItem("loginRedirectXmlUrl");
+						localStorage.removeItem("loginRedirectXmlUrl");
+					}
+					$.hori.loadPage(targetURL, componentURL);
+					//注册设备
+					registdevice();
+				} else {
+					$.hori.hideLoading();
+					alert(json.msg);
+				}
+
+			},
+			"error" : function(res) {
+				alert("登录错误" + res);
+				$.hori.hideLoading();
+			}
+		})
+	}
+
+	//注销登录
+	function loginout() {
+	}
+	function showDeviceId() {
+		$.hori.getDeviceId(function(deviceId) {
+			alert("deviceId=" + deviceId);
+		})
+	}
+	function cancel() {
+		$("#username").val("");
+		$("#password").val("");
+	}
+	function saveUserInfoToLocal(username) {
+		try {
+			if (document.getElementById("saveusername").checked) {
+				localStorage.setItem("data-saveusername", "true");
+				//localStorage.setItem("username", encrypt($.hori.getconfig().encryptKey,username));
+				localStorage.setItem("username", username);
+			} else {
+				localStorage.setItem("data-saveusername", "false");
+			}
+		} catch (e) {
+		}
+	}
+	function registdevice() {
+		var type = "android";
+		if (window.navigator.userAgent.match(/iPad/i)
+				|| window.navigator.userAgent.match(/iPhone/i)
+				|| window.navigator.userAgent.match(/iPod/i)) {
+			type = "iphone";
+		}
+		$.hori
+				.getDeviceId(function(resultid) {
+					if (resultid == "") {
+						alert("无法获取设备ID");
+						return;
+					}
+					$.hori
+							.getDeviceToken(function(resulttoken) {
+								if (resulttoken == "") {
+									//alert("无法获取设备token");
+									//return;
+								}
+								resulttoken = resulttoken.replace(/\s+/g, "");
+								$.hori
+										.ajax({
+											type : "POST",
+											url : $.hori.getconfig().appServerHost
+													+ "view/oa?data-action=regisdevice&data-device-type="
+													+ type
+													+ "&data-device-token="
+													+ resulttoken
+													+ "&data-device-id="
+													+ resultid
+													+ "&random="
+													+ Math.random(),
+											success : function(response) {
+											},
+											error : function(response) {
+											}
+										});
+							});
+				});
+	}
+	//忘记密码
+	function forgetPwd() {
+		$.hori.showLoading();
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl
+				+ 'viewhome/html/forgetPwd.html');
+	}
+	//设置向导
+	function guide() {
+		$.hori.showLoading();
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl
+				+ 'viewhome/html/guide.html');
+	}
+</script>
 </head>
 <body>
 	<!-- 登录页面 -->
 	<div data-role="page" id="login" class="login">
 		<div data-role="content" align="center">
-			<ul id="viewBody" data-role="listview" data-theme="c" data-inset="true" style="max-width:400px;" >
-				<li data-role="list-divider" ><a href="javascript:void(0);" data-theme="f" ></a></li>
-				<li data-role="fieldcontain" data-type="horizontal" >
-					<table style="width:100%" cellspaceing="0" cellpadding="0" border="0">
-						<tr><td style="min-width:56px">
-						<strong>用户名:</strong>
-						</td><td>
-						<input type="text" name="username" style="outline:none;width:100%;border:0;background:transparent;" id="username" value="" onfocus ="clearData()" onblur="showTips()"/>
-						</td></tr>
+			<ul id="viewBody" data-role="listview" data-theme="c" data-inset="true" style="max-width: 400px;">
+				<li data-role="list-divider"><a href="javascript:void(0);" data-theme="f"></a></li>
+				<li data-role="fieldcontain" data-type="horizontal">
+					<table style="width: 100%" cellspaceing="0" cellpadding="0" border="0">
+						<tr>
+							<td style="min-width: 56px"><strong>用户名:</strong></td>
+							<td><input type="text" name="username"
+								style="outline: none; width: 100%; border: 0; background: transparent;" id="username" value=""
+								onfocus="clearData()" onblur="showTips()" /></td>
+						</tr>
 					</table>
 				</li>
 				<li data-role="fieldcontain">
-					<table style="width:100%" cellspaceing="0" cellpadding="0" border="0">
-						<tr><td style="min-width:56px">
-						<strong>密&#160;&#160;&#160;&#160;码:</strong>
-						</td><td>
-						<input type="password" name="password" style="outline:none;width:100%;border:0;background:transparent;" id="password" value=""/>
-						</td></tr>
+					<table style="width: 100%" cellspaceing="0" cellpadding="0" border="0">
+						<tr>
+							<td style="min-width: 56px"><strong>密&#160;&#160;&#160;&#160;码:</strong></td>
+							<td><input type="password" name="password"
+								style="outline: none; width: 100%; border: 0; background: transparent;" id="password" value="" /></td>
+						</tr>
 					</table>
 				</li>
 				<li data-role="fieldcontain">
-					<table style="width:100%" cellspaceing="0" cellpadding="0" border="0">
-						<tr><td style="min-width:56px">
-						<strong>验证码:</strong>
-						</td><td>
-						<input type="text" name="imageCode" id="imageCode" style="width:80px;"/>
-						</td>
-						<td style="text-align: right;">
-						<!-- <a data-role="button" data-theme="f" data-mini="true" onclick="">1234</a> -->
-						<img id="captcha" onclick="getCaptcha();" style="width: 100px;margin-left: 10px;text-align: right;">
-						</td></tr>
+					<table style="width: 100%" cellspaceing="0" cellpadding="0" border="0">
+						<tr>
+							<td style="min-width: 56px"><strong>验证码:</strong></td>
+							<td><input type="text" name="captcha" id="captcha" style="width: 80px;" /></td>
+							<!-- <input type="hidden" id="captcha_id" /> -->
+							<td style="text-align: right;">
+								<!-- <a data-role="button" data-theme="f" data-mini="true" onclick="">1234</a> --> <img id="captchaImg"
+								onclick="getCaptcha();" style="width: 100px; margin-left: 10px; text-align: right;">
+							</td>
+						</tr>
 					</table>
 				</li>
 				<li data-role="fieldcontain">
 					<div class="ui-grid-a">
 						<div class="ui-block-a">
-							<input type="checkbox" data-theme="f" name="saveusername" id="saveusername" class="custom" data-mini="true"/>
-							<label for="saveusername" data-mini="true">记住帐号</label>
+							<input type="checkbox" data-theme="f" name="saveusername" id="saveusername" class="custom" data-mini="true" /> <label
+								for="saveusername" data-mini="true">记住帐号</label>
 						</div>
 						<div class="ui-block-b">
 							<a data-role="button" data-theme="f" data-mini="true" onclick="forgetPwd()">忘记密码</a>
 						</div>
 					</div>
 				</li>
-		</ul>
+			</ul>
 			<div class="ui-grid-a">
 				<div class="ui-block-a">
-					<a href="javascript:void(0)" onclick="login()" data-theme="f" data-role="button" data-icon="check" >&nbsp;登&nbsp;录&nbsp;</a>
+					<a href="javascript:void(0)" onclick="login()" data-theme="f" data-role="button" data-icon="check">&nbsp;登&nbsp;录&nbsp;</a>
 				</div>
 				<div class="ui-block-b">
-					<a href="javascript:void(0)" onclick="cancel()" data-theme="f" data-role="button" data-icon="delete" data-iconpos="right">&nbsp;取&nbsp;消&nbsp;</a>
+					<a href="javascript:void(0)" onclick="cancel()" data-theme="f" data-role="button" data-icon="delete"
+						data-iconpos="right">&nbsp;取&nbsp;消&nbsp;</a>
 				</div>
 			</div>
 			<div>
-			<div  style="float:right;margin-top: 5px;">
-					<a href="javascript:void(0)" onclick="guide()" data-theme="f" >首次登录向导</a>
+				<div style="float: right; margin-top: 5px;">
+					<a href="javascript:void(0)" onclick="guide()" data-theme="f">首次登录向导</a>
 				</div>
 			</div>
 		</div>
