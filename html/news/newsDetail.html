@@ -113,8 +113,10 @@ p {
 					var dataData = new Object();
 					var list = new Array();
 					for (var i = 0; i < dataArrayName.length; i++) {
-						var cut=dataArrayName[i].split(".")[1];
-						if(cut!="doc"&cut!="xls"&cut!="ppt"&cut!="pdf"&cut!="txt"){
+						var lastIndex=dataArrayName[i].lastIndexOf(".");
+						
+						var cut= dataArrayName[i].substring(lastIndex);//dataArrayName[i].split(".")[2];
+						if(cut!=".doc"&cut!=".xls"&cut!=".ppt"&cut!=".pdf"&cut!=".txt"){
 							dataArraySource[i]="noSupport";
 						}
 						var item = new Object();
