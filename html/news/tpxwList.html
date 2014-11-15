@@ -58,6 +58,7 @@ a {
 	function pullUpAction(itcode) {
 		setTimeout(
 				function() {
+					$.hori.showLoading();
 					page = page + 1;
 					var url = $.hori.getconfig().appServerHost
 							+ "view/news/newsList/accsyWcmNews/services/WcmNewsList";
@@ -82,6 +83,7 @@ a {
 									"Authorization" : "Basic d3BzYWRtaW46R1RBZG1pbg=="
 								},
 								"success" : function(res) {
+									$.hori.hideLoading();
 									$("#newsList").css("display","");
                                     $("#divDataLoading").css("display","none");
 									var list = JSON.parse(res);
