@@ -58,7 +58,7 @@ a {
 				//重新获取验证码
 				getCaptcha();
 				//清除输入登录信息
-				clearLoginInfo();
+				clearLoginInput();
 			});
 
 		} catch (e) {
@@ -69,7 +69,7 @@ a {
 	});
 
 	//清除输入登录信息
-	function clearLoginInfo(){
+	function clearLoginInput(){
 		$("#password").val("");
         $("#captcha").val("");
 	}
@@ -336,7 +336,7 @@ a {
 							<td style="min-width: 56px"><strong>验证码:</strong></td>
 							<td><input type="text" name="captcha" id="captcha" style="width: 80px;" /></td>
 							<!-- <input type="hidden" id="captcha_id" /> -->
-							<td style="text-align: right;">
+							<td style="text-align: center ;">
 								<!-- <a data-role="button" data-theme="f" data-mini="true" onclick="">1234</a> --> <img id="captchaImg"
 								onclick="getCaptcha();" style="width: 100px; margin-left: 10px; text-align: right;">
 							</td>
@@ -346,8 +346,8 @@ a {
 				<li data-role="fieldcontain">
 					<div class="ui-grid-a">
 						<div class="ui-block-a">
-							<input type="checkbox" data-theme="f" name="saveusername" id="saveusername" class="custom" data-mini="true" /> <label
-								for="saveusername" data-mini="true">记住帐号</label>
+							<input type="checkbox" data-theme="f" name="saveusername" id="saveusername" data-mini="true" /> <label
+								for="saveusername" data-mini="true" >记住帐号</label>
 						</div>
 						<div class="ui-block-b">
 							<a data-role="button" data-theme="f" data-mini="true" onclick="forgetPwd()">忘记密码</a>
