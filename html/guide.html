@@ -27,6 +27,7 @@ div p {
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#guide").hide();
+		$("#addphonenumber").hide();
 		var hori = $.hori;
 		try {
 			hori.setHeaderTitle("首次登录向导");
@@ -34,6 +35,12 @@ div p {
 			alert(e.message);
 		}
 	});
+	//忘记密码
+    function forgetPwd() {
+        $.hori.showLoading();
+        $.hori.loadPage($.hori.getconfig().serverBaseUrl
+                + 'viewhome/html/forgetPwd.html');
+    }
 	var fistBind = 1;
 	//查询用户信息方法
 	function doSearch() {
@@ -62,9 +69,8 @@ div p {
 					"url" : url,
 					"data" : $("#guideQueryForm").serialize(),
 					"success" : function(res) {
-						alert(jdata);
 						var jdata = JSON.parse(res);
-						if (jdata.mobile_number == "" & jdata.email == "") {
+						if (jdata.mobile_number == "") {
 							jdata.mobile_number = "您暂时未绑定手机号";
 						} else {
 							jdata.mobile_number = jdata.mobile_number
@@ -75,13 +81,13 @@ div p {
 						var data = new Object();
 						data.list = jdata;
 						if (jdata.rtn_code && jdata.rtn_code == "2000") { //判断是否正确返回 
-							if (jdata.mobile_number == "") {
-								document.getElementById("addphonenumber").style.display = "block";
+							if (jdata.mobile_number == "您暂时未绑定手机号") {
+								$("#addphonenumber").show();
 							}
 							$("#guide").show();
 							render(data);
 						} else { //未正确查询到结果
-							alert(jdata.rtn_msg);
+							//alert(jdata.rtn_msg);
 						}
 
 					},
@@ -177,14 +183,14 @@ div p {
 				</div>
 				<div style="max-width: 400px; text-align: left;" id="guide">
 					<p>
-						您的集团统一用户账号是：<span data-bind="text:list.user_name"></span>，请使用对应的密码登陆，如无法登陆，请点击<a>忘记密码</a>重置
+						您的集团统一用户账号是：<span data-bind="text:list.user_name"></span>，请使用对应的密码登陆，如无法登陆，请点击<a href="#" onclick="forgetPwd();">忘记密码</a>重置
 					</p>
 					<p>
 						您当前的手机号为：<span data-bind="text:list.mobile_number"></span>
 					</p>
 					<p>如需更改手机号，请与本单位人力资源部联系</p>
 				</div>
-				<div id="addphonenumber" style="display: none;">
+				<div id="addphonenumber" >
 					<ul data-role="listview" data-theme="c" data-inset="true" style="max-width: 400px;">
 						<li data-role="list-divider"><a href="javascript:void(0);" data-theme="f"></a></li>
 						<li data-role="fieldcontain" data-type="horizontal">
