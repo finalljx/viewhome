@@ -23,9 +23,9 @@ a {
 	$(document).ready(function() {
 		var hori = $.hori;
 		try {
-			hori.setHeaderTitle("重置密码");
+			hori.setHeaderTitle("忘记密码");
 			/*隐藏后退按钮*/
-			hori.hideBackBtn();
+			//hori.hideBackBtn();
 		} catch (e) {
 			alert(e.message);
 		}
@@ -119,9 +119,10 @@ a {
 			"success" : function(res) {
 				alert(res);
 				var jdata = JSON.parse(res);
-				document.getElementById("Mobile_number").value=jdata.mobile_number;
+				document.getElementById("mobile_number").value=jdata.mobile_number;
 				reset();
 				if (jdata.rtn_code && jdata.rtn_code == "2000") { //判断是否正确返回 
+					
 				} else { //未正确查询到结果
 					alert(jdata.rtn_msg);
 				}
@@ -148,10 +149,10 @@ a {
 						<table style="width: 100%" cellspaceing="0" cellpadding="0"
 							border="0">
 							<tr>
-								<td><strong>帐&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;号:</strong>
+								<td><strong>用&#160;&#160;户&#160;&#160;名:</strong>
 								</td>
 								<td><input type="hidden" id="Okey" name="Okey" value="Fwad1Zfv8XnXHoEDkOjSX2XldzwNnG72"/>
-								<input type="hidden" id="Mobile_number" name="Mobile_number" value=""/>
+								<input type="hidden" id="mobile_number" name="mobile_number" value=""/>
 								<input type="text" name="user_name"
 									style="outline: none; width: 100%; border: 0; background: transparent;"
 									id="user_name" value="geyuxi" onfocus="clearData()"
@@ -186,7 +187,7 @@ a {
 						<table style="width: 100%" cellspaceing="0" cellpadding="0"
 							border="0">
 							<tr>
-								<td><strong>验证码&#160;&#160;&#160;&#160;:</strong></td>
+								<td><strong>验&#160;&#160;证&#160;&#160;码:</strong></td>
 								<td><input type="text" name="imageCode" id="imageCode"
 									style="width: 80px;" /></td>
 								<td><a data-role="button" href="javascript:void(0)"

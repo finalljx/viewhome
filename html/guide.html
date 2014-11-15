@@ -3,8 +3,7 @@
 <head>
 <title>首次登录向导</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
 <link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" />
 <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
 <script src="../lib/jquery/jquery.min.js"></script>
@@ -28,6 +27,7 @@ div p {
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#guide").hide();
+		$("#addphonenumber").hide();
 		var hori = $.hori;
 		try {
 			hori.setHeaderTitle("首次登录向导");
@@ -35,10 +35,16 @@ div p {
 			alert(e.message);
 		}
 	});
-var fistBind=1;
+	//忘记密码
+    function forgetPwd() {
+        $.hori.showLoading();
+        $.hori.loadPage($.hori.getconfig().serverBaseUrl
+                + 'viewhome/html/forgetPwd.html');
+    }
+	var fistBind = 1;
 	//查询用户信息方法
 	function doSearch() {
-		
+
 		var username = $.trim($("#cn_name").val());
 		var number = $("#id_number").val();
 		if (username == "") {
@@ -57,36 +63,40 @@ var fistBind=1;
 			url = url + "?data-random=" + random + "&data-result=text";
 		} catch (e) {
 		}
-		$.hori.ajax({
-			"type" : "post",
-			"url" : url,
-			"data" : $("#guideQueryForm").serialize(),
-			"success" : function(res) {
-				var jdata = JSON.parse(res);
-				if(jdata.mobile_number==""&jdata.email==""){
-					jdata.mobile_number="您暂时未绑定手机号";
-				}else{
-				jdata.mobile_number=jdata.mobile_number.substring(0,3)+"****"+jdata.mobile_number.substring(7,11);
-				}
-				var data=new Object();
-				data.list=jdata;alert("jdata.rtn_code="+jdata.rtn_code);
-				if (jdata.rtn_code && jdata.rtn_code == "2000") { //判断是否正确返回 
-					if(jdata.mobile_number==""){
-						document.getElementById("addphonenumber").style.display="block";
+		$.hori
+				.ajax({
+					"type" : "post",
+					"url" : url,
+					"data" : $("#guideQueryForm").serialize(),
+					"success" : function(res) {
+						var jdata = JSON.parse(res);
+						if (jdata.mobile_number == "") {
+							jdata.mobile_number = "您暂时未绑定手机号";
+						} else {
+							jdata.mobile_number = jdata.mobile_number
+									.substring(0, 3)
+									+ "****"
+									+ jdata.mobile_number.substring(7, 11);
+						}
+						var data = new Object();
+						data.list = jdata;
+						if (jdata.rtn_code && jdata.rtn_code == "2000") { //判断是否正确返回 
+							if (jdata.mobile_number == "您暂时未绑定手机号") {
+								$("#addphonenumber").show();
+							}
+							$("#guide").show();
+							render(data);
+						} else { //未正确查询到结果
+							//alert(jdata.rtn_msg);
+						}
+
+					},
+					"error" : function(res) {
+						alert("查询失败：" + res);
+						$.hori.hideLoading();
+						alert(2);
 					}
-					$("#guide").show();
-					render(data);
-				} else { //未正确查询到结果
-					alert(jdata.rtn_msg);
-				}
-				
-			},
-			"error" : function(res) {
-				alert("查询失败：" + res);
-				$.hori.hideLoading();
-				alert(2);
-			}
-		})
+				})
 	}
 
 	//添加手机号码
@@ -120,11 +130,11 @@ var fistBind=1;
 			"data" : $("#guideQueryForm").serialize(),
 			"success" : function(res) {
 				var data = JSON.parse(res);
-				 if (data.rtn_code && data.rtn_code == "2000") { //判断是否正确返回 
+				if (data.rtn_code && data.rtn_code == "2000") { //判断是否正确返回 
 					alert("绑定成功！");
 				} else { //未正确查询到结果
 					alert(data.rtn_msg);
-				} 
+				}
 			},
 			"error" : function(res) {
 				alert("查询失败：" + res);
@@ -134,9 +144,9 @@ var fistBind=1;
 	}
 	function render(jsonData) {
 		viewModel = ko.mapping.fromJS(jsonData);
-		if(fistBind==1){
-			fistBind=fistBind+1;
-		ko.applyBindings(viewModel,document.getElementById("guide"));
+		if (fistBind == 1) {
+			fistBind = fistBind + 1;
+			ko.applyBindings(viewModel, document.getElementById("guide"));
 		}
 	}
 </script>
@@ -146,71 +156,60 @@ var fistBind=1;
 	<div data-role="page" id="login" class="login">
 		<div data-role="content" align="center" style="padding: 0.5em">
 			<form id="guideQueryForm">
-				<ul id="viewBody" data-role="listview" data-theme="c"
-					data-inset="true" style="max-width: 400px;">
-					<li data-role="list-divider"><a href="javascript:void(0);"
-						data-theme="f"></a></li>
+				<ul id="viewBody" data-role="listview" data-theme="c" data-inset="true" style="max-width: 400px;">
+					<li data-role="list-divider"><a href="javascript:void(0);" data-theme="f"></a></li>
 					<li data-role="fieldcontain" data-type="horizontal">
-						<table style="width: 100%" cellspaceing="0" cellpadding="0"
-							border="0">
+						<table style="width: 100%" cellspaceing="0" cellpadding="0" border="0">
 							<tr>
-								<td style="min-width: 5em"><strong>姓&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;名:</strong>
-								</td>
+								<td style="min-width: 5em"><strong>姓&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;名:</strong></td>
 								<td><input type="text" name="cn_name"
-									style="outline: none; width: 100%; border: 0; background: transparent;"
-									id="cn_name" value="" /></td>
+									style="outline: none; width: 100%; border: 0; background: transparent;" id="cn_name" value="" /></td>
 							</tr>
 						</table>
 					</li>
 					<li data-role="fieldcontain">
-						<table style="width: 100%" cellspaceing="0" cellpadding="0"
-							border="0">
+						<table style="width: 100%" cellspaceing="0" cellpadding="0" border="0">
 							<tr>
 								<td style="min-width: 5em"><strong>身份证号:</strong></td>
 								<td><input type="text" name="id_number"
-									style="outline: none; width: 100%; border: 0; background: transparent;"
-									id="id_number" value="" /></td>
+									style="outline: none; width: 100%; border: 0; background: transparent;" id="id_number" value="" /></td>
 							</tr>
 						</table>
 					</li>
 				</ul>
-				
-			<div class="ui-grid-a" style="max-width: 400px;">
-				<a href="javascript:void(0)" onclick="doSearch();" data-theme="f"
-					data-role="button" data-icon="false">查&nbsp;询</a>
-			</div>
-			<div style="max-width: 400px; text-align: left;" id="guide">
-				<p>
-					您的集团统一用户账号是：<span data-bind="text:list.user_name"></span>，请使用对应的密码登陆，如无法登陆，请点击<a>忘记密码</a>重置
-				</p>
-				<p>您当前的手机号为：<span data-bind="text:list.mobile_number"></span></p>
-				<p>如需更改手机号，请与本单位人力资源部联系</p>
-			</div>
-			<div id="addphonenumber" style="display:none;">
-			<ul data-role="listview" data-theme="c" data-inset="true"
-				style="max-width: 400px;">
-				<li data-role="list-divider"><a href="javascript:void(0);"
-					data-theme="f"></a></li>
-				<li data-role="fieldcontain" data-type="horizontal">
-					<table style="width: 100%" cellspaceing="0" cellpadding="0"
-						border="0">
-						<tr>
-							<td style="min-width: 5em"><strong>手机号码:</strong></td>
-							<td><input type="text" name="mobile_number"
-								style="outline: none; width: 100%; border: 0; background: transparent;"
-								id="mobile_number" value="" /></td>
-						</tr>
-					</table>
-				</li>
-			</ul>
+
+				<div class="ui-grid-a" style="max-width: 400px;">
+					<a href="javascript:void(0)" onclick="doSearch();" data-theme="f" data-role="button" data-icon="false">查&nbsp;询</a>
+				</div>
+				<div style="max-width: 400px; text-align: left;" id="guide">
+					<p>
+						您的集团统一用户账号是：<span data-bind="text:list.user_name"></span>，请使用对应的密码登陆，如无法登陆，请点击<a href="#" onclick="forgetPwd();">忘记密码</a>重置
+					</p>
+					<p>
+						您当前的手机号为：<span data-bind="text:list.mobile_number"></span>
+					</p>
+					<p>如需更改手机号，请与本单位人力资源部联系</p>
+				</div>
+				<div id="addphonenumber" >
+					<ul data-role="listview" data-theme="c" data-inset="true" style="max-width: 400px;">
+						<li data-role="list-divider"><a href="javascript:void(0);" data-theme="f"></a></li>
+						<li data-role="fieldcontain" data-type="horizontal">
+							<table style="width: 100%" cellspaceing="0" cellpadding="0" border="0">
+								<tr>
+									<td style="min-width: 5em"><strong>手机号码:</strong></td>
+									<td><input type="text" name="mobile_number"
+										style="outline: none; width: 100%; border: 0; background: transparent;" id="mobile_number" value="" /></td>
+								</tr>
+							</table>
+						</li>
+					</ul>
 			</form>
 			<div class="ui-grid-a" style="max-width: 400px;">
-				<a href="javascript:void(0)" onclick="addMobileNum();"
-					data-theme="f" data-role="button" data-icon="false">添加手机号</a>
+				<a href="javascript:void(0)" onclick="addMobileNum();" data-theme="f" data-role="button" data-icon="false">添加手机号</a>
 			</div>
-			</div>
-			
 		</div>
+
+	</div>
 	</div>
 </body>
 </html>
