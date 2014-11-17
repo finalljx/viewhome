@@ -9,14 +9,15 @@
 	pageEncoding="UTF-8"%>
 <%
 	String year = request.getParameter("year");
+	String order = request.getParameter("order");
 	WebApplicationContext context = WebApplicationContextUtils.getRequiredWebApplicationContext(this
 			.getServletContext());
 	MobilePeriodicalDao dao = (MobilePeriodicalDao) context.getBean("mobilePeriodicalDao");
 	List<Map> list = new ArrayList();
 	if (year != null && !year.equals("")) { //年份不为空
-		list = dao.findPeriodicalList(year);
+		list = dao.findPeriodicalList(year,order);
 	} else {
-		list = dao.findPeriodicalList(null);
+		list = dao.findPeriodicalList(null,order);
 	}
 	out.clear();
 	out.print(JacksonHelper.toJson(list));
