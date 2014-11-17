@@ -92,6 +92,10 @@ p {
 				res=res.replace(/http:\/\/webseal.genertec.com.cn/g,url).replace(/&amp;amp;/g,"&");
 				res=res.replace(/CACHEID=.*?\\/g,'data-result=file&data-application=mobile\\\" width=\\\"'+widthImg+'\\');
 				res=res.replace(/style=.*?\\"/g,"");
+				res=res.replace(/WIDTH=.*?\\"/g,"");
+				res=res.replace(/HEIGHT=.*?\\"/g,"");
+				res=res.replace(/<p.+>(<img.+>)<\/p>/g,'$1');
+				console.log(res);
 				 var data = JSON.parse(res);
 				if ( data.attachmentSource!=undefined) {
 					document.getElementById("fujian").style.display = "inline";
@@ -187,7 +191,7 @@ p {
 				<span data-bind="html:richText"></span>
 			</div>
 			</div>
-			 <div style="clear: both; display: inline;" id="fujian" data-bind="if:$root.list">
+			 <div style="clear: both; display: none;" id="fujian" data-bind="if:$root.list">
 			 <a style="float: left;color: black; margin-left: 15px;">附件列表:</a>
 				<ul data-bind="foreach: list" style="list-style-type:none;">
 					<li data-icon="false" style="float: left;">

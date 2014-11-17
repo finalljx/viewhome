@@ -56,9 +56,9 @@
 
 			});
     function viewFile(item){
-    	var url=$.hori.getconfig().serverBaseUrl+"view/tpxw/file"+item.lianjie()+"?data-convert=office&data-application=" + $.hori.getconfig().appKey;
+    	var url=$.hori.getconfig().appServerHost+"view/tpxw/file"+item.lianjie()+"?data-convert=office&data-application=" + $.hori.getconfig().appKey;
 		localStorage.setItem("attachmentUrl",url);
-		$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
+		$.hori.loadPage( $.hori.getconfig().appServerHost+"viewhome/html/attachmentShowForm.html","viewhome/xml/AttachView.xml");
     	
     }
 	function renderDetail() {
