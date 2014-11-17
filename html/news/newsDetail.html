@@ -94,6 +94,8 @@ p {
 				res=res.replace(/style=.*?\\"/g,"");
 				res=res.replace(/WIDTH=.*?\\"/g,"");
 				res=res.replace(/HEIGHT=.*?\\"/g,"");
+				res=res.replace(/<p.+>(<img.+>)<\/p>/g,'$1');
+				console.log(res);
 				 var data = JSON.parse(res);
 				if ( data.attachmentSource!=undefined) {
 					document.getElementById("fujian").style.display = "inline";
