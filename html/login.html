@@ -75,6 +75,7 @@ a {
 	}
 	function getCaptcha() {
 		captcha_id = $.uuid();
+		$("#captcha").val(""); //清空验证码内容
 		$("#captcha_id").val(captcha_id); //设置验证码id
 		$("#captchaImg").attr(
 				"src",
@@ -116,14 +117,20 @@ a {
 		if (captcha == "") {
 			alert("请输入验证码!");
 			return;
+		}else{
+			if(isNaN(captcha)){
+				alert("验证码只能为数字！");
+				$("#captcha").val(""); //清空验证码内容
+				return;
+			}
 		}
 		$.hori.showLoading();
 		//先验证4W人用户接口
 		try {
 			var random = new Date().getTime();
 			var url = $.hori.getconfig().appServerHost
-					+ "view/ldap/auth?it_code=" + username + "&pwd="
-					+ password + "&data-login=true&captcha=" + captcha;
+					+ "view/ldap/checkLogin/userCheckPW?user_name=" + username + "&password="
+					+ password + "&data-login=true&data-captcha=" + captcha + "&data-captcha-id=" + captcha_id;
 			url = url + "&data-random=" + random;
 		} catch (e) {
 		}
@@ -132,11 +139,16 @@ a {
 			"url" : url,
 			"success" : function(res) {
 				var json = JSON.parse(res);
-				if (json.success) {
+				if (json.success== true) { //认证通过
 					websealValidation();
 				} else {
 					$.hori.hideLoading();
-					alert("用户名或密码错误。");
+					if(json.msg != ""){ //验证码错误
+						alert(json.msg);
+						getCaptcha(); //重新获取验证码
+					}else{
+						alert("用户名或密码错误。");
+					}
 				}
 			},
 			"error" : function(res) {
@@ -334,7 +346,7 @@ a {
 					<table style="width: 100%" cellspaceing="0" cellpadding="0" border="0">
 						<tr>
 							<td style="min-width: 56px"><strong>验证码:</strong></td>
-							<td><input type="text" name="captcha" id="captcha" style="width: 80px;" /></td>
+							<td><input type="text" name="captcha" id="captcha" maxlength="4" style="width: 80px;" /></td>
 							<!-- <input type="hidden" id="captcha_id" /> -->
 							<td style="text-align: center ;">
 								<!-- <a data-role="button" data-theme="f" data-mini="true" onclick="">1234</a> --> <img id="captchaImg"

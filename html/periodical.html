@@ -56,7 +56,7 @@
 
 			});
     function viewFile(item){
-    	var url=$.hori.getconfig().appServerHost+"view/tpxw/file"+item.lianjie()+"?data-convert=office&data-application=" + $.hori.getconfig().appKey;
+    	var url=$.hori.getconfig().appServerHost+"view/tpxw/file"+item.lianjie()+"?data-convert=office&data-cache=true";
 		localStorage.setItem("attachmentUrl",url);
 		$.hori.loadPage( $.hori.getconfig().appServerHost+"viewhome/html/attachmentShowForm.html","viewhome/xml/AttachView.xml");
     	
