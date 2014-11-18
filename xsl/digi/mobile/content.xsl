@@ -141,6 +141,9 @@
 							}
 
 							function submit(value){
+							localStorage.setItem("value",value);
+							var FlowMindInfo = $("#FlowMindInfo").val();
+							localStorage.setItem("FlowMindInfo",FlowMindInfo);
 								//意见不可为空
 								var sel = $("#FlowMindInfo").val();
 								if(sel == null || sel==""){
