@@ -33,7 +33,8 @@
 								var hori=$.hori;
 								/*设置标题*/
 								hori.setHeaderTitle("集团文件系统会签处理单");
-								$.hori.hideLoading();
+								$.hori.showLoading()
+								setTimeout("$.hori.hideLoading();",4000);
 							});
 							//viewfile 附件函数
 							function viewfile(url){
@@ -49,6 +50,7 @@
 								postForm(val);
 							}
 							function postForm(type){
+								$.mobile.showPageLoadingMsg();
 								//客户端时，服务器通过截取当前url获取cookie_userstore
 								if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)||window.navigator.userAgent.match(/android/i)){
 									var locationurl=window.location.href;
