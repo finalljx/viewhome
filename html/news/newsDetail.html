@@ -161,10 +161,12 @@ img{
 	function render(jsonData) {
 		var viewModel = ko.mapping.fromJS(jsonData);
 		ko.applyBindings(viewModel,document.getElementById("textRich"));
+		$.hori.hideLoading();
 	}
 	function renderfj(jsonData) {
 		var viewModel = ko.mapping.fromJS(jsonData);
 		ko.applyBindings(viewModel,document.getElementById("fujian"));
+		$.hori.hideLoading();
 	}
 </script>
 </head>

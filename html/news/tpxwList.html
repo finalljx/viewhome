@@ -6,16 +6,14 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
 <script type="application/javascript" src="../../assets/iscroll.js"></script>
-<link rel="stylesheet"
-	href="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" />
+<link rel="stylesheet" href="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" />
 <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
 <script src="../../lib/jquery/jquery.min.js"></script>
 <script src="../../lib/encrypt/encrypt.js"></script>
 <script src="../../lib/json/json2.js"></script>
 <script src="../../lib/hori/hori.js?tag=21369"></script>
 <script src="../../config/web/config.js"></script>
-<script
-	src="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
+<script src="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
 <script src="../../lib/knockout/knockout.js"></script>
 <script src="../../lib/knockout/knockout.mapping.js"></script>
 <style>
@@ -56,9 +54,9 @@ a {
 	var page = 0;
 	var viewModel = new Object();
 	function pullUpAction(itcode) {
+		$.hori.showLoading();
 		setTimeout(
 				function() {
-					$.hori.showLoading();
 					page = page + 1;
 					var url = $.hori.getconfig().appServerHost
 							+ "view/news/newsList/accsyWcmNews/services/WcmNewsList";
@@ -83,7 +81,6 @@ a {
 									"Authorization" : "Basic d3BzYWRtaW46R1RBZG1pbg=="
 								},
 								"success" : function(res) {
-									$.hori.hideLoading();
 									$("#newsList").css("display","");
                                     $("#divDataLoading").css("display","none");
 									var list = JSON.parse(res);
@@ -126,6 +123,7 @@ a {
 										}
 										myScroll.refresh();
 									}
+									$.hori.hideLoading();
 								},
 								"error" : function(res) {
 									alert("error:" + res);

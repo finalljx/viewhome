@@ -64,7 +64,6 @@ right: 5px;
 	var itcode;
 	var moreCurrentName;
 	$(document).ready(function() {
-		$.hori.showLoading();
 		itcode = localStorage.getItem("itcode");
 		moreCurrentName = localStorage.getItem("moreCurrentName");
 		//默认隐藏列表显示
@@ -102,6 +101,7 @@ right: 5px;
 	var page = 0;
 	var viewModel = new Object();
 	function pullUpAction(itcode) {
+		$.hori.showLoading();
 		setTimeout(
 				function() {
 					
@@ -170,6 +170,7 @@ right: 5px;
 										}
 										myScroll.refresh();
 									}
+									$.hori.hideLoading();
 								},
 								"error" : function(res) {
 									alert("error:" + res);
