@@ -35,8 +35,9 @@
 					});
 					function makejq(){						
 						var jqElement = document.getElementById("jq");
+						alert(jqElement);
 						var url = $.hori.getconfig().appServerHost+"view/oamobile/operationjq/Produce/DigiFlowMobile.nsf/frmselectpsn?OpenForm&amp;login&amp;selectMode=radio&amp;FieldName=TFTempAuthors&amp;FieldNameCN=TFTempAuthorsCN&amp;FieldNameEN=TFTempAuthorsEN&amp;GroupFlag=no&amp;SelectOrgID=&amp;OptFieldName=&amp;callback=SubmitFlowDoc_JQ";
-						//alert(url);
+						alert(url);
 						var contentHtml=$("#notice").html();
 						localStorage.setItem("oajqDataSource",url);
 						//jqElement.setAttribute("href", "../html/jq.html");
@@ -104,12 +105,14 @@
 								var toNodeId = "";
 								if(flowid){
 									toNodeId = flowid;
+									
 									$( "#flowpupups" ).popup( "close" );
 								}
 								
 								
 								
 								var soap = "<SOAP-ENV:Envelope xmlns:SOAP-ENV='http://schemas.xmlsoap.org/soap/envelope/' xmlns:SOAP-ENC='http://schemas.xmlsoap.org/soap/encoding/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'><SOAP-ENV:Body><m:bb_dd_GetDataByView xmlns:m='http://sxg.bbdd.org' SOAP-ENV:encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'><db_ServerName xsi:type='xsd:string'>"+appserver+"</db_ServerName><db_DbPath xsi:type='xsd:string'>"+appdbpath+"</db_DbPath><db_DocUID xsi:type='xsd:string'>"+appdocunid+"</db_DocUID><db_UpdInfo xsi:type='xsd:string'></db_UpdInfo><db_OptPsnID xsi:type='xsd:string'>"+CurUserITCode+"</db_OptPsnID><db_TempAuthors xsi:type='xsd:string'></db_TempAuthors><db_MsgTitle xsi:type='xsd:string'></db_MsgTitle><db_ToNodeId xsi:type='xsd:string'>"+toNodeId+"</db_ToNodeId><db_Mind xsi:type='xsd:string'>"+FlowMindInfo+"</db_Mind><db_OptType xsi:type='xsd:string'>"+value+"</db_OptType></m:bb_dd_GetDataByView></SOAP-ENV:Body></SOAP-ENV:Envelope>";
+								
 								$.mobile.showPageLoadingMsg();
 								var url = $.hori.getconfig().appServerHost+"view/oa/request/Produce/ProInd.nsf/THFlowBackTraceAgent?openagent&login";
 								var data = "data-xml="+soap;
@@ -165,7 +168,6 @@
 									var toflownodeid = "";
 									if($("#toflownodeid").length>0){
 										toflownodeid = $("#toflownodeid").val();
-									
 										if(toflownodeid==""){
 											alert("请选择下一环节");
 											return ;
@@ -174,7 +176,16 @@
 										//存储下一环节到localstorage中 
 										localStorage.setItem("oaNextNodeId",toflownodeid);
 									}
-									post(value, toflownodeid);
+									else{
+									var selectPerson = window.confirm("请选择提交人！"); 
+									if(selectPerson){
+										searchPerson();
+										 
+										}
+									}
+									
+									
+									//post(value, toflownodeid);
 								}
 							}
 							function advanced(){
