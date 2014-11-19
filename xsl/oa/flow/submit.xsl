@@ -483,9 +483,9 @@
 				<li data-role="fieldcontain" style="{./@style}" id="{./@id}">
 					<fieldset data-role="controlgroup">
 						<legend><xsl:value-of select="td[@class='tdLabel']/."/></legend>
-						<input type="radio" id="_d2epa44tnk89rno8joukg_" name="fldSpgz" value="_d2epa44tnk89rno8joukg_" onclick="showAndHide('trSelectUser','')"></input>
+						<input type="radio" id="_d2epa44tnk89rno8joukg_" name="fldSpgz" value="_d2epa44tnk89rno8joukg_" onclick="showAndHide('trSelectUser','')" checked="checked"></input>
 						<label for="_d2epa44tnk89rno8joukg_">并发会签</label>
-						<input type="radio" id="_d2f5r64ugu89rno8joukg_" name="fldSpgz" value="_d2f5r64ugu89rno8joukg_" onclick="showAndHide('','trSelectUser')" checked="checked"></input>
+						<input type="radio" id="_d2f5r64ugu89rno8joukg_" name="fldSpgz" value="_d2f5r64ugu89rno8joukg_" onclick="showAndHide('','trSelectUser')" ></input>
 						<label for="_d2f5r64ugu89rno8joukg_">顺序会签</label>
 					</fieldset>
 				</li>

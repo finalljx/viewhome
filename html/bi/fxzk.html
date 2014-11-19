@@ -3,8 +3,7 @@
 <head>
 <title>风险状况</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <link rel="stylesheet"
 	href="../../lib/jquery-mobile/jquery.mobile.min.css" />
 <link rel="stylesheet" href="../../assets/jquery.mobile-sugon.css" />
@@ -44,6 +43,7 @@ a {
     width: 12px;
     height: 12px;
 }
+
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -133,16 +133,16 @@ a {
 							for (var j = 0; j < imageType.length - 1; j++) {
 								if (10 == imageType[j]) {
 									imgString = imgString
-											+ "<div style='float:left;width:"+tbImgWidth+";line-height:60px;'><img src='img/xiaolv.png' class='small_light'/></div>";
+											+ "<div style='float:left;width:"+tbImgWidth+";line-height:50px;'><img src='img/xiaolv.png' class='small_light'/></div>";
 								} else if (20 == imageType[j]) {
 									imgString = imgString
-											+ "<div style='float:left;width:"+tbImgWidth+";line-height:60px;'><img src='img/xiaohuang.png' class='small_light'/></div>";
+											+ "<div style='float:left;width:"+tbImgWidth+";line-height:50px;'><img src='img/xiaohuang.png' class='small_light'/></div>";
 								} else if (30 == imageType[j]) {
 									imgString = imgString
-											+ "<div style='float:left;width:"+tbImgWidth+";line-height:60px;'><img src='img/xiaohong.png' class='small_light'/></div>";
+											+ "<div style='float:left;width:"+tbImgWidth+";line-height:50px;'><img src='img/xiaohong.png' class='small_light'/></div>";
 								} else {
 									imgString = imgString
-											+ "<div style='float:left;width:"+tbImgWidth+";line-height:60px;'><img src='img/xiaohui.png' class='small_light'/></div>";
+											+ "<div style='float:left;width:"+tbImgWidth+";line-height:50px;'><img src='img/xiaohui.png' class='small_light'/></div>";
 								}
 							}
 							imgString = imgString + "</li>";
@@ -170,9 +170,17 @@ a {
 			$(".top_year").css("top", y+'px');
 		}
 	}
+	//声明slidingScreen变量判断禁止滑动
+	var slidingScreen="no";
+	document.addEventListener("touchmove",function(e){
+		if(slidingScreen=="no"){
+			e.preventDefault();
+			e.stopPropagation();
+			}
+	},false);
 </script>
 </head>
-<body>
+<body onmousewheel="return false;">
 	<!-- 风险状况 -->
 	<div id="light_wall"></div>
 </body>
