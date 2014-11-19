@@ -155,7 +155,8 @@ img{
 		url=url.replace(/\&amp;/g,"&");
 		localStorage.setItem("attachmentUrl",url);
 // 		$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
-		$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm4News.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
+		var loadUrl=$.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm4News.html?data-application=mobile"
+		$.hori.loadPage( loadUrl, "viewhome/xml/AttachView.xml");
 	}
 	
 	function render(jsonData) {
