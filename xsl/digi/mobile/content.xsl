@@ -70,12 +70,12 @@
 							}
 							
 							function post(value, flowid, confirmflag, confirmstr){
-								
 								var appserver = $("#appserver").val();
 								var appdbpath = $("#appdbpath").val();
 								var appdocunid = $("#appdocunid").val();
 								var CurUserITCode = $("#CurUserITCode").val();
 								var FlowMindInfo = $("#FlowMindInfo").val();
+								 var toNodeId=$("#TFCurNodeID").val();
 								
 								if(FlowMindInfo=="" || FlowMindInfo==null || FlowMindInfo==" "){
 									if(value=='submit'){
@@ -108,11 +108,7 @@
 									
 									$( "#flowpupups" ).popup( "close" );
 								}
-								
-								
-								
 								var soap = "<SOAP-ENV:Envelope xmlns:SOAP-ENV='http://schemas.xmlsoap.org/soap/envelope/' xmlns:SOAP-ENC='http://schemas.xmlsoap.org/soap/encoding/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'><SOAP-ENV:Body><m:bb_dd_GetDataByView xmlns:m='http://sxg.bbdd.org' SOAP-ENV:encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'><db_ServerName xsi:type='xsd:string'>"+appserver+"</db_ServerName><db_DbPath xsi:type='xsd:string'>"+appdbpath+"</db_DbPath><db_DocUID xsi:type='xsd:string'>"+appdocunid+"</db_DocUID><db_UpdInfo xsi:type='xsd:string'></db_UpdInfo><db_OptPsnID xsi:type='xsd:string'>"+CurUserITCode+"</db_OptPsnID><db_TempAuthors xsi:type='xsd:string'></db_TempAuthors><db_MsgTitle xsi:type='xsd:string'></db_MsgTitle><db_ToNodeId xsi:type='xsd:string'>"+toNodeId+"</db_ToNodeId><db_Mind xsi:type='xsd:string'>"+FlowMindInfo+"</db_Mind><db_OptType xsi:type='xsd:string'>"+value+"</db_OptType></m:bb_dd_GetDataByView></SOAP-ENV:Body></SOAP-ENV:Envelope>";
-								
 								$.mobile.showPageLoadingMsg();
 								var url = $.hori.getconfig().appServerHost+"view/oa/request/Produce/ProInd.nsf/THFlowBackTraceAgent?openagent&login";
 								var data = "data-xml="+soap;
@@ -141,8 +137,6 @@
 							}
 
 							function submit(value){
-							localStorage.setItem("value",value);
-							var FlowMindInfo = $("#FlowMindInfo").val();
 							localStorage.setItem("FlowMindInfo",FlowMindInfo);
 								//意见不可为空
 								var sel = $("#FlowMindInfo").val();
@@ -150,21 +144,17 @@
 									alert('请填写您的意见');
 									return ;
 								}
-								//驳回选关
-								if(value=="reject"){
-									var refuse = $("#TFCurNodeRefuseToFlag").val();
-									//如果refuse==yes,当前环节允许驳回选关
-									if(refuse=="yes"){
-										$( "#flowpupups" ).popup( "open" );
-										return;
-									}
-								}
-								
 								//提交
 								if(value=="reject"){
 									var question = window.confirm("确定驳回吗?"); 
+									localStorage.setItem("value",value);
+									var FlowMindInfo = $("#FlowMindInfo").val();
+									localStorage.setItem("FlowMindInfo",FlowMindInfo);
 								}else{
 									var question = window.confirm("确定提交吗?"); 
+									localStorage.setItem("value",value);
+									var FlowMindInfo = $("#FlowMindInfo").val();
+									localStorage.setItem("FlowMindInfo",FlowMindInfo);
 								}
 								//确定提交或者驳回时
 								if(question){
@@ -180,20 +170,40 @@
 										localStorage.setItem("oaNextNodeId",toflownodeid);
 									}
 									else{
-									var selectPerson = window.confirm("请选择提交人！"); 
-									if(selectPerson){
+								 		//驳回选关
+								      if(value=="reject"){
+										var refuse = $("#TFCurNodeRefuseToFlag").val();
+										//如果refuse==yes,当前环节允许驳回选关
+										if(refuse=="yes"){
+										var selectPerson = window.confirm("请选择提交人！");
+										if(selectPerson){
+											$( "#flowpupups" ).popup( "open" );
+											searchPerson();
+												return;
+											}
+											}else{
+											post(value, toflownodeid);
+											return;
+											}
+							   		   	}
+							   		   	var selectPerson = window.confirm("请选择提交人！");
+										if(selectPerson){
 										searchPerson();
-										 
-										}
+										 return;
+										 }
 									}
-									
-									
-									//post(value, toflownodeid);
+									// post(value, toflownodeid);
 								}
 							}
 							function advanced(){
 								$( "#popupBasic" ).popup( "open" );
 							}
+							
+							function rp(s,o,n) { 
+
+                             return s.replace(o,n); 
+    } 
+							
 						]]>
 						</script>
 						
@@ -309,8 +319,15 @@
 									<xsl:apply-templates select="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo/mindinfo" />
 								</xsl:if>
 								<xsl:if test="not(//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo)">
+								<xsl:if test="//textarea[@name='ThisFlowMindInfoLog']!=''">
+									<xsl:apply-templates select="//textarea[@name='ThisFlowMindInfoLog']" />
+									</xsl:if>
+								<xsl:if test="//textarea[@name='ThisFlowMindInfoLog']=''">
 									暂无审批意见
 								</xsl:if>
+								</xsl:if>
+								
+								
 							</li>
 							
 						</ul>
