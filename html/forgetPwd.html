@@ -81,8 +81,8 @@ a {
 		}
 		$.hori.showLoading();
 		try {
-			document.getElementById("mobile_number").value="12345678909";
-			document.getElementById("imageCode").value="1231";
+			/* document.getElementById("mobile_number").value="12345678909";
+			document.getElementById("imageCode").value="1231"; */
 			var random = new Date().getTime();
 			var url = $.hori.getconfig().appServerHost
 					+ "view/forgetpwd/resetSubmit/resetPWsubmit?data-result=text";
@@ -96,7 +96,11 @@ a {
 			"data" :  $("#forgetPwdForm").serialize(),
 			"success" : function(res) {
 				console.log("res2=="+res);
-				alert("res2=="+res);
+				var a= JSON.parse(res);
+			    if(a.rtn_code == 2000)
+					$("#div_hidden").css("display", "block");
+				else
+					alert(a.rtn_msg); 
 			},
 			"error" : function(res) {
 				alert(res + "222");
