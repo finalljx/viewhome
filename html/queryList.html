@@ -198,6 +198,7 @@
 			var hori = $.hori;
 			/*设置标题*/
 			hori.setHeaderTitle("集团文件系统公文查阅");
+			$.hori.showLoading();
 			//获取会签tab
 			getsignpath();
 			loaded();
@@ -206,21 +207,25 @@
 					tabid=ui.newTab.context.dataset.id;
 					//内请
 					if(tabid=="queryList"){
+						$.hori.showLoading();
 						queryListForType($('#querytype').val());
 						$("#moredata").remove();
 						$("#queryselect").css("display", "block");
 						$("#querySearch").css("display", "block");
 						$("#signselect").css("display", "none");
 						$("#signSearch").css("display", "none");
+						$.hori.hideLoading();
 					}
 					//会签
 					if(tabid=="signList"){
+						$.hori.showLoading();
 						signListForType($('#signtype').val());
 						$("#moredata").remove();
 						$("#signselect").css("display", "block");
 						$("#signSearch").css("display", "block");
 						$("#queryselect").css("display", "none");
 						$("#querySearch").css("display", "none");
+						$.hori.hideLoading();
 					}
 			}})
 			var onlist=localStorage.getItem("click");
@@ -298,6 +303,7 @@
 					//singdbPath = res; 
 					singdbPath="/doctest/genertec/dep26/hqk_26.nsf";
 					localStorage.setItem("singdbPath",singdbPath);
+					$.hori.hideLoading();
 				},
 				"error":function(res){
 					alert("没获取到会签库路径");
@@ -388,6 +394,7 @@
 			$.hori.loadPage(loadurl);
 		}
 		function querysearchlist(){
+			$.hori.showLoading();
 			var searchkey=$("#querysearchKey").val();
 			localStorage.setItem("searchkey", searchkey);
 			//alert(searchkey);
@@ -428,6 +435,7 @@
 			});
 		}
 		function signsearchlist(){
+			$.hori.showLoading();
 			var searchkey=$("#signsearchKey").val();
 			localStorage.setItem("searchkey", searchkey);
 			//alert(searchkey);

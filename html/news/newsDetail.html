@@ -26,6 +26,10 @@ a {
 p {
 	text-indent: 2em;
 }
+img{
+    display: block;
+    margin: auto;
+}
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -157,10 +161,12 @@ p {
 	function render(jsonData) {
 		var viewModel = ko.mapping.fromJS(jsonData);
 		ko.applyBindings(viewModel,document.getElementById("textRich"));
+		$.hori.hideLoading();
 	}
 	function renderfj(jsonData) {
 		var viewModel = ko.mapping.fromJS(jsonData);
 		ko.applyBindings(viewModel,document.getElementById("fujian"));
+		$.hori.hideLoading();
 	}
 </script>
 </head>
@@ -199,6 +205,7 @@ p {
 							data-bind="text: attachment"></span></a></li><br/>
 				</ul>
 			</div> 
+			<br/><br/><br/>
 		</div>
 	</div>
 </body>

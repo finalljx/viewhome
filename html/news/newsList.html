@@ -27,6 +27,27 @@ a {
 	margin: 0;
 }
 
+.ui-li-has-count .ui-li-count {
+position: absolute;
+font-size: 15px;
+font-weight: 700;
+padding-left: 15px;
+top: 50%;
+margin-top: -.9em;
+right: 5px;
+}
+.ui-li-has-count .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-count,
+	.ui-li-divider.ui-li-has-count {
+	padding-right: 85px;
+}
+
+.ui-date-item {
+	border: none;
+	background: transparent;
+	background-image: none;
+	font-size: 2em;
+}
+
 #wrapper {
 	position: fixed;
 	top: 10px;
@@ -43,7 +64,6 @@ a {
 	var itcode;
 	var moreCurrentName;
 	$(document).ready(function() {
-		$.hori.showLoading();
 		itcode = localStorage.getItem("itcode");
 		moreCurrentName = localStorage.getItem("moreCurrentName");
 		//默认隐藏列表显示
@@ -81,6 +101,7 @@ a {
 	var page = 0;
 	var viewModel = new Object();
 	function pullUpAction(itcode) {
+		$.hori.showLoading();
 		setTimeout(
 				function() {
 					
@@ -149,6 +170,7 @@ a {
 										}
 										myScroll.refresh();
 									}
+									$.hori.hideLoading();
 								},
 								"error" : function(res) {
 									alert("error:" + res);
@@ -238,15 +260,11 @@ a {
 				<div id="wrapper">
 					<div id="scroller">
 						<p></p>
-						<ul data-bind="foreach: list" id="querydataList"
-							data-role="listview" data-inset="false">
+						<ul data-bind="foreach: list" id="querydataList" data-role="listview" >
 							<li data-icon="false">
-							<a data-bind="click:showDetail">
-									<h3 style="white-space: normal;">
-										<span data-bind="text: contentTitle"></span>
-									<span style="text-align: right;float:right; " data-bind="text:creatTime">
-									</span>
-									</h3>
+							<a data-bind="click:showDetail" style="line-height:2.5em;">
+									<!-- ko text: contentTitle --> <!-- /ko -->
+									<span class="ui-li-count ui-date-item" data-bind="text:creatTime"/>
 							</a></li>
 						</ul>
 					</div>

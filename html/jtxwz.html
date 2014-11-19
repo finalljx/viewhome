@@ -20,10 +20,25 @@
 
 </head>
 <style>
-	#imgSearch,#imgToDo {
-	width: 80px;
-	height : 80px
+	@media  only screen and (min-width: 1070px) and (max-width: 1242px) {
+  .imgToDo {
+    width:10em;
+	height: 10em;
+  }
+} 
+@media  screen and (min-width: 400px) and (max-width: 800px) {
+	.imgToDo {
+		width: 5.5em;
+		height:5.5em;
+	}
 }
+
+@media screen and (min-width: 310px) and (max-width: 330px) {
+	.imgToDo {
+		width: 3.6em;
+		height:3.6em;
+	}
+}  
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -55,13 +70,13 @@
 			<div class="ui-grid-b" id="divOne">
 				<div class="ui-block-b">
 					<a href="javascript:void(0);" onclick="loadTpxwList()"> <img
-						id="imgToDo" src="../assets/home/tpxw.png" class="module-icon" width="80px" height="80px"/>
+						id="imgToDo" class="imgToDo" src="../assets/home/tpxw.png" class="module-icon" width="80px" height="80px"/>
 					</a> <br />
 					<span style="color: #434343;"><strong>图片新闻</strong></span>
 				</div>
 				<div class="ui-block-b">
 					<a href="javascript:void(0);" onclick="loadNewsList('GT_HomePage_SiteArea_jtxw')"> <img
-						id="imgSearch" class="module-icon" src="../assets/home/jtxw.png" />
+						id="imgSearch" class="imgToDo" class="module-icon" src="../assets/home/jtxw.png" />
 					</a> <br />
 					<span style="color: #434343;"><strong>集团新闻</strong></span>
 				</div>

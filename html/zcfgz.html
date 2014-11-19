@@ -35,10 +35,25 @@
 </head>
 
 <style>
-#imgSearch, #imgToDo {
-	width: 80px;
-	height: 80px
+	@media  only screen and (min-width: 1070px) and (max-width: 1242px) {
+  .imgToDo {
+    width:10em;
+	height: 10em;
+  }
+} 
+@media  screen and (min-width: 400px) and (max-width: 800px) {
+	.imgToDo {
+		width: 5.5em;
+		height:5.5em;
+	}
 }
+
+@media screen and (min-width: 310px) and (max-width: 330px) {
+	.imgToDo {
+		width: 3.6em;
+		height:3.6em;
+	}
+}  
 </style>
 
 <body>
@@ -49,13 +64,13 @@
 				<div class="ui-block-b">
 					<a href="javascript:void(0);"
 						onClick="loadNewsList('GT_HomePage_SiteArea_aqsc')"> <img
-						id="imgToDo" src="../assets/home/aqhb.png" class="module-icon" />
+						id="imgToDo" class="imgToDo" src="../assets/home/aqhb.png" class="module-icon" />
 					</a> <br /> <span style="color: #434343;"><strong>安全环保</strong></span>
 				</div>
 				<div class="ui-block-b">
 					<a href="javascript:void(0);"
 						onClick="loadNewsList('GT_HomePage_SiteArea_zcfg')"> <img
-						id="imgSearch" class="module-icon" src="../assets/home/zcfg.png" />
+						id="imgSearch" class="imgToDo" class="module-icon" src="../assets/home/zcfg.png" />
 					</a> <br /> <span style="color: #434343;"><strong>政策法规</strong></span>
 				</div>
 
