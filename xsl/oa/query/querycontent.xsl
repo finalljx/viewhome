@@ -150,7 +150,14 @@
 		<xsl:value-of select="tr[5]/td/table/tbody/tr/td[3]/." /><hr/>
 			<xsl:apply-templates select="tr[5]/td/table/tbody/tr/td[4]/table/tbody/tr[2]" mode="yu1"/>
 			<xsl:apply-templates select="tr[5]/td/table/tbody/tr/td[5]/table/tbody//tr" mode="yu9"/>
-		<xsl:value-of select="tr[6]/." /><hr/>
+		会签部门意见:<br/><xsl:apply-templates select="tr[6]/td//table" mode="yu7"/>
+	</xsl:template>
+	<xsl:template match="table" mode="yu7">
+		<div style="line-height: 1.5em;">
+		　　审批意见：<xsl:value-of select="tbody/tr[1]/td[1]/."/><br/>
+		　　审批人：<xsl:value-of select="tbody/tr[2]/td/span/."/><br/>
+		　　处理时间：<xsl:value-of select="tbody/tr[2]/td/text()"/><br/><hr/>
+		</div>
 	</xsl:template>
 	<xsl:template match="tr" mode="yu1">	
 		签报人：<xsl:value-of select="substring-before(td/.,'/')"/><hr/>
