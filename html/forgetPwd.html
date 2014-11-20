@@ -55,7 +55,15 @@ a {
 			"data" : $('#forgetPwdForm').serialize(),
 			"success" : function(res) {
 			    //alert("res1=="+res);
-			    console.log("res0=="+res);
+			    var result = JSON.parse(res);
+			    if(result.rtn_code == '2000'){
+			    	var number = result.mobile_number.substring(7);
+			    	$("#mobile_number").val(result.mobile_number);
+			    	alert("短信验证码已发送到尾号" + number + "的手机，请查收");
+			    }else{
+			    	alert(result.rtn_msg.replace(", TIM",""));
+			    }
+			    console.log("getMsg=="+res);
 			},
 			"error" : function(res) {
 				alert(res);
@@ -68,7 +76,7 @@ a {
 		var username = $.trim($("#user_name").val());
 		var number = $("#id_number").val();
 		if (username == "") {
-			alert("请输入账号!");
+			alert("请输入用户名!");
 			return;
 		}
 		if (un_name == "") {
@@ -77,6 +85,10 @@ a {
 		}
 		if (number == "") {
 			alert("请输入身份证号!");
+			return;
+		}
+		if (number == "") {
+			alert("请输入短信验证码!");
 			return;
 		}
 		$.hori.showLoading();
@@ -95,15 +107,18 @@ a {
 			"url" : url,
 			"data" :  $("#forgetPwdForm").serialize(),
 			"success" : function(res) {
-				console.log("res2=="+res);
-				var a= JSON.parse(res);
-			    if(a.rtn_code == 2000)
-					$("#div_hidden").css("display", "block");
-				else
-					alert(a.rtn_msg); 
+				console.log("resetPwd=="+res);
+				var result= JSON.parse(res);
+			    if(result.rtn_code == 2000){
+			    	var num = result.mobile_number;
+			    	alert("密码重置成功，新密码已发送到" + num.substring(0,4) + "****" + num.substring(7));
+			    }
+				else{
+					alert(result.rtn_msg); 
+				}
 			},
 			"error" : function(res) {
-				alert(res + "222");
+				alert(res);
 				$.hori.hideLoading();
 			}
 		})
@@ -129,8 +144,7 @@ a {
 								<input type="hidden" id="mobile_number" name="mobile_number" value=""/>
 								<input type="text" name="user_name"
 									style="outline: none; width: 100%; border: 0; background: transparent;"
-									id="user_name" value="" onfocus="clearData()"
-									onblur="showTips()" /></td>
+									id="user_name" value="" /></td>
 							</tr>
 						</table>
 					</li>
@@ -162,7 +176,7 @@ a {
 							border="0">
 							<tr>
 								<td><strong>验&#160;&#160;证&#160;&#160;码:</strong></td>
-								<td><input type="text" name="imageCode" id="imageCode"
+								<td><input type="text" name="secret_key" id="secret_key"
 									style="width: 80px;" /></td>
 								<td><a data-role="button" href="javascript:void(0)"
 									data-theme="f" data-mini="true" onclick="getCaptcha();">获取验证码</a>
@@ -177,11 +191,11 @@ a {
 						data-role="button" data-icon="false">重置密码</a>
 			</div>
 			
-			<div
+			<!-- <div
 				style="max-width: 400px; background-color: #ADADAD; display: none;" id="div_hidden"
 				border="1px">
 				<p>密码重置成功，新密码已发送到188****8890
-			</div>
+			</div> -->
 
 
 		</div>
