@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <viewers>
+	<viewer id="ldap" type="remote" source="http://10.1.31.181:9080" encoding="gb2312">
+	    <view id="checkLogin" template="login/ldapLoginValidate.jsp" />
+	</viewer>
 	<!--  登陆向导密码重置 -->
 	<viewer id="forgetwd" type="remote" source="http://10.1.31.181:9080" 	encoding="GB2312">
 			<view id="loginvalidate1" template="login/loginValidate.jsp"	encoding="GB2312" />

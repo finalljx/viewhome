@@ -125,17 +125,17 @@
 	color: 					#fff /*{a-bhover-color}*/;
 }
 .ui-btn-down-f {
-	border: 1px solid 		#000 /*{a-bdown-border}*/;
-	background: 			#222 /*{a-bdown-background-color}*/;
+	border: 1px solid 		#3398CC /*{a-bdown-border}*/;
+	background: 			#3398CC /*{a-bdown-background-color}*/;
 	font-weight: bold;
-	color: 					#fff /*{a-bdown-color}*/;
-	text-shadow: 0 /*{a-bdown-shadow-x}*/ 1px /*{a-bdown-shadow-y}*/ 1px /*{a-bdown-shadow-radius}*/ #111 /*{a-bdown-shadow-color}*/;
-	background-image: -webkit-gradient(linear, left top, left bottom, from( #202020 /*{a-bdown-background-start}*/), to( #2c2c2c /*{a-bdown-background-end}*/)); /* Saf4+, Chrome */
-	background-image: -webkit-linear-gradient( #202020 /*{a-bdown-background-start}*/, #2c2c2c /*{a-bdown-background-end}*/); /* Chrome 10+, Saf5.1+ */
-	background-image:    -moz-linear-gradient( #202020 /*{a-bdown-background-start}*/, #2c2c2c /*{a-bdown-background-end}*/); /* FF3.6 */
-	background-image:     -ms-linear-gradient( #202020 /*{a-bdown-background-start}*/, #2c2c2c /*{a-bdown-background-end}*/); /* IE10 */
-	background-image:      -o-linear-gradient( #202020 /*{a-bdown-background-start}*/, #2c2c2c /*{a-bdown-background-end}*/); /* Opera 11.10+ */
-	background-image:         linear-gradient( #202020 /*{a-bdown-background-start}*/, #2c2c2c /*{a-bdown-background-end}*/);
+	color: 					#3398CC /*{a-bdown-color}*/;
+	text-shadow: 0 /*{a-bdown-shadow-x}*/ 1px /*{a-bdown-shadow-y}*/ 1px /*{a-bdown-shadow-radius}*/ #3398CC /*{a-bdown-shadow-color}*/;
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #3398CC /*{a-bdown-background-start}*/), to( #3398CC /*{a-bdown-background-end}*/)); /* Saf4+, Chrome */
+	background-image: -webkit-linear-gradient( #3398CC /*{a-bdown-background-start}*/, #3398CC /*{a-bdown-background-end}*/); /* Chrome 10+, Saf5.1+ */
+	background-image:    -moz-linear-gradient( #3398CC /*{a-bdown-background-start}*/, #3398CC /*{a-bdown-background-end}*/); /* FF3.6 */
+	background-image:     -ms-linear-gradient( #3398CC /*{a-bdown-background-start}*/, #3398CC /*{a-bdown-background-end}*/); /* IE10 */
+	background-image:      -o-linear-gradient( #3398CC /*{a-bdown-background-start}*/, #3398CC /*{a-bdown-background-end}*/); /* Opera 11.10+ */
+	background-image:         linear-gradient( #3398CC /*{a-bdown-background-start}*/, #3398CC /*{a-bdown-background-end}*/);
 }
 .ui-btn-down-f:visited,
 .ui-btn-down-f:hover,
