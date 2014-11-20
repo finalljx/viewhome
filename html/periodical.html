@@ -59,8 +59,8 @@
     function viewFile(item){
     	var url=$.hori.getconfig().appServerHost+"view/tpxw/file"+item.lianjie()+"?data-convert=office&data-cache=true";
 		localStorage.setItem("attachmentUrl",url);
-		$.hori.loadPage( $.hori.getconfig().appServerHost+"viewhome/html/attachmentShowForm.html","viewhome/xml/AttachView.xml");
-    	
+		$.hori.loadPage( $.hori.getconfig().appServerHost+"viewhome/html/attachmentShowForm.html?data-application=mobile","viewhome/xml/AttachView.xml");
+    	console.log('Congratulation');
     }
 	function renderDetail() {
 		var viewModelDetail = ko.mapping.fromJS(jsonData);
