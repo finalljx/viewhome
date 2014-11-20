@@ -22,13 +22,14 @@
 		if(loginCodeNode!=null){
 			loginCode=loginCodeNode.getStringValue();
 		}
-		System.out.println("==========================="+loginCode);
+		// {"user_name":"geyuxi","rtn_code":"2000","rtn_msg":"用户名密码验证通过"} 
+		//{"user_name":"","rtn_code":"2001","rtn_msg":"登录密码错误"} 
 		if(loginCode.equals("9")){
 			json.put("success", false);
 			json.put("msg","用户超出授权数量,请联系管理员。");
 		}else if(loginCode.equals("8")){
 			json.put("success", false);
-			json.put("msg","wrong");
+			json.put("msg","用户名或密码错误。");
 		}else if(loginCode.equals("10")){
 			json.put("success", false);
 			json.put("msg","用户超出设备邦定数量,请联系管理员。");
@@ -38,14 +39,14 @@
 		}else if(loginCode.equals("15")){
             json.put("success", false);
             json.put("msg","验证码错误，请重新输入。");
-        }else{
-			Node itcodeNode = doc.selectSingleNode("//param[@name=\"Username\"]/@value");
-			String itcode="";
-			if(itcodeNode!=null){
-				itcode=itcodeNode.getStringValue();
-			}
+        }else if(responseXml.contains("登录密码错误")){
+			json.put("success", false);
+			json.put("msg","登录密码错误");
+		}else if(responseXml.contains("用户账号错误")){
+			json.put("success", false);
+			json.put("msg","用户账号错误");
+		}else{
 			json.put("success", true);
-			json.put("itcode",itcode);
 			json.put("data-authorize","succeed");
 		}
 	}catch(Exception e){
