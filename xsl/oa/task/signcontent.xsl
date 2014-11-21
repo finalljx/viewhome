@@ -40,7 +40,7 @@
 							function viewfile(url){
 								//alert(url);
 								localStorage.setItem("attachmentUrl",url);
-								$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html","viewhome/xml/AttachView.xml");
+								$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html?data-application=mobile","viewhome/xml/AttachView.xml");
 							}
 							
 							function signsubmit(value){
