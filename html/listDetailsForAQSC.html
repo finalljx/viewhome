@@ -4,7 +4,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
-<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" />
 <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/encrypt/encrypt.js"></script>
@@ -14,6 +13,8 @@
 <!-- <script src="../lib/template/template.js"></script> -->
 
 <script>
+	var viewModel = new Object();
+
 	$(document)
 			.ready(
 					function() {
@@ -33,7 +34,9 @@
 								"docunid" : docunid
 							},
 							"success" : function(res) {
-								alert(res);
+								console.log(res);
+								var parsedStr = JSON.parse(res);
+								render(parsedStr);
 								$.hori.hideLoading();
 							},
 							"error" : function(res) {
@@ -41,6 +44,11 @@
 							}
 						});
 					});
+
+	function render(parsedStr) {
+		viewModel = ko.mapping.fromJS(parsedStr);
+		ko.applyBindings(viewModel, document.getElementById('divO'));
+	}
 </script>
 </head>
 <body>
@@ -49,24 +57,7 @@
 			class="ui-page ui-body-c ui-page-active" style="min-height: 302px;">
 			<div data-role="content" align="center" class="ui-content"
 				role="main">
-				<ul data-role="listview" data-inset="true"
-					class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
-					<li data-corners="false" data-shadow="false" data-iconshadow="true"
-						data-wrapperels="div" data-icon="arrow-r" data-iconpos="right"
-						data-theme="c"
-						class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-first-child ui-last-child ui-btn-up-c"><div
-							class="ui-btn-inner ui-li">
-							<div class="ui-btn-text">
-								<a class="ui-link-inherit">
-									<h3 data-bind="text: title" class="ui-li-heading">数据加载中…………</h3>
-									<span data-bind="text: taskState"></span>
-									</p>
-								</a>
-							</div>
-							<span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span>
-						</div></li>
-				</ul>
-				<div data-role="content" class="ui-content" role="main">
+				<div data-role="content" class="ui-content" role="main" id='divO' style='font-weight: bold;'>
 					<h3>节日（重大活动）期间安全生产及值班安排表</h3>
 					<ul data-role="listview" data-inset="true" data-theme="d"
 						id="ul_dtable_list"
@@ -80,41 +71,27 @@
 
 
 							<ul data-role="listview" data-inset="true" data-theme="d"
-								class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+								class="ui-listview ui-listview-inset ui-corner-all ui-shadow"
+								data-bind='foreach: schedules.data'>
 
 								<li class="ui-li ui-li-static ui-btn-up-d ui-first-child">值班时间
-									：2014-01-05</li>
+									：<span data-bind='text: column1'></span>
+								</li>
 
-								<li class="ui-li ui-li-static ui-btn-up-d">值班领导 ：王家强</li>
+								<li class="ui-li ui-li-static ui-btn-up-d">值班领导 ：<span
+									data-bind='text: column2'></span></li>
 
-								<li class="ui-li ui-li-static ui-btn-up-d">联系电话
-									：13336009055</li>
+								<li class="ui-li ui-li-static ui-btn-up-d">联系电话 ：<span
+									data-bind='text: column3'></span></li>
 
-								<li class="ui-li ui-li-static ui-btn-up-d">值班员 ：王家强</li>
-
-								<li class="ui-li ui-li-static ui-btn-up-d ui-last-child">联系电话
-									：13336009055</li>
-
-							</ul>
-
-							<ul data-role="listview" data-inset="true" data-theme="d"
-								class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
-
-								<li class="ui-li ui-li-static ui-btn-up-d ui-first-child">值班时间
-									：2014-01-06</li>
-
-								<li class="ui-li ui-li-static ui-btn-up-d">值班领导 ：朱建敏</li>
-
-								<li class="ui-li ui-li-static ui-btn-up-d">联系电话
-									：13105791599</li>
-
-								<li class="ui-li ui-li-static ui-btn-up-d">值班员 ：朱建敏</li>
+								<li class="ui-li ui-li-static ui-btn-up-d">值班员 ：<span
+									data-bind='text: column4'></span></li>
 
 								<li class="ui-li ui-li-static ui-btn-up-d ui-last-child">联系电话
-									：13105791599</li>
+									：<span data-bind='text: column5'></span>
+								</li>
 
 							</ul>
-
 
 						</li>
 					</ul>
@@ -122,14 +99,15 @@
 						class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
 						<li data-role="list-divider" role="heading"
 							class="ui-li ui-li-divider ui-bar-b ui-first-child">节假日期间生产安排情况</li>
-						<li class="ui-li ui-li-static ui-btn-up-d ui-last-child">无</li>
+						<li class="ui-li ui-li-static ui-btn-up-d ui-last-child"
+							style='white-space: normal;' data-bind='text: holsit'></li>
 					</ul>
 					<ul data-role="listview" data-inset="true" data-theme="d"
 						class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
 						<li data-role="list-divider" role="heading"
 							class="ui-li ui-li-divider ui-bar-b ui-first-child">安全保证措施</li>
-						<li class="ui-li ui-li-static ui-btn-up-d ui-last-child">
-							节日期间，全体员工务必注意个人人身安全，为确保通信畅通，要求公司员工必须24小时保持开机状态，值班人员要坚守岗位，遇到紧急、重大情况必须及时请示报告。各部门切记要关闭空调、电源、门窗，做好办公场所的安全防范工作。</li>
+						<li class="ui-li ui-li-static ui-btn-up-d ui-last-child"
+							style='white-space: normal;' data-bind='text: safety'></li>
 					</ul>
 				</div>
 			</div>
