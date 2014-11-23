@@ -3,7 +3,8 @@
 <head>
 <title>风险状况</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <link rel="stylesheet"
 	href="../../lib/jquery-mobile/jquery.mobile.min.css" />
 <link rel="stylesheet" href="../../assets/jquery.mobile-sugon.css" />
@@ -33,17 +34,24 @@ a {
 	background-color: rgba(127, 127, 127, 0.5);
 }
 
-.big_light{
-    width: 30px;
-    height: 30px;
-    margin-top:12px;
+.top_year_first {
+	font-size: 14px;
+	position: fixed;
+	color: #FFF;
+	padding: 2px;
+	background-color: rgba(127, 127, 127, 0.5);
 }
 
-.small_light{
-    width: 12px;
-    height: 12px;
+.big_light {
+	width: 30px;
+	height: 30px;
+	margin-top: 12px;
 }
 
+.small_light {
+	width: 12px;
+	height: 12px;
+}
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -75,46 +83,71 @@ a {
 						var title = json.reportdata.title;
 						var type = json.reportdata.type;
 						var year = json.reportdata.year;
+						//year = '2013';
 						var month = json.reportdata.month;
 						var monthdata = json.reportdata.monthData.split('|');
 
-						var cWidth=window.screen.width;
+						var cWidth = window.screen.width;
 						var monthWidth;
 						var imgStringLiWidth;
 						var imgStringWidth;
 						var imgStringDivWidth;
 						var imgwidth;
+						var flag = -1;
 						var tbImgWidth;//小图标宽度
-						if(cWidth<720){
-							monthWidth="5.5%";
-							imgStringLiWidth="45px";
-							imgStringDivWidth="50px";
-							imgStringWidth="55px";
-							imgwidth="40px";
-							tbImgWidth="5.4%";
-						}else{
-							monthWidth="6%";
-							imgStringLiWidth="60px";
-							imgStringDivWidth="50px";
-							imgStringWidth="60px";
-							imgwidth="50px";
-							tbImgWidth="6%";
+						if (cWidth < 720) {
+							monthWidth = "5.5%";
+							imgStringLiWidth = "45px";
+							imgStringDivWidth = "50px";
+							imgStringWidth = "55px";
+							imgwidth = "30px";
+							tbImgWidth = "5.4%";
+						} else {
+							monthWidth = "6%";
+							imgStringLiWidth = "60px";
+							imgStringDivWidth = "50px";
+							imgStringWidth = "60px";
+							imgwidth = "40px";
+							tbImgWidth = "6%";
 						}
 						var busiData = json.reportdata.busiData;
-						var imgString = "<div class='top_year'>"
+						//var imgString = '<div class="top_year_first" style="left: 193px; top: 6px;">2013</div>';
+						var imgString = "<div > <span class='top_year_first'>"
+								+ (year - 1)
+								+ "</span>"
+								+ "<span class='top_year'>"
 								+ year
+								+ "</span>"
 								+ "</div><ul style='padding:10px;list-style:none;'><li><div style='float:left;width:"+imgStringLiWidth+";'>&nbsp;</div><div style='float:left;width:"+imgStringDivWidth+";'>&nbsp;</div>";
+
+						 var monthdata1 = new Array(
+								"5月", "6月", "7月", "8月", "9月", "10月", "11月",
+								"12月", "1月", "2月", "3月", "4月","");
+						monthdata = monthdata1; 
 						for (var z = 0; z < monthdata.length; z++) {
-							if (monthdata[z].indexOf("1月") != -1 && monthdata[z].length == 2) { //包含1月，添加id处理
+							if (monthdata[z].indexOf("1月") != -1
+									&& monthdata[z].length == 2) { //包含1月，添加id处理
+								flag = -1;
 								imgString = imgString
-										+ "<div id='targetMonth' style='float:left;width:"+monthWidth+";'>"
+										+ "<div id='targetMonth' style='float:left;width:"+monthWidth+";background-color:#00FFFF;'>"
+										+ monthdata[z] + "</div>";
+							} else if (z == 0) {
+								imgString = imgString
+										+ "<div id='firstMonth' style='float:left;width:"+monthWidth+";background-color:#00FF00'>"
+										+ monthdata[z] + "</div>";
+								flag = 1;
+							} else if (flag > 0) {
+								flag = flag + 1;
+								imgString = imgString
+										+ "<div style='float:left;width:"+monthWidth+";background-color:#00FF00;'>"
 										+ monthdata[z] + "</div>";
 							} else {
 								imgString = imgString
-										+ "<div style='float:left;width:"+monthWidth+";'>"
+										+ "<div style='float:left;width:"+monthWidth+";background-color:#00FFFF;'>"
 										+ monthdata[z] + "</div>";
 							}
 						}
+
 						imgString = imgString + "</li><br/>"
 						for (var i = 0; i < busiData.length; i++) {
 							var busiName = busiData[i].busiName;
@@ -150,7 +183,9 @@ a {
 						imgString = imgString + "</ul>";
 						document.getElementById("light_wall").innerHTML = imgString;
 						//显示顶部年份
-						changeTipYearPosition();
+						var monthWidth1 = monthWidth
+								* changeTipYearPosition(year, monthdata,
+										monthWidth);
 					},
 					"error" : function(res) {
 						alert("error:" + res);
@@ -160,24 +195,54 @@ a {
 	}
 
 	//显示顶部年份
-	function changeTipYearPosition() {
+	function changeTipYearPosition(year, monthdata, monthWidth) {
 		//1月份显示div对象
 		var targetMonth = document.getElementById("targetMonth");
+		var firstMonth = document.getElementById("firstMonth");
 		if (targetMonth) {
 			var x = targetMonth.offsetLeft - 5;
 			var y = targetMonth.offsetTop - 20;
-			$(".top_year").css("left", x+'px');
-			$(".top_year").css("top", y+'px');
+			$(".top_year").css("left", x + 'px');
+			$(".top_year").css("top", y + 'px');
+		}
+
+		if (firstMonth) {
+			x = firstMonth.offsetLeft - 5;
+			y = firstMonth.offsetTop - 20;
+			$(".top_year_first").css("left", x + 'px');
+			$(".top_year_first").css("top", y + 'px');
+		}
+
+		var currentYear = new Date().getFullYear();
+		if (year == currentYear) {
+			if (monthdata[0] == '1月') {
+				$('.top_year_first').css('display', 'none');
+			} else {
+				if (targetMonth) {
+					var x = targetMonth.offsetLeft - 15;
+					var y = targetMonth.offsetTop - 20;
+					var index = monthdata.indexOf('1月');
+					/* var a=(11 - index) * monthWidth + x;alert(a);
+					 */
+					var a = $('#targetMonth').css('width');
+					a = a.slice(0, 2);
+					a = (11 - index) * parseInt(a) + x;
+					$(".top_year").css("left", a + 'px');
+
+				}
+			}
+		} else {
+			$('.top_year_first').css('display', 'none');
 		}
 	}
 	//声明slidingScreen变量判断禁止滑动
-	var slidingScreen="no";
-	document.addEventListener("touchmove",function(e){
-		if(slidingScreen=="no"){
+	var slidingScreen = "no";
+	document.addEventListener("touchmove", function(e) {
+		if (slidingScreen == "no") {
 			e.preventDefault();
 			e.stopPropagation();
-			}
-	},false);
+		}
+	}, false);
 </script>
 </head>
 <body onmousewheel="return false;">

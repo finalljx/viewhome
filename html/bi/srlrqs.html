@@ -98,7 +98,12 @@ a {
 			var option = {
 				animation : false,
 				tooltip : {
-					trigger : 'axis'
+					trigger : 'axis',
+					/* position : function(p) {
+						// 位置回调
+						// console.log && console.log(p);
+						return [ p[0] - 70, p[1] ];
+					}, */
 				},
 				toolbox : {
 					show : false,
