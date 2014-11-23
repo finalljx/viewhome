@@ -181,6 +181,7 @@
 											$('#form1').attr('action', formAction);
 										}
 										function cancelSubmit(){
+											$.mobile.showPageLoadingMsg();
 											document.location.reload();
 										}
 									]]>
@@ -240,6 +241,7 @@
 											$('#form2').attr('action', formAction);
 										}
 										function cancelSubmit(){
+											$.mobile.showPageLoadingMsg();
 											document.location.reload();
 										}
 									]]>
@@ -278,6 +280,7 @@
 														$('#form3').attr('action', formAction);
 													}
 													function cancelSubmit(){
+														$.mobile.showPageLoadingMsg();
 														document.location.reload();
 													}
 												]]>
@@ -320,7 +323,7 @@
 													$('#form4').attr('action', formAction);
 												}
 												function cancelSubmit(){
-													$.hori.showLoading();
+													$.mobile.showPageLoadingMsg();
 													document.location.reload();
 												}
 											]]>
@@ -348,6 +351,7 @@
 									<![CDATA[
 										$.hori.hideLoading();
 										function cancelSubmit(){
+											$.mobile.showPageLoadingMsg();
 											document.location.reload();
 										}
 									]]>
@@ -427,7 +431,7 @@
 								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
 								<input type="hidden" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
 								<!-- <a href="javascript:void(0)" onclick="clearperson();" style="margin-left:100px;" data-role="button" data-inline="true">清空666</a> -->
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/doctest/{$dbPath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}&amp;data-userstore=')" data-role="button" data-inline="true" data-theme="b">选　人</a>
+								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/doctest/{$dbPath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}&amp;data-userstore=')" data-role="button" data-inline="true" data-theme="f">选　人</a>
 							</fieldset>
 						</li>
 					</xsl:when>
@@ -458,7 +462,7 @@
 					<fieldset data-role="controlgroup" data-type="horizontal">
 						<legend>会签部门:</legend>
 						<xsl:value-of select="//input[@name='fldSelDept']/@value"/>
-						<!-- <a href="javascript:void(0)" onclick="" data-role="button" data-inline="true" data-theme="b">选择</a> -->
+						<!-- <a href="javascript:void(0)" onclick="" data-role="button" data-inline="true" data-theme="f">选择</a> -->
 						<input id="fldSelDept" name="fldSelDept" type="hidden" value="{//input[@name='fldSelDept']/@value}"/>
 					</fieldset>
 				</li>
@@ -469,8 +473,8 @@
 						<!-- <legend>请选择会签审批人:</legend>
 						<textarea id="forshowcheck" name="forshowcheck"></textarea> -->
 						<!-- <input type="hidden" id="fldXyspr" name="fldXyspr" value="" readonly="true"  data-inline="true"/> -->
-						<!-- <a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/doctest/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10')" data-role="button" data-inline="true" data-theme="b">选人员</a> -->
-						<!-- <a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/doctest/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10')" data-role="button" data-inline="true" data-theme="b">选角色</a> -->
+						<!-- <a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/doctest/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10')" data-role="button" data-inline="true" data-theme="f">选人员</a> -->
+						<!-- <a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/doctest/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10')" data-role="button" data-inline="true" data-theme="f">选角色</a> -->
 						<!-- <input id="fldXyspr" name="fldXyspr" type="hidden" value="{//input[@name='fldXyspr']/@value}"/>
 					</fieldset>
 				</li> -->
@@ -479,9 +483,9 @@
 				<li data-role="fieldcontain" style="{./@style}" id="{./@id}">
 					<fieldset data-role="controlgroup">
 						<legend><xsl:value-of select="td[@class='tdLabel']/."/></legend>
-						<input type="radio" id="_d2epa44tnk89rno8joukg_" name="fldSpgz" value="_d2epa44tnk89rno8joukg_" onclick="showAndHide('trSelectUser','')"></input>
+						<input type="radio" id="_d2epa44tnk89rno8joukg_" name="fldSpgz" value="_d2epa44tnk89rno8joukg_" onclick="showAndHide('trSelectUser','')" checked="checked"></input>
 						<label for="_d2epa44tnk89rno8joukg_">并发会签</label>
-						<input type="radio" id="_d2f5r64ugu89rno8joukg_" name="fldSpgz" value="_d2f5r64ugu89rno8joukg_" onclick="showAndHide('','trSelectUser')" checked="checked"></input>
+						<input type="radio" id="_d2f5r64ugu89rno8joukg_" name="fldSpgz" value="_d2f5r64ugu89rno8joukg_" onclick="showAndHide('','trSelectUser')" ></input>
 						<label for="_d2f5r64ugu89rno8joukg_">顺序会签</label>
 					</fieldset>
 				</li>
