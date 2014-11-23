@@ -162,6 +162,7 @@ img{
 	function render(jsonData) {
 		var viewModel = ko.mapping.fromJS(jsonData);
 		ko.applyBindings(viewModel,document.getElementById("textRich"));
+		document.getElementById("divContent").style.display='';
 		$.hori.hideLoading();
 	}
 	function renderfj(jsonData) {
@@ -176,25 +177,25 @@ img{
 		<div data-role="content">
 			<!-- 标题 -->
 			<div>
-				<h3>
+				<h2>
 					<span data-bind="text: contentTitle" ></span>
-				</h3>
+				</h2>
 			</div>
 			
 			
-			<div style="background-color: rgba(127,127,127,0.3);">
+			<div id="divContent" style="background-color: rgba(127,127,127,0.3);display: none;">
 				<p>
-				<div style="float: left;font-size:12px;line-height:1.5">
+				<div style="float: left;font-size:15px;line-height:1.5">
 					发布时间：<span data-bind="text: creatTime"></span>
 				</div>
-				<div style="float: right;font-size:12px;line-height:1.5">
+				<div style="float: right;font-size:15px;line-height:1.5">
 					发文来源：<span data-bind="text: newsource"></span>
 				</div>
 				<br/>
 				</p>
 			
 			</div>
-			<div style="clear: both;">
+			<div style="clear: both;font-size: 20px;">
 				<span data-bind="html:richText"></span>
 			</div>
 			</div>

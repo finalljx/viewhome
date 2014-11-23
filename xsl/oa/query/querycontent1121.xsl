@@ -66,16 +66,8 @@
 							</li>
 						</ul>
 						</div>
-						<div data-role="collapsible" data-theme="f" data-content-theme="d">
-							<h4>会签部门意见</h4>
-						<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
-							<li>
-								会签部门意见:<br/><xsl:apply-templates select="//table[@id='table1']/tbody/tr[6]/td//table" mode="yu7"/>
-							</li>
-						</ul>
-						</div>
 						<div data-role="collapsible" data-collapsed="false" data-theme="f" data-content-theme="d">
-							<h4>公文流转</h4>
+							<h4>审批意见</h4>
 							<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
 							<li>
 								<xsl:if test="count(//table[@id='agyj']//tbody//tr)=0">
@@ -158,6 +150,7 @@
 		<xsl:value-of select="tr[5]/td/table/tbody/tr/td[3]/." /><hr/>
 			<xsl:apply-templates select="tr[5]/td/table/tbody/tr/td[4]/table/tbody/tr[2]" mode="yu1"/>
 			<xsl:apply-templates select="tr[5]/td/table/tbody/tr/td[5]/table/tbody//tr" mode="yu9"/>
+		会签部门意见:<br/><xsl:apply-templates select="tr[6]/td//table" mode="yu7"/>
 	</xsl:template>
 	<xsl:template match="table" mode="yu7">
 		<div style="line-height: 1.5em;">
@@ -193,11 +186,11 @@
 				<xsl:when test="$num mod 2!=0">
 					<xsl:value-of select="td[1]/."/>:<xsl:value-of select="substring-before(td[2]/.,'/')"/><br/>
 					<xsl:value-of select="td[3]/."/>:<xsl:value-of select="td[4]/."/><br/>
-					<xsl:value-of select="td[5]/."/>:<xsl:value-of select="td[6]/."/><br/><hr/>
+					<xsl:value-of select="td[5]/."/>:<xsl:value-of select="td[6]/."/><br/>
 				</xsl:when>
-				<!-- <xsl:when test="$num mod 2=0">
+				<xsl:when test="$num mod 2=0">
 					意  见:<xsl:value-of select="td[2]/."/><br/><hr/>
-				</xsl:when> -->
+				</xsl:when>
 				<xsl:otherwise>
 				</xsl:otherwise>
 			</xsl:choose>
