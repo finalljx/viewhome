@@ -31,11 +31,16 @@
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl
 				+ 'viewhome/html/news/newsList.html');
 	}
+	function loadSafeList() {
+		$.hori.showLoading();
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl
+				+ 'viewhome/html/watchlist.html');
+	}
 </script>
 </head>
 
 <style>
-	@media  only screen and (min-width: 1070px) and (max-width: 1242px) {
+@media  only screen and (min-width: 1070px) and (max-width: 1242px) {
   .imgToDo {
     width:10em;
 	height: 10em;
@@ -69,9 +74,9 @@
 				</div>
 				<div class="ui-block-b">
 					<a href="javascript:void(0);"
-						onClick="loadNewsList('GT_HomePage_SiteArea_zcfg')"> <img
-						id="imgSearch" class="imgToDo" class="module-icon" src="../assets/home/zcfg.png" />
-					</a> <br /> <span style="color: #434343;"><strong>政策法规</strong></span>
+						onClick="loadSafeList()"> <img
+						id="imgSearch" class="imgToDo" class="module-icon" src="../assets/home/aqsc.png" />
+					</a> <br /> <span style="color: #434343;"><strong>安全生产值班表</strong></span>
 				</div>
 
 			</div>
