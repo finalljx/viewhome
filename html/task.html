@@ -4,7 +4,7 @@
 	<title>代办</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" charset="utf-8"/>
 
 	<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" /> 
 
@@ -25,7 +25,18 @@
 </head>
 <body>
 	<div id="list" data-role="page" class="type-home">
+	<div style="width: 100%; height: 35px;">
+	<div style="width: 30%; height: 35px; float:right">
+		<select name="task" id="taskType" data-native-menu="false" onchange="">
+         <option value="0" selected="selected">代办</option>
+         <option value="1">已办</option>
+         <option value="2">已归结</option>
+         
+        </select>
+        </div>
+	</div>
 		<div data-role="content" align="center">
+		
 			<div data-bind="visible: taskCount()==0" style="display:none">
 				<ul  data-role="listview" data-inset="true">							
 					<li> 无内容</li>

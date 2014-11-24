@@ -20,7 +20,7 @@
 				String responseXml = q.getContent();
 				System.out.println(responseXml);
 				Document   doc = DocumentHelper.parseText(responseXml);
-				System.out.println("========================================================================");
+				
 				List contactList=doc.selectNodes("//table[@class='table1']//tr");
 				
 				//第一个tr是标题，所以个数减一是真是数据
@@ -34,12 +34,10 @@
 				
 					//System.out.println("userName="+userName.asXML());
 					//System.out.println("userName111="+userName.getText());
+					//用户名
+					Node userName=contactInfo.selectSingleNode("./td[2]");	
 					//员工编号
 					Node dialNumber=contactInfo.selectSingleNode("./td[3]");		
-					
-					//用户名
-					Node userName=contactInfo.selectSingleNode("./td[2]");		
-					
 					//移动电话
 					Node telNumber=contactInfo.selectSingleNode("./td[4]");
 					//办公电话

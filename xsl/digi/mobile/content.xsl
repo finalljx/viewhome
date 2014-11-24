@@ -17,16 +17,17 @@
 		<xsl:sequence select="replace($arg,'^\s+','')"/>
 
 </xsl:function>
-	<xsl:variable name="appdbpath"><xsl:value-of select="//input[@name='appdbpath']/@value"/></xsl:variable>
 	<xsl:variable name="appformname"><xsl:value-of select="//input[@name='appformname']/@value"/></xsl:variable>
 	<xsl:variable name="flownodeid"><xsl:value-of select="//input[@name='TFCurNodeID']/@value"/></xsl:variable>
 	
+	
 	<xsl:output method="html" indent="yes"/>
 	<xsl:template match="/">
+			 <xsl:variable name="startPersonFirst" ><xsl:value-of select="//flowoptinfo/optinfo/@persons"/>
+			</xsl:variable>
+						 	<input type="hidden"  id="startPersonFirst" value="{$startPersonFirst}"/>
 		<html lang="zh_cn">
 			<head>
-			
-
 				<script>
 					$(document).ready(function(){
 						var hori=$.hori;
@@ -55,13 +56,13 @@
 
 				</script>
 	
-				<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+				<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8"/>
 			</head>
 			<body>
 				<div id="notice" data-role="page">
 					
 					<div data-role="content" align="center">
-						<script>
+						<script charset="utf-8">
 							<![CDATA[
 							//viewfile 附件函数
 							function viewfile(url){
@@ -76,7 +77,11 @@
 								var CurUserITCode = $("#CurUserITCode").val();
 								var FlowMindInfo = $("#FlowMindInfo").val();
 								 var toNodeId=$("#TFCurNodeID").val();
-								
+								 
+								//var startPersonFirst=document.getElementById('startPersonFirst').value;
+								var startPersonFirst="科技部";
+								alert(startPersonFirst);
+							
 								if(FlowMindInfo=="" || FlowMindInfo==null || FlowMindInfo==" "){
 									if(value=='submit'){
 										FlowMindInfo = "同意！";
@@ -86,10 +91,10 @@
 								}
 								
 								//将回车变为换行
-								FlowMindInfo = FlowMindInfo.replace(/\n/g," ");
-								FlowMindInfo = FlowMindInfo.replace(/\r/g," ");
-								FlowMindInfo = escape(FlowMindInfo);
-								FlowMindInfo = FlowMindInfo.replace(/%20/g," ");
+							//	FlowMindInfo = FlowMindInfo.replace(/\n/g," ");
+								//FlowMindInfo = FlowMindInfo.replace(/\r/g," ");
+								//FlowMindInfo = escape(FlowMindInfo);
+							//	FlowMindInfo = FlowMindInfo.replace(/%20/g," ");
 
 								
 								if(window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)) {
@@ -102,13 +107,15 @@
 									}
 								}
 
-								var toNodeId = "";
-								if(flowid){
-									toNodeId = flowid;
+								//var toNodeId = "";
+								//if(flowid){
+								//	toNodeId = flowid;
 									
-									$( "#flowpupups" ).popup( "close" );
-								}
-								var soap = "<SOAP-ENV:Envelope xmlns:SOAP-ENV='http://schemas.xmlsoap.org/soap/envelope/' xmlns:SOAP-ENC='http://schemas.xmlsoap.org/soap/encoding/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'><SOAP-ENV:Body><m:bb_dd_GetDataByView xmlns:m='http://sxg.bbdd.org' SOAP-ENV:encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'><db_ServerName xsi:type='xsd:string'>"+appserver+"</db_ServerName><db_DbPath xsi:type='xsd:string'>"+appdbpath+"</db_DbPath><db_DocUID xsi:type='xsd:string'>"+appdocunid+"</db_DocUID><db_UpdInfo xsi:type='xsd:string'></db_UpdInfo><db_OptPsnID xsi:type='xsd:string'>"+CurUserITCode+"</db_OptPsnID><db_TempAuthors xsi:type='xsd:string'></db_TempAuthors><db_MsgTitle xsi:type='xsd:string'></db_MsgTitle><db_ToNodeId xsi:type='xsd:string'>"+toNodeId+"</db_ToNodeId><db_Mind xsi:type='xsd:string'>"+FlowMindInfo+"</db_Mind><db_OptType xsi:type='xsd:string'>"+value+"</db_OptType></m:bb_dd_GetDataByView></SOAP-ENV:Body></SOAP-ENV:Envelope>";
+								//	$( "#flowpupups" ).popup( "close" );
+								//} 
+								alert("FlowMindInfo"+FlowMindInfo);	
+								
+								var soap = "<SOAP-ENV:Envelope xmlns:SOAP-ENV='http://schemas.xmlsoap.org/soap/envelope/' xmlns:SOAP-ENC='http://schemas.xmlsoap.org/soap/encoding/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'><SOAP-ENV:Body><m:bb_dd_GetDataByView xmlns:m='http://sxg.bbdd.org' SOAP-ENV:encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'><db_ServerName xsi:type='xsd:string'>"+appserver+"</db_ServerName><db_DbPath xsi:type='xsd:string'>"+appdbpath+"</db_DbPath><db_DocUID xsi:type='xsd:string'>"+appdocunid+"</db_DocUID><db_UpdInfo xsi:type='xsd:string'></db_UpdInfo><db_OptPsnID xsi:type='xsd:string'>"+CurUserITCode+"</db_OptPsnID><db_TempAuthors xsi:type='xsd:string'></db_TempAuthors><db_MsgTitle xsi:type='xsd:string'></db_MsgTitle><db_ToNodeId xsi:type='xsd:string'>"+toNodeId+"</db_ToNodeId><db_Mind xsi:type='xsd:string'>"+FlowMindInfo+"</db_Mind><db_OptType xsi:type='xsd:string'>"+value+"</db_OptType><db_SelectPsn xsi:type='xsd:string'>"+startPersonFirst+"</db_SelectPsn></m:bb_dd_GetDataByView></SOAP-ENV:Body></SOAP-ENV:Envelope>";
 								$.mobile.showPageLoadingMsg();
 								var url = $.hori.getconfig().appServerHost+"view/oa/request/Produce/ProInd.nsf/THFlowBackTraceAgent?openagent&login";
 								var data = "data-xml="+soap;
@@ -137,9 +144,10 @@
 							}
 
 							function submit(value){
-							localStorage.setItem("FlowMindInfo",FlowMindInfo);
+							
 								//意见不可为空
 								var sel = $("#FlowMindInfo").val();
+								localStorage.setItem("FlowMindInfo",sel);
 								if(sel == null || sel==""){
 									alert('请填写您的意见');
 									return ;
@@ -149,12 +157,10 @@
 									var question = window.confirm("确定驳回吗?"); 
 									localStorage.setItem("value",value);
 									var FlowMindInfo = $("#FlowMindInfo").val();
-									localStorage.setItem("FlowMindInfo",FlowMindInfo);
 								}else{
 									var question = window.confirm("确定提交吗?"); 
 									localStorage.setItem("value",value);
 									var FlowMindInfo = $("#FlowMindInfo").val();
-									localStorage.setItem("FlowMindInfo",FlowMindInfo);
 								}
 								//确定提交或者驳回时
 								if(question){
@@ -182,6 +188,7 @@
 												return;
 											}
 											}else{
+											if(window.confirm("当前不允许驳回选关，是否要驳回到发起人"))
 											post(value, toflownodeid);
 											return;
 											}
@@ -206,7 +213,7 @@
 							
 						]]>
 						</script>
-						
+						 
 						<div class="ui-grid-b">
 							<div class="ui-block-a" style="padding-bottom:5px;" align="center">
 								<xsl:if test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
@@ -243,9 +250,7 @@
 								</xsl:call-template>
 							</fieldset>
 						</div>
-					
 						<h3><xsl:value-of select="//title/text()"/></h3>
-						
 						
 						<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
 							
@@ -261,8 +266,8 @@
 												<td style="width:30%" align="right">
 													<select onChange='$("#FlowMindInfo").val(this.value);' data-theme="a" data-mini='true' data-icon="gear" data-native-menu="true">
 														<option selected="unselected">常用语</option>
-														<option value="同意！">同意！</option>
-														<option value="不同意！">不同意！</option>
+														<option value="同意!">同意!</option>
+														<option value="不同意!">不同意!</option>
 														<option value="返回再议!">返回再议!</option>
 														<option value="请尽快处理!">请尽快处理!</option>
 														<option value="请修改后重新提交!">请修改后重新提交!</option>
@@ -290,9 +295,6 @@
 								<xsl:apply-templates select="//div[@name='Fck_HTML']//fieldentry"/>
 							</li>
 
-							
-
-
 							<li data-role="list-divider">附件信息</li>
 							<!-- select="translate(//input[@name='AttachInfo']/@value, ' ', '')"/> -->
 								<xsl:if test="//input[@name='AttachInfo']/@value =''">
@@ -300,12 +302,23 @@
 										无附件
 									</li>	
 								</xsl:if>
+								
 								<xsl:if test="//input[@name='AttachInfo']/@value !=''">
 									<xsl:call-template name="file">
 										<xsl:with-param name="info" select="translate(//input[@name='AttachInfo']/@value, ' ', '')"/>
 									</xsl:call-template>
 								</xsl:if>
-							
+									<xsl:variable name="startPerson"><xsl:value-of select="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo/optinfo/@fromnodename"/>
+									
+									</xsl:variable>
+	
+								 <xsl:if test="$startPerson='开始'">
+								 <xsl:variable name="startPersonFirst" ><xsl:value-of select="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo/optinfo/@approver"/>
+									 </xsl:variable>
+									 <input type="hidden"  id="startNodeName" value="{$startPersonFirst}"/>
+								</xsl:if>
+								
+								
 							<li data-role="list-divider">当前环节信息</li>
 							<li>
 								环节名称：<xsl:value-of select="//input[@name='TFCurNodeName']/@value" />
@@ -320,7 +333,7 @@
 								</xsl:if>
 								<xsl:if test="not(//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo)">
 								<xsl:if test="//textarea[@name='ThisFlowMindInfoLog']!=''">
-									<xsl:apply-templates select="//textarea[@name='ThisFlowMindInfoLog']" />
+									<xsl:value-of select="translate(//textarea[@name='ThisFlowMindInfoLog'],'-','')" />
 									</xsl:if>
 								<xsl:if test="//textarea[@name='ThisFlowMindInfoLog']=''">
 									暂无审批意见
@@ -570,6 +583,7 @@
 	</xsl:template>
 
 	<!-- 处理 基本信息table -->
+	
 	<xsl:template match="table" mode="t1" >	
 		<xsl:apply-templates  mode="t1"/>	
 	</xsl:template>	
@@ -591,8 +605,6 @@
 		<xsl:value-of select="text()"/>
 		<br/>
 	</xsl:template>
-	
-	
 
 	<!-- 差旅报销表格展示 -->
 	<xsl:template match="textarea" mode="bx" >	
