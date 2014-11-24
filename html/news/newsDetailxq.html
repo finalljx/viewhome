@@ -98,6 +98,7 @@ function getWcmNewsData1() {
 					document.getElementById("fujian").style.display = "none";
 				}
 				renderDetail1(data);
+				$('#hiddenDiv').css('display', 'block');
 		},
 		"error" : function(res) {
 			alert("error:" + res);
@@ -133,7 +134,7 @@ function renderDetail1(data) {
 				</h3>
 			</div>
 			<!-- 发布信息 -->
-			<div style="background-color: rgba(127,127,127,0.5);">
+			<div style="background-color: rgba(127,127,127,0.5); display:none;" id='hiddenDiv' >
 				<p>
 				<div style="float: left;">
 					发布时间：<span data-bind="text: creatTime" ></span>
