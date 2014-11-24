@@ -194,12 +194,12 @@
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
 		<!-- 请示查阅内请待归档-->
-		<view id="toArchive" template="oa/query/toArchive.xsl" encoding="gb2312">
+		<view id="toArchive" template="oa/query/toArchive.xsl" encoding="utf-8">
 			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
 		<!-- 请示查阅内请已归档-->
-		<view id="Archvied" template="oa/query/Archvied.xsl" encoding="gb2312">
+		<view id="Archvied" template="oa/query/Archvied.xsl" encoding="utf-8">
 			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
