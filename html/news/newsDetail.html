@@ -30,7 +30,27 @@ img{
     display: block;
     margin: auto;
 }
+
+
+@media  only screen and (min-width: 1070px) and (max-width: 1242px) {
+  .details {
+    font-size: 22px;
+  }
+} 
+@media  screen and (min-width: 400px) and (max-width: 800px) {
+	.details {
+		font-size: 21px;
+	}
+}
+
+@media screen and (min-width: 310px) and (max-width: 330px) {
+	.details {
+		font-size: 20px;
+	}
+}  
+
 </style>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		/*设置标题*/
@@ -195,7 +215,7 @@ img{
 				</p>
 			
 			</div>
-			<div style="clear: both;font-size: 22px;">
+			<div style="clear: both;" class='details'>
 				<span data-bind="html:richText"></span>
 			</div>
 			</div>
