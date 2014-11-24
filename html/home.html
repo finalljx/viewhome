@@ -40,6 +40,7 @@ function inittodos(){
 		
 		$.hori.showLoading();
 		var url = $.hori.getconfig().appServerHost+"view/oamobile/todosnum/Produce/GeneralMessage.nsf/GetAllMsgInfoAgent?openagent&random="+Math.random();
+		
 		$.hori.ajax({
 				"type":"post",
 				"url":url,
