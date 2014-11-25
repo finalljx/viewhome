@@ -141,12 +141,11 @@ var icount=0;
 		$.hori.loadPage(encodeURI(targetUrl));
 
 	}
-	function loadUnreadMsgList() {
+	function loadDoneTaskList() {
 		$.hori.showLoading();
 		gcount=gcount+1;
 		var targetUrl = $.hori.getconfig().serverBaseUrl
-				+ "viewhome/html/unreadMsgList.html"
-
+				+ "viewhome/html/downTask.html"
 		$.hori.loadPage(encodeURI(targetUrl));
 
 	}
@@ -199,7 +198,22 @@ a {
 				<div class="ui-block-a">
 					<a href="javascript:void(0);" onclick="loadTaskList()" class="ui-link"> <img id="imgToDo" width="68" height="68" src="../assets/home/task.png">
 					</a> <span id="spanTodo" class="bubble-count ui-btn-up-c ui-btn-corner-all" style="position: fixed; top: 15px; left: 359.5px;">0</span> <br>
-					<span style="color: #434343"><strong>待办事宜</strong></span>
+					<span style="color: #434343"><strong>待办任务</strong></span>
+				</div>
+				<div class="ui-block-b">
+					<a href="javascript:void(0)" onclick="loadDoneTaskList()" class="ui-link"> <img width="68" height="68" src="../assets/home/tel.png">
+					</a> <br> <span style="color: #434343"><strong>已办任务</strong></span>
+				</div>
+				<div class="ui-block-c">
+					<a href="javascript:void(0);" onclick="Xx()" class="ui-link"> <img width="68" height="68" src="../assets/home/mail.png">
+					</a> <br> <span style="color: #434343"><strong>公文查阅</strong></span>
+				</div>
+			</div>
+			<br>
+			<div class="ui-grid-b" id="divOne">
+				<div class="ui-block-a">
+					<a href="javascript:void(0)" onclick="loadContact()" class="ui-link"> <img width="68" height="68" src="../assets/home/tel.png">
+					</a> <br> <span style="color: #434343"><strong>信息发布</strong></span>
 				</div>
 				<div class="ui-block-b">
 					<a href="javascript:void(0)" onclick="loadContact()" class="ui-link"> <img width="68" height="68" src="../assets/home/tel.png">
@@ -211,6 +225,18 @@ a {
 				</div>
 			</div>
 			<br>
+			<div class="ui-grid-b" id="divOne">
+				<div class="ui-block-a">
+					<a href="javascript:void(0)" onclick="loadContact()" class="ui-link"> <img width="68" height="68" src="../assets/home/tel.png">
+					</a> <br> <span style="color: #434343"><strong>Connection</strong></span>
+				</div>
+				<div class="ui-block-b">
+					
+				</div>
+				<div class="ui-block-c" id="divMail">
+					
+				</div>
+			</div>
 		</div>
 	</div>
 
