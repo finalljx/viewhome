@@ -8,35 +8,11 @@
 	<xsl:template match="/">
 		<html lang="zh_cn">
 			<head>
-			
-
 				<script>
 					$(document).ready(function(){
 						var hori=$.hori;
-						/*设置标题*/
-						//hori.setHeaderTitle("单据");
 					});
-					function makejq(){						
-						var jqElement = document.getElementById("jq");
-						var url = $.hori.getconfig().appServerHost+"view/oamobile/operationjq/Produce/DigiFlowMobile.nsf/frmselectpsn?OpenForm&amp;login&amp;selectMode=radio&amp;FieldName=TFTempAuthors&amp;FieldNameCN=TFTempAuthorsCN&amp;FieldNameEN=TFTempAuthorsEN&amp;GroupFlag=no&amp;SelectOrgID=&amp;OptFieldName=&amp;callback=SubmitFlowDoc_JQ";
-						//alert(url);
-						var contentHtml=$("#notice").html();
-						localStorage.setItem("oajqDataSource",url);
-						//jqElement.setAttribute("href", "../html/jq.html");
-						localStorage.setItem("oaAppContentHtml",contentHtml);
-						$.hori.loadPage($.hori.getconfig().serverBaseUrl+"view/html/jq.html");
-					}
-
-					function searchPerson(){						
-						
-						var contentHtml=$("#notice").html();						
-						localStorage.setItem("oaAppContentHtml",contentHtml);
-						$.hori.loadPage($.hori.getconfig().appServerHost+"view/html/searchPerson.html");
-					}
-					
-
 				</script>
-	
 				<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 			</head>
 			<body>
@@ -50,151 +26,9 @@
 								localStorage.setItem("attachmentUrl",url);
 								$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
 							}
-							
-							function post(value, flowid, confirmflag, confirmstr){
-								var appserver = $("#appserver").val();
-								var appdbpath = $("#appdbpath").val();
-								var appdocunid = $("#appdocunid").val();
-								var CurUserITCode = $("#CurUserITCode").val();
-								var FlowMindInfo = $("#FlowMindInfo").val();
-								//将回车变为换行
-								FlowMindInfo = FlowMindInfo.replace(/\n/g," ");
-								FlowMindInfo = FlowMindInfo.replace(/\r/g," ");
-								FlowMindInfo = escape(FlowMindInfo);
-								FlowMindInfo = FlowMindInfo.replace(/%20/g," ");
-
-								
-								if(window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)) {
-									FlowMindInfo = encodeURI(FlowMindInfo);
-								}
-								
-								if(confirmflag=="yes"){
-									if(!window.confirm(confirmstr)){
-										return false;
-									}
-								}
-
-								var toNodeId = "";
-								if(flowid){
-									toNodeId = flowid;
-									$( "#flowpupups" ).popup( "close");
-								}
-								
-								
-								localStorage.setItem("FlowMindInfo",FlowMindInfo);
-								var soap = "<SOAP-ENV:Envelope xmlns:SOAP-ENV='http://schemas.xmlsoap.org/soap/envelope/' xmlns:SOAP-ENC='http://schemas.xmlsoap.org/soap/encoding/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'><SOAP-ENV:Body><m:bb_dd_GetDataByView xmlns:m='http://sxg.bbdd.org' SOAP-ENV:encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'><db_ServerName xsi:type='xsd:string'>"+appserver+"</db_ServerName><db_DbPath xsi:type='xsd:string'>"+appdbpath+"</db_DbPath><db_DocUID xsi:type='xsd:string'>"+appdocunid+"</db_DocUID><db_UpdInfo xsi:type='xsd:string'></db_UpdInfo><db_OptPsnID xsi:type='xsd:string'>"+CurUserITCode+"</db_OptPsnID><db_TempAuthors xsi:type='xsd:string'></db_TempAuthors><db_MsgTitle xsi:type='xsd:string'></db_MsgTitle><db_ToNodeId xsi:type='xsd:string'>"+toNodeId+"</db_ToNodeId><db_Mind xsi:type='xsd:string'>"+FlowMindInfo+"</db_Mind><db_OptType xsi:type='xsd:string'>"+value+"</db_OptType></m:bb_dd_GetDataByView></SOAP-ENV:Body></SOAP-ENV:Envelope>";
-								$.mobile.showPageLoadingMsg();
-								var url = $.hori.getconfig().appServerHost+"view/oa/request/Produce/ProInd.nsf/THFlowBackTraceAgent?openagent&login";
-								var data = "data-xml="+soap;
-								
-								alert(soap);
-								$.hori.ajax({
-									type: "post", url: url, data:data,
-									success: function(response){
-											var result = response;
-											$.mobile.hidePageLoadingMsg();
-											alert(result+"11111111111");return;
-											//下一环节处理人为空时，需要选择处理人
-											if(result.indexOf("环节处理人为空")>=0){
-												alert(value);
-												localStorage.setItem("value",value);
-												searchPerson();
-												return false;
-											}else{
-												alert(result+"2222");
-												setTimeout("$.hori.backPage(1)",2000);
-											}
-									},
-									error:function(response){
-										$.mobile.hidePageLoadingMsg();
-										alert(result);
-										setTimeout("$.hori.backPage(1)",1000);
-									}
-								});
-							}
-
-							function submit(value){
-								//意见不可为空
-								var sel = $("#FlowMindInfo").val();
-								if(sel == null || sel==""){
-									alert('请填写您的意见');
-									return;
-								}
-								//驳回选关
-								if(value=="reject"){
-									var refuse = $("#TFCurNodeRefuseToFlag").val();
-									alert("驳回选关：---"+refuse);
-									//如果refuse==yes,当前环节允许驳回选关
-									if(refuse=="yes"){
-										$( "#flowpupups" ).popup( "open" );
-										return;
-									}
-								}
-								//提交
-								if(value=="reject"){
-									var question = window.confirm("确定驳回吗?"); 
-								}else{
-									var question = window.confirm("确定提交吗?"); 
-								}
-								//确定提交或者驳回时
-								if(question){
-									var toflownodeid = "";
-									if($("#toflownodeid").length>0){
-										toflownodeid = $("#toflownodeid").val();
-										if(toflownodeid==""){
-											alert("请选择下一环节");
-											return ;
-										}
-									}
-									//存储下一环节到localstorage中 
-									localStorage.setItem("oaNextNodeId",toflownodeid);
-									post(value, toflownodeid);
-								}
-							}
-							function advanced(){
-								$( "#popupBasic" ).popup( "open" );
-							}
-						]]>
+							]]>
 						</script>
-						<div class="ui-grid-b">
-							<div class="ui-block-a" style="padding-bottom:5px;" align="center">
-								<xsl:if test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
-								<a data-role="button" value="submit" onclick="submit('submit');" data-mini='true' data-theme="f">提 交</a>
-								</xsl:if>
-							</div>
-							<div class="ui-block-b" style="padding-bottom:5px;" align="center">
-								<xsl:if test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'reject')]">
-								<a data-role="button" value="reject" onclick="submit('reject');" data-mini='true' data-theme="f">驳 回</a>
-								</xsl:if>
-							</div>
-							<!--
-							<div class="ui-block-c" style="padding-bottom:5px;" align="center">
-								<xsl:if test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'moreoption')]">
-								<a href="#popupBasic" data-rel="popup" data-role="button" data-mini='true' data-theme="f">高 级</a>
-								</xsl:if>
-								<div data-role="popup" id="popupBasic">
-								<ul data-role="listview" data-inset="true" data-theme="c">
-									<li data-role="list-divider"></li>
-									<xsl:if test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@onclick, 'append')]">
-										<li><a href=""  onclick="makejq()" data-rel="page">加 签</a></li>
-									</xsl:if>
-									<li data-role="list-divider"></li>
-								</ul>
-							</div>
-							</div>
-							-->
-						</div>
 						
-						<!-- 驳回选关 -->
-						<div data-role="popup" id="flowpupups">
-							<fieldset data-role="controlgroup" data-mini="true">
-								<xsl:call-template name="flows">
-									<xsl:with-param name="flows" select="substring-after(//input[@name='ThisFlowDoneNodes']/@value, ';')" />
-									<xsl:with-param name="alreadyflowids" />
-								</xsl:call-template>
-							</fieldset>
-						</div>
-					
 						<h3><xsl:value-of select="//title/text()"/></h3>
 						<div style="display:none">
 							<textarea id="jsonv">
@@ -205,40 +39,6 @@
 						<div><a data-role="button" value="reject" onclick="searchPerson();" data-mini='true' data-theme="f">选人</a></div>
 						-->
 						<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
-							
-							<xsl:if test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
-							<li data-role="list-divider">审批意见</li>
-								<li>
-									<xsl:if test="//textarea[@name='FlowMindInfo']">
-										<table style="border:0;padding:0;margin:0;" width="100%" border="0">
-											<tr style="width:100%">
-												<td style="width:70%" align="left">
-													
-												</td>
-												<td style="width:30%" align="right">
-													<select onChange='$("#FlowMindInfo").val(this.value);' data-theme="a" data-mini='true' data-icon="gear" data-native-menu="true">
-														<option selected="unselected">常用语</option>
-														<option value="同意！">同意！</option>
-														<option value="不同意！">不同意！</option>
-														<option value="返回再议!">返回再议!</option>
-														<option value="请尽快处理!">请尽快处理!</option>
-														<option value="请修改后重新提交!">请修改后重新提交!</option>
-													</select>
-												</td>
-											</tr>
-											<tr style="width:100%">
-												<td colspan="2" style="width:100%" align="center">
-													<textarea id="FlowMindInfo" name="FlowMindInfo"></textarea>
-												</td>
-											</tr>
-
-										</table>
-									</xsl:if>
-								</li>
-							</xsl:if>
-							
-
-
 							<li data-role="list-divider">基本信息</li>
 							<li>
 								<xsl:if test="not(//div[@name='Fck_HTML']//fieldentry)">
