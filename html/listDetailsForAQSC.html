@@ -1,72 +1,117 @@
 <html>
 <head>
-    <title>安全生产值班表详情</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0"/>
-    <link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" />
-    <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
-    <script src="../lib/jquery/jquery.min.js"></script>
-    <script src="../lib/encrypt/encrypt.js"></script>
-    <script src="../lib/json/json2.js"></script>
-    <script src="../lib/hori/hori.js?tag=21369"></script>
-    <script src="../config/web/config.js"></script>
-    <script src="../lib/template/template.js"></script>
-    
-    <script>
-    
-    $(document).ready(function(){
-	$.hori.showLoading();
-	$.hori.setHeaderTitle("安全生产值班表详情");
-	var config=$.hori.getconfig();
-	var itcode=localStorage.getItem("itcode");
-    var docunid=localStorage.getItem("watchDocUnid");
-	var oaServerName=localStorage.getItem("oaServerName");
-	var serverUrl=$.hori.getconfig().appServerHost+"view/oa/watchlistInfo";
-	
-	var dataSource="/Produce/DigiFlowMobile.nsf/showform?openform&login&apptype=&appserver=&appdbpath=Application/Safety/SafetyProBasic.nsf&appdocunid="+docunid;
-	var localServer=$.hori.getconfig().serverBaseUrl;
-	serverUrl=serverUrl+dataSource;
-	
-		$.hori.ajax({
-			"type":"post",
-			"url":serverUrl,
-			"data":"",
-			"success":function(htmlStr){
-				htmlStr=htmlStr.replace(/&nbsp;/g," ");
-				alert(htmlStr);
-				$("#rightContent").html(htmlStr);
-// 				$("body").html(htmlStr);
-				//var jqscript=document.createElement("script");
-				//jqscript.src="../lib/jquery-mobile/jquery.mobile.min.js";
-				//$("head").after(jqscript);
-				$.hori.hideLoading();
-			},
-			"error":function(res){
-				$.hori.hideLoading();
-			}
-			});
-    });
-    </script>
+<title>安全生产值班表详情</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
+<script src="../lib/jquery/jquery.min.js"></script>
+<script src="../lib/encrypt/encrypt.js"></script>
+<script src="../lib/json/json2.js"></script>
+<script src="../lib/hori/hori.js?tag=21369"></script>
+<script src="../config/web/config.js"></script>
+<!-- <script src="../lib/template/template.js"></script> -->
+
+<script>
+	var viewModel = new Object();
+
+	$(document)
+			.ready(
+					function() {
+						$.hori.showLoading();
+						$.hori.setHeaderTitle("安全生产值班表详情");
+						var config = $.hori.getconfig();
+						var docunid = localStorage.getItem("watchDocUnid");
+						var serverUrl = $.hori.getconfig().appServerHost
+								+ "view/safety/detail";
+						var dataSource = "/Application/Safety/SafetyProBasic.nsf/loadAppContentForMobile?openagent&data-result=text"
+						serverUrl = serverUrl + dataSource;
+						$.hori.ajax({
+							"type" : "post",
+							"url" : serverUrl,
+							"dataType" : "json",
+							"data" : {
+								"docunid" : docunid
+							},
+							"success" : function(res) {
+								console.log(res);
+								var parsedStr = JSON.parse(res);
+								render(parsedStr);
+								$.hori.hideLoading();
+							},
+							"error" : function(res) {
+								$.hori.hideLoading();
+							}
+						});
+					});
+
+	function render(parsedStr) {
+		viewModel = ko.mapping.fromJS(parsedStr);
+		ko.applyBindings(viewModel, document.getElementById('divO'));
+	}
+</script>
 </head>
 <body>
-<div>
-    <ul  data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
-        <li data-corners="false" data-shadow="false" data-iconshadow="true"
-            data-wrapperels="div" data-icon="arrow-r" data-iconpos="right"
-            data-theme="c"
-            class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-first-child ui-last-child ui-btn-up-c"><div
-                class="ui-btn-inner ui-li">
-            <div class="ui-btn-text">
-                <a class="ui-link-inherit">
-                    <h3 data-bind="text: title" class="ui-li-heading">数据加载中…………</h3>
-                    <span data-bind="text: taskState"></span>
-                    </p>
-                </a>
-            </div>
-            <span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span>
-        </div>
-        </li>
-    </ul>
-</div>
+	<div>
+		<div id="notice" data-role="page" data-url="notice" tabindex="0"
+			class="ui-page ui-body-c ui-page-active" style="min-height: 302px;">
+			<div data-role="content" align="center" class="ui-content"
+				role="main">
+				<div data-role="content" class="ui-content" role="main" id='divO' style='font-weight: bold;'>
+					<h3>节日（重大活动）期间安全生产及值班安排表</h3>
+					<ul data-role="listview" data-inset="true" data-theme="d"
+						id="ul_dtable_list"
+						class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+						<li data-role="list-divider" role="heading"
+							class="ui-li ui-li-divider ui-bar-b ui-first-child">值班信息</li>
+						<li id="div_DTblHtml"
+							class="ui-li ui-li-static ui-btn-up-d ui-last-child">
+
+
+
+
+							<ul data-role="listview" data-inset="true" data-theme="d"
+								class="ui-listview ui-listview-inset ui-corner-all ui-shadow"
+								data-bind='foreach: schedules.data'>
+
+								<li class="ui-li ui-li-static ui-btn-up-d ui-first-child">值班时间
+									：<span data-bind='text: column1'></span>
+								</li>
+
+								<li class="ui-li ui-li-static ui-btn-up-d">值班领导 ：<span
+									data-bind='text: column2'></span></li>
+
+								<li class="ui-li ui-li-static ui-btn-up-d">联系电话 ：<span
+									data-bind='text: column3'></span></li>
+
+								<li class="ui-li ui-li-static ui-btn-up-d">值班员 ：<span
+									data-bind='text: column4'></span></li>
+
+								<li class="ui-li ui-li-static ui-btn-up-d ui-last-child">联系电话
+									：<span data-bind='text: column5'></span>
+								</li>
+
+							</ul>
+
+						</li>
+					</ul>
+					<ul data-role="listview" data-inset="true" data-theme="d"
+						class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+						<li data-role="list-divider" role="heading"
+							class="ui-li ui-li-divider ui-bar-b ui-first-child">节假日期间生产安排情况</li>
+						<li class="ui-li ui-li-static ui-btn-up-d ui-last-child"
+							style='white-space: normal;' data-bind='text: holsit'></li>
+					</ul>
+					<ul data-role="listview" data-inset="true" data-theme="d"
+						class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+						<li data-role="list-divider" role="heading"
+							class="ui-li ui-li-divider ui-bar-b ui-first-child">安全保证措施</li>
+						<li class="ui-li ui-li-static ui-btn-up-d ui-last-child"
+							style='white-space: normal;' data-bind='text: safety'></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

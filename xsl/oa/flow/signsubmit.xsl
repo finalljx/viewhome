@@ -110,18 +110,26 @@
 									}
 									<![CDATA[
 									function hideuserselect(){
+										//radio
 										var val = $('input:radio:checked').val();
-										console.log(val);
+										
 										//替换掉回车和换行
 										val=val.replace(/[\n\r]/g,"");
+										
 										var number = val.indexOf("genertec");
 										if(number!="-1"){
-											var CHname = val.substring(number+9,val.length);
-											$('#forshow').attr('value',CHname);
+											var num = val.indexOf("/");
+											var CHname = val.substring(0,num);
+											
+											var num2 = CHname.indexOf("=");
+											if(num2!="-1"){
+												var CHname1 = CHname.substring(num2+1);
+												$('#forshow').attr('value',CHname1);
+											}else{
+												$('#forshow').attr('value',CHname);
+											}
 											$('#fldXyspr').attr('value',val);
-											$("#faqdiv").css("display","none");
-										}else if(number=="-1"){
-											$("#faqdiv").css("display","none");
+											//$("#faqdiv").css("display","none");
 										}
 										//checkbox
 										var personstr="";
@@ -149,6 +157,23 @@
 										}
 										$("#faqdiv").css("display","none");
 									}
+									
+									//部门反馈时选择领导意见
+									function chooseMind(){
+										var chooseMind="";
+										var selectedYjtocl=""
+										$("input[name='SelectyjNum']:checked").each(function(){
+											chooseMind=$(this).val();
+											var chooseMindAray = chooseMind.split("|");
+											var chooseMindHtml = "<table width=100% border=0><tr><td>"+chooseMindAray[0]+"</td></tr><tr><td align='right'><span class='userName'>"+chooseMindAray[1]+"</span>"+chooseMindAray[2].replace(" ", "&nbsp;")+"</td></tr></table>";
+											selectedYjtocl+=chooseMindHtml;
+										})
+										if(selectedYjtocld!=""){
+											//selectedYjtocl= escape(selectedYjtocl);
+											$("#selectedYjtocld").val(selectedYjtocl);
+										}
+										//alert(selectedYjtocl);
+									}
 									]]>
 								</script>
 								<style type="text/css">
@@ -162,7 +187,7 @@
 									</ul>
 									<div class="ui-grid-a">
 										<div class="ui-block-a">
-											<button type="submit" data-theme="f" name="$$querysaveagent" value="submitConfirm">确定</button>
+											<button onclick="chooseMind()" type="submit" data-theme="f" name="$$querysaveagent" value="submitConfirm">确定</button>
 										</div>
 										<div class="ui-block-b">
 											<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">取消</a>
@@ -181,6 +206,7 @@
 											$('#form1').attr('action', formAction);
 										}
 										function cancelSubmit(){
+											$.mobile.showPageLoadingMsg();
 											document.location.reload();
 										}
 									]]>
@@ -228,6 +254,7 @@
 											$('#form2').attr('action', formAction);
 										}
 										function cancelSubmit(){
+											$.mobile.showPageLoadingMsg();
 											document.location.reload();
 										}
 									]]>
@@ -266,6 +293,7 @@
 														$('#form3').attr('action', formAction);
 													}
 													function cancelSubmit(){
+														$.mobile.showPageLoadingMsg();
 														document.location.reload();
 													}
 												]]>
@@ -307,6 +335,7 @@
 													$('#form4').attr('action', formAction);
 												}
 												function cancelSubmit(){
+													$.mobile.showPageLoadingMsg();
 													document.location.reload();
 												}
 											]]>
@@ -342,6 +371,7 @@
 										<![CDATA[
 											function cancelSubmit(){
 												//document.location.reload();
+												$.mobile.showPageLoadingMsg();
 												$.hori.backPage(1);
 											}
 										]]>
@@ -370,6 +400,7 @@
 										<![CDATA[
 											function cancelSubmit(){
 												//document.location.reload();
+												$.mobile.showPageLoadingMsg();
 												$.hori.backPage(1);
 											}
 										]]>
@@ -396,6 +427,7 @@
 									<script>
 										<![CDATA[
 											function cancelSubmit(){
+												$.mobile.showPageLoadingMsg();
 												//document.location.reload();
 												$.hori.backPage(1);
 											}
@@ -472,7 +504,12 @@
 						<xsl:if test="count(//tr[@bgcolor='#E0E0E0'])=0">
 							<font size="3">没有可选择的意见，请直接填写!</font>
 						</xsl:if>
-						<xsl:apply-templates select="//tr[@bgcolor='#E0E0E0']" mode="choosemind"/>
+						<xsl:if test="count(//tr[@bgcolor='#E0E0E0'])!=0">
+							<div id="fldyj">
+								<xsl:apply-templates select="//tr[@bgcolor='#E0E0E0']" mode="choosemind"/>
+							</div>
+						</xsl:if>
+						<textarea style="display:none" name="selectedYjtocld" id="selectedYjtocld" rows="2" cols="20"></textarea>
 					</fieldset>
 				</li>
 				<li data-role="fieldcontain" style="display:none" id="trWriteYj">
@@ -498,7 +535,7 @@
 								<input type="hidden" name="selectedYjNum" value=""/>
 								<input type="hidden" name="selectedYjtocld" value=""/>
 								<!-- <a href="javascript:void(0)" onclick="clearperson();" style="margin-left:30px;" data-role="button" data-inline="true">清空</a> -->
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/doctest/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10&amp;data-userstore=')" data-role="button" data-inline="true" data-theme="b">选　人
+								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/doctest/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10&amp;data-userstore=')" data-role="button" data-inline="true" data-theme="f">选　人
 								</a>
 							</fieldset>
 							
@@ -511,7 +548,7 @@
 								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
 								<input type="hidden" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
 								<!--<a href="javascript:void(0)" style="margin-left:30px;" onclick="clearperson();" data-role="button" data-inline="true">清空</a> -->
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/doctest/{$dbpath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}&amp;data-userstore=')" data-role="button" data-inline="true" data-theme="b">选　人</a>
+								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/doctest/{$dbpath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}&amp;data-userstore=')" data-role="button" data-inline="true" data-theme="f">选　人</a>
 							</fieldset>
 						</li>
 					</xsl:when>
@@ -558,12 +595,13 @@
 	<!-- 审批意见 -->
 	<xsl:template match="tr" mode="choosemind">
 				<xsl:variable name="num" select="position()-1"/>
-				<input type="checkbox" name="SelectyjNum" id="{$num}" value="{$num}"/>
+				<xsl:variable name="choosemindVal" ><xsl:value-of select="//tr[@bgcolor='#F0F0F0'][$num+1]/td[2]/."/>|<xsl:value-of select="substring-before(td[2]/.,'/')"/>|<xsl:value-of select="td[4]/."/></xsl:variable>
+				<input type="checkbox" name="SelectyjNum" id="{$num}" value="{$choosemindVal}"/>
 				<label for="{$num}">
 						<xsl:value-of select="td[1]/."/>:<xsl:value-of select="substring-before(td[2]/.,'/')"/><br/>
 						<xsl:value-of select="td[3]/."/>:<xsl:value-of select="td[4]/."/><br/>
 						<xsl:value-of select="td[5]/."/>:<xsl:value-of select="td[6]/."/><br/>
-						意  见:<xsl:value-of select="//tr[@bgcolor='#F0F0F0']/td[2]/."/>
+						意  见:<xsl:value-of select="//tr[@bgcolor='#F0F0F0'][$num+1]/td[2]/."/>
 				</label>
 	</xsl:template>
 	<xsl:template match="input" mode="submit">

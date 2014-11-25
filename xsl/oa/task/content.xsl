@@ -145,9 +145,11 @@
 					<tr><td colspan="4"><p align="center"><b>
 						<font size="5"><xsl:value-of select="//table[@id='table1']/tbody/tr[1]/." /></font></b></p></td>
 					</tr>
+					<xsl:if test="//div[contains(@onclick, 'huiqian')]">
 					<tr><td><b><font size="4"><br/>
 						请示编号：</font></b></td><td style="width: 90%;"><input name="fldFwbh" data-mini="true" id="fldFwbh" type="text" value="{//input[@name='fldFwbh']/@value}"/></td>
 					</tr>
+					</xsl:if>
 					<tr><td colspan="4" style="border: 1px solid #000000;" class="top" height="120" valign="top"><b><br />
 						<font class="ztDx"><xsl:value-of select="//table[@id='table1']/tbody/tr[3]/." /></font></b></td>
 					</tr>
@@ -354,7 +356,7 @@ select="translate($filetype, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrst
 <xsl:if test="not(contains($fileunids, $fileunid))">
 <li>
 	<a href="javascript:void(0)"
-		onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/docapp/{$dbPath}/0/{$docunid}/$file/{$fileunid}.{$filetype}')">
+		onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/doctest/{$dbPath}/0/{$docunid}/$file/{$fileunid}.{$filetype}')">
 		<xsl:value-of select="$file" />
 		</a>
 </li>

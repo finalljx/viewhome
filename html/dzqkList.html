@@ -37,6 +37,8 @@ a {
 	var itcode;
 	$(document).ready(function() {
 		//默认隐藏列表显示
+		/* document.getElementById("middleContent").style.width = '90%';
+		document.getElementById("rightContent").style.width = '0'; */
 		itcode = localStorage.getItem("itcode");
 		dzqkAction();
 	});
@@ -45,7 +47,8 @@ a {
 	var myDate = new Date();
 	var thisYear = myDate.getFullYear();
 	function dzqkAction() {
-		var url = $.hori.getconfig().appServerHost + "/biz/mobile/periodical.jsp?year=" + thisYear;
+		var url = $.hori.getconfig().appServerHost
+				+ "/biz/mobile/periodical.jsp?year=" + thisYear;
 		$.hori.ajax({
 			"type" : "post",
 			"url" : url,
@@ -53,10 +56,26 @@ a {
 				"Authorization" : "Basic d3BzYWRtaW46R1RBZG1pbg=="
 			},
 			"success" : function(res) {
+				console.log('res=' + res);
 				var jsonData = JSON.parse(res);
-				console.log(jsonData);
 				var json = new Object();
 				json.list = jsonData;
+
+				for (var i = 0; i < json.list.length; i++) {
+					var coverPath = $.hori.getconfig().serverBaseUrl
+							+ "view/tpxw/file/" + json.list[i].PERCOVER
+							+ "?data-result=file";
+					json.list[i].cover = coverPath;
+				} 
+
+				/* var coverArr = new Array();
+				for (var i = 0; i < json.list.length; i++) {
+					var coverPath = $.hori.getconfig().serverBaseUrl
+							+ "view/tpxw/file/" + json.list[i].PERCOVER
+							+ "?data-result=file";
+					coverArr.push(coverPath);
+				} */
+
 				renderDzqk(json)
 			},
 			"error" : function(res) {
@@ -67,7 +86,6 @@ a {
 		});
 	}
 	function renderDzqk(json) {
-		console.log(json);
 		viewModel = ko.mapping.fromJS(json);
 		ko.applyBindings(viewModel, document.getElementById("divOne"));
 	}
@@ -86,9 +104,9 @@ a {
 }
 
 .ban {
-	margin-top:10px;
+	margin-top: 10px;
 	width: 100%;
-	background-color:black;
+	background-color: black;
 	/* background-image: url(../assets/dzqk/background.png); */
 	-moz-background-size: 100% 100%;
 	-o-background-size: 100% 100%;
@@ -97,19 +115,24 @@ a {
 	/* -moz-border-image: url(../assets/dzqk/background.png) 0; */
 	background-repeat: no-repeat\9;
 	background-image: none\9;
+	width: 100%;
+	background-color: black;
 }
 </style>
 </head>
 <body>
 	<div data-role="content" align="center">
 		<div class="ui-grid-b" id="divOne">
-			<div data-bind="foreach: list" style="width: 100%;height:100%;">
-				<div class="ui-block-b divxs" style="margin: 20px; width:250px;z-index:999;">
-					<a href="javascript:void(0);"> <img
-						class="imgToDo module-icon" src="../assets/dzqk/1.png" width=230
-						height=300> 
+			<div data-bind="foreach: list" style="width: 100%; height: 100%;">
+				<div class="ui-block-b divxs"
+					style="margin: 20px; width: 250px; z-index: 999;">
+					<a href="javascript:void(0);"> <img class="imgToDo module-icon"
+						data-bind='attr:{"src": cover}' width=150 height=170>
 					</a>
-				<div style=" z-index:2"><img alt="" src="../assets/dzqk/background.png" style="width: 290px;height: 80px;"></div>
+					<div style="z-index: 2">
+						<img alt="" src="../assets/dzqk/background.png"
+							style="width: 290px; height: 80px;">
+					</div>
 				</div>
 			</div>
 		</div>

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <viewers>
+	<viewer id="ldap" type="remote" source="http://10.1.31.181:9080" encoding="gb2312">
+	    <view id="checkLogin" template="login/ldapLoginValidate.jsp" />
+	</viewer>
 	<!--  登陆向导密码重置 -->
-	<viewer id="forgetwd" type="remote" source="http://10.1.31.181:9080" 	encoding="GB2312">
-			<view id="loginvalidate1" template="login/loginValidate.jsp"	encoding="GB2312" />
-			<view id="loginvalidate2" template="login/loginValidate.jsp"	encoding="GB2312" />
+	<viewer id="forgetpwd" type="remote" source="http://10.1.31.181:9080" 	encoding="GB2312">
+			<view id="sendSms" template="login/loginValidate.jsp"	encoding="GB2312" />
+			<view id="resetSubmit" template="login/loginValidate.jsp"	encoding="GB2312" />
 	</viewer>
 	<viewer id="guide" type="remote" source="http://10.1.31.181:9080" encoding="gb2312">
 	    <view id="getCaptcha" template="guide/guide.jsp" />
@@ -191,12 +194,12 @@
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
 		<!-- 请示查阅内请待归档-->
-		<view id="toArchive" template="oa/query/toArchive.xsl" encoding="gb2312">
+		<view id="toArchive" template="oa/query/toArchive.xsl" encoding="utf-8">
 			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
 		<!-- 请示查阅内请已归档-->
-		<view id="Archvied" template="oa/query/Archvied.xsl" encoding="gb2312">
+		<view id="Archvied" template="oa/query/Archvied.xsl" encoding="utf-8">
 			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
@@ -360,5 +363,11 @@
             <rule mode="replace" regex="&lt;\!\[CDATA\[" value="" />
             <rule mode="replace" regex="\]\]&gt;" value="" />
         </view>
+	</viewer>
+	<viewer id="user" type="local" encoding="gb2312">
+	    <view id="permission" template="user/permission.jsp" encoding="UTF-8" />
+	</viewer>
+	<viewer id="periodical" type="local" encoding="gb2312">
+	    <view id="list" template="periodical/periodical.jsp" encoding="UTF-8" />
 	</viewer>
 </viewers>
