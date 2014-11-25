@@ -6,8 +6,7 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
 <link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" />
 <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
-<link rel="stylesheet" href="../lib/swiper/idangerous.swiper.css">
-<link rel="stylesheet" href="../lib/app/home/css/news.css">
+<!-- <link rel="stylesheet" href="../lib/app/home/css/news.css"> -->
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/jquery-cookie/jquery.cookie.js"></script>
 <script src="../lib/encrypt/encrypt.js"></script>
@@ -20,16 +19,28 @@
 
 </head>
 <style>
-	@media  only screen and (min-width: 1070px) and (max-width: 1242px) {
+.module-icon {
+	width: 5em;
+	height: 5em;
+}
+@media  only screen and (min-width: 1070px) and (max-width: 1242px) {
   .imgToDo {
-    width:10em;
-	height: 10em;
+    width:12em;
+	height: 12em;
   }
+  .divxs {
+		width: 33.333%;
+		margin-top: 50px
+	}
 } 
 @media  screen and (min-width: 400px) and (max-width: 800px) {
 	.imgToDo {
 		width: 5.5em;
 		height:5.5em;
+	}
+	.divxs {
+		width: 33.333%;
+		margin-top: 20px
 	}
 }
 
@@ -37,6 +48,10 @@
 	.imgToDo {
 		width: 3.6em;
 		height:3.6em;
+	}
+	.divxs {
+		width: 33.333%;
+		margin-top: 20px
 	}
 }  
 </style>
@@ -68,15 +83,15 @@
 		<div data-role="content" align="center">
 			
 			<div class="ui-grid-b" id="divOne">
-				<div class="ui-block-b">
+				<div class="ui-block-b  divxs">
 					<a href="javascript:void(0);" onclick="loadTpxwList()"> <img
-						id="imgToDo" class="imgToDo" src="../assets/home/tpxw.png" class="module-icon" width="80px" height="80px"/>
+						id="imgToDo" class="imgToDo module-icon" src="../assets/home/tpxw.png" class="module-icon"/>
 					</a> <br />
 					<span style="color: #434343;"><strong>图片新闻</strong></span>
 				</div>
-				<div class="ui-block-b">
+				<div class="ui-block-b  divxs">
 					<a href="javascript:void(0);" onclick="loadNewsList('GT_HomePage_SiteArea_jtxw')"> <img
-						id="imgSearch" class="imgToDo" class="module-icon" src="../assets/home/jtxw.png" />
+						id="imgSearch" class="imgToDo module-icon"  src="../assets/home/jtxw.png" />
 					</a> <br />
 					<span style="color: #434343;"><strong>集团新闻</strong></span>
 				</div>

@@ -40,16 +40,28 @@
 </head>
 
 <style>
+.module-icon {
+	width: 5em;
+	height: 5em;
+}
 @media  only screen and (min-width: 1070px) and (max-width: 1242px) {
   .imgToDo {
-    width:10em;
-	height: 10em;
+    width:12em;
+	height: 12em;
   }
+  .divxs {
+		width: 33.333%;
+		margin-top: 50px
+	}
 } 
 @media  screen and (min-width: 400px) and (max-width: 800px) {
 	.imgToDo {
 		width: 5.5em;
 		height:5.5em;
+	}
+	.divxs {
+		width: 33.333%;
+		margin-top: 20px
 	}
 }
 
@@ -57,6 +69,10 @@
 	.imgToDo {
 		width: 3.6em;
 		height:3.6em;
+	}
+	.divxs {
+		width: 33.333%;
+		margin-top: 20px
 	}
 }  
 </style>
@@ -69,13 +85,13 @@
 				<div class="ui-block-b">
 					<a href="javascript:void(0);"
 						onClick="loadNewsList('GT_HomePage_SiteArea_aqsc')"> <img
-						id="imgToDo" class="imgToDo" src="../assets/home/aqhb.png" class="module-icon" />
+						id="imgToDo" class="imgToDo module-icon" src="../assets/home/aqhb.png" />
 					</a> <br /> <span style="color: #434343;"><strong>安全环保</strong></span>
 				</div>
 				<div class="ui-block-b">
 					<a href="javascript:void(0);"
 						onClick="loadSafeList()"> <img
-						id="imgSearch" class="imgToDo" class="module-icon" src="../assets/home/aqsc.png" />
+						id="imgSearch" class="imgToDo module-icon" src="../assets/home/aqsc.png" />
 					</a> <br /> <span style="color: #434343;"><strong>安全生产值班表</strong></span>
 				</div>
 

@@ -99,6 +99,10 @@
 	}
 </script>
 <style>
+.module-icon {
+	width: 5em;
+	height: 5em;
+}
 @media  only screen and (min-width: 1070px) and (max-width: 1242px) {
   .imgToDo {
     width:12em;
@@ -106,7 +110,7 @@
   }
   .divxs {
 		width: 33.333%;
-		margin-top: 500px
+		margin-top: 50px
 	}
 } 
 @media  screen and (min-width: 400px) and (max-width: 800px) {
@@ -130,15 +134,6 @@
 		margin-top: 20px
 	}
 }  
-.ui-content{padding:5px;}
-a {
-    text-decoration: none;
-}
-
-.module-icon {
-    width: 5em;
-    height: 5em;
-}
 </style>
 </head>
 <body>
@@ -147,7 +142,7 @@ a {
 		<div data-bind="foreach: list" style="width:100%;">
 			<div class="ui-block-b divxs">
 				<a  data-bind="click:loadBi" > <img
-					id="imgToDo" class="imgToDo" data-bind="attr:{'src':img}" class="module-icon"/>
+					id="imgToDo" class="imgToDo module-icon" data-bind="attr:{'src':img}" class="module-icon"/>
 				</a> <br /> 
 				<span style="color: #434343;" ><strong data-bind="text:title"></strong></span>
 			</div>
