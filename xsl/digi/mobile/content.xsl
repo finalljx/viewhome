@@ -87,7 +87,7 @@
 								var toNodeId = "";
 								if(flowid){
 									toNodeId = flowid;
-									$( "#flowpupups" ).popup( "close" );
+									$( "#flowpupups" ).popup( "close");
 								}
 								
 								
@@ -97,7 +97,7 @@
 								var url = $.hori.getconfig().appServerHost+"view/oa/request/Produce/ProInd.nsf/THFlowBackTraceAgent?openagent&login";
 								var data = "data-xml="+soap;
 								
-								
+								alert(soap);
 								$.hori.ajax({
 									type: "post", url: url, data:data,
 									success: function(response){
@@ -111,7 +111,7 @@
 												searchPerson();
 												return false;
 											}else{
-												alert(result);
+												alert(result+"2222");
 												setTimeout("$.hori.backPage(1)",2000);
 											}
 									},
@@ -133,13 +133,13 @@
 								//驳回选关
 								if(value=="reject"){
 									var refuse = $("#TFCurNodeRefuseToFlag").val();
+									alert("驳回选关：---"+refuse);
 									//如果refuse==yes,当前环节允许驳回选关
 									if(refuse=="yes"){
 										$( "#flowpupups" ).popup( "open" );
 										return;
 									}
 								}
-								
 								//提交
 								if(value=="reject"){
 									var question = window.confirm("确定驳回吗?"); 
