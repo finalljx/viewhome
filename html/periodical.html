@@ -21,6 +21,25 @@
 <script src="../config/web/config.js"></script>
 <script src="../lib/knockout/knockout.js"></script>
 <script src="../lib/knockout/knockout.mapping.js"></script>
+<style>
+ @media only screen and (min-width: 1070px) and (max-width: 1242px) {
+	.ispan {
+		font-size: 22px;
+	}
+}
+
+@media screen and (min-width: 400px) and (max-width: 800px) {
+	.ispan {
+		font-size: 21px;
+	}
+}
+
+@media screen and (min-width: 310px) and (max-width: 330px) {
+	.ispan {
+		font-size: 20px;
+	}
+} 
+</style>
 <script type="text/javascript">
 	var jsonData = new Object();
 	$(document).ready(
@@ -38,10 +57,10 @@
 						$("#divDataLoading").css("display", "none");
 						var list = JSON.parse(res);
 						var file = new Array();
-						for ( var i = 0; i < list.length; i++) {
+						for (var i = 0; i < list.length; i++) {
 							var item = new Object();
-							item.fileName = "通用时代" + list[i].PERYEAR
-									+ "年第" + list[i].PERNUM + "期";
+							item.fileName = "通用时代" + list[i].PERYEAR + "年第"
+									+ list[i].PERNUM + "期";
 							item.lianjie = list[i].PERURL;
 							file.push(item);
 						}
@@ -56,11 +75,16 @@
 				});
 
 			});
-    function viewFile(item){
-    	var url=$.hori.getconfig().appServerHost+"view/tpxw/file"+item.lianjie()+"?data-convert=office&data-cache=true";
-		localStorage.setItem("attachmentUrl",url);
-		$.hori.loadPage( $.hori.getconfig().appServerHost+"viewhome/html/attachmentShowForm.html?data-application=mobile","viewhome/xml/AttachView.xml");
-    }
+	function viewFile(item) {
+		var url = $.hori.getconfig().appServerHost + "view/tpxw/file"
+				+ item.lianjie() + "?data-convert=office&data-cache=true";
+		localStorage.setItem("attachmentUrl", url);
+		$.hori
+				.loadPage(
+						$.hori.getconfig().appServerHost
+								+ "viewhome/html/attachmentShowForm.html?data-application=mobile",
+						"viewhome/xml/AttachView.xml");
+	}
 	function renderDetail() {
 		var viewModelDetail = ko.mapping.fromJS(jsonData);
 		console.log(viewModelDetail);
@@ -75,11 +99,13 @@
 				<li>数据加载中……</li>
 			</ul>
 		</div>
-		<div>
-			<ul id="dzqkList" data-bind="foreach: file" data-role="listview" class="ui-listview" data-inset="false">
-				<li class="ui-first-child ui-last-child" data-icon="false"><a data-bind="click: viewFile"><p></p> <span data-bind="text: fileName"></span>
-				<p></p>
-				</a></li>
+		<div >
+			<ul id="dzqkList" data-bind="foreach: file" data-role="listview"
+				class="ui-listview" data-inset="false">
+				<li class="ui-first-child ui-last-child" data-icon="false" ><a
+					data-bind="click: viewFile"><p></p> <span
+						data-bind="text: fileName" class='ispan'></span>
+						<p></p> </a></li>
 			</ul>
 		</div>
 	</div>

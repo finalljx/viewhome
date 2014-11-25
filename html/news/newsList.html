@@ -18,40 +18,7 @@
 	src="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
 <script src="../../lib/knockout/knockout.js"></script>
 <script src="../../lib/knockout/knockout.mapping.js"></script>
-<style>
-a {
-	text-decoration: none;
-}
 
-.ui-content .ui-listview, .ui-panel-inner>.ui-listview {
-	margin: 0;
-}
-
-.ui-li-has-count .ui-li-count {
-	position: absolute;
-	top: 50%;
-	margin-top: -.9em;
-	right: 5px;
-}
-.ui-date-item {
-	border: none;
-	background: transparent;
-	background-image: none;
-	font-size: 15px;
-}
-
-#wrapper {
-	position: fixed;
-	top: 10px;
-	bottom: 0px;
-	left: 0px;
-	width: 100%;
-}
-
-.department_name {
-	color: blue;
-}
-</style>
 <script type="text/javascript">
 	var itcode;
 	var moreCurrentName;
@@ -241,6 +208,61 @@ a {
 				+ 'viewhome/html/news/newsDetail.html');
 	}
 </script>
+
+<style>
+a {
+	text-decoration: none;
+}
+
+.ui-content .ui-listview, .ui-panel-inner>.ui-listview {
+	margin: 0;
+}
+
+.ui-li-has-count .ui-li-count {
+	position: absolute;
+	top: 50%;
+	margin-top: -.9em;
+	right: 5px;
+}
+.ui-date-item {
+	border: none;
+	background: transparent;
+	background-image: none;
+	font-size: 15px;
+}
+
+#wrapper {
+	position: fixed;
+	top: 10px;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+}
+
+.department_name {
+	color: blue;
+}
+
+ @media only screen and (min-width: 1070px) and (max-width: 1242px) {
+	.ia {
+		font-size: 22px;
+	}
+}
+
+@media screen and (min-width: 400px) and (max-width: 800px) {
+	.ia {
+		font-size: 21px;
+	}
+}
+
+@media screen and (min-width: 310px) and (max-width: 330px) {
+	.ia {
+		font-size: 20px;
+	}
+} 
+
+</style>
+
 </head>
 <body>
 	<div id="list" data-role="page" class="type-home">
@@ -250,13 +272,13 @@ a {
 					<li>数据加载中……</li>
 				</ul>
 			</div>
-			<div id="newsList">
+			<div id="newsList" class='newList'>
 				<div id="wrapper">
 					<div id="scroller">
 						<p></p>
-						<ul data-bind="foreach: list" id="querydataList" data-role="listview" >
+						<ul data-bind="foreach: list" class='querydataList' id="querydataList" data-role="listview" >
 							<li data-icon="false">
-							<a data-bind="click:showDetail" style="line-height:2.5em;padding-right:5em;font-size: 20px;">
+							<a data-bind="click:showDetail" style="line-height:2.5em;padding-right:5em;" class='ia'>
 									<!-- ko text: contentTitle --> <!-- /ko -->
 									<span class="ui-li-count ui-date-item" data-bind="text:creatTime"/>
 							</a></li>

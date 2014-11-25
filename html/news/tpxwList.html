@@ -38,6 +38,24 @@ a {
     left: 0px;
     width: 100%; 
 }
+
+@media  only screen and (min-width: 1070px) and (max-width: 1242px) {
+  .idiv {
+    font-size: 22px;
+  }
+} 
+@media  screen and (min-width: 400px) and (max-width: 800px) {
+	.idiv {
+		font-size: 21px;
+	}
+}
+
+@media screen and (min-width: 310px) and (max-width: 330px) {
+	.idiv {
+		font-size: 20px;
+	}
+}  
+
 </style>
 <script type="text/javascript">
 	var itcode;
@@ -221,7 +239,7 @@ a {
 									<img data-bind="attr:{'src':tpxwImage}"
 									style="margin-left: 10px; margin-top: 10px; margin-right: 10px;" />
 									<h3 style="white-space: normal;">
-									<div style="margin-right: 20px; margin-left: 10px;font-size: 20px;">
+									<div style="margin-right: 20px; margin-left: 10px;" class='idiv'>
 										<span 
 											data-bind="text: contentTitle" />
 											</div>
