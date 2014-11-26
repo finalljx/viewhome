@@ -36,17 +36,26 @@ img{
   .details {
     font-size: 22px;
   }
+  .div1 {
+  	font-size: 15px;
+  }
 } 
 @media  screen and (min-width: 400px) and (max-width: 800px) {
 	.details {
 		font-size: 21px;
 	}
+	.div1 {
+  	font-size: 14px;
+  }
 }
 
 @media screen and (min-width: 310px) and (max-width: 330px) {
 	.details {
 		font-size: 20px;
 	}
+	.div1 {
+  	font-size: 13px;
+  }
 }  
 
 </style>
@@ -205,10 +214,10 @@ img{
 			
 			<div id="divContent" style="background-color: rgba(127,127,127,0.3);display: none;">
 				<p>
-				<div style="float: left;font-size:15px;line-height:1.5">
+				<div class='div1' style="float: left;line-height:1.5">
 					发布时间：<span data-bind="text: creatTime"></span>
 				</div>
-				<div style="float: right;font-size:15px;line-height:1.5">
+				<div class='div1' style="float: right;line-height:1.5">
 					发文来源：<span data-bind="text: newsource"></span>
 				</div>
 				<br/>
