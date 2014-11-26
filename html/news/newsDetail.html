@@ -16,7 +16,7 @@ p{
 </style>
 </head>
 <body>
-		<div data-role="content" id="newsDetail" >
+		<div data-role="content" id="newsDetail" style="height:100%" >
 			<!-- 标题 -->
 			<div>
 				<h3>
@@ -37,13 +37,11 @@ p{
 			<div style="clear: both;">
 				<span data-bind="html:richText" ></span>
 			</div>
-			<div style="clear: both; display: inline;" id="fujian" data-bind="if:$root.attachmentList">
+			<div style="clear: both; display: inline;" id="fujian" data-bind="if:$root.attachmentList"style="height:100%">
 				<ul data-bind="foreach: attachmentList">
 					<li><a data-bind="click:viewfile" ><span
 							data-bind="text: attachment"></span></a></li>
 				</ul>
-				<br>
-				<br><br>
 			</div>
 		</div>
 </body>
