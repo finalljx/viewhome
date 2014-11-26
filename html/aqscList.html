@@ -30,11 +30,10 @@
 
 			if (skey == null || skey.length == 0) {
 				alert("关键词不能为空");
-				$.hori.hideLoading();
+				$.hori.hideLoading();  
 				return;
 
 			}
-			alert(2);
 			//skey = encodeURI(skey);
 			var random = new Date().getTime();
 			var cookie_userstore = localStorage.getItem("cookie_userstore");
@@ -67,29 +66,17 @@
 			}
 		})
 	}
-	var t1 = null;//这个设置为全局
-
+	
 	//跳转到详情页面
-	function loadListDetails(aElement) {
-		if (t1 == null) {
-			t1 = new Date().getTime();
-		} else {
-			var t2 = new Date().getTime();
-			if (t2 - t1 < 500) {
-				t1 = t2;
-				return;
-			} else {
-				t1 = t2;
-			}
-		}
-		$.hori.showLoading();
-		var docunid = $(aElement).data("docunid");
-		localStorage.setItem("watchDocUnid", docunid);
-		//$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/listDetails_cbn.html');
-
-		$("#rightContent").load("listDetailsForAQSC.html", function(a, b, c) {
-		});
-	}
+	 function loadListDetails(aElement) {
+            $.hori.showLoading();
+            var docunid=$(aElement).data("docunid");
+            localStorage.setItem("watchDocUnid",docunid);
+            //$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/listDetails_cbn.html');
+            
+            $("#rightContent").load("listDetailsForAQSC.html", function(a, b, c) {
+        	});
+        }
 </script>
 
 </head>
