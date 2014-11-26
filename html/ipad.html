@@ -26,29 +26,36 @@
 <script src="../config/web/config.js"></script>
 <script src="asset/js/echarts-plain-original.js"></script>
 </head>
+<style>
+.pdis{
+text-indent:0em;
+}
+</style>
 <body class="ui-mobile-viewport ui-overlay-c"
 	style="overflow-y: hidden;">
 	<div class="container_12" style="width: 100%;position:relative">
-		<div class="grid_2" style="">
+		<div class="grid_2"  >
 			<ul data-inset="true" id="ul"
-				class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+				class="ui-listview ui-listview-inset ui-corner-all ui-shadow"  >
 				<li data-corners="false" data-shadow="false" data-wrapperels="div"
 					data-theme="c"
 					class="ui-btn 
                     ui-li-has-arrow ui-li ui-first-child ui-btn-hover-c"><div
 						class="ui-btn-inner ui-li">
-						<div class="ui-btn-text left_module" style="text-align: center;">
-							<a onclick="loadMiddleContent()" class="ui-link-inherit"><img
-								src="../assets/home/sy.png" class="icon" /></a> <br> <span>首页</span>
+						<div class="ui-btn-text left_module" style="text-align: center;margin-top: 0px;">
+							<p class="pdis"><a onclick="loadMiddleContent()" class="ui-link-inherit"><img
+								src="../assets/home/sy.png" class="icon" /></a></p>
+								 <p class="pdis" style="margin-bottom: 0px;"> <span>首页</span>
 						</div>
 					</div></li>
 				<li data-corners="false" data-shadow="false" data-iconshadow="true"
 					data-wrapperels="div" data-icon="arrow-r" data-iconpos="right"
 					data-theme="c" class="ui-btn  ui-li-has-arrow ui-li ui-btn-up-c"><div
 						class="ui-btn-inner ui-li" id="gwdb" style="">
-						<div class="ui-btn-text  left_module" style="text-align: center;">
-							<a onclick="loadTask()" class="ui-link-inherit"><img
-								src="../assets/home/gwdb.png" class="icon" /></a> <br> <span>公文待办</span>
+						<div class="ui-btn-text  left_module" style="text-align: center; margin-top: 0px;">
+						<p style="margin-top: 0px;"class="pdis">	<a onclick="loadTask()" class="ui-link-inherit"><img
+								src="../assets/home/gwdb.png" class="icon" /></a></p> 
+								<p class="pdis" style="margin-bottom: 0px;"> <span>公文待办</span></p>
 						</div>
 					</div></li>
 				<li data-corners="false" data-shadow="false" data-iconshadow="true"
@@ -56,27 +63,30 @@
 					data-theme="c"
 					class="ui-btn ui-btn-up-c  ui-li-has-arrow ui-li ui-last-child"><div
 						class="ui-btn-inner ui-li" id="gwcy" style="">
-						<div class="ui-btn-text  left_module" style="text-align: center;">
-							<a onclick="loadqueryList()" href="#" class="ui-link-inherit"><img
-								src="../assets/home/gwcy.png" class="icon" /></a> <br> <span>公文查阅</span>
+						<div class="ui-btn-text  left_module" style="text-align: center; margin-top: 0px;">
+						<p style="margin-top: 0px;"class="pdis">	<a onclick="loadqueryList()" href="#" class="ui-link-inherit"><img
+								src="../assets/home/gwcy.png" class="icon" /></a> </p>
+								<p class="pdis" style="margin-bottom: 0px;"> <span>公文查阅</span></p>
 						</div>
 					</div></li>
 				<li data-corners="false" data-shadow="false" data-iconshadow="true"
 					data-wrapperels="div" data-icon="arrow-r" data-iconpos="right"
 					data-theme="c" class="ui-btn ui-btn-up-c  ui-li-has-arrow ui-li"><div
 						class="ui-btn-inner ui-li" id="jysj" style="">
-						<div class="ui-btn-text  left_module" style="text-align: center;">
-							<a onclick="loadMiddleBIContent()" class="ui-link-inherit"><img
-								src="../assets/home/jysj.png" class="icon" /></a> <br> <span>经营数据</span>
+						<div class="ui-btn-text  left_module" style="text-align: center; margin-top: 0px;">
+						<p style="margin-top: 0px;"class="pdis">	<a onclick="loadMiddleBIContent()" class="ui-link-inherit"><img
+								src="../assets/home/jysj.png" class="icon" /></a></p>
+								 <p class="pdis" style="margin-bottom: 0px;"><span>经营数据</span></p>
 						</div>
 					</div></li>
 				<li data-corners="false" data-shadow="false" data-iconshadow="true"
 					data-wrapperels="div" data-icon="arrow-r" data-iconpos="right"
 					data-theme="c" class="ui-btn ui-btn-up-c  ui-li-has-arrow ui-li"><div
 						class="ui-btn-inner ui-li" id="aqsc" style="">
-						<div class="ui-btn-text  left_module" style="text-align: center;">
-							<a href="#" onClick="loadAqscList()" class="ui-link-inherit"><img
-								src="../assets/home/aqsc.png" class="icon" /></a> <br> <span>安全生产</span>
+						<div class="ui-btn-text  left_module" style="text-align: center; margin-top: 0px;">
+							<p style="margin-top: 0px;" class="pdis"><a href="#" onClick="loadAqscList()" class="ui-link-inherit"><img
+								src="../assets/home/aqsc.png" class="icon" /></a></p>
+								 <p class="pdis" style="margin-bottom: 0px;"> <span>安全生产</span></p>
 						</div>
 					</div></li>
 				<li data-corners="false" data-shadow="false" data-iconshadow="true"
@@ -84,14 +94,15 @@
 					data-theme="c" class="ui-btn ui-btn-up-c  ui-li-has-arrow ui-li"><div
 						class="ui-btn-inner ui-li">
 						<div class="ui-btn-text  left_module" style="text-align: center;">
-							<a href="#" onClick="loadDzqkList()" class="ui-link-inherit"><img
-								src="../assets/home/dzqk.png" class="icon" /></a> <br> <span>电子期刊</span>
+							<p style="margin-top: 0px;" class="pdis"><a href="#" onClick="loadDzqkList()" class="ui-link-inherit"><img
+								src="../assets/home/dzqk.png" class="icon" /></a></p>
+								 <p class="pdis" style="margin-bottom: 0px;"><span>电子期刊</span></p>
 						</div>
 					</div></li>
 
 			</ul>
 		</div>
-		<div id="tabbox" style="position:fixed">
+		<div id="tabbox" style="position: fixed;">
 			<div style="align: center;">
 				<ul class="tabs" id="tabs"
 					style="-webkit-padding-start: 0px; border-bottom: 1px #ededed;">
@@ -123,8 +134,8 @@
 				</ul>
 			</div>
 		</div>
-		<div class="grid_5" id="middleContent"></div>
-		<div class="" id="rightContent" style="overflow: scroll; height: 35em;margin-top:3%; position: fixed ;top: 7%;right: 0px;">
+		<div class="grid_5" id="middleContent" style="margin-left:1%;"></div>
+		<div class="" id="rightContent" style="overflow: scroll;position:relative; height: 35em;margin-top:3%; position: fixed ;top: 7%;right:5px;">
 			
 		</div>
 	</div>

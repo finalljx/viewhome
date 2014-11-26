@@ -30,6 +30,10 @@ a {
 p{
   text-indent:2em;
 }
+img{
+    display: block;
+    margin: auto;
+}
 </style>
 <script>
 $(document).ready(function() {
@@ -62,8 +66,9 @@ function getWcmNewsData1() {
 		"success" : function(res) {
 			var widthImg=document.documentElement.clientWidth*0.5;
 			var url=$.hori.getconfig().appServerHost+"view/tpxw/file";
+			var key=$.hori.getconfig().appKey;
 			res=res.replace(/http:\/\/webseal.genertec.com.cn/g,url).replace(/&amp;amp;/g,"&");
-			res=res.replace(/CACHEID=.*?\\/g,'data-result=file\\\" width=\\\"'+widthImg+'\\');
+			res=res.replace(/CACHEID=.*?\\/g,'data-result=file&data-application='+key+'\\\" width=\\\"'+widthImg+'\\');
 			res=res.replace(/style=.*?\\"/g,"");
 			var data = JSON.parse(res);
 				if (data.attachmentSource!=undefined) {
@@ -112,7 +117,7 @@ function viewfile(item){
 		alert("系统不能打开此文件！");return;
 	}
 	var cookie_userstore = localStorage.getItem("cookie_userstore");
-	var url=item.attachmentSource()+"&data-convert=office";
+	var url=item.attachmentSource()+"&data-convert=office&data-basic-auth-u=wpsadmin&data-basic-auth-p=GTAdmin";
 	url=url.replace(/\&amp;/g,"&");
 	console.log(item.attachmentSource());
 	localStorage.setItem("attachmentUrl",url);
