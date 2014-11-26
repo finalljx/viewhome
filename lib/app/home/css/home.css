@@ -93,13 +93,14 @@ a {
 }
 
 #rightContent {
-	overflow: scroll;
-	height: 35em;
-	margin-top: 3%;
-	position: fixed;
-	top: 0%;
-	right: 0px;
-	width: 47%
+	 border: 0px;
+    padding: 3px;
+    PADDING: 0px;
+    LINE-HEIGHT: 20px;
+    OVERFLOW: auto;
+    margin-left: 10px;
+    margin-top: 0px;
+    width: 47%
 }
 
 #ul {
