@@ -4,6 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+	<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" />
 <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/encrypt/encrypt.js"></script>
@@ -23,9 +24,10 @@
 						var config = $.hori.getconfig();
 						var docunid = localStorage.getItem("watchDocUnid");
 						var serverUrl = $.hori.getconfig().appServerHost
-								+ "view/safety/detail";
+								;
 						var dataSource = "/Application/Safety/SafetyProBasic.nsf/loadAppContentForMobile?openagent&data-result=text"
 						serverUrl = serverUrl + dataSource;
+						alert(serverUrl);
 						$.hori.ajax({
 							"type" : "post",
 							"url" : serverUrl,
@@ -34,12 +36,14 @@
 								"docunid" : docunid
 							},
 							"success" : function(res) {
+								alert("success"+res);
 								console.log(res);
 								var parsedStr = JSON.parse(res);
 								render(parsedStr);
 								$.hori.hideLoading();
 							},
 							"error" : function(res) {
+								alert("error"+res);
 								$.hori.hideLoading();
 							}
 						});
@@ -52,9 +56,9 @@
 </script>
 </head>
 <body>
-	<div>
+	
 		<div id="notice" data-role="page" data-url="notice" tabindex="0"
-			class="ui-page ui-body-c ui-page-active" style="min-height: 302px;">
+			class="ui-page ui-body-c ui-page-active" style="min-height: 302px; height:100%;">
 			<div data-role="content" align="center" class="ui-content"
 				role="main">
 				<div data-role="content" class="ui-content" role="main" id='divO' style='font-weight: bold;'>
@@ -112,6 +116,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
 </body>
 </html>
