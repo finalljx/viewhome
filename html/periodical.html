@@ -81,8 +81,8 @@
 		localStorage.setItem("attachmentUrl", url);
 		$.hori
 				.loadPage(
-						$.hori.getconfig().appServerHost
-								+ "viewhome/html/attachmentShowForm.html?data-application=mobile",
+						$.hori.getconfig().serverBaseUrl
+								+ "viewhome/html/attachmentShowForm.html",
 						"viewhome/xml/AttachView.xml");
 	}
 	function renderDetail() {
