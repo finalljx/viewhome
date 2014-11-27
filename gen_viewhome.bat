@@ -6,11 +6,13 @@ md build\viewhome\assets
 md build\viewhome\config
 md build\viewhome\html
 md build\viewhome\xml
+md build\viewhome\lib
 
 xcopy /S assets build\viewhome\assets
 xcopy /S config build\viewhome\config
 xcopy /S html build\viewhome\html
 xcopy /S xml build\viewhome\xml
+xcopy /S lib build\viewhome\lib
 copy version build\viewhome
 cd build
 @echo "½øÐÐviewhome.zipÑ¹Ëõ"
