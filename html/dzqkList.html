@@ -3,19 +3,16 @@
 <head>
 <title>电子期刊</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
 <script type="application/javascript" src="../assets/iscroll.js"></script>
-<link rel="stylesheet"
-	href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" />
+<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" />
 <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/encrypt/encrypt.js"></script>
 <script src="../lib/json/json2.js"></script>
 <script src="../lib/hori/hori.js?tag=21369"></script>
 <script src="../config/web/config.js"></script>
-<script
-	src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
+<script src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
 <script src="../lib/knockout/knockout.js"></script>
 <script src="../lib/knockout/knockout.mapping.js"></script>
 <style>
@@ -23,7 +20,7 @@ a {
 	text-decoration: none;
 }
 
-.ui-listview .ui-li-has-thumb>img:first-child, .ui-listview .ui-li-has-thumb>.ui-btn>img:first-child,
+/* .ui-listview .ui-li-has-thumb>img:first-child, .ui-listview .ui-li-has-thumb>.ui-btn>img:first-child,
 	.ui-listview .ui-li-has-thumb .ui-li-thumb {
 	position: absolute;
 	left: 10px;
@@ -31,10 +28,44 @@ a {
 	bottom: auto;
 	max-width: 5em;
 	max-height: 5em;
+} */
+#divOne {
+    width: 100%;
+    height: 100%;
+    background-image: url(../assets/dzqk/wood.png);
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    background-size: 100% 100%;
+    -moz-border-image: url(../assets/dzqk/wood.png) 0;
+    background-repeat: no-repeat\9;
+    background-image: none\9;
+}
+
+.ban {
+    margin-top: 10px;
+    width: 100%;
+    background-color: black;
+    /* background-image: url(../assets/dzqk/background.png); */
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+    /* -moz-border-image: url(../assets/dzqk/background.png) 0; */
+    background-repeat: no-repeat\9;
+    background-image: none\9;
+    width: 100%;
+    background-color: black;
+}
+.cover {
+    border: 0px;
 }
 </style>
 <script type="text/javascript">
 	var itcode;
+	var currentYear = new Date().getFullYear();
+	var jsonData = new Object();
+	var viewModel;
+	var hasBind = false;
 	$(document).ready(function() {
 		//默认隐藏列表显示
 		/* document.getElementById("middleContent").style.width = '90%';
@@ -42,41 +73,42 @@ a {
 		itcode = localStorage.getItem("itcode");
 		dzqkAction();
 	});
-	var jsonData = new Object();
-	var viewModel = new Object();
-	var myDate = new Date();
-	var thisYear = myDate.getFullYear();
-	function dzqkAction() {
+	function dzqkAction(distance) {
+		if (distance == undefined || distance == '') {
+			currentYear = new Date().getFullYear();
+		} else {
+			if (currentYear != '') {
+				currentYear = parseInt(currentYear) + distance;
+			}
+		}
+		$("#currentYear").html(currentYear);
 		var url = $.hori.getconfig().appServerHost
-				+ "/biz/mobile/periodical.jsp?year=" + thisYear;
+				+ "view/periodical/list?order=ASC&year=" + currentYear;
 		$.hori.ajax({
-			"type" : "post",
+			"type" : "get",
 			"url" : url,
-			"headers" : {
-				"Authorization" : "Basic d3BzYWRtaW46R1RBZG1pbg=="
-			},
 			"success" : function(res) {
 				console.log('res=' + res);
 				var jsonData = JSON.parse(res);
 				var json = new Object();
 				json.list = jsonData;
-
-				for (var i = 0; i < json.list.length; i++) {
-					var coverPath = $.hori.getconfig().serverBaseUrl
+				var recordLength = json.list.length;
+				for (var i = 0; i < recordLength; i++) {
+					var coverPath = $.hori.getconfig().appServerHost
 							+ "view/tpxw/file/" + json.list[i].PERCOVER
 							+ "?data-result=file";
 					json.list[i].cover = coverPath;
-				} 
-
-				/* var coverArr = new Array();
-				for (var i = 0; i < json.list.length; i++) {
-					var coverPath = $.hori.getconfig().serverBaseUrl
-							+ "view/tpxw/file/" + json.list[i].PERCOVER
-							+ "?data-result=file";
-					coverArr.push(coverPath);
-				} */
-
-				renderDzqk(json)
+				}
+				var placeholderItemCount = recordLength % 8; //占位符个数
+				if (placeholderItemCount != 0) { //不足两行，补全内容
+					var item = {
+						"cover" : ""
+					};
+					for (var i = 0; i < 8 - placeholderItemCount; i++) {
+						json.list.push(item);
+					}
+				}
+				renderDzqk(json);
 			},
 			"error" : function(res) {
 				alert("error:" + res);
@@ -85,53 +117,44 @@ a {
 
 		});
 	}
+
+	function viewFile(item) {
+		if (item.PERURL == undefined || item.PERURL == "") { //空点位图
+		} else { 
+			var url = $.hori.getconfig().appServerHost + "view/tpxw/file"
+					+ item.PERURL() + "?data-convert=office&data-cache=true";
+			localStorage.setItem("attachmentUrl", url);
+			$.hori.loadPage($.hori.getconfig().serverBaseUrl
+					+ "viewhome/html/attachmentShowForm.html",
+					"viewhome/xml/AttachView.xml");
+		}
+	}
+
 	function renderDzqk(json) {
+		console.log(json);
 		viewModel = ko.mapping.fromJS(json);
-		ko.applyBindings(viewModel, document.getElementById("divOne"));
+		if (!hasBind) {
+			hasBind = true;
+			ko.applyBindings(viewModel, document.getElementById("divOne"));
+		}
 	}
 </script>
-<style type="text/css">
-#divOne {
-	width: 100%;
-	height: 100%;
-	background-image: url(../assets/dzqk/wood.png);
-	-moz-background-size: 100% 100%;
-	-o-background-size: 100% 100%;
-	background-size: 100% 100%;
-	-moz-border-image: url(../assets/dzqk/wood.png) 0;
-	background-repeat: no-repeat\9;
-	background-image: none\9;
-}
-
-.ban {
-	margin-top: 10px;
-	width: 100%;
-	background-color: black;
-	/* background-image: url(../assets/dzqk/background.png); */
-	-moz-background-size: 100% 100%;
-	-o-background-size: 100% 100%;
-	-webkit-background-size: 100% 100%;
-	background-size: 100% 100%;
-	/* -moz-border-image: url(../assets/dzqk/background.png) 0; */
-	background-repeat: no-repeat\9;
-	background-image: none\9;
-	width: 100%;
-	background-color: black;
-}
-</style>
 </head>
 <body>
 	<div data-role="content" align="center">
+		<div>
+			<a data-role="button" data-mini='true' style="float: left;" onclick="dzqkAction(-1)">上一年</a> <span
+				style="text-align: center;"><font id="currentYear" style="font-size: 30px; color: #000;"></font></span><a
+				data-role="button" data-mini='true' style="float: right;" onclick="dzqkAction(1)">下一年</a>
+		</div>
 		<div class="ui-grid-b" id="divOne">
 			<div data-bind="foreach: list" style="width: 100%; height: 100%;">
-				<div class="ui-block-b divxs"
-					style="margin: 20px; width: 250px; z-index: 999;">
-					<a href="javascript:void(0);"> <img class="imgToDo module-icon"
+				<div class="ui-block-b divxs" style="margin: 20px; width: 250px; z-index: 999;">
+					<a href="javascript:void(0);" data-bind="click: viewFile"> <img class="cover" 
 						data-bind='attr:{"src": cover}' width=150 height=170>
 					</a>
 					<div style="z-index: 2">
-						<img alt="" src="../assets/dzqk/background.png"
-							style="width: 290px; height: 80px;">
+						<img alt="" src="../assets/dzqk/background.png" style="width: 290px; height: 80px;">
 					</div>
 				</div>
 			</div>
