@@ -1,18 +1,13 @@
 <html class="ui-mobile"><head>
 <title>首页</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0">
-
 <link rel="stylesheet" href="../assets/home/jquery-mobile-home.css">
-
-
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/jquery-cookie/jquery.cookie.js"></script>
 <script src="../lib/encrypt/encrypt.js"></script>
 <script src="../lib/json/json2.js"></script>
 <script src="../lib/hori/hori.js?tag=21369"></script>
-
 <script src="../config/web/config.js"></script>
 <script type="text/javascript">
 function openmail(){
@@ -40,7 +35,6 @@ function inittodos(){
 		
 		$.hori.showLoading();
 		var url = $.hori.getconfig().appServerHost+"view/oamobile/todosnum/Produce/GeneralMessage.nsf/GetAllMsgInfoAgent?openagent&random="+Math.random();
-		
 		$.hori.ajax({
 				"type":"post",
 				"url":url,
@@ -55,12 +49,8 @@ function inittodos(){
 						icount= gcount;
 						$.hori.hideLoading();
 					}
-					
-
-					
 				},
 				"error":function(res){
-				
 					$.hori.hideLoading();
 				}
 			})
@@ -79,7 +69,6 @@ function adjustBubble(){
 		spanTodo.style.top=divOneOffset.top-10;
 		spanTodo.style.left=imgOffset.left+78;
 
-
 	}else if(window.navigator.userAgent.match(/android/i)) {
 
 		spanTodo.style.top=divOneOffset.top-10;
@@ -95,10 +84,8 @@ var gcount=1;
 var icount=0;
 
 	$(document).ready(function() {
-
 		try {
 			var hori = $.hori;
-
 			/*设置标题*/
 			hori.setHeaderTitle("首页");
 			/*隐藏后退按钮*/
@@ -120,17 +107,17 @@ var icount=0;
 				inittodos();
 			}
 			//ios 隐藏邮件图标
-
 			if (hori.getMobileType() == "apple") {
-
 				$("#divMail").hide();
 			}
+			//获取公文库
+			getOfficialLibrary();
 		} catch (e) {
 			alert(e.message);
 		}
 
 	});
-
+	//待办
 	function loadTaskList() {
 		$.hori.showLoading();
 		createUser();
@@ -141,25 +128,25 @@ var icount=0;
 		$.hori.loadPage(encodeURI(targetUrl));
 
 	}
+	//已办
 	function loadDoneTaskList() {
 		$.hori.showLoading();
 		gcount=gcount+1;
 		var targetUrl = $.hori.getconfig().serverBaseUrl
 				+ "viewhome/html/downTask.html"
-<<<<<<< HEAD
 		$.hori.loadPage(encodeURI(targetUrl));
 
 	}
+	//通知公告
 	function loadAnnouceList() {
 		$.hori.showLoading();
 		
 		var targetUrl = $.hori.getconfig().serverBaseUrl
 				+ "viewhome/html/annouceList.html"
-=======
->>>>>>> a2c4740daf3dfb6d1bb38349cac5d47f85ff8d92
 		$.hori.loadPage(encodeURI(targetUrl));
 
 	}
+	//通讯录
 	function loadContact() {
 		$.hori.showLoading();
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl
@@ -167,11 +154,44 @@ var icount=0;
 				$.hori.getconfig().serverBaseUrl
 						+ 'viewhome/xml/searchContact.xml')
 	}
-	/* function loadNews() {
+	//公文查阅
+	function officialDocument() {
+		var officialLibrary = localStorage.getItem("officialLibrary");
+		if(officialLibrary=="no"){
+			alert("您没有配置公文库，请联系OA管理员，谢谢。");
+			return false;
+		}
+		localStorage.setItem("officialVal","1");
 		$.hori.showLoading();
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl
-				+ 'viewhome/html/newsList.html');
-	} */
+		var targetUrl = $.hori.getconfig().serverBaseUrl+"viewhome/html/officialDocument.html"
+		$.hori.loadPage(encodeURI(targetUrl));
+	}
+	//获取公文库
+	function getOfficialLibrary() {
+		var url = $.hori.getconfig().appServerHost+"view/oa/officialDocumentLibrary/Produce/WeboaConfig.nsf/GetGongWenByUser?openAgent&itcode=&data-result=text";
+		$.hori.ajax({
+			"type" : "post",
+			"url" : url,
+			"success" : function(res) {
+				console.log(res);
+				var resJson = JSON.parse(res);
+				//当前登录人有公文
+				if(resJson.issue){
+					localStorage.setItem("officialLibrary","yes");
+					//发文库 resJson.issue 
+					localStorage.setItem("issuedoc", resJson.issue);
+					//收文库 resJson.receive
+					localStorage.setItem("receivedoc", resJson.receive);
+				}else{
+					localStorage.setItem("officialLibrary","no");
+				}
+				
+			},
+			"error" : function(res) {
+				alert("获取公文路径异常！");
+			}
+		})
+	}
 	function createUser() {
 		var url = $.hori.getconfig().appServerHost
 				+ "view/oa/?data-action=createuser";
@@ -216,20 +236,15 @@ a {
 					</a> <br> <span style="color: #434343"><strong>已办任务</strong></span>
 				</div>
 				<div class="ui-block-c">
-					<a href="javascript:void(0);" onclick="Xx()" class="ui-link"> <img width="68" height="68" src="../assets/home/mail.png">
+					<a href="javascript:void(0);" onclick="officialDocument()" class="ui-link"> <img width="68" height="68" src="../assets/home/mail.png">
 					</a> <br> <span style="color: #434343"><strong>公文查阅</strong></span>
 				</div>
 			</div>
 			<br>
 			<div class="ui-grid-b" id="divOne">
 				<div class="ui-block-a">
-<<<<<<< HEAD
 					<a href="javascript:void(0)" onclick="loadAnnouceList()" class="ui-link"> <img width="68" height="68" src="../assets/home/tel.png">
 					</a> <br> <span style="color: #434343"><strong>通知公告</strong></span>
-=======
-					<a href="javascript:void(0)" onclick="loadContact()" class="ui-link"> <img width="68" height="68" src="../assets/home/tel.png">
-					</a> <br> <span style="color: #434343"><strong>信息发布</strong></span>
->>>>>>> a2c4740daf3dfb6d1bb38349cac5d47f85ff8d92
 				</div>
 				<div class="ui-block-b">
 					<a href="javascript:void(0)" onclick="loadContact()" class="ui-link"> <img width="68" height="68" src="../assets/home/tel.png">
@@ -249,7 +264,7 @@ a {
 				<div class="ui-block-b">
 					
 				</div>
-				<div class="ui-block-c" id="divMail">
+				<div class="ui-block-c">
 					
 				</div>
 			</div>

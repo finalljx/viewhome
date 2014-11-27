@@ -1,0 +1,219 @@
+<html>
+<head>
+	<title>请示审批</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0"/>
+	<script type="application/javascript" src="../assets/iscroll.js"></script>
+	<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" /> 
+	<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" /> 
+	<script src="../lib/jquery/jquery.min.js"></script>		
+	<script src="../lib/encrypt/encrypt.js"></script>
+	<script src="../lib/json/json2.js"></script>
+	<script src="../lib/hori/hori.js?tag=21369"></script>
+	<script src="../config/web/config.js"></script>
+	<script src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
+	<script type="text/javascript">
+		function pullUpAction () {
+			var getMoreData = localStorage.getItem("getMoreData");
+			if(getMoreData=="issuedoc"){
+				getIssuedocList();
+			}else if(getMoreData=="receivedoc"){
+				getReceivedocList();
+			}
+		}
+		function loaded() {
+			pullUpEl = document.getElementById('pullUp');	
+			pullUpOffset = pullUpEl.offsetHeight;
+			myScroll = new iScroll('wrapper', {
+				useTransition: true,
+				topOffset: pullUpOffset,
+				onRefresh: function () {
+				if (pullUpEl.className.match('loading')) {
+					pullUpEl.className = '';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '';
+				}
+			},
+			onScrollMove: function () {
+				if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
+					pullUpEl.className = 'flip';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '';
+					this.maxScrollY = this.maxScrollY;
+				} else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
+					pullUpEl.className = '';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '';
+					this.maxScrollY = pullUpOffset;
+				}
+			},
+			onScrollEnd: function () {
+				if (pullUpEl.className.match('flip')) {
+					pullUpEl.className = 'loading';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '';
+					pullUpAction();
+				}
+			}
+			});
+		}
+	</script>
+	<script>
+		var issuedocStart=1;
+		var receivedocStart=1;
+		$(document).ready(function(){
+			var hori = $.hori;
+			/*设置标题*/
+			hori.setHeaderTitle("公文查阅");
+			$.hori.showLoading();
+			loaded();
+			$("#tabs").tabs({beforeActivate:function(event,ui){
+					//alert(ui.newTab.context.dataset.id);
+					tabid=ui.newTab.context.dataset.id;
+					//发文
+					if(tabid=="issuedocList"){
+						localStorage.setItem("getMoreData","issuedoc");
+						issuedocStart=1;
+						getIssuedocList();
+					}
+					//收文
+					if(tabid=="receivedocList"){
+						localStorage.setItem("getMoreData","receivedoc");
+						receivedocStart=1;
+						getReceivedocList();
+					}
+			}})
+			//localStorage.setItem("officialVal","1");
+			var onlist=localStorage.getItem("officialVal");
+			if(onlist=="1"){
+				$("#ui-id-1").click()	
+			}
+			if(onlist=="2"){
+				$("#ui-id-2").click()	
+			}
+			getIssuedocList();
+		})
+	</script>
+	<script type="text/javascript">
+		//发文列表
+		function getIssuedocList(){
+			$.hori.showLoading();
+			localStorage.setItem("getMoreData","issuedoc");
+			var issuedoc = localStorage.getItem("issuedoc");
+			var url = $.hori.getconfig().appServerHost+"view/oa/issuedocList/"+issuedoc+"/AppDoingView?readviewentries?login&start="+issuedocStart+"&count=10";
+			alert(url);
+			$.hori.ajax({
+				"type":"post",
+				"url":url,
+				"success":function(res){
+					$("#receivedocDataList").empty();
+					$("#moredata").remove();
+					if(res.indexOf("无内容")!="-1"){
+						var divs = document.getElementsByName("nodata");
+						for(var i=0; i<divs.length; i++)
+						{
+							divs[i].style.display='none';
+						}
+					}
+					$("#issuedocDataList").append(res).listview("refresh");
+					$.hori.hideLoading();
+					issuedocStart=issuedocStart+1;
+					myScroll.refresh();
+				},
+				"error":function(res){
+					$.hori.hideLoading();
+				}
+			});
+		}
+		//收文列表
+		function getReceivedocList(){
+			$.hori.showLoading();
+			localStorage.setItem("getMoreData","receivedoc");
+			var receivedoc = localStorage.getItem("receivedoc");
+			var url = $.hori.getconfig().appServerHost+"view/oa/receivedocList/"+receivedoc+"/AppDoingView?readviewentries?login&start="+receivedocStart+"&count=2";
+			alert(url);
+			$.hori.ajax({
+				"type":"post",
+				"url":url,
+				"success":function(res){
+					$("#issuedocDataList").empty();
+					$("#moredata").remove();
+					$("#receivedocDataList").append(res).listview("refresh");
+					$.hori.hideLoading();
+					receivedocStart=receivedocStart+1;
+					myScroll.refresh();
+				},
+				"error":function(res){
+					$.hori.hideLoading();
+				}
+			});
+		}
+	//发文详情页
+	function loadIssuedocPage(str){
+		var docunid = $(str).data("unid");
+		var issuedoc = localStorage.getItem("issuedoc");
+		var oaurl = issuedoc+"/AppDoingView/"+docunid+"?opendocument&login";
+		alert(oaurl);return;
+		localStorage.setItem("oaDataSource",oaurl);
+		var targetURL= $.hori.getconfig().serverBaseUrl+"viewhome/html/appform.html";
+		targetURL=encodeURI(targetURL);
+		$.hori.loadPage(targetURL);
+	}
+	//收文详情页
+	function loadReceivedocPage(str){
+		var docunid = $(str).data("unid");
+		var receivedoc = localStorage.getItem("receivedoc");
+		var oaurl = receivedoc+"/AppDoingView/"+docunid+"?opendocument&login";
+		alert(oaurl);return;
+		localStorage.setItem("oaDataSource",oaurl);
+		var targetURL= $.hori.getconfig().serverBaseUrl+"viewhome/html/appform.html";
+		targetURL=encodeURI(targetURL);
+		$.hori.loadPage(targetURL);
+	}
+	</script>
+	<style>
+		#wrapper {
+			position: fixed;
+			overflow: scroll;
+			top: 100px;
+			bottom: 1.5em;
+			width: 98%;
+		}
+		.ui-content .ui-listview-inset, .ui-panel-inner.ui-listview-inset {
+			margin: 0em 0;
+		}
+	</style>
+</head>
+<body>
+	<div data-role="page" style="margin:0px;padding:0px;">
+		<div data-role="content">
+			<div data-role="tabs" id="tabs">
+		      	<div data-role="navbar">
+					<ul>
+						<li><a href="#two" data-ajax="false" data-id="issuedocList">收文</a></li>
+						<li><a href="#three" data-ajax="false" data-id="receivedocList">发文</a></li>
+					</ul>
+				</div>
+				<div id="wrapper">
+					<div id="scroller">
+					  <div id="pullDown"></div>
+					  <div id="two">
+							<ul id="issuedocDataList"  data-role="listview" data-inset="true">
+								<li id="moredata" style="display:none"><div id="pullUp" align="center">
+									<span class="pullUpLabel">上划加载更多...</span>
+								</div></li>
+							</ul>
+							<br/>
+					  </div>
+					  <div id="three">
+						   <ul id="receivedocDataList" data-role="listview" data-inset="true">
+								<li id="moredata" style="display:none"><div id="pullUp" align="center">
+										<span class="pullUpLabel">上划加载更多...</span>
+									</div></li>
+						   </ul>
+							<br/>
+					  </div>
+				   </div>
+			   </div>
+		    </div>
+		</div>
+	</div>
+</body>
+</html>
+
