@@ -24,23 +24,20 @@ a {
 </head>
 <body>
 	<!-- 收入利润 -->
-	<div id="main" style=" width: 450px; float: left;">
-	</div>
-	<div id="main1" style=" width: 450px; float: left;">
-	</div>
+	<div id="main" style="width: 450px; float: left;"></div>
+	<div id="main1" style="width: 450px; float: left;"></div>
 	<script type="text/javascript">
-	window.onload=function()
-	{
-	var h=document.documentElement.clientHeight/2;//可见区域高度
-	var w=document.documentElement.clientWidth;//可见区域高度
-	var sm=document.getElementById('main');
-	sm.style.height=h+"px";
-	sm.style.width=w+"px";
-	var ss=document.getElementById('main1');
-	ss.style.height=h+"px";
-	ss.style.width=w+"px";
-	
-	}
+		window.onload = function() {
+			var h = document.documentElement.clientHeight / 2;//可见区域高度
+			var w = document.documentElement.clientWidth;//可见区域高度
+			var sm = document.getElementById('main');
+			sm.style.height = h + "px";
+			sm.style.width = w + "px";
+			var ss = document.getElementById('main1');
+			ss.style.height = h + "px";
+			ss.style.width = w + "px";
+
+		}
 		$(document).ready(function() {
 			$.hori.setHeaderTitle("收入利润");
 			//加载收入利润图表数据
@@ -65,12 +62,15 @@ a {
 				"data" : data,
 				"success" : function(res) {
 					var cWidth = window.screen.width;
-                    var fontSize;
-                    if (cWidth < 720) {
-                        fontSize = 12;
-                    } else {
-                        fontSize = 18;
-                    }
+					var fontSize;
+					var fontSize2;
+					if (cWidth < 720) {
+						fontSize = 17;
+						fontSize2 = 14;
+					} else {
+						fontSize = 23;
+						fontSize2 = 20;
+					}
 					var json = JSON.parse(res);
 					console.log(res);
 					var income = json.reportdata.income;
@@ -85,13 +85,13 @@ a {
 					var serieschart = income.serieschart.split('|');
 
 					loadSrlrqs(title, seriesname, seriesdata, category,
-							serieschart, year, month);
+							serieschart, year, month, fontSize, fontSize2);
 					var category2 = profit.category;
 					var seriesname2 = profit.seriesname.split('|');
 					var seriesdata2 = profit.seriesdata.split('|');
 					var serieschart2 = profit.serieschart.split('|');
 					loadSrlrqs2(title, seriesname2, seriesdata2, category2,
-							serieschart, year, month,fontSize);
+							serieschart, year, month, fontSize, fontSize2);
 				},
 				"error" : function(res) {
 					alert("error:" + res);
@@ -102,9 +102,9 @@ a {
 	</script>
 	<script type="text/javascript">
 		function loadSrlrqs(title, seriesname, seriesdata, category,
-				serieschart, year, month,fontSize) {
+				serieschart, year, month, fontSize, fontSize2) {
 			var option = {
-				animation:false,
+				animation : false,
 				tooltip : {
 					trigger : 'axis'
 				},
@@ -114,25 +114,39 @@ a {
 				calculable : false,
 				legend : {
 					data : seriesname,
-					textStyle:{
-						fontSize:fontSize
+					textStyle : {
+						fontSize : fontSize
 					}
 				},
 				dataRange : {
 					x : 0
 				},
 				xAxis : [ {
-					data : [ category ]
+					data : [ category ],
+					axisLabel : {
+						textStyle : {
+							fontSize : fontSize
+						}
+					}
 				} ],
 				yAxis : [ {
 					type : 'value',
 					axisLabel : {
-						formatter : '{value} '
+						formatter : '{value} ',
+							textStyle : {
+								fontSize : fontSize2,
+							}
 					}
+				
+					
+				
 				}, {
 					type : 'value',
 					axisLabel : {
-						formatter : '{value} '
+						formatter : '{value} ',
+							textStyle : {
+								fontSize : fontSize2,
+							}
 					}
 				} ],
 				series : [ {
@@ -156,9 +170,9 @@ a {
 	</script>
 	<script type="text/javascript">
 		function loadSrlrqs2(title, seriesname2, seriesdata2, category2,
-				serieschart, year, month) {
+				serieschart, year, month, fontSize, fontSize2) {
 			var option = {
-				animation:false,
+				animation : false,
 				tooltip : {
 					trigger : 'axis'
 				},
@@ -187,20 +201,34 @@ a {
 				calculable : false,
 				legend : {
 					data : seriesname2,
+					textStyle : {
+						fontSize : fontSize
+					}
 				},
 				xAxis : [ {
 					type : 'category',
-					data : [ category2 ]
+					data : [ category2 ],
+					axisLabel : {
+						textStyle : {
+							fontSize : fontSize
+						}
+					}
 				} ],
 				yAxis : [ {
 					type : 'value',
 					axisLabel : {
-						formatter : '{value} '
+						formatter : '{value} ',
+							textStyle : {
+								fontSize : fontSize2,
+							}
 					}
 				}, {
 					type : 'value',
 					axisLabel : {
-						formatter : '{value} '
+						formatter : '{value} ',
+							textStyle : {
+								fontSize : fontSize2,
+							}
 					}
 				} ],
 				series : [ {

@@ -66,6 +66,15 @@ a {
 
 					var json = JSON.parse(res);
 					console.log(res);
+					
+					var cWidth = window.screen.width;
+					if (cWidth < 720) {
+						fontSize = 17;
+						fontSize2 = 14;
+					} else {
+						fontSize = 23;
+						fontSize2 = 20;
+					}
 					var income = json.reportdata.income;
 					var profit = json.reportdata.profit;
 					var month = income.statMonth.split('|');
@@ -75,7 +84,7 @@ a {
 					var increaseData = income.increaseData.split('|');
 					var yearBudget = income.yearBudget.split('|');
 					loadSrlrqs(month, seriesname, lastSumData, nowSumData,
-							increaseData, yearBudget);
+							increaseData, yearBudget, fontSize);
 					var month2 = income.statMonth.split('|');
 					var seriesname2 = profit.seriesname.split('|');
 					var lastSumData2 = profit.lastSumData.split('|');
@@ -83,7 +92,7 @@ a {
 					var increaseData2 = profit.increaseData.split('|');
 					var yearBudget2 = profit.yearBudget.split('|');
 					loadSrlrqs2(month2, seriesname2, lastSumData2, nowSumData2,
-							increaseData2, yearBudget2);
+							increaseData2, yearBudget2, fontSize);
 				},
 				"error" : function(res) {
 					alert("error:" + res);
@@ -129,21 +138,35 @@ a {
 				},
 				calculable : false,
 				legend : {
-					data : seriesname
+					data : seriesname,
+					textStyle : {
+						fontSize : fontSize
+					}
 				},
 				xAxis : [ {
 					type : 'category',
-					data : month
+					data : month,
+					axisLabel : {
+						textStyle : {
+							fontSize : fontSize
+						}
+					}
 				} ],
 				yAxis : [ {
 					type : 'value',
 					axisLabel : {
-						formatter : '{value} 亿元'
+						formatter : '{value} 亿元',
+						textStyle : {
+							fontSize : fontSize2,
+						}
 					}
 				}, {
 					type : 'value',
 					axisLabel : {
-						formatter : '{value} '
+						formatter : '{value} ',
+						textStyle : {
+							fontSize : fontSize2,
+						}
 					}
 				} ],
 				series : [
@@ -204,21 +227,35 @@ a {
 				},
 				calculable : false,
 				legend : {
-					data : seriesname2
+					data : seriesname2,
+					textStyle : {
+						fontSize : fontSize
+					}
 				},
 				xAxis : [ {
 					type : 'category',
-					data : month2
+					data : month2,
+					axisLabel : {
+						textStyle : {
+							fontSize : fontSize
+						}
+					}
 				} ],
 				yAxis : [ {
 					type : 'value',
 					axisLabel : {
-						formatter : '{value} 亿元'
+						formatter : '{value} 亿元',
+						textStyle : {
+							fontSize : fontSize2,
+						}
 					}
 				}, {
 					type : 'value',
 					axisLabel : {
-						formatter : '{value} '
+						formatter : '{value} ',
+						textStyle : {
+							fontSize : fontSize2,
+						}
 					}
 				} ],
 				series : [
