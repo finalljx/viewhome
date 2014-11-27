@@ -7,26 +7,31 @@
 			<rule mode="replace" regex="soap:" value="" />
 			<rule mode="replace" regex="ns1:" value="" />
 		</view>
-		<!-- 企业新闻 -->
-		<view id="newslist" template="news/newsList.jsp" encoding="utf-8" />
-		<view id="newscontent" template="digi/news/content.xsl" encoding="GB2312">
-			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
-			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
-			<rule mode="replace" regex="&amp;quot;" value="&quot;" />
-			<rule mode="replace" regex="&amp;amp;nbsp;" value="" />
-			<rule mode="replace" regex="&amp;amp;middot;" value="" />
-			<rule mode="replace" regex="&amp;amp;ldquo;" value="" />
-			<rule mode="replace" regex="&amp;amp;rdquo;" value="" />
-			<rule mode="replace" regex="&amp;amp;apos;" value="" />
-			<rule mode="replace" regex="&amp;apos;" value="" />
-			<rule mode="replace" regex="&apos;" value="" />
-
-			<rule mode="replace" regex="width=&quot;386&quot;" value="width=&quot;240px&quot;" />
-			<rule mode="replace" regex="width=&amp;quot;386&amp;quot;"
-				value="width=&quot;300px&quot;" />
-			<rule mode="remove" regex="height=&quot;179&quot;" />
-			<rule mode="remove" regex="height=&amp;quot;179&amp;quot;" />
-			<rule mode="replace" regex="http://oadev.dawning.com.cn/" value="/view/oa/newsfile/" />
+		<!-- 获取公文库 -->
+		<view id="officialDocumentLibrary" template="digi/officialDocument/getLibrary.xsl" encoding="utf-8"/>
+		<!-- 收文列表 -->
+		<view id="issuedocList" template="digi/officialDocument/issuedocList.xsl" encoding="utf-8">
+			<rule mode="replace" regex="&amp;amp;nbsp;" value=" "/>
+		    <rule mode="replace" regex="&amp;nbsp;" value=" "/>
+			<rule mode="replace" regex="&amp;nbsp" value=" "/>
+			<rule mode="replace" regex="&amp;lt;" value="&lt;"/>
+		    <rule mode="replace" regex="&amp;gt;" value="&gt;"/>	
+			<rule mode="replace" regex="&lt;\!\[CDATA\[" value=""/>
+			<rule mode="replace" regex="\]\]&gt;" value=""/>
+			<!-- 在转换的时候双引号 被保留了 替换掉 -->			
+		    <rule mode="replace" regex="&amp;quot;" value=""/>
+		</view>
+		<!-- 发文列表 -->
+		<view id="receivedocList" template="digi/officialDocument/receivedocList.xsl" encoding="utf-8">
+			<rule mode="replace" regex="&amp;amp;nbsp;" value=" "/>
+		    <rule mode="replace" regex="&amp;nbsp;" value=" "/>
+			<rule mode="replace" regex="&amp;nbsp" value=" "/>
+			<rule mode="replace" regex="&amp;lt;" value="&lt;"/>
+		    <rule mode="replace" regex="&amp;gt;" value="&gt;"/>	
+			<rule mode="replace" regex="&lt;\!\[CDATA\[" value=""/>
+			<rule mode="replace" regex="\]\]&gt;" value=""/>
+			<!-- 在转换的时候双引号 被保留了 替换掉 -->			
+		    <rule mode="replace" regex="&amp;quot;" value=""/>
 		</view>
 		<!-- 电话查询 -->
 		<view id="phonenumber" template="digi/phonenumber/index.xsl">
@@ -38,9 +43,7 @@
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 			<rule mode="replace" regex="&amp;quot;" value="&quot;" />
 		</view>
-
 		<view id="file" template="file.jsp" />
-
 		<view id="newsfile" template="" />
 
 	</viewer>
