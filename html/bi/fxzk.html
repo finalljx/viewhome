@@ -104,7 +104,7 @@ a {
 							tbImgWidth = "5.4%";
 						} else {
 							monthWidth = "6%";
-							imgStringLiWidth = "60px";
+							imgStringLiWidth = "50px";
 							imgStringDivWidth = "50px";
 							imgStringWidth = "60px";
 							imgwidth = "40px";
@@ -151,6 +151,7 @@ a {
 						imgString = imgString + "</li><br/>"
 						for (var i = 0; i < busiData.length; i++) {
 							var busiName = busiData[i].busiName;
+							if(busiName != '证券投资'){
 							if (30 == busiData[i].now) {
 								imgString = imgString
 										+ "<li style='line-height:50px;'><div style='float:left;clear:both;width:"+imgStringWidth+";min-width:65px;'>"
@@ -179,6 +180,7 @@ a {
 								}
 							}
 							imgString = imgString + "</li>";
+							}
 						}
 						imgString = imgString + "</ul>";
 						document.getElementById("light_wall").innerHTML = imgString;
