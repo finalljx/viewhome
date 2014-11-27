@@ -23,20 +23,17 @@
 						$.hori.setHeaderTitle("安全生产值班表详情");
 						var config = $.hori.getconfig();
 						var docunid = localStorage.getItem("watchDocUnid");
-						var serverUrl = $.hori.getconfig().appServerHost
-								;
+						var serverUrl = $.hori.getconfig().appServerHost;
 						var dataSource = "/Application/Safety/SafetyProBasic.nsf/loadAppContentForMobile?openagent&data-result=text"
 						serverUrl = serverUrl + dataSource;
-						alert(serverUrl);
 						$.hori.ajax({
-							"type" : "post",
+							"type" : "get",
 							"url" : serverUrl,
 							"dataType" : "json",
 							"data" : {
 								"docunid" : docunid
 							},
 							"success" : function(res) {
-								alert("success"+res);
 								console.log(res);
 								var parsedStr = JSON.parse(res);
 								render(parsedStr);
