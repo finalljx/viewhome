@@ -17,13 +17,13 @@ p{
 </head>
 <body>
 		<div data-role="content" id="newsDetail" style="height:100%" >
-			<!-- 标题 -->
+			 <!-- 标题 -->
 			<div>
 				<h3>
 					<span data-bind="text: contentTitle" ></span>
 				</h3>
 			</div>
-			<!-- 发布信息 -->
+			发布信息
 			<div style="background-color: rgba(127,127,127,0.5);">
 				<p>
 				<div style="float: left;">
@@ -33,8 +33,8 @@ p{
 					发文来源：<span data-bind="text: newsource" ></span>
 				</div>
 				</p>
-			</div>
-			<div style="clear: both;">
+			</div> 
+			<div style="clear: both;"style="height:100%">
 				<span data-bind="html:richText" ></span>
 			</div>
 			<div style="clear: both; display: inline;" id="fujian" data-bind="if:$root.attachmentList"style="height:100%">
@@ -43,6 +43,7 @@ p{
 							data-bind="text: attachment"></span></a></li>
 				</ul>
 			</div>
+					<br>
 		</div>
 </body>
 </html>
