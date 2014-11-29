@@ -54,7 +54,9 @@
 				//json {"data":[{"DeptID":"1351","Date":"2013-12-23","StPsnCN":"史海","Dept":"中国仪器进出口(集团)公司","Holiday":"元旦"}]}
 				if (dataObj.flag) {
 					var html = template('watchlist', dataObj);
+					setTimeout(function () {
 					$("#listContent").html(html);
+					}, 500);
 				} else {
 					alert(dataObj.flagMessage);
 				}
