@@ -4,7 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
-	<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" />
+<link rel="stylesheet"
+	href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" />
 <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/encrypt/encrypt.js"></script>
@@ -24,7 +25,7 @@
 						var config = $.hori.getconfig();
 						var docunid = localStorage.getItem("watchDocUnid");
 						var serverUrl = $.hori.getconfig().appServerHost;
-						var dataSource = "/Application/Safety/SafetyProBasic.nsf/loadAppContentForMobile?openagent&data-result=text"
+						var dataSource = "view/safety/detail/Application/Safety/SafetyProBasic.nsf/loadAppContentForMobile?openagent&data-result=text";
 						serverUrl = serverUrl + dataSource;
 						$.hori.ajax({
 							"type" : "get",
@@ -40,7 +41,7 @@
 								$.hori.hideLoading();
 							},
 							"error" : function(res) {
-								alert("error"+res);
+								alert("error" + res);
 								$.hori.hideLoading();
 							}
 						});
@@ -53,65 +54,66 @@
 </script>
 </head>
 <body>
-	
-		<div id="notice" data-role="page" data-url="notice" tabindex="0"
-			class="ui-page ui-body-c ui-page-active" style="min-height: 302px; height:100%;">
-			<div data-role="content" align="center" class="ui-content"
-				role="main">
-				<div data-role="content" class="ui-content" role="main" id='divO' style='font-weight: bold;'>
-					<h3>节日（重大活动）期间安全生产及值班安排表</h3>
-					<ul data-role="listview" data-inset="true" data-theme="d"
-						id="ul_dtable_list"
-						class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
-						<li data-role="list-divider" role="heading"
-							class="ui-li ui-li-divider ui-bar-b ui-first-child">值班信息</li>
-						<li id="div_DTblHtml"
-							class="ui-li ui-li-static ui-btn-up-d ui-last-child">
+
+	<div id="notice" data-role="page" data-url="notice" tabindex="0"
+		class="ui-page ui-body-c ui-page-active"
+		style="min-height: 302px; height: 100%;">
+		<div data-role="content" align="center" class="ui-content" role="main">
+			<div data-role="content" class="ui-content" role="main" id='divO'
+				style='font-weight: bold;'>
+				<h3>节日（重大活动）期间安全生产及值班安排表</h3>
+				<ul data-role="listview" data-inset="true" data-theme="d"
+					id="ul_dtable_list"
+					class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+					<li data-role="list-divider" role="heading"
+						class="ui-li ui-li-divider ui-bar-b ui-first-child">值班信息</li>
+					<li id="div_DTblHtml"
+						class="ui-li ui-li-static ui-btn-up-d ui-last-child">
 
 
 
 
-							<ul data-role="listview" data-inset="true" data-theme="d"
-								class="ui-listview ui-listview-inset ui-corner-all ui-shadow"
-								data-bind='foreach: schedules.data'>
+						<ul data-role="listview" data-inset="true" data-theme="d"
+							class="ui-listview ui-listview-inset ui-corner-all ui-shadow"
+							data-bind='foreach: schedules.data'>
 
-								<li class="ui-li ui-li-static ui-btn-up-d ui-first-child">值班时间
-									：<span data-bind='text: column1'></span>
-								</li>
+							<li class="ui-li ui-li-static ui-btn-up-d ui-first-child">值班时间
+								：<span data-bind='text: column1'></span>
+							</li>
 
-								<li class="ui-li ui-li-static ui-btn-up-d">值班领导 ：<span
-									data-bind='text: column2'></span></li>
+							<li class="ui-li ui-li-static ui-btn-up-d">值班领导 ：<span
+								data-bind='text: column2'></span></li>
 
-								<li class="ui-li ui-li-static ui-btn-up-d">联系电话 ：<span
-									data-bind='text: column3'></span></li>
+							<li class="ui-li ui-li-static ui-btn-up-d">联系电话 ：<span
+								data-bind='text: column3'></span></li>
 
-								<li class="ui-li ui-li-static ui-btn-up-d">值班员 ：<span
-									data-bind='text: column4'></span></li>
+							<li class="ui-li ui-li-static ui-btn-up-d">值班员 ：<span
+								data-bind='text: column4'></span></li>
 
-								<li class="ui-li ui-li-static ui-btn-up-d ui-last-child">联系电话
-									：<span data-bind='text: column5'></span>
-								</li>
+							<li class="ui-li ui-li-static ui-btn-up-d ui-last-child">联系电话
+								：<span data-bind='text: column5'></span>
+							</li>
 
-							</ul>
+						</ul>
 
-						</li>
-					</ul>
-					<ul data-role="listview" data-inset="true" data-theme="d"
-						class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
-						<li data-role="list-divider" role="heading"
-							class="ui-li ui-li-divider ui-bar-b ui-first-child">节假日期间生产安排情况</li>
-						<li class="ui-li ui-li-static ui-btn-up-d ui-last-child"
-							style='white-space: normal;' data-bind='text: holsit'></li>
-					</ul>
-					<ul data-role="listview" data-inset="true" data-theme="d"
-						class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
-						<li data-role="list-divider" role="heading"
-							class="ui-li ui-li-divider ui-bar-b ui-first-child">安全保证措施</li>
-						<li class="ui-li ui-li-static ui-btn-up-d ui-last-child"
-							style='white-space: normal;' data-bind='text: safety'></li>
-					</ul>
-				</div>
+					</li>
+				</ul>
+				<ul data-role="listview" data-inset="true" data-theme="d"
+					class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+					<li data-role="list-divider" role="heading"
+						class="ui-li ui-li-divider ui-bar-b ui-first-child">节假日期间生产安排情况</li>
+					<li class="ui-li ui-li-static ui-btn-up-d ui-last-child"
+						style='white-space: normal;' data-bind='text: holsit'></li>
+				</ul>
+				<ul data-role="listview" data-inset="true" data-theme="d"
+					class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+					<li data-role="list-divider" role="heading"
+						class="ui-li ui-li-divider ui-bar-b ui-first-child">安全保证措施</li>
+					<li class="ui-li ui-li-static ui-btn-up-d ui-last-child"
+						style='white-space: normal;' data-bind='text: safety'></li>
+				</ul>
 			</div>
 		</div>
+	</div>
 </body>
 </html>
