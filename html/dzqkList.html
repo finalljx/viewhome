@@ -3,18 +3,22 @@
 <head>
 <title>电子期刊</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
 <script type="application/javascript" src="../assets/iscroll.js"></script>
-<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" />
+<link rel="stylesheet"
+	href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" />
 <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/encrypt/encrypt.js"></script>
 <script src="../lib/json/json2.js"></script>
 <script src="../lib/hori/hori.js?tag=21369"></script>
 <script src="../config/web/config.js"></script>
-<script src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
+<script
+	src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
 <script src="../lib/knockout/knockout.js"></script>
 <script src="../lib/knockout/knockout.mapping.js"></script>
+<script src="../lib/arttemplate/template.js"></script>
 <style>
 a {
 	text-decoration: none;
@@ -29,35 +33,62 @@ a {
 	max-width: 5em;
 	max-height: 5em;
 } */
-#divOne {
-    width: 100%;
-    height: 100%;
-    background-image: url(../assets/dzqk/wood.png);
-    -moz-background-size: 100% 100%;
-    -o-background-size: 100% 100%;
-    background-size: 100% 100%;
-    -moz-border-image: url(../assets/dzqk/wood.png) 0;
-    background-repeat: no-repeat\9;
-    background-image: none\9;
+.divOne {
+	width: 100%;
+	
+	background-image: url(../assets/dzqk/wood.png);
+	-moz-background-size: 100% 100%;
+	-o-background-size: 100% 100%;
+	background-size: 100% 100%;
+	-moz-border-image: url(../assets/dzqk/wood.png) 0;
+	background-repeat: no-repeat\9;
+	background-image: none\9;
 }
 
 .ban {
-    margin-top: 10px;
-    width: 100%;
-    background-color: black;
-    /* background-image: url(../assets/dzqk/background.png); */
-    -moz-background-size: 100% 100%;
-    -o-background-size: 100% 100%;
-    -webkit-background-size: 100% 100%;
-    background-size: 100% 100%;
-    /* -moz-border-image: url(../assets/dzqk/background.png) 0; */
-    background-repeat: no-repeat\9;
-    background-image: none\9;
-    width: 100%;
-    background-color: black;
+	margin-top: 10px;
+	width: 100%;
+	background-color: black;
+	/* background-image: url(../assets/dzqk/background.png); */
+	-moz-background-size: 100% 100%;
+	-o-background-size: 100% 100%;
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	/* -moz-border-image: url(../assets/dzqk/background.png) 0; */
+	background-repeat: no-repeat\9;
+	background-image: none\9;
+	width: 100%;
+	background-color: black;
 }
+
 .cover {
-    border: 0px;
+	border: 0px;
+}
+/*zxr_20141129*/
+.bookleft {
+	width: 5%;
+	height: 180px;
+	background-image: url(../assets/dzqk/left.png);
+	background-repeat: no-repeat;
+	background-position: bottom right;
+	margin-top:20px;
+}
+
+.bookright {
+	width: 5%;
+	height: 180px;
+	background-image: url(../assets/dzqk/right.png);
+	background-repeat: no-repeat;
+	background-position: bottom left;
+	margin-top:20px;
+}
+
+.bookbg {
+	background-image: url(../assets/dzqk/background.png);
+	background-repeat: repeat-x;
+	background-position: bottom left;
+	margin-top:20px;
+	height: 180px;
 }
 </style>
 <script type="text/javascript">
@@ -118,11 +149,11 @@ a {
 		});
 	}
 
-	function viewFile(item) {
-		if (item.PERURL == undefined || item.PERURL == "") { //空点位图
-		} else { 
+	function viewFile(PERURL) {
+		if (PERURL == undefined || PERURL == "") { //空点位图
+		} else {
 			var url = $.hori.getconfig().appServerHost + "view/tpxw/file"
-					+ item.PERURL() + "?data-convert=office&data-cache=true";
+					+ PERURL + "?data-convert=office&data-cache=true";
 			localStorage.setItem("attachmentUrl", url);
 			$.hori.loadPage($.hori.getconfig().serverBaseUrl
 					+ "viewhome/html/attachmentShowForm.html",
@@ -131,34 +162,86 @@ a {
 	}
 
 	function renderDzqk(json) {
+
 		console.log(json);
-		viewModel = ko.mapping.fromJS(json);
-		if (!hasBind) {
-			hasBind = true;
-			ko.applyBindings(viewModel, document.getElementById("divOne"));
-		}
+		var html = template('watchlistpad', json);
+		
+		$("#content_divOne").html(html);
 	}
 </script>
 </head>
 <body>
 	<div data-role="content" align="center">
 		<div>
-			<a data-role="button" data-mini='true' style="float: left;" onclick="dzqkAction(-1)">上一年</a> <span
-				style="text-align: center;"><font id="currentYear" style="font-size: 30px; color: #000;"></font></span><a
-				data-role="button" data-mini='true' style="float: right;" onclick="dzqkAction(1)">下一年</a>
+			<a data-role="button" data-mini='true' style="float: left;"
+				onclick="dzqkAction(-1)">上一年</a> <span style="text-align: center;"><font
+				id="currentYear" style="font-size: 30px; color: #000;"></font></span><a
+				data-role="button" data-mini='true' style="float: right;"
+				onclick="dzqkAction(1)">下一年</a>
 		</div>
-		<div class="ui-grid-b" id="divOne">
-			<div data-bind="foreach: list" style="width: 100%; height: 100%;">
-				<div class="ui-block-b divxs" style="margin: 20px; width: 250px; z-index: 999;">
-					<a href="javascript:void(0);" data-bind="click: viewFile"> <img class="cover" 
-						data-bind='attr:{"src": cover}' width=150 height=170>
-					</a>
-					<div style="z-index: 2">
-						<img alt="" src="../assets/dzqk/background.png" style="width: 290px; height: 80px;">
-					</div>
+		<script id="watchlistpad" type="text/html">
+			<div class="ui-grid-d divOne">
+			
+				<div class="ui-block-a divxs bookleft" style="width:5%"></div>
+				<div class="ui-block-b bookbg" style="width:30%">
+
+					{{if list[0] }}
+						<a href="javascript:void(0);"  onclick="viewFile('{{list[0].PERURL}}')"> <img class="cover" src="{{list[0].cover}}"> </img></a>
+					{{/if}}
+					
 				</div>
+				<div class="ui-block-c bookbg" style="width:30%">
+					
+						{{if list[1] }}
+						<a href="javascript:void(0);"  onclick="viewFile('{{list[1].PERURL}}')" ><img class="cover" src="{{list[1].cover}}" >
+						</a>
+					{{/if}}
+					
+				</div>
+				<div class="ui-block-d bookbg" style="width:30%">
+					
+					{{if list[2] }}
+						<a href="javascript:void(0);"  onclick="viewFile('{{list[2].PERURL}}')"> <img class="cover" src="{{list[2].cover}}" >
+						</a>
+					{{/if}}
+					
+				</div>
+				<div class="ui-block-e divxs bookright" style="width:5%"></div>
+			</div>
+		<div class="ui-grid-d divOne" >
+			
+				<div class="ui-block-a divxs bookleft" style="width:5%"></div>
+				<div class="ui-block-b bookbg" style="width:30%">
+					
+					{{if list[3] }}
+						<a href="javascript:void(0);"  onclick="viewFile('{{list[3].PERURL}}')"> <img class="cover" src="{{list[3].cover}}" >
+						</a>
+					{{/if}}
+					
+				</div>
+				<div class="ui-block-c bookbg" style="width:30%">
+					
+					{{if list[4] }}
+						<a href="javascript:void(0);"  onclick="viewFile('{{list[4].PERURL}}')"> <img class="cover" src="{{list[4].cover}}" >
+						</a>
+					{{/if}}
+					
+				</div>
+				<div class="ui-block-d bookbg" style="width:30%">
+					
+					{{if list[5] }}
+						<a href="javascript:void(0);"  onclick="viewFile('{{list[5].PERURL}}')"> <img class="cover" src="{{list[5].cover}}" >
+						</a>
+					{{/if}}
+				</div>
+				<div class="ui-block-e divxs bookright" style="width:5%"></div>
+			</div>
+	</script>
+			<div style="width: 100%; height: 100%; padding-top:1px" id="content_divOne">
+
+		
 			</div>
 		</div>
-	</div>
+
 </body>
 </html>
