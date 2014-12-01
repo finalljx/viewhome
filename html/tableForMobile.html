@@ -17,7 +17,6 @@
 			//获取数据
 			var table_data=$("#DynTbl_RtfTableData_json").val();
 			var table_head=$("#DynTbl_RtfTableData_head").val();
-			console.log(table_data);
 			if(table_head!==undefined && table_data!==undefined){
 				table_data=table_data.replace(/\s/g,"");
 				table_head=table_head.replace(/\s/g,"");
@@ -26,7 +25,6 @@
 				var table_data_obj=$.parseJSON(table_data);
 				jsonObj.head=table_head_obj;
 				jsonObj.data=table_data_obj;
-				console.log(jsonObj);
 				dxTblhtml = template.render("_dxTbl", jsonObj);
 				if(window.console!==undefined){
 					console.log(JSON.stringify(jsonObj));
