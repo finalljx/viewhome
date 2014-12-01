@@ -111,13 +111,9 @@
 			
 				try{
 					var random = new Date().getTime();
-					var url=$.hori.getconfig().appServerHost+"view/oa/loginvalidate/names.nsf?Login";
-					url = url + "&data-random=" + random;
+					var url=$.hori.getconfig().appServerHost+"view/portal/loginvalidate/portalauth/eaiweb3/EAIServlet";
 				}catch(e){}
-				var data = 'Username='+username+'&Password='+password+'&$PublicAccess=1&ReasonType=0&data-userid=Username&data-password=Password&data-login=true';
-				
-				
-				
+				var data = 'uid='+username+'&passwd='+password+'&logintype=user&data-userid=Username&data-password=Password&data-login=true';
 				$.hori.ajax({
 						"type":"post",
 						"url":url,
