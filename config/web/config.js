@@ -7,7 +7,8 @@
 			"oaMobileServer":"OAServer01/crsc",
 			"serverBaseUrl":"http://localhost:90/",
 			"encryptKey":"horiTech",
-			"appServerHost":"http://localhost:90/"
+			"appServerHost":"http://localhost:90/",
+			"appKey":"mobiletonghao"
 		};
 	};
 })($.hori);
