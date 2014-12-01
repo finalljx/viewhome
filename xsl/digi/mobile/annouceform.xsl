@@ -46,9 +46,10 @@
 		</div>
 		<div data-role="collapsible" data-collapsed="true" data-theme="f">
 			<h1>正文内容</h1>
-			<div style="font-weight:bold;font-size:15pt;height:50px;color:#000066;padding-top:20px;text-align:center;word-break:break-all">设计院公告</div>
-				<div
-					style="font-size:8pt;height:20px;padding-top:5px;text-align:center">
+			<div style="font-weight:bold;font-size:15pt;height:50px;color:#000066;padding-top:20px;text-align:center;word-break:break-all">
+			<xsl:value-of select="//div[@style='font-weight:bold;font-size:15pt;height:60px;color:#000066;padding-top:20px;text-align:center;word-break:break-all']/text()"/>
+			</div>
+				<div style="font-size:8pt;height:20px;padding-top:5px;text-align:center">
 					<xsl:value-of select="//input[@name='DraftDate']/@value"></xsl:value-of>
 					<xsl:text> </xsl:text>
 					<xsl:value-of select="//input[@name='DraftManCn']/@value"></xsl:value-of>
