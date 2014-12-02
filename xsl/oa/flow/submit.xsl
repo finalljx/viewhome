@@ -431,7 +431,7 @@
 								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
 								<input type="hidden" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
 								<!-- <a href="javascript:void(0)" onclick="clearperson();" style="margin-left:100px;" data-role="button" data-inline="true">清空666</a> -->
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/doctest/{$dbPath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}&amp;data-userstore=')" data-role="button" data-inline="true" data-theme="f">选　人</a>
+								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/'+$.hori.getconfig().docServer+'/{$dbPath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}&amp;data-userstore=')" data-role="button" data-inline="true" data-theme="f">选　人</a>
 							</fieldset>
 						</li>
 					</xsl:when>
@@ -442,7 +442,7 @@
 								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
 								<input type="hidden" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
 								<!-- <a href="javascript:void(0)" style="margin-left:30px;" onclick="clearperson();" data-role="button" data-inline="true">清空</a> -->
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/doctest/{$dbPath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}&amp;data-userstore=')" data-role="button" data-inline="true" data-theme="f">选　人</a>
+								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/'+$.hori.getconfig().docServer+'/{$dbPath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}&amp;data-userstore=')" data-role="button" data-inline="true" data-theme="f">选　人</a>
 							</fieldset>
 						</li>
 					</xsl:when>

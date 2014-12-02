@@ -22,13 +22,13 @@
 	$(document)
 			.ready(
 					function() {
-						$.hori.showLoading();
 						$.hori.setHeaderTitle("安全生产值班表详情");
 						var config = $.hori.getconfig();
 						var docunid = localStorage.getItem("watchDocUnid");
 						var serverUrl = $.hori.getconfig().appServerHost;
 						var dataSource = "view/safety/detail/Application/Safety/SafetyProBasic.nsf/loadAppContentForMobile?openagent&data-result=text";
 						serverUrl = serverUrl + dataSource;
+						$.hori.hideLoading();
 						$.hori.ajax({
 							"type" : "get",
 							"url" : serverUrl,
@@ -37,7 +37,7 @@
 								"docunid" : docunid
 							},
 							"success" : function(res) {
-								console.log(res);
+								$.hori.hideLoading();
 								var parsedStr = JSON.parse(res);
 								render(parsedStr);
 								$.hori.hideLoading();
