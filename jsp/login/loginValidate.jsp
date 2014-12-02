@@ -15,7 +15,7 @@
 				<%
 				JSONObject json=new JSONObject();			
 				Query q = Query.getInstance(request);
-			
+				
 				String responseXml = q.getContent();
 				Document   doc = DocumentHelper.parseText(responseXml);
 				try{

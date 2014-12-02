@@ -19,7 +19,7 @@ function openmail(){
 		var travelerScript = new cherry.bridge.ScriptOperation(function(){
 				var result = runMail.returnValue;
 				if(!result || result==false || result=='false'){
-				alert('请先安装 traveler客户端!');
+				alert('请先安装traveler客户端!');
 				}
 				});
 		travelerScript.addDependency(runMail);
@@ -200,10 +200,10 @@ var icount=0;
 			"url" : url,
 			"data" : "",
 			"success" : function(res) {
-				alert(res);
+				//alert(res);
 			},
 			"error" : function(res) {
-
+				
 			}
 		})
 

@@ -146,7 +146,7 @@
 											return ;
 										}
 									}
-									//存储下一环节到localstorage中 
+									//存储下一环节到localstorage中
 									localStorage.setItem("oaNextNodeId",toflownodeid);
 									post(value, toflownodeid);
 								}
@@ -173,14 +173,14 @@
 								<a href="#popupBasic" data-rel="popup" data-role="button" data-mini='true' data-theme="f">高 级</a>
 								</xsl:if>
 								<div data-role="popup" id="popupBasic">
-								<ul data-role="listview" data-inset="true" data-theme="c">
-									<li data-role="list-divider"></li>
-									<xsl:if test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@onclick, 'append')]">
-										<li><a href=""  onclick="makejq()" data-rel="page">加 签</a></li>
-									</xsl:if>
-									<li data-role="list-divider"></li>
-								</ul>
-							</div>
+									<ul data-role="listview" data-inset="true" data-theme="c">
+										<li data-role="list-divider"></li>
+										<xsl:if test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@onclick, 'append')]">
+											<li><a href=""  onclick="makejq()" data-rel="page">加 签</a></li>
+										</xsl:if>
+										<li data-role="list-divider"></li>
+									</ul>
+								</div>
 							</div>
 							-->
 						</div>
