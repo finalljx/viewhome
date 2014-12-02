@@ -34,7 +34,7 @@
 						template="queryForDoing";
 						view = "vwDocByDate";
 						dataid = "querydataList";
-						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
+						dbpath="/"+$.hori.getconfig().docServer+"/genertec/dep1/qsbg_1.nsf";
 						Astart=Astart+15;
 						start=Astart;
 					}
@@ -42,7 +42,7 @@
 						template="toArchive";
 						view = "vwtoArchive";
 						dataid = "querydataList";
-						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
+						dbpath="/"+$.hori.getconfig().docServer+"/genertec/dep1/qsbg_1.nsf";
 						Bstart=Bstart+15;
 						start=Bstart;
 					}
@@ -50,7 +50,7 @@
 						template="Archvied";
 						view = "vwDocByArchvied";
 						dataid = "querydataList";
-						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
+						dbpath="/"+$.hori.getconfig().docServer+"/genertec/dep1/qsbg_1.nsf";
 						Cstart=Cstart+15;
 						start=Cstart;
 					}
@@ -206,7 +206,8 @@
 				localStorage.setItem("type","queryArchvied");
 				template="Archvied";
 			}
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/doctest/genertec/dep1/qsbg_1.nsf/myview?openform&view="+view+"&start=1&count=15";
+			var docServer=$.hori.getconfig().docServer;
+			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+docServer+"/genertec/dep1/qsbg_1.nsf/myview?openform&view="+view+"&start=1&count=15";
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
@@ -227,15 +228,16 @@
 		
 		//获取会签类型库
 		function getsignpath(){
+			var docServer=$.hori.getconfig().docServer;
 			$.hori.ajax({
 				"type":"post",
-				"url":$.hori.getconfig().appServerHost+"/view/oa/signtype/doctest/genertec/mgrengine.nsf/createNavigator?openAgent&divIndex=001",
+				"url":$.hori.getconfig().appServerHost+"/view/oa/signtype/"+docServer+"/genertec/mgrengine.nsf/createNavigator?openAgent&divIndex=001",
 				"success":function(res){
 					//alert(res);
 					//doctest/genertec/dep26/hqk_26.nsf
 					//用于测试写死，正式时要放开
 					//singdbPath = res; 
-					singdbPath="/doctest/genertec/dep26/hqk_26.nsf";
+					singdbPath="/"+$.hori.getconfig().docServer+"/genertec/dep26/hqk_26.nsf";
 					localStorage.setItem("singdbPath",singdbPath);
 				},
 				"error":function(res){

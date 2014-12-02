@@ -4,10 +4,11 @@
 			"oaServerName":"mobile2.sugon.com",
 			"oaMsgServer":"mobile2.sugon.com",
 			"oaMobileServer":"mobile2.sugon.com",
-			"serverBaseUrl":"http://192.168.1.110:90/",
+			"serverBaseUrl":"http://192.168.1.130:90/",
 			"encryptKey":"horiTech",
-			"appServerHost":"http://192.168.1.110:90/",
-			"appKey":"mobile"
+			"appServerHost":"http://192.168.1.130:90/",
+			"appKey":"mobile",
+			"docServer":"doctest"
 		};
 	};
 })($.hori);
