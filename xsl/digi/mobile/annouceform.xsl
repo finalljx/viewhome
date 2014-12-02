@@ -22,6 +22,9 @@
 			margin: auto;
 			width:100%;
 		}
+		div.message{
+		  text-indent: 34px;
+		}
    </style>
 </head>
 <body>
@@ -57,7 +60,7 @@
 					<xsl:value-of select="//input[@name='showdeptname']/@value"></xsl:value-of>
 				</div>
 				<br />
-			<div align="left">
+			<div align="left" class="message">
 				<xsl:value-of select="//textarea[@name='Fck_HTML']"></xsl:value-of>
 				<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
 					<li data-role="list-divider">附件信息</li>
