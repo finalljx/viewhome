@@ -89,7 +89,7 @@ div p {
 						} else { //未正确查询到结果
 							alert(jdata.rtn_msg);
 						}
-
+						$.hori.hideLoading();
 					},
 					"error" : function(res) {
 						alert("查询失败：" + res);
