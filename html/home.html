@@ -142,7 +142,8 @@ var icount=0;
 		$.hori.showLoading();
 		
 		var targetUrl = $.hori.getconfig().serverBaseUrl
-				+ "viewhome/html/annouceList.html";
+
+				+ "viewhome/html/annouceList.html"
 		$.hori.loadPage(encodeURI(targetUrl));
 
 	}
@@ -166,6 +167,17 @@ var icount=0;
 		var targetUrl = $.hori.getconfig().serverBaseUrl+"viewhome/html/officialDocument.html"
 		$.hori.loadPage(encodeURI(targetUrl));
 	}
+	function loadConnections() {
+		$.hori.runApp("com.ibm.lotus.connections.mobile1",
+		"com.ibm.lotus.connections.mobile.pages.LotusConnections",
+		function(res) {
+		if (res == "true") {
+		console.log("启动Connections客户端");
+		} else {
+		alert("您没有安装Connections客户端，请安装后再试");
+		}
+		});
+		}
 	//获取公文库
 	function getOfficialLibrary() {
 		var url = $.hori.getconfig().appServerHost+"view/oa/officialDocumentLibrary/Produce/WeboaConfig.nsf/GetGongWenByUser?openAgent&itcode=&data-result=text";
@@ -208,6 +220,7 @@ var icount=0;
 		})
 
 	}
+	
 </script>
 <style>
 a {
@@ -258,7 +271,7 @@ a {
 			<br>
 			<div class="ui-grid-b" id="divOne">
 				<div class="ui-block-a">
-					<a href="javascript:void(0)" onclick="loadContact()" class="ui-link"> <img width="68" height="68" src="../assets/home/tel.png">
+					<a href="javascript:void(0)" onclick="loadConnections()" class="ui-link"> <img width="68" height="68" src="../assets/home/tel.png">
 					</a> <br> <span style="color: #434343"><strong>Connection</strong></span>
 				</div>
 				<div class="ui-block-b">

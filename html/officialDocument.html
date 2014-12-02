@@ -113,7 +113,7 @@
 					}
 					$("#issuedocDataList").append(res).listview("refresh");
 					$.hori.hideLoading();
-					issuedocStart=issuedocStart+1;
+					issuedocStart=issuedocStart+10;
 					myScroll.refresh();
 				},
 				"error":function(res){
@@ -136,7 +136,7 @@
 					$("#moredata").remove();
 					$("#receivedocDataList").append(res).listview("refresh");
 					$.hori.hideLoading();
-					receivedocStart=receivedocStart+1;
+					receivedocStart=receivedocStart+2;
 					myScroll.refresh();
 				},
 				"error":function(res){
@@ -144,27 +144,49 @@
 				}
 			});
 		}
+		var t1 = null;//这个设置为全局
 	//发文详情页
 	function loadIssuedocPage(str){
+		if (t1 == null){
+	        t1 = new Date().getTime();
+	    }else{       
+	        var t2 = new Date().getTime();
+	        if(t2 - t1 < 500){
+	            t1 = t2;
+	            return;
+	        }else{
+	            t1 = t2;
+	        }
+	    }
 		var docunid = $(str).data("unid");
 		var issuedoc = localStorage.getItem("issuedoc");
 		var oaurl = issuedoc+"/AppDoingView/"+docunid+"?opendocument&login";
-		alert(oaurl);return;
 		localStorage.setItem("oaDataSource",oaurl);
-		var targetURL= $.hori.getconfig().serverBaseUrl+"viewhome/html/appform.html";
+		var targetURL= $.hori.getconfig().serverBaseUrl+"viewhome/html/issuedocPage.html";
 		targetURL=encodeURI(targetURL);
 		$.hori.loadPage(targetURL);
 	}
 	//收文详情页
 	function loadReceivedocPage(str){
+		if (t1 == null){
+	        t1 = new Date().getTime();
+	    }else{       
+	        var t2 = new Date().getTime();
+	        if(t2 - t1 < 500){
+	            t1 = t2;
+	            return;
+	        }else{
+	            t1 = t2;
+	        }
+	    }
 		var docunid = $(str).data("unid");
 		var receivedoc = localStorage.getItem("receivedoc");
-		var oaurl = receivedoc+"/AppDoingView/"+docunid+"?opendocument&login";
-		alert(oaurl);return;
-		localStorage.setItem("oaDataSource",oaurl);
-		var targetURL= $.hori.getconfig().serverBaseUrl+"viewhome/html/appform.html";
-		targetURL=encodeURI(targetURL);
-		$.hori.loadPage(targetURL);
+		var oaurl = $.hori.getconfig().appServerHost+"view/oa/receivedocPage/"+receivedoc+"/AppDoingView/"+docunid+"?opendocument&login";
+		//localStorage.setItem("oaDataSource",oaurl);
+		//var targetURL= $.hori.getconfig().serverBaseUrl+"viewhome/html/receivedocPage.html";
+		//targetURL=encodeURI(targetURL);
+		alert(oaurl);
+		$.hori.loadPage(oaurl);
 	}
 	</script>
 	<style>
@@ -186,8 +208,8 @@
 			<div data-role="tabs" id="tabs">
 		      	<div data-role="navbar">
 					<ul>
-						<li><a href="#two" data-ajax="false" data-id="issuedocList">收文</a></li>
-						<li><a href="#three" data-ajax="false" data-id="receivedocList">发文</a></li>
+						<li><a href="#two" data-ajax="false" data-id="issuedocList">发文</a></li>
+						<li><a href="#three" data-ajax="false" data-id="receivedocList">收文</a></li>
 					</ul>
 				</div>
 				<div id="wrapper">
