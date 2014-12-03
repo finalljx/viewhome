@@ -32,7 +32,7 @@
 						template="searchqueryForDoing";
 						view = "vwDocByDate";
 						dataid = "querydataList";
-						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
+						dbpath="/"+$.hori.getconfig().docServer+"/genertec/dep1/qsbg_1.nsf";
 						Astart=Astart+10;
 						start=Astart;
 					}
@@ -40,7 +40,7 @@
 						template="queryForDoing";
 						view = "vwDocByDate";
 						dataid = "querydataList";
-						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
+						dbpath="/"+$.hori.getconfig().docServer+"/genertec/dep1/qsbg_1.nsf";
 						Astart=Astart+10;
 						start=Astart;
 					}
@@ -48,7 +48,7 @@
 						template="toArchive";
 						view = "vwtoArchive";
 						dataid = "querydataList";
-						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
+						dbpath="/"+$.hori.getconfig().docServer+"/genertec/dep1/qsbg_1.nsf";
 						Bstart=Bstart+10;
 						start=Bstart;
 					}
@@ -56,7 +56,7 @@
 						template="searchquerytoArchive";
 						view = "vwtoArchive";
 						dataid = "querydataList";
-						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
+						dbpath="/"+$.hori.getconfig().docServer+"/genertec/dep1/qsbg_1.nsf";
 						Bstart=Bstart+10;
 						start=Bstart;
 					}
@@ -64,7 +64,7 @@
 						template="Archvied";
 						view = "vwDocByArchived";
 						dataid = "querydataList";
-						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
+						dbpath="/"+$.hori.getconfig().docServer+"/genertec/dep1/qsbg_1.nsf";
 						Cstart=Cstart+10;
 						start=Cstart;
 					}
@@ -72,7 +72,7 @@
 						template="searchqueryArchvied";
 						view = "vwDocByArchived";
 						dataid = "querydataList";
-						dbpath="/doctest/genertec/dep1/qsbg_1.nsf";
+						dbpath="/"+$.hori.getconfig().docServer+"/genertec/dep1/qsbg_1.nsf";
 						Cstart=Cstart+10;
 						start=Cstart;
 					}
@@ -272,7 +272,8 @@
 				template="Archvied";
 				view="vwDocByArchived";
 			}
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/doctest/genertec/dep1/qsbg_1.nsf/myview?openform&view="+view+"&start=1&count=10";
+			var docServer=$.hori.getconfig().docServer;
+			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+docServer+"/genertec/dep1/qsbg_1.nsf/myview?openform&view="+view+"&start=1&count=10";
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
@@ -293,15 +294,16 @@
 		
 		//获取会签类型库
 		function getsignpath(){
+			var docServer=$.hori.getconfig().docServer;
 			$.hori.ajax({
 				"type":"post",
-				"url":$.hori.getconfig().appServerHost+"/view/oa/signtype/doctest/genertec/mgrengine.nsf/createNavigator?openAgent&divIndex=001",
+				"url":$.hori.getconfig().appServerHost+"/view/oa/signtype/"+docServer+"/genertec/mgrengine.nsf/createNavigator?openAgent&divIndex=001",
 				"success":function(res){
 					//alert(res);
 					//doctest/genertec/dep26/hqk_26.nsf
 					//用于测试写死，正式时要放开
 					//singdbPath = res; 
-					singdbPath="/doctest/genertec/dep26/hqk_26.nsf";
+					singdbPath="/"+$.hori.getconfig().docServer+"/genertec/dep26/hqk_26.nsf";
 					localStorage.setItem("singdbPath",singdbPath);
 					$.hori.hideLoading();
 				},
@@ -416,7 +418,8 @@
 				template="searchqueryArchvied";
 			}
 			//
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/doctest/genertec/dep1/qsbg_1.nsf/"+view+"?SearchView&count=10&Query="+searchkey+"&view="+view;
+			var docServer=$.hori.getconfig().docServer;
+			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+docServer+"/genertec/dep1/qsbg_1.nsf/"+view+"?SearchView&count=10&Query="+searchkey+"&view="+view;
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
