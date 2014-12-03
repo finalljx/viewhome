@@ -1,0 +1,204 @@
+<html>
+<head>
+	<title>请示审批</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0"/>
+	<script type="application/javascript" src="../assets/iscroll.js"></script>
+	<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" /> 
+	<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" /> 
+	<script src="../lib/jquery/jquery.min.js"></script>		
+	<script src="../lib/encrypt/encrypt.js"></script>
+	<script src="../lib/json/json2.js"></script>
+	<script src="../lib/hori/hori.js?tag=21369"></script>
+	<script src="../config/web/config.js"></script>
+	<script src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
+	<script type="text/javascript">
+		function pullUpAction () {
+			var getMoreData = localStorage.getItem("getTaskMoreData");
+			if(getMoreData=="todoList"){
+				getTodoTaskList();
+			}else if(getMoreData=="didList"){
+				getDidTaskList();
+			}
+		}
+		function loaded() {
+			pullUpEl = document.getElementById('pullUp');	
+			pullUpOffset = pullUpEl.offsetHeight;
+			myScroll = new iScroll('wrapper', {
+				useTransition: true,
+				topOffset: pullUpOffset,
+				onRefresh: function () {
+				if (pullUpEl.className.match('loading')) {
+					pullUpEl.className = '';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '';
+				}
+			},
+			onScrollMove: function () {
+				if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
+					pullUpEl.className = 'flip';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '';
+					this.maxScrollY = this.maxScrollY;
+				} else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
+					pullUpEl.className = '';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '';
+					this.maxScrollY = pullUpOffset;
+				}
+			},
+			onScrollEnd: function () {
+				if (pullUpEl.className.match('flip')) {
+					pullUpEl.className = 'loading';
+					pullUpEl.querySelector('.pullUpLabel').innerHTML = '';
+					pullUpAction();
+				}
+			}
+			});
+		}
+	</script>
+	<script>
+		var todoStart=1;
+		var didStart=1;
+		var itcode=localStorage.getItem("itcode");
+		var oaMsgServer=$.hori.getconfig().oaMsgServer;
+		$(document).ready(function(){
+			var hori = $.hori;
+			/*设置标题*/
+			hori.setHeaderTitle("待办列表");
+			$.hori.showLoading();
+			loaded();
+			$("#tabs").tabs({beforeActivate:function(event,ui){
+					//alert(ui.newTab.context.dataset.id);
+					tabid=ui.newTab.context.dataset.id;
+					//待办
+					if(tabid=="todoList"){
+						localStorage.setItem("getTaskMoreData","todoList");
+						todoStart=1;
+						getTodoTaskList();
+					}
+					//已办
+					if(tabid=="didList"){
+						localStorage.setItem("getTaskMoreData","didList");
+						didStart=1;
+						getDidTaskList();
+					}
+			}})
+			//localStorage.setItem("officialVal","1");
+			var onlist=localStorage.getItem("taskVal");
+			if(onlist=="1"){
+				$("#ui-id-1").click()	
+			}
+			if(onlist=="2"){
+				$("#ui-id-2").click()	
+			}
+			getTodoTaskList();
+		})
+	</script>
+	<script type="text/javascript">
+		//待办列表
+		function getTodoTaskList(){
+			$.hori.showLoading();
+			localStorage.setItem("getTaskMoreData","todoList");
+			var url = $.hori.getconfig().appServerHost+'view/oamobile/todosList/Produce/DigiFlowMobile.nsf/agGetMsgViewData?openagent&login&server='+oaMsgServer+'&dbpath=DFMessage/dfmsg_'+itcode+'.nsf&view=vwTaskUnDoneForMobile&thclass=&page='+todoStart+'&count=10';
+			alert(url);
+			$.hori.ajax({
+				"type":"post",
+				"url":url,
+				"success":function(res){
+					$("#didDataList").empty();
+					$("#moredata").remove();
+					if(res.indexOf("无内容")!="-1"){
+						var divs = document.getElementsByName("nodata");
+						for(var i=0; i<divs.length; i++)
+						{
+							divs[i].style.display='none';
+						}
+					}
+					$("#todoDataList").append(res).listview("refresh");
+					$.hori.hideLoading();
+					todoStart=todoStart+1;
+					myScroll.refresh();
+				},
+				"error":function(res){
+					$.hori.hideLoading();
+				}
+			});
+		}
+		//已办列表
+		function getDidTaskList(){
+			$.hori.showLoading();
+			localStorage.setItem("getTaskMoreData","didList");
+			var url = $.hori.getconfig().appServerHost+'view/oamobile/taskDownList/Produce/DigiFlowMobile.nsf/agGetMsgViewData?openagent&login&server='+oaMsgServer+'&dbpath=DFMessage/dfmsg_'+itcode+'.nsf&view=vwTaskDoneForMobile&thclass=&page='+didStart+'&count=10';
+			alert(url);
+			$.hori.ajax({
+				"type":"post",
+				"url":url,
+				"success":function(res){
+					$("#todoDataList").empty();
+					$("#moredata").remove();
+					if(res.indexOf("无内容")!="-1"){
+						var divs = document.getElementsByName("nodata");
+						for(var i=0; i<divs.length; i++)
+						{
+							divs[i].style.display='none';
+						}
+					}
+					$("#didDataList").append(res).listview("refresh");
+					$.hori.hideLoading();
+					didStart=didStart+1;
+					myScroll.refresh();
+				},
+				"error":function(res){
+					$.hori.hideLoading();
+				}
+			});
+		}
+	</script>
+	<style>
+		#wrapper {
+			position: fixed;
+			overflow: scroll;
+			top: 100px;
+			bottom: 1.5em;
+			width: 98%;
+		}
+		.ui-content .ui-listview-inset, .ui-panel-inner.ui-listview-inset {
+			margin: 0em 0;
+		}
+	</style>
+</head>
+<body>
+	<div data-role="page" style="margin:0px;padding:0px;">
+		<div data-role="content">
+			<div data-role="tabs" id="tabs">
+		      	<div data-role="navbar">
+					<ul>
+						<li><a href="#two" data-ajax="false" data-id="todoList">待办</a></li>
+						<li><a href="#three" data-ajax="false" data-id="didList">已办</a></li>
+					</ul>
+				</div>
+				<div id="wrapper">
+					<div id="scroller">
+					  <div id="pullDown"></div>
+					  <div id="two">
+							<ul id="todoDataList"  data-role="listview" data-inset="true">
+								<li id="moredata" style="display:none"><div id="pullUp" align="center">
+									<span class="pullUpLabel">上划加载更多...</span>
+								</div></li>
+							</ul>
+							<br/>
+					  </div>
+					  <div id="three">
+						   <ul id="didDataList" data-role="listview" data-inset="true">
+								<li id="moredata" style="display:none"><div id="pullUp" align="center">
+										<span class="pullUpLabel">上划加载更多...</span>
+									</div></li>
+						   </ul>
+							<br/>
+					  </div>
+				   </div>
+			   </div>
+		    </div>
+		</div>
+	</div>
+</body>
+</html>
+

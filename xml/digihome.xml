@@ -9,14 +9,15 @@
 					<property name="title">
 						<string></string>
 					</property>
+					<!--
 					<property name="navButtonText">
 						<string>注销</string>
-					</property>
+					</property>-->
 					<property name="navBarHidden">
 						<string>0</string>
 					</property>
 					<property name="navBarColor">
-						<string>#FF940b09</string>
+						<string>#FF3398CC</string>
 					</property>
 				</properties>
 			</component>
