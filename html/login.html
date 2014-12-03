@@ -131,7 +131,7 @@ a {
 			var url = $.hori.getconfig().appServerHost
 					+ "view/ldap/checkLogin/userCheckPW?user_name=" + username + "&password="
 					+ password + "&data-login=true&data-captcha=" + captcha + "&data-captcha-id=" + captcha_id;
-			url = url + "&data-random=" + random;
+			url = url + "&data-random=" + random ;
 		} catch (e) {
 		}
 		$.hori.ajax({
@@ -259,6 +259,7 @@ a {
 				localStorage.setItem("username", username);
 			} else {
 				localStorage.setItem("data-saveusername", "false");
+				localStorage.setItem("username", "");
 			}
 		} catch (e) {
 		}
