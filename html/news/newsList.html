@@ -243,21 +243,21 @@ a {
 	color: blue;
 }
 
- @media only screen and (min-width: 1070px) and (max-width: 1242px) {
-	.ia {
-		font-size: 22px;
-	}
-}
-
-@media screen and (min-width: 400px) and (max-width: 800px) {
-	.ia {
-		font-size: 21px;
-	}
-}
-
-@media screen and (min-width: 310px) and (max-width: 330px) {
+ @media only screen and (min-device-width: 1070px) and (max-device-width: 1242px) {
 	.ia {
 		font-size: 20px;
+	}
+}
+
+@media screen and (min-device-width: 400px) and (max-device-width: 1069px) {
+	.ia {
+		font-size: 18px;
+	}
+}
+
+@media screen and (min-device-width: 310px) and (max-device-width: 399px) {
+	.ia {
+		font-size: 17px;
 	}
 } 
 
@@ -277,8 +277,8 @@ a {
 					<div id="scroller">
 						<p></p>
 						<ul data-bind="foreach: list" class='querydataList' id="querydataList" data-role="listview" >
-							<li data-icon="false">
-							<a data-bind="click:showDetail" style="line-height:2.5em;padding-right:5em;" class='ia'>
+						<li data-icon="false">
+							<a data-bind="click:showDetail" style="line-height:2.5em;padding-right:5em; white-space: nowrap;" class='ia'>
 									<!-- ko text: contentTitle --> <!-- /ko -->
 									<span class="ui-li-count ui-date-item" data-bind="text:creatTime"/>
 							</a></li>
