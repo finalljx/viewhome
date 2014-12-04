@@ -15,14 +15,41 @@
 <script src="../../lib/jquery-mobile/jquery.mobile.min.js"></script>
 <script src="../asset/js/echarts-plain.js"></script>
 <script src="../../config/web/config.js"></script>
+<script src="../../lib/knockout/knockout.js"></script>
+<script src="../../lib/knockout/knockout.mapping.js"></script>
 <style>
 a {
 	text-decoration: none;
 }
+
+@media only screen and (min-width: 1070px) and (max-width: 1242px) {
+	#month {
+		font-size: 17px;
+	}
+}
+
+@media screen and (min-width: 400px) and (max-width: 800px) {
+	#month {
+		font-size: 16px;
+	}
+}
+
+@media screen and (min-width: 310px) and (max-width: 330px) {
+	#month {
+		font-size: 15px;
+	}
+}
+
+
 </style>
 
 </head>
 <body>
+	
+	<div id='month' style="float: right; display: none;">
+		注：此经营数据截至<span data-bind="text: reportdata.year"></span>年<span
+			data-bind="text: reportdata.month"></span>月。
+	</div>
 	<!-- 收入利润 -->
 	<div id="main" style="width: 450px; float: left;"></div>
 	<div id="main1" style="width: 450px; float: left;"></div>
@@ -55,7 +82,7 @@ a {
 			soap += '</web:viewReportById>';
 			soap += ' </soapenv:Body></soapenv:Envelope>';
 			var data = "data-xml=" + soap;
-
+			var viewModel;
 			$.hori.ajax({
 				"type" : "post",
 				"url" : url,
@@ -72,6 +99,8 @@ a {
 						fontSize2 = 20;
 					}
 					var json = JSON.parse(res);
+					render(json);
+					$("#month").css('display', '');
 					console.log(res);
 					var income = json.reportdata.income;
 					var profit = json.reportdata.profit;
@@ -99,8 +128,12 @@ a {
 				}
 			});
 		}
-	</script>
-	<script type="text/javascript">
+		function render(parsedStr) {
+			viewModel = ko.mapping.fromJS(parsedStr);
+			ko.applyBindings(viewModel, document.getElementById('month'));
+		}
+</script>
+<script type="text/javascript">
 		function loadSrlrqs(title, seriesname, seriesdata, category,
 				serieschart, year, month, fontSize, fontSize2) {
 			var option = {
@@ -167,8 +200,8 @@ a {
 			var myChart = echarts.init(document.getElementById('main'));
 			myChart.setOption(option);
 		}
-	</script>
-	<script type="text/javascript">
+		</script>
+		<script type="text/javascript">
 		function loadSrlrqs2(title, seriesname2, seriesdata2, category2,
 				serieschart, year, month, fontSize, fontSize2) {
 			var option = {
@@ -249,6 +282,7 @@ a {
 			var myChart = echarts.init(document.getElementById('main1'));
 			myChart.setOption(option);
 		}
+		
 	</script>
 </body>
 </html>
