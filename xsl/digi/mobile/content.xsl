@@ -246,23 +246,6 @@
 								</xsl:if>
 								<xsl:apply-templates select="//div[@name='Fck_HTML']//fieldentry"/>
 							</li>
-
-							
-
-
-							<li data-role="list-divider">附件信息</li>
-							<!-- select="translate(//input[@name='AttachInfo']/@value, ' ', '')"/> -->
-								<xsl:if test="//input[@name='AttachInfo']/@value =''">
-									<li>
-										无附件
-									</li>	
-								</xsl:if>
-								<xsl:if test="//input[@name='AttachInfo']/@value !=''">
-									<xsl:call-template name="file">
-										<xsl:with-param name="info" select="translate(//input[@name='AttachInfo']/@value, ' ', '')"/>
-									</xsl:call-template>
-								</xsl:if>
-							
 							<li data-role="list-divider">当前环节信息</li>
 							<li>
 								环节名称：<xsl:value-of select="//input[@name='TFCurNodeName']/@value" />
@@ -279,7 +262,20 @@
 									暂无审批意见
 								</xsl:if>
 							</li>
-							
+						</ul>
+						<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
+							<li data-role="list-divider">附件信息</li>
+							<!-- select="translate(//input[@name='AttachInfo']/@value, ' ', '')"/> -->
+								<xsl:if test="//input[@name='AttachInfo']/@value =''">
+									<li>
+										无附件
+									</li>	
+								</xsl:if>
+								<xsl:if test="//input[@name='AttachInfo']/@value !=''">
+									<xsl:call-template name="file">
+										<xsl:with-param name="info" select="translate(//input[@name='AttachInfo']/@value, ' ', '')"/>
+									</xsl:call-template>
+								</xsl:if>
 						</ul>
 						<xsl:apply-templates select="//input[@type='hidden' or not(@type)]" mode="hidden"/>
 					</div><!-- /content -->
@@ -352,7 +348,6 @@
 	<!-- 处理 附件（目前前仅支持单个附件） -->	
 	<xsl:template name="file">
 		<xsl:param name="info" />
-		<li>
 		<xsl:choose>
 			<xsl:when test="contains($info, ';')">
 				<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{substring-before($info, '(')}');"  data-role="button">
@@ -399,7 +394,6 @@
 				</a>
 			</xsl:otherwise>
 		</xsl:choose>
-		</li>
 	</xsl:template>
 	
 	<!-- 处理 基本信息 -->
