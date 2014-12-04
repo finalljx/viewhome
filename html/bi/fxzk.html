@@ -15,6 +15,8 @@
 <script src="../../lib/hori/hori.js?tag=21369"></script>
 <script src="../../lib/jquery-mobile/jquery.mobile.min.js"></script>
 <script src="../../config/web/config.js"></script>
+<script src="../../lib/knockout/knockout.js"></script>
+<script src="../../lib/knockout/knockout.mapping.js"></script>
 <style>
 a {
 	text-decoration: none;
@@ -52,6 +54,25 @@ a {
 	width: 12px;
 	height: 12px;
 }
+
+@media only screen and (min-width: 1070px) and (max-width: 1242px) {
+	#month {
+		font-size: 17px;
+	}
+}
+
+@media screen and (min-width: 400px) and (max-width: 800px) {
+	#month {
+		font-size: 16px;
+	}
+}
+
+@media screen and (min-width: 310px) and (max-width: 330px) {
+	#month {
+		font-size: 15px;
+	}
+}
+
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -72,6 +93,7 @@ a {
 		soap += '</web:viewReportById>';
 		soap += ' </soapenv:Body></soapenv:Envelope>';
 		var data = "data-xml=" + soap;
+		var viewModel;
 
 		$.hori
 				.ajax({
@@ -80,6 +102,8 @@ a {
 					"data" : data,
 					"success" : function(res) {
 						var json = JSON.parse(res);
+						render(json);
+						$("#month").css('display', '');
 						var title = json.reportdata.title;
 						var type = json.reportdata.type;
 						var year = json.reportdata.year;
@@ -151,35 +175,36 @@ a {
 						imgString = imgString + "</li><br/>"
 						for (var i = 0; i < busiData.length; i++) {
 							var busiName = busiData[i].busiName;
-							if(busiName != '证券投资'){
-							if (30 == busiData[i].now) {
-								imgString = imgString
-										+ "<li style='line-height:50px;'><div style='float:left;clear:both;width:"+imgStringWidth+";min-width:65px;'>"
-										+ busiName
-										+ "</div><div style='float:left;width:"+imgwidth+";'><img src='img/dahong.png' class='big_light'/></div>"
-							} else {
-								imgString = imgString
-										+ "<li style='line-height:50px;'><div style='float:left;clear:both;width:"+imgStringWidth+";min-width:65px;'>"
-										+ busiName
-										+ "</div><div style='float:left;width:"+imgwidth+";'><img src='img/dalv.png' class='big_light'/></div>"
-							}
-							var imageType = busiData[i].imageType.split('|');
-							for (var j = 0; j < imageType.length - 1; j++) {
-								if (10 == imageType[j]) {
+							if (busiName != '证券投资') {
+								if (30 == busiData[i].now) {
 									imgString = imgString
-											+ "<div style='float:left;width:"+tbImgWidth+";line-height:50px;'><img src='img/xiaolv.png' class='small_light'/></div>";
-								} else if (20 == imageType[j]) {
-									imgString = imgString
-											+ "<div style='float:left;width:"+tbImgWidth+";line-height:50px;'><img src='img/xiaohuang.png' class='small_light'/></div>";
-								} else if (30 == imageType[j]) {
-									imgString = imgString
-											+ "<div style='float:left;width:"+tbImgWidth+";line-height:50px;'><img src='img/xiaohong.png' class='small_light'/></div>";
+											+ "<li style='line-height:50px;'><div style='float:left;clear:both;width:"+imgStringWidth+";min-width:65px;'>"
+											+ busiName
+											+ "</div><div style='float:left;width:"+imgwidth+";'><img src='img/dahong.png' class='big_light'/></div>"
 								} else {
 									imgString = imgString
-											+ "<div style='float:left;width:"+tbImgWidth+";line-height:50px;'><img src='img/xiaohui.png' class='small_light'/></div>";
+											+ "<li style='line-height:50px;'><div style='float:left;clear:both;width:"+imgStringWidth+";min-width:65px;'>"
+											+ busiName
+											+ "</div><div style='float:left;width:"+imgwidth+";'><img src='img/dalv.png' class='big_light'/></div>"
 								}
-							}
-							imgString = imgString + "</li>";
+								var imageType = busiData[i].imageType
+										.split('|');
+								for (var j = 0; j < imageType.length - 1; j++) {
+									if (10 == imageType[j]) {
+										imgString = imgString
+												+ "<div style='float:left;width:"+tbImgWidth+";line-height:50px;'><img src='img/xiaolv.png' class='small_light'/></div>";
+									} else if (20 == imageType[j]) {
+										imgString = imgString
+												+ "<div style='float:left;width:"+tbImgWidth+";line-height:50px;'><img src='img/xiaohuang.png' class='small_light'/></div>";
+									} else if (30 == imageType[j]) {
+										imgString = imgString
+												+ "<div style='float:left;width:"+tbImgWidth+";line-height:50px;'><img src='img/xiaohong.png' class='small_light'/></div>";
+									} else {
+										imgString = imgString
+												+ "<div style='float:left;width:"+tbImgWidth+";line-height:50px;'><img src='img/xiaohui.png' class='small_light'/></div>";
+									}
+								}
+								imgString = imgString + "</li>";
 							}
 						}
 						imgString = imgString + "</ul>";
@@ -192,6 +217,10 @@ a {
 						$.hori.hideLoading();
 					}
 				});
+		function render(parsedStr) {
+			viewModel = ko.mapping.fromJS(parsedStr);
+			ko.applyBindings(viewModel, document.getElementById('month'));
+		}
 	}
 
 	//显示顶部年份
@@ -246,6 +275,10 @@ a {
 </script>
 </head>
 <body onmousewheel="return false;">
+	<div id='month' style="float: right; display: none;">
+		注：此经营数据截至<span data-bind="text: reportdata.year"></span>年<span
+			data-bind="text: reportdata.month"></span>月。
+	</div>
 	<!-- 风险状况 -->
 	<div id="light_wall"></div>
 </body>

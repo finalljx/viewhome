@@ -15,14 +15,38 @@
 <script src="../../lib/jquery-mobile/jquery.mobile.min.js"></script>
 <script src="../asset/js/echarts-plain.js"></script>
 <script src="../../config/web/config.js"></script>
+<script src="../../lib/knockout/knockout.js"></script>
+<script src="../../lib/knockout/knockout.mapping.js"></script>
 <style>
 a {
 	text-decoration: none;
+}
+
+@media only screen and (min-width: 1070px) and (max-width: 1242px) {
+	#month {
+		font-size: 17px;
+	}
+}
+
+@media screen and (min-width: 400px) and (max-width: 800px) {
+	#month {
+		font-size: 16px;
+	}
+}
+
+@media screen and (min-width: 310px) and (max-width: 330px) {
+	#month {
+		font-size: 15px;
+	}
 }
 </style>
 
 </head>
 <body>
+	<div id='month' style="float: right; display: none;">
+		注：此经营数据截至<span data-bind="text: reportdata.year"></span>年<span
+			data-bind="text: reportdata.month"></span>月。
+	</div>
 	<!-- 利润板块-->
 	<div id="main" style="height: 400px; margin-top: 20px;"></div>
 	<script type="text/javascript">
@@ -44,7 +68,7 @@ a {
 			soap += '</web:viewReportById>';
 			soap += ' </soapenv:Body></soapenv:Envelope>';
 			var data = "data-xml=" + soap;
-
+			var viewModel;
 			$.hori.ajax({
 				"type" : "post",
 				"url" : url,
@@ -58,6 +82,8 @@ a {
 						fontSize = 18;
 					}
 					var json = JSON.parse(res);
+					render(json);
+					$("#month").css('display', '');
 					var reportdata = json.reportdata;
 					var title = reportdata.title;
 					var year = reportdata.year;
@@ -74,6 +100,10 @@ a {
 					$.hori.hideLoading();
 				}
 			});
+		}
+		function render(parsedStr) {
+			viewModel = ko.mapping.fromJS(parsedStr);
+			ko.applyBindings(viewModel, document.getElementById('month'));
 		}
 
 		function loadlrbk(title, year, month, primaryunit, category,
@@ -112,7 +142,7 @@ a {
 					},
 					name : title,
 					type : 'pie',
-					center : [ '50%', '70%' ],    
+					center : [ '50%', '70%' ],
 					radius : '50%',
 					data : [ {
 						value : seriesdata[0],

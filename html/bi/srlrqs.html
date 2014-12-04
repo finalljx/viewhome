@@ -15,13 +15,38 @@
 <script src="../../lib/jquery-mobile/jquery.mobile.min.js"></script>
 <script src="../asset/js/echarts-plain.js"></script>
 <script src="../../config/web/config.js"></script>
+<script src="../../lib/knockout/knockout.js"></script>
+<script src="../../lib/knockout/knockout.mapping.js"></script>
 <style>
 a {
 	text-decoration: none;
 }
+
+@media only screen and (min-width: 1070px) and (max-width: 1242px) {
+	#month {
+		font-size: 17px;
+	}
+}
+
+@media screen and (min-width: 400px) and (max-width: 800px) {
+	#month {
+		font-size: 16px;
+	}
+}
+
+@media screen and (min-width: 310px) and (max-width: 330px) {
+	#month {
+		font-size: 15px;
+	}
+}
+
 </style>
 </head>
 <body>
+	<div id='month' style="float: right; display: none;">
+		注：此经营数据截至<span data-bind="text: reportdata.year"></span>年<span
+			data-bind="text: reportdata.month"></span>月。
+	</div>
 	<!-- 收入利润趋势 -->
 	<div id="main"></div>
 	<div id="main1"></div>
@@ -32,6 +57,7 @@ a {
 			var h = document.documentElement.clientHeight / 2;//可见区域高度
 			var w = document.documentElement.clientWidth;//可见区域高度
 			var sm = document.getElementById('main');
+			//h= parseInt(h)-5;
 			sm.style.height = h + "px";
 			sm.style.width = w + "px";
 			var ss = document.getElementById('main1');
@@ -57,6 +83,7 @@ a {
 			soap += '</web:viewReportById>';
 			soap += ' </soapenv:Body></soapenv:Envelope>';
 			var data = "data-xml=" + soap;
+			var viewModel;
 
 			$.hori.ajax({
 				"type" : "post",
@@ -66,7 +93,9 @@ a {
 
 					var json = JSON.parse(res);
 					console.log(res);
-					
+					render(json);
+					$("#month").css('display', '');
+
 					var cWidth = window.screen.width;
 					if (cWidth < 720) {
 						fontSize = 17;
@@ -100,6 +129,10 @@ a {
 				}
 			});
 		}
+		function render(parsedStr) {
+			viewModel = ko.mapping.fromJS(parsedStr);
+			ko.applyBindings(viewModel, document.getElementById('month'));
+		}
 	</script>
 	<script type="text/javascript">
 		function loadSrlrqs(month, seriesname, lastSumData, nowSumData,
@@ -108,11 +141,11 @@ a {
 				animation : false,
 				tooltip : {
 					trigger : 'axis',
-					/* position : function(p) {
-						// 位置回调
-						// console.log && console.log(p);
-						return [ p[0] - 70, p[1] ];
-					}, */
+				/* position : function(p) {
+					// 位置回调
+					// console.log && console.log(p);
+					return [ p[0] - 70, p[1] ];
+				}, */
 				},
 				toolbox : {
 					show : false,
