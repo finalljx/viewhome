@@ -48,7 +48,7 @@ a {
 			data-bind="text: reportdata.month"></span>月。
 	</div>
 	<!-- 收入利润趋势 -->
-	<div id="main"></div>
+	<div id="main" ></div>
 	<div id="main1"></div>
 
 
@@ -95,9 +95,8 @@ a {
 					console.log(res);
 					render(json);
 					$("#month").css('display', '');
-
 					var cWidth = window.screen.width;
-					if (cWidth < 720) {
+					if (cWidth < 730) {
 						fontSize = 17;
 						fontSize2 = 14;
 					} else {
