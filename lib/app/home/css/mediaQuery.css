@@ -1,0 +1,48 @@
+@CHARSET "UTF-8";
+
+@media  all and (min-device-width: 1080px) and (max-device-width: 1242px) {
+  .imgToDo {
+    width: 5em;
+	height: 5em;
+  }
+  .divxs {
+		width: 33.333%;
+		margin-top: 10px;
+		margin-bottom: 25px;
+	}
+} 
+
+@media  all and (min-device-width: 720px) and (max-device-width: 1079px) {
+    .imgToDo {
+        width: 4em;
+        height:4em;
+    }
+    .divxs {
+        width: 33.333%;
+        margin-top: 10px;
+        margin-bottom: 25px;
+    }
+}
+
+ @media  all and (min-device-width: 339px) and (max-device-width: 719px) {
+	.imgToDo {
+		width: 4em;
+		height:4em;
+	}
+	.divxs {
+		width: 33.333%;
+		margin-top: 10px;
+		margin-bottom: 20px;
+	}
+} 
+
+@media  screen  and (min-width: 310px) and (max-width: 338px) {
+	.imgToDo {
+		width: 4em;
+		height:4em;
+	}
+	.divxs {
+		width: 33.333%;
+		margin-bottom: 20px
+	}
+}   
