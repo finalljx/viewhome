@@ -160,11 +160,12 @@
 	    }
 		var docunid = $(str).data("unid");
 		var issuedoc = localStorage.getItem("issuedoc");
-		var oaurl = issuedoc+"/AppDoingView/"+docunid+"?opendocument&login";
-		localStorage.setItem("oaDataSource",oaurl);
-		var targetURL= $.hori.getconfig().serverBaseUrl+"viewhome/html/issuedocPage.html";
-		targetURL=encodeURI(targetURL);
-		$.hori.loadPage(targetURL);
+		var oaurl =$.hori.getconfig().appServerHost+"view/oa/issuedocPage/"+issuedoc+"/AppDoingView/"+docunid+"?opendocument&login";
+// 		localStorage.setItem("oaDataSource",oaurl);
+// 		var targetURL= $.hori.getconfig().serverBaseUrl+"viewhome/html/issuedocPage.html";
+// 		targetURL=encodeURI(targetURL);
+        alert(oaurl);
+		$.hori.loadPage(oaurl);
 	}
 	//收文详情页
 	function loadReceivedocPage(str){

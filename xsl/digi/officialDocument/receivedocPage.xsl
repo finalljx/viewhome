@@ -10,28 +10,64 @@
 	<script src="/view/lib/jquery/jquery.min.js"></script>
 	<script src="/view/lib/encrypt/encrypt.js"></script>
 	<script src="/view/lib/json/json2.js"></script>
+	<script src="/view/lib/knockout/knockout.js"></script>
+    <script src="/view/lib/knockout/knockout.mapping.js"></script>
 	<script src="/view/lib/hori/hori.js?tag=21369"></script>
 	<script src="/view/lib/jquery-mobile/jquery.mobile.min.js"></script>
 	<script src="/view/config/web/config.js"></script>
   	<script>
   	<![CDATA[
+  	    var jsonData = new Object();
   		function getAttach(){
-  			alert("111111111111111111111111111");
-  			var AttachMentUrl = $("#attachMentUrl").val();
-  			var AttachMentUrl=$.hori.getconfig().appServerHost+"view/oa/attach/"+AttachMentUrl;
-			$.hori.ajax({
+  			var server = "oa-a.crsc.isc";
+	        var dbpath = localStorage.getItem("receivedoc");
+	        var unid=$("#unid").val();
+  			var AttachMentUrl=$.hori.getconfig().appServerHost+"view/oa/attach/Produce/SysInterface.nsf/getAttachment?openagent&server="+server+"&dbpath="+dbpath+"&unid="+unid+"&data-result=text";
+             $.hori.ajax({
 				"type":"post",
 				"url":AttachMentUrl,
 				"success":function(res){
-					alert(res);return;
-					$.hori.hideLoading();
+					var list = JSON.parse(res);
+					if(list.word[0]=='undefined'){
+					list.word[0]={"name":"无正文内容","url":""};
+					
+					}
+					jsonData.word=list.word;
+					renderDetail();
+					if(list.attachment[0]==undefined){
+					list.attachment[0]={"name":"无附件","url":""};
+					
+					}
+					jsonData.attachment=list.attachment;
+					renderDetail2();
 				},
 				"error":function(res){
-					alert(res);
 					$.hori.hideLoading();
 				}
 			});
   		}
+  	function renderDetail() {
+		var viewModelDetail = ko.mapping.fromJS(jsonData);
+		console.log(viewModelDetail);
+		ko.applyBindings(viewModelDetail, document.getElementById("word"));
+	}
+	function renderDetail2() {
+		var viewModelDetail = ko.mapping.fromJS(jsonData);
+		console.log(viewModelDetail);
+		ko.applyBindings(viewModelDetail, document.getElementById("attachment"));
+	}
+	   function viewfile(item) {
+	   
+		var url = item.url();
+		if(url==""){
+		   return;
+		}
+		localStorage.setItem("attachmentUrl", url);
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl
+				+ "viewhome/html/attachmentShowForm.html",
+				$.hori.getconfig().serverBaseUrl
+						+ "viewhome/xml/AttachView.xml");
+	}
   	]]>
   	</script>
 </head>
@@ -39,8 +75,8 @@
 	<div id="notice" data-role="page">
 		<div data-role="content" align="center">
 			<!-- 附件隐藏域 -->
-			<xsl:variable name="attachMentUrl" select="//input[@name='NTKOAttachMentUrl']/@value"/>
-			<input type="hidden" id="attachMentUrl" value="{$attachMentUrl}"/>
+			<xsl:variable name="unid" select="//input[@name='StMaindocUnid_Att']/@value"/>
+			<input type="hidden" id="unid" value="{$unid}"/>
 		    <div>
 		        <ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
 					<li data-role="list-divider">收文办理单</li>
@@ -59,15 +95,30 @@
 			<h1>审批流转意见</h1>
 			<div>
 	                 <ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
+	                    <xsl:if test="not(//table[@class='list']/tbody/tr)">
+								    <li>无审批流转意见</li>
+						</xsl:if>
+						<xsl:if test="//table[@class='list']/tbody/tr">
 	                          <xsl:apply-templates select="//table[@class='list']/tbody/tr" mode='tr'/>
+	                    </xsl:if>
 	                 </ul>
 			</div>
 		</div>
 		<div data-role="collapsible" data-collapsed="true" data-theme="f">
 			<h1>正文</h1>
 			<div>
-	                 <ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
-	                          
+	                 <ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word" data-bind="foreach: word" id="word">
+	                      <li> <a data-bind="click:viewfile"><span data-bind="text: name"></span></a></li>  
+							  
+	                 </ul>
+			</div>
+		</div>
+		<div data-role="collapsible" data-collapsed="true" data-theme="f">
+			<h1>附件</h1>
+			<div>
+	                 <ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word" data-bind="foreach: attachment" id="attachment">
+	                      <li> <a data-bind="click:viewfile"><span data-bind="text: name"></span></a></li>  
+							  
 	                 </ul>
 			</div>
 		</div>
@@ -116,7 +167,7 @@
 					<li><xsl:value-of select="td[5]/."/><xsl:value-of select="td[6]/."/></li>
 				</xsl:when>
 				<xsl:when test="$num mod 3=2">
-					<li>审批意 见:<xsl:value-of select="td[2]/."/><br/></li>
+					<li>审批意 见:<xsl:value-of select="td[2]" disable-output-escaping="yes"/><br/></li>
 				</xsl:when> 
 				<xsl:otherwise>
 				</xsl:otherwise>
