@@ -23,7 +23,7 @@ a {
 </head>
 <body>
 	<!-- 收入利润趋势 -->
-	<div id="main"></div>
+	<div id="main" ></div>
 	<div id="main1"></div>
 
 
@@ -65,10 +65,10 @@ a {
 				"success" : function(res) {
 
 					var json = JSON.parse(res);
-					console.log(res);
 					
 					var cWidth = window.screen.width;
-					if (cWidth < 720) {
+					alert(cWidth);
+					if (cWidth < 730) {
 						fontSize = 17;
 						fontSize2 = 14;
 					} else {

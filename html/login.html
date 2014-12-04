@@ -25,7 +25,10 @@ a {
 	var captcha_id = "";
 	$(document).ready(function() {
 		//获取验证码
+		var loadBrower=$.hori.loadBrowerDebug();
+		if(loadBrower){//如果浏览器登陆
 		getCaptcha();
+		}
 		if (localStorage.getItem("data-saveusername") == "true") {
 			var username = localStorage.getItem("username");
 			if (username == null) {
@@ -103,6 +106,7 @@ a {
 		return false;
 	}
 	function login() {
+		$.hori.showLoading();
 		var username = $.trim($("#username").val());
 		var password = $("#password").val();
 		var captcha = $("#captcha").val();
@@ -124,7 +128,7 @@ a {
 				return;
 			}
 		}
-		$.hori.showLoading();
+		
 		//先验证4W人用户接口
 		try {
 			var random = new Date().getTime();

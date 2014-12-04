@@ -175,12 +175,13 @@ img{
 		});
 		//重置ID
 	}
+	
 	function viewfile(item){
 		if(item.attachmentSource()=="noSupport"){
 			alert("系统不能打开此文件！");return;
 		}
 		var cookie_userstore = localStorage.getItem("cookie_userstore");
-		var url=item.attachmentSource()+"&data-convert=office&data-basic-auth-u=wpsadmin&data-basic-auth-p=GTAdmin";
+		var url=item.attachmentSource()+"&data-convert=office&data-basic-auth-u=wpsadmin&data-basic-auth-p=GTAdmin?data-application=mobile";
 		url=url.replace(/\&amp;/g,"&");
 		localStorage.setItem("attachmentUrl",url);
 // 		$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
