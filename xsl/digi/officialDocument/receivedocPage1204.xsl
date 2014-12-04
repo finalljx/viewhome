@@ -21,15 +21,14 @@
   		function getAttach(){
   			var server = "oa-a.crsc.isc";
 	        var dbpath = localStorage.getItem("receivedoc");
-	        var unid=localStorage.getItem("Receivedocdocunid");
+	        var unid=$("#unid").val();
   			var AttachMentUrl=$.hori.getconfig().appServerHost+"view/oa/attach/Produce/SysInterface.nsf/getAttachment?openagent&server="+server+"&dbpath="+dbpath+"&unid="+unid+"&data-result=text";
              $.hori.ajax({
 				"type":"post",
 				"url":AttachMentUrl,
 				"success":function(res){
-				alert(res);
 					var list = JSON.parse(res);
-					if(list.word[0]==undefined){
+					if(list.word[0]=='undefined'){
 					list.word[0]={"name":"无正文内容","url":""};
 					
 					}
@@ -82,9 +81,20 @@
 		        <ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
 					<li data-role="list-divider">收文办理单</li>
 					<li><xsl:value-of select="//fieldset[@id='Abstract']/h3" /></li>
-			<li data-role="list-divider">基础信息</li>
+				</ul>
+			</div>
+			<div data-role="collapsible" data-collapsed="false" data-theme="f">
+			<h1>基础信息</h1>
+			<div>
+				<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
 					<xsl:apply-templates select="//fieldset[@id='fieldSet1']/div[@class='row']/descendant::div[@class='input-group']" mode="b"/>
-				<li data-role="list-divider">审批流转意见</li>
+				</ul>
+			</div>
+		</div>
+		<div data-role="collapsible" data-collapsed="true" data-theme="f">
+			<h1>审批流转意见</h1>
+			<div>
+	                 <ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
 	                    <xsl:if test="not(//table[@class='list']/tbody/tr)">
 								    <li>无审批流转意见</li>
 						</xsl:if>
@@ -92,21 +102,26 @@
 	                          <xsl:apply-templates select="//table[@class='list']/tbody/tr" mode='tr'/>
 	                    </xsl:if>
 	                 </ul>
-			
-		
+			</div>
+		</div>
+		<div data-role="collapsible" data-collapsed="true" data-theme="f">
+			<h1>正文</h1>
+			<div>
 	                 <ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word" data-bind="foreach: word" id="word">
-	                      <li data-role="list-divider">正文内容</li>
-	                      <li> <a data-role="button" data-bind="click:viewfile"><span data-bind="text: name"></span></a></li>  
-							  
-	                 </ul>
-			
-	                 <ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word" data-bind="foreach: attachment" id="attachment">
-	                      <li data-role="list-divider">附件</li>
-	                      <li> <a data-role="button" data-bind="click:viewfile"><span data-bind="text: name"></span></a></li>  
+	                      <li> <a data-bind="click:viewfile"><span data-bind="text: name"></span></a></li>  
 							  
 	                 </ul>
 			</div>
-		
+		</div>
+		<div data-role="collapsible" data-collapsed="true" data-theme="f">
+			<h1>附件</h1>
+			<div>
+	                 <ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word" data-bind="foreach: attachment" id="attachment">
+	                      <li> <a data-bind="click:viewfile"><span data-bind="text: name"></span></a></li>  
+							  
+	                 </ul>
+			</div>
+		</div>
 		</div>
 		
 		
