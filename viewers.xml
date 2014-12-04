@@ -6,7 +6,7 @@
 			<rule mode="replace" regex="xml:lang" value="lang" />
 		</view>
 	</viewer>
-	<viewer id="oa" type="remote" source="http://w3.crsc.isc/oatest/" 	encoding="gb2312">
+	<viewer id="oa" type="remote" source="http://w3.crsc.isc/oa/" 	encoding="gb2312">
 		<view id="request" template="digi/mobile/request.xsl" encoding="utf-8">
 			<rule mode="replace" regex="soap:" value="" />
 			<rule mode="replace" regex="ns1:" value="" />
@@ -60,7 +60,7 @@
 		<view id="newsfile" template="" />
 
 	</viewer>
-	<viewer id="oamobile" type="remote" source="http://w3.crsc.isc/oatest/" encoding="gb2312">
+	<viewer id="oamobile" type="remote" source="http://w3.crsc.isc/oa/" encoding="gb2312">
 		<!-- 代办条数，气泡显示 -->
 		<view id="todosnum" template="todosNumber.jsp" encoding="utf-8" />
 		<!-- 手机待办列表 -->
@@ -213,5 +213,5 @@
 			<rule mode="replace" regex=":" value="_"/>
 		</view>
 	</viewer>
-	<viewer id="oamsg" type="remote" source="http://w3.crsc.isc/oatest/"	encoding="gb2312"></viewer>
+	<viewer id="oamsg" type="remote" source="http://w3.crsc.isc/oa/"	encoding="gb2312"></viewer>
 </viewers>

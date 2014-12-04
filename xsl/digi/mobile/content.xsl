@@ -16,7 +16,7 @@
 						/*设置标题*/
 						//hori.setHeaderTitle("单据");
 					});
-					function makejq(){						
+					function makejq(){
 						var jqElement = document.getElementById("jq");
 						var url = $.hori.getconfig().appServerHost+"view/oamobile/operationjq/Produce/DigiFlowMobile.nsf/frmselectpsn?OpenForm&amp;login&amp;selectMode=radio&amp;FieldName=TFTempAuthors&amp;FieldNameCN=TFTempAuthorsCN&amp;FieldNameEN=TFTempAuthorsEN&amp;GroupFlag=no&amp;SelectOrgID=&amp;OptFieldName=&amp;callback=SubmitFlowDoc_JQ";
 						//alert(url);
@@ -29,7 +29,7 @@
 
 					function searchPerson(){						
 						
-						var contentHtml=$("#notice").html();						
+						var contentHtml=$("#notice").html();
 						localStorage.setItem("oaAppContentHtml",contentHtml);
 						$.hori.loadPage($.hori.getconfig().appServerHost+"view/html/searchPerson.html");
 					}

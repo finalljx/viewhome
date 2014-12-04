@@ -11,24 +11,12 @@
 <script src="../config/web/config.js"></script>
 <script type="text/javascript">
 function openmail(){
-	if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)) {
-		window.location.href="mailto:";
-
-	} else if (window.navigator.userAgent.match(/android/i)) {
-		var runMail=new cherry.bridge.NativeOperation("application", "runTraveler", []).dispatch();
-		var travelerScript = new cherry.bridge.ScriptOperation(function(){
-				var result = runMail.returnValue;
-				if(!result || result==false || result=='false'){
-				alert('请先安装traveler客户端!');
-				}
-				});
-		travelerScript.addDependency(runMail);
-		travelerScript.dispatch();
-		cherry.bridge.flushOperations();
-	}
+	//$.hori.loadPage("http://mail.crsc.cn/");
+	//window.location.href="http://mail.crsc.cn/";
 }
+//ibmscp://com.ibm.connections/launch
 function loadConnections() {
-	$.hori.runApp("com.ibm.lotus.connections.mobile1","com.ibm.lotus.connections.mobile.pages.LotusConnections",function(res) {
+	$.hori.runApp("com.ibm.lotus.connections.mobile","com.ibm.lotus.connections.mobile.pages.LotusConnections",function(res) {
 		alert(res);
 		if (res == "true") {
 			console.log("启动Connections客户端");
