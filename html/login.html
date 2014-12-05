@@ -26,15 +26,10 @@ a {
 	var captcha_id = "";
 	$(document).ready(function() {
 		//获取验证码
-		var loadBrower = $.hori.loadBrowerDebug();
-		if (loadBrower) {//如果浏览器登陆
+		var isMobileDevice=$.hori.isMobileDevice();
+		alert(isMobileDevice);
+		if(!isMobileDevice){ //如果浏览器登陆
 			getCaptcha();
-		var loadBrower=$.hori.loadBrowerDebug();
-		if(loadBrower){//如果浏览器登陆
-			setTimeout(
-					function() {
-				getCaptcha();
-					},1000);
 		}
 		if (localStorage.getItem("data-saveusername") == "true") {
 			var username = localStorage.getItem("username");
@@ -80,6 +75,9 @@ a {
 
 	//清除输入登录信息
 	function clearLoginInput() {
+		if (!document.getElementById("saveusername").checked) {//未选中状态，清空用户名输入
+			$("#username").val("");
+		}
 		$("#password").val("");
 		$("#captcha").val("");
 	}
@@ -89,7 +87,7 @@ a {
 		$("#captcha_id").val(captcha_id); //设置验证码id
 		$("#captchaImg").attr(
 				"src",
-				$.hori.getconfig().appServerHost2
+				$.hori.getconfig().appServerHost
 						+ "/servlet/captcha?captcha_id=" + captcha_id);
 	}
 	function clearData() {
