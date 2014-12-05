@@ -22,24 +22,27 @@
 	$(document)
 			.ready(
 					function() {
+						try{
 						$.hori.setHeaderTitle("安全生产值班表详情");
 						var config = $.hori.getconfig();
 						var docunid = localStorage.getItem("watchDocUnid");
 						var serverUrl = $.hori.getconfig().appServerHost;
-						var dataSource = "view/safety/detail/Application/Safety/SafetyProBasic.nsf/loadAppContentForMobile?openagent&data-result=text";
+						var dataSource = "view/safety/detail/Application/Safety/SafetyProBasic.nsf/loadAppContentForMobile?openagent&data-result=text&docunid="+docunid;
 						serverUrl = serverUrl + dataSource;
+						
 						$.hori.hideLoading();
 						$.hori.ajax({
 							"type" : "get",
 							"url" : serverUrl,
 							"dataType" : "json",
-							"data" : {
-								"docunid" : docunid
-							},
+							
 							"success" : function(res) {
+								
 								$.hori.hideLoading();
 								var parsedStr = JSON.parse(res);
+								
 								render(parsedStr);
+								$.mobile.loading("hide");
 								$.hori.hideLoading();
 							},
 							"error" : function(res) {
@@ -47,6 +50,9 @@
 								$.hori.hideLoading();
 							}
 						});
+						}catch(e){
+							alert(e.message);
+						}
 					});
 
 	function render(parsedStr) {
