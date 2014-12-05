@@ -27,7 +27,6 @@ a {
 	$(document).ready(function() {
 		//获取验证码
 		var isMobileDevice=$.hori.isMobileDevice();
-		alert(isMobileDevice);
 		if(!isMobileDevice){ //如果浏览器登陆
 			getCaptcha();
 		}
