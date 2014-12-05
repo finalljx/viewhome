@@ -74,11 +74,11 @@ a {
 
 	//清除输入登录信息
 	function clearLoginInput() {
-		if (!document.getElementById("saveusername").checked) {//未选中状态，清空用户名输入
-			$("#username").val("");
-		}
 		$("#password").val("");
 		$("#captcha").val("");
+	    if (!document.getElementById("saveusername").checked) {//未选中状态，清空用户名输入
+			$("#username").val("");
+		}
 	}
 	function getCaptcha() {
 		captcha_id = $.uuid();
@@ -260,6 +260,7 @@ a {
 	function cancel() {
 		$("#username").val("");
 		$("#password").val("");
+		$("#captcha").val("");
 	}
 	function saveUserInfoToLocal(username) {
 		try {
@@ -271,6 +272,8 @@ a {
 				localStorage.setItem("data-saveusername", "false");
 				localStorage.setItem("username", "");
 			}
+			//清空用户输入
+			clearLoginInput();
 		} catch (e) {
 		}
 	}
@@ -368,7 +371,7 @@ a {
 							<!-- <input type="hidden" id="captcha_id" /> -->
 							<td style="text-align: center;">
 								<!-- <a data-role="button" data-theme="f" data-mini="true" onclick="">1234</a> -->
-								<img id="captchaImg" onclick="getCaptcha();"
+								<img id="captchaImg" onclick="getCaptcha();" src="../assets/login/loading.png"
 								style="width: 100px; margin-left: 10px; text-align: right;">
 							</td>
 						</tr>
