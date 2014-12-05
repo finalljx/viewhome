@@ -3,7 +3,8 @@
 <head>
 <title>移动办公</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
 <link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" />
 <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
 <script src="../lib/jquery/jquery.min.js"></script>
@@ -25,9 +26,9 @@ a {
 	var captcha_id = "";
 	$(document).ready(function() {
 		//获取验证码
-		var loadBrower=$.hori.loadBrowerDebug();
-		if(loadBrower){//如果浏览器登陆
-		getCaptcha();
+		var loadBrower = $.hori.loadBrowerDebug();
+		if (loadBrower) {//如果浏览器登陆
+			getCaptcha();
 		}
 		if (localStorage.getItem("data-saveusername") == "true") {
 			var username = localStorage.getItem("username");
@@ -72,9 +73,9 @@ a {
 	});
 
 	//清除输入登录信息
-	function clearLoginInput(){
+	function clearLoginInput() {
 		$("#password").val("");
-        $("#captcha").val("");
+		$("#captcha").val("");
 	}
 	function getCaptcha() {
 		captcha_id = $.uuid();
@@ -121,21 +122,23 @@ a {
 		if (captcha == "") {
 			alert("请输入验证码!");
 			return;
-		}else{
-			if(isNaN(captcha)){
+		} else {
+			if (isNaN(captcha)) {
 				alert("验证码只能为数字！");
 				$("#captcha").val(""); //清空验证码内容
 				return;
 			}
 		}
-		
+
 		//先验证4W人用户接口
 		try {
 			var random = new Date().getTime();
 			var url = $.hori.getconfig().appServerHost
-					+ "view/ldap/checkLogin/userCheckPW?user_name=" + username + "&password="
-					+ password + "&data-login=true&data-captcha=" + captcha + "&data-captcha-id=" + captcha_id;
-			url = url + "&data-random=" + random ;
+					+ "view/ldap/checkLogin/userCheckPW?user_name=" + username
+					+ "&password=" + password
+					+ "&data-login=true&data-captcha=" + captcha
+					+ "&data-captcha-id=" + captcha_id;
+			url = url + "&data-random=" + random;
 		} catch (e) {
 		}
 		$.hori.ajax({
@@ -143,14 +146,14 @@ a {
 			"url" : url,
 			"success" : function(res) {
 				var json = JSON.parse(res);
-				if (json.success== true) { //认证通过
+				if (json.success == true) { //认证通过
 					websealValidation();
 				} else {
 					$.hori.hideLoading();
-					if(json.msg!= ""){ //验证码错误
+					if (json.msg != "") { //验证码错误
 						alert(json.msg);
 						getCaptcha(); //重新获取验证码
-					}else{
+					} else {
 						alert("用户名或密码错误。");
 					}
 				}
@@ -326,36 +329,44 @@ a {
 	<!-- 登录页面 -->
 	<div data-role="page" id="login" class="login">
 		<div data-role="content" align="center">
-			<ul id="viewBody" data-role="listview" data-theme="c" data-inset="true" style="max-width: 400px;">
-				<li data-role="list-divider"><a href="javascript:void(0);" data-theme="f"></a></li>
+			<ul id="viewBody" data-role="listview" data-theme="c"
+				data-inset="true" style="max-width: 400px;">
+				<li data-role="list-divider"><a href="javascript:void(0);"
+					data-theme="f"></a></li>
 				<li data-role="fieldcontain" data-type="horizontal">
-					<table style="width: 100%" cellspaceing="0" cellpadding="0" border="0">
+					<table style="width: 100%" cellspaceing="0" cellpadding="0"
+						border="0">
 						<tr>
 							<td style="min-width: 56px"><strong>用户名:</strong></td>
 							<td><input type="text" name="username"
-								style="outline: none; width: 100%; border: 0; background: transparent;" id="username" value=""
-								onfocus="clearData()" onblur="showTips()" /></td>
+								style="outline: none; width: 100%; border: 0; background: transparent;"
+								id="username" value="" onfocus="clearData()" onblur="showTips()" /></td>
 						</tr>
 					</table>
 				</li>
 				<li data-role="fieldcontain">
-					<table style="width: 100%" cellspaceing="0" cellpadding="0" border="0">
+					<table style="width: 100%" cellspaceing="0" cellpadding="0"
+						border="0">
 						<tr>
 							<td style="min-width: 56px"><strong>密&#160;&#160;&#160;&#160;码:</strong></td>
 							<td><input type="password" name="password"
-								style="outline: none; width: 100%; border: 0; background: transparent;" id="password" value="" /></td>
+								style="outline: none; width: 100%; border: 0; background: transparent;"
+								id="password" value="" /></td>
 						</tr>
 					</table>
 				</li>
 				<li data-role="fieldcontain">
-					<table style="width: 100%" cellspaceing="0" cellpadding="0" border="0">
+					<table style="width: 100%" cellspaceing="0" cellpadding="0"
+						border="0">
 						<tr>
 							<td style="min-width: 56px"><strong>验证码:</strong></td>
-							<td><input type="text" name="captcha" id="captcha" maxlength="4" style="width: 80px;" /></td>
+							<td><input type="text" name="captcha" id="captcha"
+								maxlength="4" style="width: 80px;" /></td>
 							<!-- <input type="hidden" id="captcha_id" /> -->
-							<td style="text-align: center ;">
-								<!-- <a data-role="button" data-theme="f" data-mini="true" onclick="">1234</a> --> <img id="captchaImg"
-								onclick="getCaptcha();" style="width: 100px; margin-left: 10px; text-align: right;">
+							<td style="text-align: center;">
+								<!-- <a data-role="button" data-theme="f" data-mini="true" onclick="">1234</a> -->
+								<img id="captchaImg" onclick="getCaptcha();"
+								style="width: 100px; margin-left: 10px; text-align: right;">
 							</td>
 						</tr>
 					</table>
@@ -363,22 +374,25 @@ a {
 				<li data-role="fieldcontain">
 					<div class="ui-grid-a">
 						<div class="ui-block-a">
-							<input type="checkbox" data-theme="f" name="saveusername" id="saveusername" data-mini="true" /> <label
+							<input type="checkbox"  name="saveusername" id="saveusername" data-mini="true" /> <label
 								for="saveusername" data-mini="true" >记住帐号</label>
+
 						</div>
 						<div class="ui-block-b">
-							<a data-role="button" data-theme="f" data-mini="true" onclick="forgetPwd()">忘记密码</a>
+							<a data-role="button" data-mini="true"
+								onclick="forgetPwd()">忘记密码</a>
 						</div>
 					</div>
 				</li>
 			</ul>
 			<div class="ui-grid-a">
 				<div class="ui-block-a">
-					<a href="javascript:void(0)" onclick="login()" data-theme="f" data-role="button" data-icon="check">&nbsp;登&nbsp;录&nbsp;</a>
+					<a href="javascript:void(0)" onclick="login()" data-theme="f"
+						data-role="button" data-icon="check">&nbsp;登&nbsp;录&nbsp;</a>
 				</div>
 				<div class="ui-block-b">
-					<a href="javascript:void(0)" onclick="cancel()" data-theme="f" data-role="button" data-icon="delete"
-						data-iconpos="right">&nbsp;取&nbsp;消&nbsp;</a>
+					<a href="javascript:void(0)" onclick="cancel()" data-theme="f"
+						data-role="button" data-icon="delete" data-iconpos="right">&nbsp;取&nbsp;消&nbsp;</a>
 				</div>
 			</div>
 			<div>
