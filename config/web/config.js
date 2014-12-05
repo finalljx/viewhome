@@ -4,9 +4,10 @@
 			"oaServerName":"mobile2.sugon.com",
 			"oaMsgServer":"mobile2.sugon.com",
 			"oaMobileServer":"mobile2.sugon.com",
-			"serverBaseUrl":"http://192.168.1.130:90/",
+			"serverBaseUrl":"https://mobile.genertec.com.cn/",
 			"encryptKey":"horiTech",
-			"appServerHost":"http://192.168.1.130:90/",
+			"appServerHost":"https://mobile.genertec.com.cn/",
+			"appServerHost2":"http://mobile.genertec.com.cn:8981/",
 			"appKey":"mobile",
 			"docServer":"doctest"
 		};
