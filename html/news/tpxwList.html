@@ -110,7 +110,7 @@ a {
 										var targetURL = $.hori.getconfig().appServerHost
 												+ 'view/tpxw/file'
 												+ list[item].tpxwImage
-												+ "?data-result=file&data-application=mobile";
+												+ "?data-result=file&data-application" + $.hori.getconfig().appKey;
 										list[item].tpxwImage = targetURL;
 									}
 
