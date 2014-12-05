@@ -29,6 +29,12 @@ a {
 		var loadBrower = $.hori.loadBrowerDebug();
 		if (loadBrower) {//如果浏览器登陆
 			getCaptcha();
+		var loadBrower=$.hori.loadBrowerDebug();
+		if(loadBrower){//如果浏览器登陆
+			setTimeout(
+					function() {
+				getCaptcha();
+					},1000);
 		}
 		if (localStorage.getItem("data-saveusername") == "true") {
 			var username = localStorage.getItem("username");
