@@ -209,12 +209,12 @@ img {
 		}
 		var cookie_userstore = localStorage.getItem("cookie_userstore");
 		var url = item.attachmentSource()
-				+ "&data-convert=office&data-basic-auth-u=wpsadmin&data-basic-auth-p=GTAdmin?data-application=mobile";
+				+ "&data-convert=office&data-basic-auth-u=wpsadmin&data-basic-auth-p=GTAdmin&data-application=" + $.hori.getconfig().appKey;
 		url = url.replace(/\&amp;/g, "&");
 		localStorage.setItem("attachmentUrl", url);
 		// 		$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
 		var loadUrl = $.hori.getconfig().serverBaseUrl
-				+ "viewhome/html/attachmentShowForm4News.html?data-application=mobile"
+				+ "viewhome/html/attachmentShowForm4News.html?data-application=" + $.hori.getconfig().appKey
 		$.hori.loadPage(loadUrl, "viewhome/xml/AttachView.xml");
 	}
 
