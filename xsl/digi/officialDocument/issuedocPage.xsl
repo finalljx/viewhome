@@ -21,15 +21,14 @@
   	    var jsonData = new Object();
   		function getAttach(){
   			var server = "oa-a.crsc.isc";
+  			localStorage.setItem("serverLength",server.length);
 	        var dbpath = localStorage.getItem("issuedoc");
 	        var unid=localStorage.getItem("Issuedocdocunid");
-	        alert(unid);
   			var AttachMentUrl=$.hori.getconfig().appServerHost+"view/oa/attach/Produce/SysInterface.nsf/getAttachment?openagent&server="+server+"&dbpath="+dbpath+"&unid="+unid+"&data-result=text";
              $.hori.ajax({
 				"type":"post",
 				"url":AttachMentUrl,
 				"success":function(res){
-				alert(res);
 					var list = JSON.parse(res);
 					if(list.word[0]==undefined){
 					list.word[0]={"name":"无正文内容","url":""};
@@ -64,6 +63,10 @@
 		if(url==""){
 		   return;
 		}
+		var size=localStorage.getItem("serverLength");
+		var number=parseInt(size)+7;
+		url=url.substring(number);
+		url=$.hori.getconfig().appServerHost+'view/oa/file'+url;
 		localStorage.setItem("attachmentUrl", url);
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl
 				+ "viewhome/html/attachmentShowForm.html",
@@ -72,6 +75,7 @@
 	}
   	]]>
 				</script>
+
 			</head>
 			<body onload="getAttach()">
 				<div id="notice" data-role="page">
@@ -87,44 +91,39 @@
 								<li>
 									<xsl:value-of select="//fieldset[@id='Abstract']/h3" />
 								</li>
-							   <li data-role="list-divider">基础信息</li>
-									<xsl:apply-templates
-										select="//fieldset[@id='fieldSet1']/div[@class='row']//div[@class='col-xs-12 col-md-6']"
-										mode="a" />
+								<li data-role="list-divider">基础信息</li>
+								<xsl:apply-templates
+									select="//fieldset[@id='fieldSet1']/div[@class='row']//div[@class='col-xs-12 col-md-6']"
+									mode="a" />
 								<li data-role="list-divider">审批流转意见</li>
-									<xsl:if test="//table[@id='Approval_Tabel']/tbody/tr">
-										<li>
-											<xsl:apply-templates select="//table[@id='Approval_Tabel']/tbody/tr"
-												mode='tr' />
-										</li>
-									</xsl:if>
-									<xsl:if test="not(//table[@id='Approval_Tabel']/tbody/tr)">
-										<li>无审批流转意见</li>
-									</xsl:if>
-								</ul>
-							
-						
-					
-								<ul data-role="listview" data-inset="true" data-theme="d"
-									style="word-wrap:break-word" data-bind="foreach: word" id="word">
-									<li data-role="list-divider">正文内容</li>
-										<a data-role="button"  data-bind="click:viewfile">
-											<span data-bind="text: name"></span>
-										</a>
+								<xsl:if test="//table[@id='Approval_Tabel']/tbody/tr">
+									<li>
+										<xsl:apply-templates select="//table[@id='Approval_Tabel']/tbody/tr"
+											mode='tr' />
+									</li>
+								</xsl:if>
+								<xsl:if test="not(//table[@id='Approval_Tabel']/tbody/tr)">
+									<li>无审批流转意见</li>
+								</xsl:if>
 
-								</ul>
-							
-								<ul data-role="listview" data-inset="true" data-theme="d"
-									style="word-wrap:break-word" data-bind="foreach: attachment"
-									id="attachment">
-										<li data-role="list-divider">附件</li>
-										<a data-role="button"  data-bind="click:viewfile">
-											<span data-bind="text: name"></span>
-										</a>
 
-								</ul>
-							</div>
-						
+
+								<li data-role="list-divider">正文内容</li>
+								<li data-bind="foreach: word" id="word">
+									<a data-role="button" data-bind="click:viewfile">
+										<span data-bind="text: name"></span>
+									</a>
+								</li>
+
+								<li data-role="list-divider">附件</li>
+								<li data-bind="foreach: attachment" id="attachment">
+									<a data-role="button" data-bind="click:viewfile">
+										<span data-bind="text: name"></span>
+									</a>
+								</li>
+							</ul>
+						</div>
+
 					</div>
 				</div>
 			</body>
