@@ -26,27 +26,28 @@ a {
 p {
 	text-indent: 2em;
 }
-img{
-    display: block;
-    margin: auto;
+
+img {
+	display: block;
+	margin: auto;
 }
 
+@media only screen and (min-width: 1070px) and (max-width: 1242px) {
+	.details {
+		font-size: 22px;
+	}
+	.div1 {
+		font-size: 15px;
+	}
+}
 
-@media  only screen and (min-width: 1070px) and (max-width: 1242px) {
-  .details {
-    font-size: 22px;
-  }
-  .div1 {
-  	font-size: 15px;
-  }
-} 
-@media  screen and (min-width: 400px) and (max-width: 800px) {
+@media screen and (min-width: 400px) and (max-width: 800px) {
 	.details {
 		font-size: 21px;
 	}
 	.div1 {
-  	font-size: 14px;
-  }
+		font-size: 14px;
+	}
 }
 
 @media screen and (min-width: 310px) and (max-width: 330px) {
@@ -54,10 +55,9 @@ img{
 		font-size: 20px;
 	}
 	.div1 {
-  	font-size: 13px;
-  }
-}  
-
+		font-size: 13px;
+	}
+}
 </style>
 
 <script type="text/javascript">
@@ -68,42 +68,45 @@ img{
 		//加载新闻详情
 		getWcmNewsData();
 	});
-	
+
 	//设置标题
-	function setHead(){
+	function setHead() {
 		moreCurrentName = localStorage.getItem("moreCurrentName");
-        switch (moreCurrentName) {
-        case "GT_HomePage_SiteArea_jttz":
-            $.hori.setHeaderTitle("通知详情");
-            break;
-        case "GT_HomePage_SiteArea_jtxw":
-        case "GT_HomePage_SiteArea_zgsxw":
-        case "GT_HomePage_SiteArea_tpxw":
-            $.hori.setHeaderTitle("新闻详情");
-            break;
-        case "GT_HomePage_SiteArea_kjdt":
-            $.hori.setHeaderTitle("科技动态详情");
-            break;
-        case "GT_HomePage_SiteArea_pmgg":
-            $.hori.setHeaderTitle("聘免公告详情");
-            break;
-        case "GT_HomePage_SiteArea_aqsc":
-            $.hori.setHeaderTitle("安全环保详情");
-            break;
-        case "GT_HomePage_SiteArea_zcfg":
-            $.hori.setHeaderTitle("政策法规详情");
-            break;
-        }
+		switch (moreCurrentName) {
+		case "GT_HomePage_SiteArea_jttz":
+			$.hori.setHeaderTitle("通知详情");
+			break;
+		case "GT_HomePage_SiteArea_jtxw":
+		case "GT_HomePage_SiteArea_zgsxw":
+		case "GT_HomePage_SiteArea_tpxw":
+			$.hori.setHeaderTitle("新闻详情");
+			break;
+		case "GT_HomePage_SiteArea_kjdt":
+			$.hori.setHeaderTitle("科技动态详情");
+			break;
+		case "GT_HomePage_SiteArea_pmgg":
+			$.hori.setHeaderTitle("聘免公告详情");
+			break;
+		case "GT_HomePage_SiteArea_aqsc":
+			$.hori.setHeaderTitle("安全环保详情");
+			break;
+		case "GT_HomePage_SiteArea_zcfg":
+			$.hori.setHeaderTitle("政策法规详情");
+			break;
+		}
 	}
 	//加载新闻详情
 	function getWcmNewsData() {
 		var currentContentName = localStorage.getItem("currentContentName");
 
 		var currentGT_HomePage = localStorage.getItem("moreCurrentName");
-		var url = $.hori.getconfig().appServerHost + "view/news/newsDetail/accsyWcmNews/services/WcmNewsData";
+		var url = $.hori.getconfig().appServerHost
+				+ "view/news/newsDetail/accsyWcmNews/services/WcmNewsData";
 		//            var temp = "$lt;?xml version='1.0' encoding='utf-8'?$gt;$lt;root$gt;$lt;newslist$gt;$lt;type$gt;GT_HomePage_SiteArea_jttz$lt;/type$gt;$lt;userid$gt;fangyonghong$lt;/userid$gt;$lt;pageSize$gt;10$lt;/pageSize$gt;$lt;parent$gt;1$lt;/parent$gt;$lt;pageNow$gt;1$lt;/pageNow$gt;$lt;/newslist$gt;$lt;/root$gt;";
-		var temp = "$lt;root$gt;$lt;newslist$gt;$lt;type$gt;" + currentGT_HomePage + "$lt;/type$gt;$lt;contentName$gt;"
-				+ currentContentName + "$lt;/contentName$gt;$lt;/newslist$gt;$lt;/root$gt;";
+		var temp = "$lt;root$gt;$lt;newslist$gt;$lt;type$gt;"
+				+ currentGT_HomePage + "$lt;/type$gt;$lt;contentName$gt;"
+				+ currentContentName
+				+ "$lt;/contentName$gt;$lt;/newslist$gt;$lt;/root$gt;";
 		var soap = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='http://webservice.biz.digiwin.com'>";
 		soap += '<soapenv:Header/><soapenv:Body>';
 		soap += '<web:getWcmNewsData>';
@@ -112,93 +115,118 @@ img{
 		soap += ' </soapenv:Body></soapenv:Envelope>';
 		var data = "data-xml=" + soap;
 
-		$.hori.ajax({
-			"type" : "post",
-			"url" : url,
-			"data" : data,
-// 			"headers" : {
-// 				"Authorization" : "Basic d3BzYWRtaW46R1RBZG1pbg=="
-// 			},
-			"success" : function(res) {
-				var widthImg=document.documentElement.clientWidth*0.8;
-				var url=$.hori.getconfig().appServerHost+"view/tpxw/file";
-				res=res.replace(/http:\/\/webseal.genertec.com.cn/g,url).replace(/&amp;amp;/g,"&");
-				res=res.replace(/CACHEID=.*?\\/g,'data-result=file&data-application=mobile\\\" width=\\\"'+widthImg+'\\');
-				res=res.replace(/style=.*?\\"/g,"");
-				res=res.replace(/WIDTH=.*?\\"/g,"");
-				res=res.replace(/HEIGHT=.*?\\"/g,"");
-				res=res.replace(/<p.+>(<img.+>)<\/p>/g,'$1');
-				console.log(res);
-				 var data = JSON.parse(res);
-				if ( data.attachmentSource!=undefined) {
-					document.getElementById("fujian").style.display = "inline";
-					var attachmentNameLength = data.attachment.length;
-					var attachmentSourceLength = data.attachmentSource.length;
-					if(data.attachment.charAt(attachmentNameLength - 1) === "|"){
-						data.attachment = data.attachment.substring(0,attachmentNameLength -1);
-					}
-					console.log("data.attachment:" + data.attachment);
-					if(data.attachmentSource.charAt(attachmentSourceLength - 1) === "|"){
-						data.attachmentSource = data.attachmentSource.substring(0,attachmentSourceLength - 1);
-					}
-					var dataArrayName = data.attachment.split("|");
-					var dataArraySource = data.attachmentSource.split("|");
-					for(var i=0; i<dataArraySource.length;i++){
-						dataArraySource[i]=dataArraySource[i].replace('http://portal.genertec.com.cn/',"").replace('http://webseal.genertec.com.cn/',"");
-					} 
-					
-					var dataData = new Object();
-					var list = new Array();
-					for (var i = 0; i < dataArrayName.length; i++) {
-						var lastIndex=dataArrayName[i].lastIndexOf(".");
-						
-						var cut= dataArrayName[i].substring(lastIndex);//dataArrayName[i].split(".")[2];
-						if(cut!=".doc"&cut!=".xls"&cut!=".ppt"&cut!=".pdf"&cut!=".txt"){
-							dataArraySource[i]="noSupport";
+		$.hori
+				.ajax({
+					"type" : "post",
+					"url" : url,
+					"data" : data,
+					// 			"headers" : {
+					// 				"Authorization" : "Basic d3BzYWRtaW46R1RBZG1pbg=="
+					// 			},
+					"success" : function(res) {
+						var widthImg = document.documentElement.clientWidth * 0.8;
+						var url = $.hori.getconfig().appServerHost
+								+ "view/tpxw/file";
+						res = res.replace(/http:\/\/webseal.genertec.com.cn/g,
+								url).replace(/&amp;amp;/g, "&");
+						res = res.replace(/CACHEID=.*?\\/g,
+								'data-result=file&data-application=mobile\\\" width=\\\"'
+										+ widthImg + '\\');
+						res = res.replace(/style=.*?\\"/g, "");
+						res = res.replace(/WIDTH=.*?\\"/g, "");
+						res = res.replace(/HEIGHT=.*?\\"/g, "");
+						res = res.replace(/<p.+>(<img.+>)<\/p>/g, '$1');
+						console.log(res);
+						var data = JSON.parse(res);
+						if (data.attachmentSource != undefined) {
+							document.getElementById("fujian").style.display = "inline";
+							var attachmentNameLength = data.attachment.length;
+							var attachmentSourceLength = data.attachmentSource.length;
+							if (data.attachment
+									.charAt(attachmentNameLength - 1) === "|") {
+								data.attachment = data.attachment.substring(0,
+										attachmentNameLength - 1);
+							}
+							console.log("data.attachment:" + data.attachment);
+							if (data.attachmentSource
+									.charAt(attachmentSourceLength - 1) === "|") {
+								data.attachmentSource = data.attachmentSource
+										.substring(0,
+												attachmentSourceLength - 1);
+							}
+							var dataArrayName = data.attachment.split("|");
+							var dataArraySource = data.attachmentSource
+									.split("|");
+							for (var i = 0; i < dataArraySource.length; i++) {
+								dataArraySource[i] = dataArraySource[i]
+										.replace(
+												'http://portal.genertec.com.cn/',
+												"")
+										.replace(
+												'http://webseal.genertec.com.cn/',
+												"");
+							}
+
+							var dataData = new Object();
+							var list = new Array();
+							for (var i = 0; i < dataArrayName.length; i++) {
+								var lastIndex = dataArrayName[i]
+										.lastIndexOf(".");
+
+								var cut = dataArrayName[i].substring(lastIndex);//dataArrayName[i].split(".")[2];
+								if (cut != ".doc" & cut != ".xls"
+										& cut != ".ppt" & cut != ".pdf"
+										& cut != ".txt") {
+									dataArraySource[i] = "noSupport";
+								}
+								var item = new Object();
+								item.attachment = dataArrayName[i];
+								item.attachmentSource = dataArraySource[i];
+								list.push(item);
+							}
+							dataData.list = list;
+							console.log(data);
+							renderfj(dataData);
 						}
-						var item = new Object();
-						item.attachment = dataArrayName[i];
-						item.attachmentSource = dataArraySource[i];
-						list.push(item);
+						setTimeout(function() {
+							$.hori.hideLoading();
+						}, 2000);
+						render(data);
+					},
+					"error" : function(res) {
+						alert("error:" + res);
+						$.hori.hideLoading();
 					}
-					dataData.list = list;
-					console.log(data);
-					renderfj(dataData);
-				} 
-					render(data);
-					$.hori.hideLoading();
-			},
-			"error" : function(res) {
-				alert("error:" + res);
-				$.hori.hideLoading();
-			} 
-		});
+				});
 		//重置ID
 	}
-	
-	function viewfile(item){
-		if(item.attachmentSource()=="noSupport"){
-			alert("系统不能打开此文件！");return;
+
+	function viewfile(item) {
+		if (item.attachmentSource() == "noSupport") {
+			alert("系统不能打开此文件！");
+			return;
 		}
 		var cookie_userstore = localStorage.getItem("cookie_userstore");
-		var url=item.attachmentSource()+"&data-convert=office&data-basic-auth-u=wpsadmin&data-basic-auth-p=GTAdmin?data-application=mobile";
-		url=url.replace(/\&amp;/g,"&");
-		localStorage.setItem("attachmentUrl",url);
-// 		$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
-		var loadUrl=$.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm4News.html?data-application=mobile"
-		$.hori.loadPage( loadUrl, "viewhome/xml/AttachView.xml");
+		var url = item.attachmentSource()
+				+ "&data-convert=office&data-basic-auth-u=wpsadmin&data-basic-auth-p=GTAdmin?data-application=mobile";
+		url = url.replace(/\&amp;/g, "&");
+		localStorage.setItem("attachmentUrl", url);
+		// 		$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
+		var loadUrl = $.hori.getconfig().serverBaseUrl
+				+ "viewhome/html/attachmentShowForm4News.html?data-application=mobile"
+		$.hori.loadPage(loadUrl, "viewhome/xml/AttachView.xml");
 	}
-	
+
 	function render(jsonData) {
 		var viewModel = ko.mapping.fromJS(jsonData);
-		ko.applyBindings(viewModel,document.getElementById("textRich"));
-		document.getElementById("divContent").style.display='';
-		$.hori.hideLoading();
+		ko.applyBindings(viewModel, document.getElementById("textRich"));
+		document.getElementById("divContent").style.display = '';
+		//$.hori.hideLoading();
 	}
 	function renderfj(jsonData) {
 		var viewModel = ko.mapping.fromJS(jsonData);
-		ko.applyBindings(viewModel,document.getElementById("fujian"));
-		$.hori.hideLoading();
+		ko.applyBindings(viewModel, document.getElementById("fujian"));
+		//$.hori.hideLoading();
 	}
 </script>
 </head>
@@ -208,37 +236,41 @@ img{
 			<!-- 标题 -->
 			<div>
 				<h2 style='font-size: 28px;'>
-					<span data-bind="text: contentTitle" ></span>
+					<span data-bind="text: contentTitle"></span>
 				</h2>
 			</div>
-			
-			
-			<div id="divContent" style="background-color: rgba(127,127,127,0.3);display: none;">
+
+
+			<div id="divContent"
+				style="background-color: rgba(127, 127, 127, 0.3); display: none;">
 				<p>
-				<div class='div1' style="float: left;line-height:1.5">
+				<div class='div1' style="float: left; line-height: 1.5">
 					发布时间：<span data-bind="text: creatTime"></span>
 				</div>
-				<div class='div1' style="float: right;line-height:1.5">
+				<div class='div1' style="float: right; line-height: 1.5">
 					发文来源：<span data-bind="text: newsource"></span>
 				</div>
-				<br/>
+				<br />
 				</p>
-			
+
 			</div>
 			<div style="clear: both;" class='details'>
 				<span data-bind="html:richText"></span>
 			</div>
-			</div>
-			 <div style="clear: both; display: none;" id="fujian" data-bind="if:$root.list">
-			 <a style="float: left;color: black; margin-left: 15px;">附件列表:</a>
-				<ul data-bind="foreach: list" style="list-style-type:none;">
-					<li data-icon="false" style="float: left;">
-					<a data-bind="click:viewfile" ><span
-							data-bind="text: attachment"></span></a></li><br/>
-				</ul>
-			</div> 
-			<br/><br/><br/>
 		</div>
+		<div style="clear: both; display: none;" id="fujian"
+			data-bind="if:$root.list">
+			<a style="float: left; color: black; margin-left: 15px;">附件列表:</a>
+			<ul data-bind="foreach: list" style="list-style-type: none;">
+				<li data-icon="false" style="float: left;"><a
+					data-bind="click:viewfile"><span data-bind="text: attachment"></span></a></li>
+				<br />
+			</ul>
+		</div>
+		<br />
+		<br />
+		<br />
+	</div>
 	</div>
 </body>
 </html>
