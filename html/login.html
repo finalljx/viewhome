@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" />
 <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
 <script src="../lib/jquery/jquery.min.js"></script>
-<!-- jQuery招展，生成uuid -->
+<!-- jQuery扩展，生成uuid -->
 <script src="../lib/jquery/jquery.uuid.js" />
 <script src="../lib/jquery-cookie/jquery.cookie.js"></script>
 <script src="../lib/encrypt/encrypt.js"></script>
@@ -110,29 +110,29 @@ a {
 		return false;
 	}
 	function login() {
-		$.hori.showLoading();
+		$.hori.loading();
 		var username = $.trim($("#username").val());
 		var password = $("#password").val();
 		var captcha = $("#captcha").val();
 		if (username == "") {
+			$.hori.loading("hide");
 			alert("请输入用户名!");
-			$.hori.hideLoading();
 			return;
 		}
 		if (password == "") {
+			$.hori.loading("hide");
 			alert("请输入密码!");
-			$.hori.hideLoading();
 			return;
 		}
 		if (captcha == "") {
+			$.hori.loading("hide");
 			alert("请输入验证码!");
-			$.hori.hideLoading();
 			return;
 		} else {
 			if (isNaN(captcha)) {
+				$.hori.loading("hide");
 				alert("验证码只能为数字！");
 				$("#captcha").val(""); //清空验证码内容
-				$.hori.hideLoading();
 				return;
 			}
 		}
@@ -156,7 +156,7 @@ a {
 				if (json.success == true) { //认证通过
 					websealValidation();
 				} else {
-					$.hori.hideLoading();
+					$.hori.loading("hide");
 					if (json.msg != "") { //验证码错误
 						alert(json.msg);
 						getCaptcha(); //重新获取验证码
@@ -166,8 +166,8 @@ a {
 				}
 			},
 			"error" : function(res) {
+				$.hori.loading("hide");
 				alert("登录错误" + res);
-				$.hori.hideLoading();
 			}
 		})
 	}
@@ -241,14 +241,14 @@ a {
 					//注册设备
 					registdevice();
 				} else {
-					$.hori.hideLoading();
+					$.hori.loading("hide");
 					alert(json.msg);
 				}
 
 			},
 			"error" : function(res) {
+				$.hori.loading("hide");
 				alert("登录错误" + res);
-				$.hori.hideLoading();
 			}
 		})
 	}
