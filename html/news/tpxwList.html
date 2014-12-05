@@ -108,7 +108,7 @@ a {
 									for ( var item in list) {
 										list[item].tpxwImage = list[item].tpxwImage.substring(list[item].tpxwImage.indexOf(".cn")+3);
 										var targetURL = $.hori.getconfig().appServerHost
-												+ 'view/tpxw/file/'
+												+ 'view/tpxw/file'
 												+ list[item].tpxwImage
 												+ "?data-result=file&data-application=mobile";
 										list[item].tpxwImage = targetURL;
