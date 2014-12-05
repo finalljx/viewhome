@@ -116,19 +116,23 @@ a {
 		var captcha = $("#captcha").val();
 		if (username == "") {
 			alert("请输入用户名!");
+			$.hori.hideLoading();
 			return;
 		}
 		if (password == "") {
 			alert("请输入密码!");
+			$.hori.hideLoading();
 			return;
 		}
 		if (captcha == "") {
 			alert("请输入验证码!");
+			$.hori.hideLoading();
 			return;
 		} else {
 			if (isNaN(captcha)) {
 				alert("验证码只能为数字！");
 				$("#captcha").val(""); //清空验证码内容
+				$.hori.hideLoading();
 				return;
 			}
 		}
@@ -392,14 +396,11 @@ a {
 				</li>
 			</ul>
 			<div class="ui-grid-a">
-				<div class="ui-block-a">
+				<div class="ui-block-a" style="width: 100%">
 					<a href="javascript:void(0)" onclick="login()" data-theme="f"
-						data-role="button" data-icon="check">&nbsp;登&nbsp;录&nbsp;</a>
+						data-role="button" >&nbsp;登&nbsp;录&nbsp;</a>
 				</div>
-				<div class="ui-block-b">
-					<a href="javascript:void(0)" onclick="cancel()" data-theme="f"
-						data-role="button" data-icon="delete" data-iconpos="right">&nbsp;取&nbsp;消&nbsp;</a>
-				</div>
+				
 			</div>
 			<div>
 				<div style="float: right; margin-top: 5px;">
