@@ -15,30 +15,11 @@
 <script src="../../lib/hori/hori.js?tag=21369"></script>
 <script src="../../lib/jquery-mobile/jquery.mobile.min.js"></script>
 <script src="../../config/web/config.js"></script>
-<script src="../../lib/knockout/knockout.js"></script>
-<script src="../../lib/knockout/knockout.mapping.js"></script>
 <style>
 a {
 	text-decoration: none;
 }
 
-@media only screen and (min-width: 1070px) and (max-width: 1242px) {
-	#month {
-		font-size: 17px;
-	}
-}
-
-@media screen and (min-width: 400px) and (max-width: 800px) {
-	#month {
-		font-size: 16px;
-	}
-}
-
-@media screen and (min-width: 310px) and (max-width: 330px) {
-	#month {
-		font-size: 15px;
-	}
-}
 
 
 </style>
@@ -70,8 +51,6 @@ a {
 					"success" : function(res) {
 						res = res.replace(/\s\s/g, "</p><p>");
 						var jsonObj = JSON.parse(res);
-						render(jsonObj);
-						$("#month").css('display', '');
 						document.getElementById("aa").innerHTML = jsonObj.reportdata.datatext;
 
 					},
@@ -80,10 +59,6 @@ a {
 						$.hori.hideLoading();
 					}
 				});
-	}
-	function render(parsedStr) {
-		viewModel = ko.mapping.fromJS(parsedStr);
-		ko.applyBindings(viewModel, document.getElementById('month'));
 	}
 </script>
 <style>
@@ -96,10 +71,6 @@ p {
 
 	<!-- 经营态势 -->
 	<div data-role="content" id="srwc" class="login">
-		<div  id='month' style="float: right; display: none;">
-			注：此经营数据截至<span data-bind="text: reportdata.year"></span>年<span
-				data-bind="text: reportdata.month"></span>月。
-		</div>
 		<div  align="left" id="aa"
 			style="margin-left: 20px; font-size: 20px;"></div>
 	</div>
