@@ -40,7 +40,7 @@
 							//viewfile 附件函数
 							function viewfile(url){
 								localStorage.setItem("attachmentUrl",url);
-								var fileurl = $.hori.getconfig().appServerHost+"view/html/attachmentShowForm.html?data-application=mobile";
+								var fileurl = $.hori.getconfig().appServerHost+"view/html/attachmentShowForm.html?data-application="+$.hori.getconfig().appKey;
 								var xmlurl ="viewhome/xml/AttachView.xml";
 								$.hori.loadPage(fileurl,xmlurl);
 							}

@@ -130,7 +130,7 @@ img {
 						res = res.replace(/http:\/\/webseal.genertec.com.cn/g,
 								url).replace(/&amp;amp;/g, "&");
 						res = res.replace(/CACHEID=.*?\\/g,
-								'data-result=file&data-application=mobile\\\" width=\\\"'
+								'data-result=file&data-application='+$.hori.getconfig().appKey+'\\\" width=\\\"'
 										+ widthImg + '\\');
 						res = res.replace(/style=.*?\\"/g, "");
 						res = res.replace(/WIDTH=.*?\\"/g, "");
