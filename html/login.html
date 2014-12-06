@@ -190,6 +190,7 @@ a {
 			"url" : url,
 			"data" : data,
 			"success" : function(res) {
+				$.hori.loading("hide");
 				var json = JSON.parse(res);
 				if (json.success) {
 					//本地存储itcode 和oaServerName
