@@ -43,6 +43,24 @@ $(document).ready(function() {
 function getWcmNewsData1() {
 	var currentContentName = localStorage.getItem("currentContentName");
 	var currentGT_HomePage = localStorage.getItem("moreCurrentName");
+	switch (currentGT_HomePage){
+	case "GT_HomePage_SiteArea_tpxw":
+		$.hori.setHeaderTitle("图片新闻");break;
+	case "GT_HomePage_SiteArea_jttz":
+		$.hori.setHeaderTitle("集团通知");break;
+	case "GT_HomePage_SiteArea_jtxw":
+		$.hori.setHeaderTitle("集团新闻");break;
+	case "GT_HomePage_SiteArea_zgsxw":
+		$.hori.setHeaderTitle("成员单位新闻");break;
+	case "GT_HomePage_SiteArea_pmgg":
+		$.hori.setHeaderTitle("聘免公告");break;
+	case "GT_HomePage_SiteArea_kjdt":
+		$.hori.setHeaderTitle("科技动态");break;
+	case "GT_HomePage_SiteArea_aqsc":
+		$.hori.setHeaderTitle("安全环保");break;
+	case "GT_HomePage_SiteArea_zcfg":
+	$.hori.setHeaderTitle("政策法规");
+	} 
 	var url = $.hori.getconfig().appServerHost + "view/news/newsDetail/accsyWcmNews/services/WcmNewsData";
 	// var temp = "$lt;?xml version='1.0'
 	// encoding='utf-8'?$gt;$lt;root$gt;$lt;newslist$gt;$lt;type$gt;GT_HomePage_SiteArea_jttz$lt;/type$gt;$lt;userid$gt;fangyonghong$lt;/userid$gt;$lt;pageSize$gt;10$lt;/pageSize$gt;$lt;parent$gt;1$lt;/parent$gt;$lt;pageNow$gt;1$lt;/pageNow$gt;$lt;/newslist$gt;$lt;/root$gt;";
@@ -89,7 +107,7 @@ function getWcmNewsData1() {
 					var list = new Array();
 					for (var i = 0; i < dataArrayName.length; i++) {
 						var cut=dataArrayName[i].split(".")[1];
-						if(cut!="doc"&cut!="xls"&cut!="ppt"&cut!="pdf"&cut!="txt"){
+						if(cut!="doc"&cut!="xls"&cut!="ppt"&cut!="pdf"&cut!="txt"&cut!="docx"){
 							dataArraySource[i]="noSupport";
 						}
 						var item = new Object();

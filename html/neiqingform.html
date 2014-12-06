@@ -45,7 +45,7 @@
 					"data" : "",
 					"success" : function(res) {
 						var url = $.hori.getconfig().appServerHost
-								+ "view/oa/file/doctest/";
+								+ "view/oa/file/"+$.hori.getconfig().docServer+"/";
 						res = res.replace(/&amp;nbsp;/g, "　");
 
 						var list = JSON.parse(res);

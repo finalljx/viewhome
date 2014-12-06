@@ -40,10 +40,8 @@
 			var url = $.hori.getconfig().appServerHost
 					+ "view/safety/watchList/Application/Safety/SafetyProBasic.nsf/SearchHolidayDutyForMobile?open";
 			url = url + "&data-random=" + random + "&data-result=text";
-		} catch (e) {
-		}
+		
 		var data = 'key=' + skey;
-
 		$.hori.ajax({
 			"type" : "post",
 			"url" : url,
@@ -63,10 +61,12 @@
 				$.hori.hideLoading();
 			},
 			"error" : function(res) {
-				alert(res);
 				$.hori.hideLoading();
 			}
 		})
+		} catch (e) {
+			alert(e.message);
+		}
 	}
 	
 	//跳转到详情页面

@@ -356,7 +356,7 @@ select="translate($filetype, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrst
 <xsl:if test="not(contains($fileunids, $fileunid))">
 <li>
 	<a href="javascript:void(0)"
-		onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/doctest/{$dbPath}/0/{$docunid}/$file/{$fileunid}.{$filetype}')">
+		onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/'+$.hori.getconfig().docServer+'/{$dbPath}/0/{$docunid}/$file/{$fileunid}.{$filetype}')">
 		<xsl:value-of select="$file" />
 		</a>
 </li>
