@@ -109,6 +109,10 @@ a {
 		}
 		return false;
 	}
+function loginWithLoading(){
+	$.hori.loading("show");
+	setTimeout(login,500);
+}
 	function login() {
 		$.hori.loading();
 		var username = $.trim($("#username").val());
@@ -398,7 +402,7 @@ a {
 			</ul>
 			<div class="ui-grid-a">
 				<div class="ui-block-a" style="width: 100%">
-					<a href="javascript:void(0)" onclick="login()" data-theme="f"
+					<a href="javascript:void(0)" onclick="loginWithLoading()" data-theme="f"
 						data-role="button" >&nbsp;登&nbsp;录&nbsp;</a>
 				</div>
 				
