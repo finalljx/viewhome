@@ -20,13 +20,13 @@
 					<head>
 					<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 					<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
-					<link rel="stylesheet" href="/view/lib/jquery-mobile/jquery.mobile.min.css" />
+					<link rel="stylesheet" href="http://lib.sinaapp.com/js/jquery-mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
 					<link rel="stylesheet" href="/view/assets/jquery.mobile-sugon.css" />
-					<script src="/view/lib/jquery/jquery.min.js"></script>
+					<script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
 					<script src="/view/lib/encrypt/encrypt.js"></script>
 					<script src="/view/lib/json/json2.js"></script>
 					<script src="/view/lib/hori/hori.js?tag=21369"></script>
-					<script src="/view/lib/jquery-mobile/jquery.mobile.min.js"></script>
+					<script src="http://lib.sinaapp.com/js/jquery-mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
 					<script src="/view/config/web/config.js"></script>
 						<script>
 						<![CDATA[
