@@ -41,6 +41,7 @@ $(document).ready(function() {
 });
 // 加载新闻详情
 function getWcmNewsData1() {
+	try{
 	var currentContentName = localStorage.getItem("currentContentName");
 	var currentGT_HomePage = localStorage.getItem("moreCurrentName");
 	switch (currentGT_HomePage){
@@ -127,6 +128,9 @@ function getWcmNewsData1() {
 			$.hori.hideLoading();
 		}
 	});
+	} catch (e) {
+		alert(e.message);
+	}
 	// 重置ID
 }
 function viewfile(item){

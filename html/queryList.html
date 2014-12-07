@@ -26,6 +26,7 @@
 			function pullUpAction () {
 				$.hori.showLoading();
 				setTimeout(function () {
+					try{
 					var type = localStorage.getItem("type");
 					var dbpath = "";
 					if(type=="searchqueryForDoing"){
@@ -154,7 +155,9 @@
 							$.hori.hideLoading();
 						}
 					});
-					
+					} catch (e) {
+						alert(e.message);
+					}
 				}, 1000);
 			}
 			function loaded() {
