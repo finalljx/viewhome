@@ -296,8 +296,10 @@
 					//singdbPath = res; 
 					singdbPath="/"+$.hori.getconfig().docServer+"/genertec/dep26/hqk_26.nsf";
 					localStorage.setItem("singdbPath",singdbPath);
+					$.hori.hideLoading();
 				},
 				"error":function(res){
+					$.hori.hideLoading();
 					alert("没获取到会签库路径");
 				}
 			});
@@ -424,6 +426,7 @@
 					$.hori.hideLoading();
 					myScroll.refresh();
 					signLoad=true;
+					$.hori.hideLoading();
 				},
 				"error":function(res){
 					alert(res);
@@ -467,7 +470,7 @@
 					$("#signdataList").append(res).listview("refresh");
 					$.hori.hideLoading();
 					myScroll.refresh();
-					
+					$.hori.hideLoading();
 				},
 				"error":function(res){
 					alert(res);
