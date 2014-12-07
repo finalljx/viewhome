@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>风险状况 </title>
+<title>风险状况</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
-
 <style>
 a {
 	text-decoration: none;
 }
-#xianshi{
-padding:0px;
-margin-left: 0px;
-float: left;
+
+#xianshi {
+	padding: 0px;
+	margin-left: 0px;
+	float: left;
 }
+
 a {
 	text-decoration: none;
 }
@@ -25,7 +26,18 @@ a {
 	float: left;
 }
 
- .top_year {
+.top_year {
+	font-size: 14px;
+	position: absolute;
+	padding: 2px;
+}
+
+.top_year_first {
+	font-size: 14px;
+	position: absolute;
+	padding: 2px;
+}
+/* .top_year {
 	font-size: 14px;
 	position: absolute;
 	color: #FFF;
@@ -39,12 +51,45 @@ a {
 	color: #FFF;
 	padding: 2px;
 	background-color: rgba(127, 127, 127, 0.5);
+} */
+/*
+.big_light{
+    width: 30px;
+    height: 30px;
+    margin-top:12px;
 }
+
+.small_light{
+    width: 12px;
+    height: 12px;
+} */
+/* @media only screen and (min-width: 1070px) and (max-width: 1242px) {
+	#month {
+		font-size: 17px;
+	}
+}
+
+@media screen and (min-width: 400px) and (max-width: 800px) {
+	#month {
+		font-size: 16px;
+	}
+}
+
+@media screen and (min-width: 310px) and (max-width: 330px) {
+	#month {
+		font-size: 15px;
+	}
+}
+ */
 </style>
+
 </head>
-<body >
+<body>
+	<div id='month' style="float: right; display: none;">
+		注：此经营数据截至<span data-bind="text: reportdata.year"></span>年<span
+			data-bind="text: reportdata.month"></span>月。
+	</div>
 	<!-- 风险状况 -->
-		<div id="xianshi"  >
-		</div>
+	<div id="xianshi"></div>
 </body>
 </html>
