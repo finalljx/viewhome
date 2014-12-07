@@ -103,6 +103,7 @@ a {
 				currentYear = parseInt(currentYear) + distance;
 			}
 		}
+		$("[role='button']").removeAttr("onclick");
 		$("#currentYear").html(currentYear);
 		var url = $.hori.getconfig().appServerHost
 				+ "view/periodical/list?order=ASC&year=" + currentYear;
@@ -131,9 +132,13 @@ a {
 					}
 				}
 				renderDzqk(json);
+				$("#loadNextYear").attr({"onclick":"dzqkAction(1)"});
+				$("#loadPreYear").attr({"onclick":"dzqkAction(-1)"});
 			},
 			"error" : function(res) {
 				alert("error:" + res);
+				$("#loadNextYear").attr({"onclick":"dzqkAction(1)"});
+				$("#loadPreYear").attr({"onclick":"dzqkAction(-1)"});
 				$.hori.hideLoading();
 			}
 
@@ -164,10 +169,10 @@ a {
 <body>
 	<div data-role="content" align="center">
 		<div>
-			<a data-role="button" data-mini='true' style="float: left;"
+			<a id="loadPreYear" data-role="button" data-mini='true' style="float: left;"
 				onclick="dzqkAction(-1)">上一年</a> <span style="text-align: center;"><font
 				id="currentYear" style="font-size: 30px; color: #000;"></font></span><a
-				data-role="button" data-mini='true' style="float: right;"
+				data-role="button" id="loadNextYear" data-mini='true' style="float: right;"
 				onclick="dzqkAction(1)">下一年</a>
 		</div>
 		<script id="watchlistpad" type="text/html">
