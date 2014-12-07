@@ -148,7 +148,7 @@ a {
 	function viewFile(PERURL) {
 		if (PERURL == undefined || PERURL == "") { //空点位图
 		} else {
-			var url = $.hori.getconfig().appServerHost + "view/tpxw/file"
+			var url = $.hori.getconfig().appServerHost2 + "view/tpxw/file"
 					+ PERURL + "?data-convert=office&data-cache=true";
 			localStorage.setItem("attachmentUrl", url);
 			$.hori.loadPage($.hori.getconfig().serverBaseUrl
