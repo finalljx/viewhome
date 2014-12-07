@@ -30,6 +30,7 @@
 	var jsonData = new Object();
 	$(document).ready(
 			function() {
+				try{
 				$.hori.showLoading();
 				//$.hori.hideLoading();
 				$.hori.setHeaderTitle("表单");
@@ -76,6 +77,9 @@
 						$.hori.hideLoading();
 					}
 				});
+				} catch (e) {
+					alert(e.message);
+				}
 			});
 
 	function renderDetail() {
