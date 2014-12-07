@@ -261,6 +261,7 @@
 				template="Archvied";
 				view="vwDocByArchived";
 			}
+			$.hori.hideLoading();
 			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+$.hori.getconfig().docServer+"/genertec/dep1/qsbg_1.nsf/myview?openform&view="+view+"&start=1&count=5";
 			$.hori.ajax({
 				"type":"post",
@@ -327,7 +328,7 @@
 			}
 			var singdbPath = localStorage.getItem("singdbPath");
 			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/myview?openform&view="+view+"&start=1&count=5";
-			
+			$.hori.hideLoading();
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
@@ -470,7 +471,6 @@
 					$("#signdataList").append(res).listview("refresh");
 					$.hori.hideLoading();
 					myScroll.refresh();
-					$.hori.hideLoading();
 				},
 				"error":function(res){
 					alert(res);

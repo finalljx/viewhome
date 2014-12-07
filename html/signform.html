@@ -78,7 +78,7 @@
 						list.agyj.replace("?", " ")
 						console.log(list.agyj);
 						$("#yjTable").html(list.agyj.replace(s, " "));
-
+						$.hori.hideLoading();
 					},
 					"error" : function(res) {
 						$.hori.hideLoading();
