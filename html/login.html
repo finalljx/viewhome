@@ -105,23 +105,31 @@ a {
 		}
 		return false;
 	}
+function loginWithLoading(){
+	$.hori.loading("show");
+	setTimeout(login,500);
+}
 	function login() {
 		var username = $.trim($("#username").val());
 		var password = $("#password").val();
 		var captcha = $("#captcha").val();
 		if (username == "") {
+			$.hori.loading("hide");
 			alert("请输入用户名!");
 			return;
 		}
 		if (password == "") {
+			$.hori.loading("hide");
 			alert("请输入密码!");
 			return;
 		}
 		if (captcha == "") {
+			$.hori.loading("hide");
 			alert("请输入验证码!");
 			return;
 		}else{
 			if(isNaN(captcha)){
+				$.hori.loading("hide");
 				alert("验证码只能为数字！");
 				$("#captcha").val(""); //清空验证码内容
 				return;
@@ -145,7 +153,7 @@ a {
 				if (json.success== true) { //认证通过
 					websealValidation();
 				} else {
-					$.hori.hideLoading();
+					$.hori.loading("hide");
 					if(json.msg != ""){ //验证码错误
 						alert(json.msg);
 						getCaptcha(); //重新获取验证码
@@ -155,8 +163,8 @@ a {
 				}
 			},
 			"error" : function(res) {
+				$.hori.loading("hide");
 				alert("登录错误" + res);
-				$.hori.hideLoading();
 			}
 		})
 	}
@@ -305,13 +313,11 @@ a {
 	}
 	//忘记密码
 	function forgetPwd() {
-		$.hori.showLoading();
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl
 				+ 'viewhome/html/forgetPwd.html');
 	}
 	//设置向导
 	function guide() {
-		$.hori.showLoading();
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl
 				+ 'viewhome/html/guide.html');
 	}
@@ -369,7 +375,7 @@ a {
 			</ul>
 			<div style='width: 419px;' class="ui-grid-a">
 				<div class="ui-block-a" style="width: 100%;">
-					<a href="javascript:void(0)" onclick="login()" data-theme="f" data-role="button" >&nbsp;登&nbsp;录&nbsp;</a>
+					<a href="javascript:void(0)" onclick="loginWithLoading()" data-theme="f" data-role="button" >&nbsp;登&nbsp;录&nbsp;</a>
 				</div>
 			</div>
 			<div>
