@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+<<<<<<< HEAD
 <xsl:variable name="appdbpath">
 <xsl:value-of select="//input[@name='appdbpath']/@value" />
 </xsl:variable>
@@ -49,6 +50,37 @@
 	<script src="/view/lib/jquery-mobile/jquery.mobile.min.js"></script>
 	<script src="/view/config/web/config.js"></script>
 	<script>
+=======
+	<xsl:variable name="appdbpath"><xsl:value-of select="//input[@name='appdbpath']/@value"/></xsl:variable>
+	<xsl:variable name="appformname"><xsl:value-of select="//input[@name='appformname']/@value"/></xsl:variable>
+	<xsl:variable name="username">
+		<xsl:value-of select="substring-before(substring-after(//input[@name='curUser']/@value,'CN='),'/O=')"/>
+	</xsl:variable>
+	<!-- 表单变量 <xsl:value-of select="substring-after(//input[@name='fldIframeURL']/@value, 'vwprintcld/')"/>--> 
+	<xsl:variable name="dbPath">
+		<xsl:value-of select="//input[@name='dbpath' or @name='dbPath' or @name='dbPath1']/@value" />
+	</xsl:variable>
+	<xsl:variable name="docunid">
+		<xsl:value-of select="substring-after(//input[@name='fldIframeURL']/@value, 'vwprintcld/')"/>
+	</xsl:variable>
+	<xsl:variable name="unId">
+		<xsl:choose><xsl:when test="contains(//url/text(),'/0/')"><xsl:value-of select="substring-before(substring-after(//url/text(),'/0/'),'?')" /></xsl:when><xsl:when test="contains(//url/text(),'/vwDocByDate/')"><xsl:value-of select="substring-before(substring-after(//url/text(),'/vwDocByDate/'),'?')" /></xsl:when><xsl:otherwise><xsl:value-of select="substring-before(substring-after(substring-after(//url/text(),'nsf/'),'/'),'?')" /></xsl:otherwise></xsl:choose>
+	</xsl:variable>
+	<xsl:template match="/">
+				<html lang="zh_cn">
+					<head>
+					<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+					<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+					<link rel="stylesheet" href="http://lib.sinaapp.com/js/jquery-mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+					<link rel="stylesheet" href="/view/assets/jquery.mobile-sugon.css" />
+					<script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+					<script src="/view/lib/encrypt/encrypt.js"></script>
+					<script src="/view/lib/json/json2.js"></script>
+					<script src="/view/lib/hori/hori.js?tag=21369"></script>
+					<script src="http://lib.sinaapp.com/js/jquery-mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+					<script src="/view/config/web/config.js"></script>
+						<script>
+>>>>>>> d660e0a... 修改公文详单jquery相关为新浪的cdn
 						<![CDATA[
 							$(document).ready(function(){
 								var hori=$.hori;
