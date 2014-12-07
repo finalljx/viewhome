@@ -335,6 +335,7 @@
 			}
 			var singdbPath = localStorage.getItem("singdbPath");
 			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/myview?openform&view="+view+"&start=1&count=10";
+			$.hori.hideLoading();
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
@@ -371,6 +372,7 @@
 			localStorage.setItem("unid",unid);
 			var targetURL= $.hori.getconfig().serverBaseUrl+"viewhome/html/neiqingform.html";
 			targetURL=encodeURI(targetURL);
+			$.hori.hideLoading();
 			$.hori.loadPage(targetURL);
 		}
 		//会签表单展示页面
@@ -393,6 +395,7 @@
 			var unid = $(str).data("unid");
 			localStorage.setItem("unid",unid);
 			var loadurl= $.hori.getconfig().serverBaseUrl+"viewhome/html/signform.html";
+			$.hori.hideLoading();
 			$.hori.loadPage(loadurl);
 		}
 		function querysearchlist(){
