@@ -24,26 +24,29 @@ a {
 	text-decoration: none;
 }
 
-@media only screen and (min-width: 1070px) and (max-width: 1242px) {
-	#month {
+@media  all and (min-device-width: 1080px) and (max-device-width: 1242px) {
+  #month {
 		font-size: 17px;
-		color: black;
 	}
-}
+} 
 
-@media screen and (min-width: 400px) and (max-width: 800px) {
-	#month {
+@media  all and (min-device-width: 720px) and (max-device-width: 1079px) {
+    #month {
 		font-size: 16px;
-		color: black;
 	}
 }
 
-@media screen and (min-width: 310px) and (max-width: 330px) {
+ @media  all and (min-device-width: 339px) and (max-device-width: 719px) {
 	#month {
 		font-size: 15px;
-		color: black;
 	}
-}
+} 
+
+@media  screen  and (min-width: 310px) and (max-width: 338px) {
+	#month {
+		font-size: 14px;
+	}
+}  
 </style>
 
 <script type="text/javascript">
@@ -82,12 +85,9 @@ a {
 				var lrwc = seriesdata[1];
 				var b = seriesname[0] + ":" + seriesdata[0]
 						+ reportdata.primaryunit;
-				//document.getElementById("yusuan").innerHTML=b;
 				var c = seriesname[1] + ":" + seriesdata[1]
 						+ reportdata.primaryunit;
-				//document.getElementById("leiji").innerHTML=c;
 				var d = seriesname[2] + ":" + seriesdata[2] + "%";
-				//document.getElementById("bili").innerHTML=d;
 				var ww = (Math.ceil((seriesdata[0]) / 10)) * 10;
 				draw(ww, lrwc, 0.6, 0.7, b + "\n" + c + "\n" + d);
 			},
