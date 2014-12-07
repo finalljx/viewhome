@@ -103,8 +103,6 @@ a {
 									$("#newsList").css("display","");
                                     $("#divDataLoading").css("display","none");
 									var list = JSON.parse(res);
-									var cookie_userstore = localStorage
-											.getItem("cookie_userstore");
 									for ( var item in list) {
 										list[item].tpxwImage = list[item].tpxwImage.substring(list[item].tpxwImage.indexOf(".cn")+3);
 										var targetURL = $.hori.getconfig().appServerHost2
