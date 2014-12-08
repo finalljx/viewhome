@@ -117,7 +117,7 @@ a {
 				json.list = jsonData;
 				var recordLength = json.list.length;
 				for (var i = 0; i < recordLength; i++) {
-					var coverPath = $.hori.getconfig().appServerHost
+					var coverPath = $.hori.getconfig().appServerHost2
 							+ "view/tpxw/file/" + json.list[i].PERCOVER
 							+ "?data-result=file";
 					json.list[i].cover = coverPath;
@@ -148,7 +148,7 @@ a {
 	function viewFile(PERURL) {
 		if (PERURL == undefined || PERURL == "") { //空点位图
 		} else {
-			var url = $.hori.getconfig().appServerHost + "view/tpxw/file"
+			var url = $.hori.getconfig().appServerHost2 + "view/tpxw/file"
 					+ PERURL + "?data-convert=office&data-cache=true";
 			localStorage.setItem("attachmentUrl", url);
 			
