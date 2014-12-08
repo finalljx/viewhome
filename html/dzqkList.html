@@ -151,9 +151,23 @@ a {
 			var url = $.hori.getconfig().appServerHost2 + "view/tpxw/file"
 					+ PERURL + "?data-convert=office&data-cache=true";
 			localStorage.setItem("attachmentUrl", url);
-			$.hori.loadPage($.hori.getconfig().serverBaseUrl
-					+ "viewhome/html/attachmentShowForm.html",
-					"viewhome/xml/AttachView.xml");
+			
+			var type = "android";
+			if (window.navigator.userAgent.match(/iPad/i)
+					|| window.navigator.userAgent.match(/iPhone/i)
+					|| window.navigator.userAgent.match(/iPod/i)) {
+				type = "iphone";
+			}
+			if(type == "iphone"){
+				$.hori.loadPage($.hori.getconfig().serverBaseUrl
+						+ "viewhome/html/attachmentShowForm.html",
+						"viewhome/xml/AttachView4I.xml");
+			}else{
+				$.hori.loadPage($.hori.getconfig().serverBaseUrl
+						+ "viewhome/html/attachmentShowForm.html",
+						"viewhome/xml/AttachView.xml");
+			}
+				
 		}
 	}
 
