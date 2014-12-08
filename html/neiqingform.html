@@ -30,7 +30,7 @@
 	var jsonData = new Object();
 	$(document).ready(
 			function() {
-				$.hori.showLoading();
+				$.mobile.loading('show');
 				//$.hori.hideLoading();
 				$.hori.setHeaderTitle("表单");
 				var config = $.hori.getconfig();
@@ -49,7 +49,6 @@
 						res = res.replace(/&amp;nbsp;/g, "　");
 
 						var list = JSON.parse(res);
-
 						$(".content").html(list.content);
 
 						$("#agyjDiv").html(list.agyj);
@@ -72,10 +71,11 @@
 							console.log(jsonData);
 							renderDetail2();
 						}
-
+						setTimeout("$.mobile.loading('hide');",5000);
 					},
 					"error" : function(res) {
 						$.hori.hideLoading();
+						$.mobile.loading("hide");
 					}
 				});
 			});
@@ -121,8 +121,8 @@
 	 
 	<div align="center" style="margin-top: 20px;">
 		<div style="width: 100%;">
-            <table   style="width: 90%">
-              <tr><td><span><font face="宋体" size="4"><b>正文附件：</b></font></span></td>
+            <table   style="width: 90%;">
+              <tr><td><span><font face="宋体" size="4"><b>正文附件</b></font></span></td>
               </tr>
             </table>
 			<TABLE class="fjTable" style="width: 90%" class="fj" id="table2"

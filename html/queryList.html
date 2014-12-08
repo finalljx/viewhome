@@ -232,13 +232,21 @@
 			if(onlist=="1"){
 				$("#ui-id-1").click()	
 			}
-
 			if(onlist=="2"){
 				$("#ui-id-2").click()	
 			}
 			if(tabid=="queryList"){
 				queryListForType($('#querytype').val());
 			}
+			hori.registerEvent("case", "casePresented", function() {
+				var onlist=localStorage.getItem("click4");
+				if(onlist=="1"){
+					$("#ui-id-1").click()	
+				}
+				if(onlist=="2"){
+					$("#ui-id-2").click()	
+				}
+			});
 			
 		})
 		</script>
@@ -365,7 +373,8 @@
 			localStorage.setItem("contemplate",templatecon);
 			var unid = $(str).data("unid");
 			localStorage.setItem("unid",unid);
-			var loadurl= $.hori.getconfig().appServerHost+"view/html/neiqingform.html";
+			var loadurl= $.hori.getconfig().serverBaseUrl+"/viewhome/html/neiqingform.html";
+			//alert(loadurl);return;
 			$.hori.loadPage(loadurl);
 		}
 		//会签表单展示页面
@@ -390,7 +399,7 @@
 			var unid = $(str).data("unid");
 			localStorage.setItem("unid",unid);
 			//alert(unid);return;
-			var loadurl= $.hori.getconfig().appServerHost+"view/html/signform.html";
+			var loadurl= $.hori.getconfig().serverBaseUrl+"/viewhome/html/signform.html";
 			$.hori.loadPage(loadurl);
 		}
 		

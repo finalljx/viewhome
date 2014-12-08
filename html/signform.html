@@ -32,7 +32,7 @@
 	$(document).ready(
 			function() {
 				try{
-				$.hori.showLoading();
+				$.mobile.loading('show');
 				//$.hori.hideLoading();
 				$.hori.setHeaderTitle("表单");
 				var config = $.hori.getconfig();
@@ -78,14 +78,16 @@
 						list.agyj.replace("?", " ")
 						console.log(list.agyj);
 						$("#yjTable").html(list.agyj.replace(s, " "));
-						$.hori.hideLoading();
+						setTimeout("$.mobile.loading('hide');",5000);
 					},
 					"error" : function(res) {
 						$.hori.hideLoading();
+						$.mobile.loading('hide');
 					}
 				});
 				} catch (e) {
 					alert(e.message);
+					$.mobile.loading('hide');
 				}
 			});
 
