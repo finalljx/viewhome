@@ -8,6 +8,17 @@
 	<xsl:template match="/">
 		<html lang="zh_cn">
 			<head>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+				<link rel="stylesheet" href="/view/lib/jquery-mobile/jquery.mobile.min.css" />
+				<link rel="stylesheet" href="/view/assets/jquery.mobile-sugon.css" />
+				<script src="/view/lib/jquery/jquery.min.js"></script>
+				<script src="/view/lib/encrypt/encrypt.js"></script>
+				<script src="/view/lib/json/json2.js"></script>
+				<script src="/view/lib/knockout/knockout.js"></script>
+				<script src="/view/lib/knockout/knockout.mapping.js"></script>
+				<script src="/view/lib/hori/hori.js?tag=21369"></script>
+				<script src="/view/lib/jquery-mobile/jquery.mobile.min.js"></script>
+				<script src="/view/config/web/config.js"></script>
 				<script>
 					$(document).ready(function(){
 						var hori=$.hori;
