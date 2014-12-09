@@ -161,16 +161,16 @@
 		var docunid = $(str).data("unid");
 		localStorage.setItem("Issuedocdocunid",docunid);
 		var issuedoc = localStorage.getItem("issuedoc");
-		if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)||window.navigator.userAgent.match(/android/i)){
+		/*if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)||window.navigator.userAgent.match(/android/i)){
 			var oaurl =$.hori.getconfig().appServerHost+"view/oa/issuedocPage/"+issuedoc+"/AppDoingView/"+docunid+"?opendocument&login"+'?editdocument&data-application=' + $.hori.getconfig().appKey + "&data-userstore=" + localStorage.getItem("cookie_userstore");
 		}else{
 			var oaurl =$.hori.getconfig().appServerHost+"view/oa/issuedocPage/"+issuedoc+"/AppDoingView/"+docunid+"?opendocument&login";
-		}
-// 		localStorage.setItem("oaDataSource",oaurl);
-// 		var targetURL= $.hori.getconfig().serverBaseUrl+"viewhome/html/issuedocPage.html";
-// 		targetURL=encodeURI(targetURL);
-        alert(oaurl);
-		$.hori.loadPage(oaurl);
+		}*/
+		var oaurl=issuedoc+"/AppDoingView/"+docunid+"?opendocument&login";
+ 		localStorage.setItem("oaDataSource",oaurl);
+		var targetURL= $.hori.getconfig().serverBaseUrl+"viewhome/html/issuedocPage.html";
+		targetURL=encodeURI(targetURL);
+		$.hori.loadPage(targetURL);
 	}
 	//收文详情页
 	function loadReceivedocPage(str){
@@ -188,16 +188,16 @@
 		var docunid = $(str).data("unid");
 		localStorage.setItem("Receivedocdocunid",docunid);
 		var receivedoc = localStorage.getItem("receivedoc");
-		if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)||window.navigator.userAgent.match(/android/i)){
+		/*if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)||window.navigator.userAgent.match(/android/i)){
 			var oaurl = $.hori.getconfig().appServerHost+"view/oa/receivedocPage/"+receivedoc+"/AppDoingView/"+docunid+"?opendocument&login"+'?editdocument&data-application=' + $.hori.getconfig().appKey + "&data-userstore=" + localStorage.getItem("cookie_userstore");
 		}else{
 			var oaurl = $.hori.getconfig().appServerHost+"view/oa/receivedocPage/"+receivedoc+"/AppDoingView/"+docunid+"?opendocument&login";
-		}
-		//localStorage.setItem("oaDataSource",oaurl);
-		//var targetURL= $.hori.getconfig().serverBaseUrl+"viewhome/html/receivedocPage.html";
-		//targetURL=encodeURI(targetURL);
-		alert(oaurl);
-		$.hori.loadPage(oaurl);
+		}*/
+		var oaurl=receivedoc+"/AppDoingView/"+docunid+"?opendocument&login";
+		localStorage.setItem("oaDataSource",oaurl);
+		var targetURL= $.hori.getconfig().serverBaseUrl+"viewhome/html/receivedocPage.html";
+		targetURL=encodeURI(targetURL);
+		$.hori.loadPage(targetURL);
 	}
 	</script>
 	<style>
