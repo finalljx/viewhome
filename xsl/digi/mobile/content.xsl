@@ -260,13 +260,6 @@
 								</xsl:if>
 								<xsl:apply-templates select="//div[@name='Fck_HTML']//fieldentry" />
 							</li>
-<<<<<<< HEAD
-=======
-
-
-
-
-
 							<li data-role="list-divider" class="word">正文内容</li>
 							<li data-bind="foreach: word" id="word" class="word">
 								<a data-role="button" data-bind="click:viewfile">
@@ -285,7 +278,6 @@
 								</li> </xsl:if> <xsl:if test="//input[@name='AttachInfo']/@value !=''"> <xsl:call-template 
 								name="file"> <xsl:with-param name="info" select="translate(//input[@name='AttachInfo']/@value, 
 								' ', '')"/> </xsl:call-template> </xsl:if> -->
->>>>>>> 86f71e4cd8ec7846522e6329766fbfff856c6a17
 							<li data-role="list-divider">当前环节信息</li>
 							<li>
 								环节名称：
@@ -306,7 +298,6 @@
 									暂无审批意见
 								</xsl:if>
 							</li>
-<<<<<<< HEAD
 						</ul>
 						<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
 							<li data-role="list-divider">附件信息</li>
@@ -321,9 +312,6 @@
 										<xsl:with-param name="info" select="translate(//input[@name='AttachInfo']/@value, ' ', '')"/>
 									</xsl:call-template>
 								</xsl:if>
-=======
-
->>>>>>> 86f71e4cd8ec7846522e6329766fbfff856c6a17
 						</ul>
 						<xsl:apply-templates select="//input[@type='hidden' or not(@type)]"
 							mode="hidden" />
@@ -411,7 +399,6 @@
 	<!-- 处理 附件（目前前仅支持单个附件） -->
 	<xsl:template name="file">
 		<xsl:param name="info" />
-<<<<<<< HEAD
 		<xsl:choose>
 			<xsl:when test="contains($info, ';')">
 				<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{substring-before($info, '(')}');"  data-role="button">
@@ -458,7 +445,6 @@
 				</a>
 			</xsl:otherwise>
 		</xsl:choose>
-=======
 		<li>
 			<xsl:choose>
 				<xsl:when test="contains($info, ';')">
@@ -513,7 +499,6 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</li>
->>>>>>> 86f71e4cd8ec7846522e6329766fbfff856c6a17
 	</xsl:template>
 
 	<!-- 处理 基本信息 -->
