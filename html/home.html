@@ -109,6 +109,33 @@ var icount=0;
 			}
 			//获取公文库
 			getOfficialLibrary();
+			$.hori.getCookies(function(clientCookie) {
+				try {
+					var key = "data-userstore";
+					cookie_userstore = new RegExp(encodeURIComponent(key) + '=([^;]*)')
+							.exec(clientCookie);
+					if (cookie_userstore) {
+						localStorage.setItem("cookie_userstore", cookie_userstore[1]);
+						var serverDomain = new RegExp('^https?://(.*?)(?=:|/)')
+								.exec($.hori.getconfig().appServerHost);
+						if (serverDomain) {
+							$.cookie('data-userstore', cookie_userstore[1], {
+								expires : 7,
+								path : '/',
+								domain : serverDomain[1],
+								secure : false
+							});
+						} else {
+							alert("获取配置文件异常");
+						}
+
+					} else {
+						alert("获取cookie失败");
+					}
+				} catch (e) {
+					alert(e.message);
+				}
+			});
 		} catch (e) {
 			alert(e.message);
 		}
