@@ -73,11 +73,14 @@
 							renderDetail2();
 						}
 						jsonData.json = list;
-
+						
 						renderDetail();
 						list.agyj.replace("?", " ")
-						console.log(list.agyj);
-						$("#yjTable").html(list.agyj.replace(s, " "));
+						var contentAgyj = escape(list.agyj);
+						contentAgyj = contentAgyj.replace(/%uE5E5/g,"%20");
+						contentAgyj = unescape(contentAgyj);
+						console.log(contentAgyj);
+						$("#yjTable").html(contentAgyj.replace(s, " "));
 						setTimeout("$.mobile.loading('hide');",5000);
 					},
 					"error" : function(res) {
