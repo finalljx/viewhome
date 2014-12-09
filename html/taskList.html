@@ -168,7 +168,11 @@
 				}
 			}
 			var docunid = $(str).data("unid");
-			var oaurl =$.hori.getconfig().appServerHost+"view/oamobile/contentmobile/Produce/DigiFlowMobile.nsf/showform?openform&login&apptype=msg&appserver="+oaMsgServer+"&appdbpath=DFMessage/dfmsg_"+itcode+".nsf&appdocunid="+docunid;
+			if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)||window.navigator.userAgent.match(/android/i)){
+				var oaurl =$.hori.getconfig().appServerHost+"view/oamobile/contentmobile/Produce/DigiFlowMobile.nsf/showform?openform&login&apptype=msg&appserver="+oaMsgServer+"&appdbpath=DFMessage/dfmsg_"+itcode+".nsf&appdocunid="+docunid+'?editdocument&data-application=' + $.hori.getconfig().appKey + "&data-userstore=" + localStorage.getItem("cookie_userstore");
+			}else{
+				var oaurl =$.hori.getconfig().appServerHost+"view/oamobile/contentmobile/Produce/DigiFlowMobile.nsf/showform?openform&login&apptype=msg&appserver="+oaMsgServer+"&appdbpath=DFMessage/dfmsg_"+itcode+".nsf&appdocunid="+docunid;
+			}
 			//localStorage.setItem("oaDataSource",oaurl);
 			//var targetURL= $.hori.getconfig().serverBaseUrl+"viewhome/html/appform.html";
 			//targetURL=encodeURI(targetURL);
@@ -190,7 +194,11 @@
 				}
 			}
 			var docunid = $(str).data("unid");
-			var oaurl =$.hori.getconfig().appServerHost+"view/oamobile/downcontentmobile/Produce/DigiFlowMobile.nsf/showform?openform&login&apptype=msg&appserver="+oaMsgServer+"&appdbpath=DFMessage/dfmsg_"+itcode+".nsf&appdocunid="+docunid;
+			if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)||window.navigator.userAgent.match(/android/i)){
+				var oaurl =$.hori.getconfig().appServerHost+"view/oamobile/downcontentmobile/Produce/DigiFlowMobile.nsf/showform?openform&login&apptype=msg&appserver="+oaMsgServer+"&appdbpath=DFMessage/dfmsg_"+itcode+".nsf&appdocunid="+docunid+'?editdocument&data-application=' + $.hori.getconfig().appKey + "&data-userstore=" + localStorage.getItem("cookie_userstore");
+			}else{
+				var oaurl =$.hori.getconfig().appServerHost+"view/oamobile/downcontentmobile/Produce/DigiFlowMobile.nsf/showform?openform&login&apptype=msg&appserver="+oaMsgServer+"&appdbpath=DFMessage/dfmsg_"+itcode+".nsf&appdocunid="+docunid;
+			}
 			//localStorage.setItem("oaDataSource",oaurl);
 			//var targetURL= $.hori.getconfig().serverBaseUrl+"viewhome/html/taskDownAppform.html";
 			//targetURL=encodeURI(targetURL);
