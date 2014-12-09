@@ -32,12 +32,23 @@ img {
 	margin: auto;
 }
 
-@media only screen and (min-width: 1070px) and (max-width: 1242px) {
+/* @media only screen and (min-width: 1070px) and (max-width: 1242px) {
 	.details {
 		font-size: 22px;
 	}
 	.div1 {
 		font-size: 15px;
+		color: blue;
+	}
+}
+
+@media screen and (min-width: 800px) and (max-width: 1070px) {
+	.details {
+		font-size: 21px;
+	}
+	.div1 {
+		font-size: 13px;
+		color: green;
 	}
 }
 
@@ -46,7 +57,8 @@ img {
 		font-size: 21px;
 	}
 	.div1 {
-		font-size: 14px;
+		font-size: 13px;
+		color: red;
 	}
 }
 
@@ -58,7 +70,48 @@ img {
 		font-size: 13px;
 	}
 }
-</style>
+ */
+ 
+ @media  all and (min-device-width: 1080px) and (max-device-width: 1242px) {
+  .details {
+		font-size: 22px;
+	}
+	.div1 {
+		font-size: 15px;
+		color:gray;
+	}
+} 
+
+@media  all and (min-device-width: 720px) and (max-device-width: 1079px) {
+   .details {
+		font-size: 21px;
+	}
+	.div1 {
+		font-size: 14px;
+	}
+}
+
+ @media  all and (min-device-width: 339px) and (max-device-width: 719px) {
+	.details {
+		font-size: 21px;
+	}
+	.div1 {
+		font-size: 13px;
+		color:red;
+	}
+} 
+
+@media  screen  and (min-width: 310px) and (max-width: 338px) {
+	.details {
+		font-size: 20px;
+	}
+	.div1 {
+		font-size: 13px;
+		color:blue;
+	}
+}   
+ 
+ </style>
 
 <script type="text/javascript">
 	$(document).ready(function() {
