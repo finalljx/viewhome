@@ -248,14 +248,14 @@ a {
 				$('.top_year_first').css('display', 'none');
 			} else {
 				if (targetMonth) {
-					var x = targetMonth.offsetLeft - 15;
+					var x = targetMonth.offsetLeft;
 					var y = targetMonth.offsetTop - 20;
 					var index = monthdata.indexOf('1月');
 					/* var a=(11 - index) * monthWidth + x;alert(a);
 					 */
 					var a = $('#targetMonth').css('width');
 					a = a.slice(0, 2);
-					a = (11 - index) * parseInt(a) + x;
+					a = (11 - index) * parseInt(a) + x-5;
 					$(".top_year").css("left", a + 'px');
 
 				}
@@ -275,10 +275,11 @@ a {
 </script>
 </head>
 <body onmousewheel="return false;">
-	<div id='month' style="float: right; display: none;">
+	<div id='month' style="float: right; display: none; ">
 		注：此经营数据截至<span data-bind="text: reportdata.year"></span>年<span
 			data-bind="text: reportdata.month"></span>月。
 	</div>
+	<div style="min-width:100%; height: 50px;"></div>
 	<!-- 风险状况 -->
 	<div id="light_wall"></div>
 </body>
