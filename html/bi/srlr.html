@@ -88,15 +88,16 @@ a {
 				"url" : url,
 				"data" : data,
 				"success" : function(res) {
+					console.log('res='+res);
 					var cWidth = window.screen.width;
 					var fontSize;
 					var fontSize2;
 					if (cWidth < 720) {
-						fontSize = 17;
+						fontSize = 16;
 						fontSize2 = 14;
 					} else {
-						fontSize = 23;
-						fontSize2 = 20;
+						fontSize = 18;
+						fontSize2 = 16;
 					}
 					var json = JSON.parse(res);
 					render(json);
@@ -147,6 +148,7 @@ a {
 				calculable : false,
 				legend : {
 					data : seriesname,
+					selectedMode: false,
 					textStyle : {
 						fontSize : fontSize
 					}
@@ -185,16 +187,19 @@ a {
 				series : [ {
 					name : [ seriesname[0] ],
 					type : 'bar',
-					data : [ seriesdata[0] ]
+					data : [ seriesdata[0] ],
+					clickable: false 
 				}, {
 					name : [ seriesname[1] ],
 					type : 'bar',
-					data : [ seriesdata[1] ]
+					data : [ seriesdata[1] ],
+					clickable: false 
 				}, {
 					name : [ seriesname[2] ],
 					type : 'line',
 					yAxisIndex : 1,
-					data : [ seriesdata[2] ]
+					data : [ seriesdata[2] ],
+					clickable: false 
 				} ]
 			};
 			var myChart = echarts.init(document.getElementById('main'));
@@ -234,6 +239,7 @@ a {
 				calculable : false,
 				legend : {
 					data : seriesname2,
+					selectedMode: false,
 					textStyle : {
 						fontSize : fontSize
 					}
@@ -267,16 +273,19 @@ a {
 				series : [ {
 					name : seriesname2[0],
 					type : 'bar',
-					data : [ seriesdata2[0] ]
+					data : [ seriesdata2[0] ],
+					clickable: false 
 				}, {
 					name : seriesname2[1],
 					type : 'bar',
-					data : [ seriesdata2[1] ]
+					data : [ seriesdata2[1] ],
+					clickable: false 
 				}, {
 					name : seriesname2[2],
 					type : 'line',
 					yAxisIndex : 1,
-					data : [ seriesdata2[2] ]
+					data : [ seriesdata2[2] ],
+					clickable: false 
 				} ]
 			};
 			var myChart = echarts.init(document.getElementById('main1'));

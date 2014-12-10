@@ -48,7 +48,7 @@ a {
 			data-bind="text: reportdata.month"></span>月。
 	</div>
 	<!-- 收入利润趋势 -->
-	<div id="main" ></div>
+	<div id="main" ></div><p></p>
 	<div id="main1"></div>
 
 
@@ -97,11 +97,11 @@ a {
 					$("#month").css('display', '');
 					var cWidth = window.screen.width;
 					if (cWidth < 730) {
-						fontSize = 17;
+						fontSize = 16;
 						fontSize2 = 14;
 					} else {
-						fontSize = 23;
-						fontSize2 = 20;
+						fontSize = 18;
+						fontSize2 = 16;
 					}
 					var income = json.reportdata.income;
 					var profit = json.reportdata.profit;
@@ -171,6 +171,7 @@ a {
 				calculable : false,
 				legend : {
 					data : seriesname,
+					selectedMode: false,
 					textStyle : {
 						fontSize : fontSize
 					}
@@ -260,6 +261,7 @@ a {
 				calculable : false,
 				legend : {
 					data : seriesname2,
+					selectedMode: false,
 					textStyle : {
 						fontSize : fontSize
 					}
