@@ -32,6 +32,7 @@ a {
 
 	//加载收入完成图表数据
 	function loadSrwcChart() {
+		$.hori.loading();
 		var url = $.hori.getconfig().appServerHost
 				+ "view/bi/loadJytsChart/accsyBiReport/services/reqBiReportData";
 		var temp = "$lt;?xml version='1.0' encoding='utf-8'?$gt;$lt;root$gt;$lt;reportdata$gt;$lt;reportid$gt;1$lt;/reportid$gt;$lt;/reportdata$gt;$lt;/root$gt;";
@@ -52,10 +53,11 @@ a {
 						res = res.replace(/\s\s/g, "</p><p>");
 						var jsonObj = JSON.parse(res);
 						document.getElementById("aa").innerHTML = jsonObj.reportdata.datatext;
-
+						$.hori.loading("hide");
 					},
 					"error" : function(res) {
 						alert("error:" + res);
+						$.hori.loading("hide");
 						$.hori.hideLoading();
 					}
 				});

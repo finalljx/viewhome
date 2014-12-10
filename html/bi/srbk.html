@@ -58,6 +58,7 @@ a {
 
 		//加载收入板块图表数据
 		function loadSrbkChart() {
+			$.hori.loading();
 			var url = $.hori.getconfig().appServerHost
 					+ "view/bi/loadJytsChart/accsyBiReport/services/reqBiReportData";
 			var temp = "$lt;?xml version='1.0' encoding='utf-8'?$gt;$lt;root$gt;$lt;reportdata$gt;$lt;reportid$gt;31$lt;/reportid$gt;$lt;/reportdata$gt;$lt;/root$gt;";
@@ -93,10 +94,11 @@ a {
 					var seriesdata = reportdata.seriesdata.split('|');
 					loadlrbk(title, year, month, primaryunit, category,
 							seriesdata, fontSize);
-
+					$.hori.loading("hide");
 				},
 				"error" : function(res) {
 					alert("error:" + res);
+					$.hori.loading("hide");
 					$.hori.hideLoading();
 				}
 			});

@@ -53,6 +53,11 @@ a {
 	<!-- 收入利润 -->
 	<div id="main" style=" float: left;"></div>
 	<div id="main1" style=" float: left;"></div>
+	
+	<div  style="float: right;  margin-bottom: 15px;">
+		<span>点击图表显示详细。</span>
+	</div>
+	
 	<script type="text/javascript">
 		window.onload = function() {
 			var h = document.documentElement.clientHeight / 2;//可见区域高度
@@ -72,6 +77,7 @@ a {
 		});
 		//加载收入利润图表数据
 		function loadSrlrqsChart() {
+			$.hori.loading();
 			var url = $.hori.getconfig().appServerHost
 					+ "view/bi/loadSrlrqsChart/accsyBiReport/services/reqBiReportData";
 			var temp = "$lt;?xml version='1.0' encoding='utf-8'?$gt;$lt;root$gt;$lt;reportdata$gt;$lt;reportid$gt;66$lt;/reportid$gt;$lt;/reportdata$gt;$lt;/root$gt;";
@@ -122,9 +128,12 @@ a {
 					var serieschart2 = profit.serieschart.split('|');
 					loadSrlrqs2(title, seriesname2, seriesdata2, category2,
 							serieschart, year, month, fontSize, fontSize2);
+					
+					$.hori.loading("hide");
 				},
 				"error" : function(res) {
 					alert("error:" + res);
+					$.hori.loading("hide");
 					$.hori.hideLoading();
 				}
 			});

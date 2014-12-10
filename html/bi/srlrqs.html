@@ -73,6 +73,7 @@ a {
 		});
 		//加载收入利润趋势图表数据
 		function loadSrlrqsChart() {
+			$.hori.loading();
 			var url = $.hori.getconfig().appServerHost
 					+ "view/bi/loadSrlrqsChart/accsyBiReport/services/reqBiReportData";
 			var temp = "$lt;?xml version='1.0' encoding='utf-8'?$gt;$lt;root$gt;$lt;reportdata$gt;$lt;reportid$gt;6$lt;/reportid$gt;$lt;/reportdata$gt;$lt;/root$gt;";
@@ -121,9 +122,12 @@ a {
 					var yearBudget2 = profit.yearBudget.split('|');
 					loadSrlrqs2(month2, seriesname2, lastSumData2, nowSumData2,
 							increaseData2, yearBudget2, fontSize);
+					
+					$.hori.loading("hide");
 				},
 				"error" : function(res) {
 					alert("error:" + res);
+					$.hori.loading("hide");
 					$.hori.hideLoading();
 				}
 			});
