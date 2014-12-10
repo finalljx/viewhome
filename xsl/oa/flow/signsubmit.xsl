@@ -75,7 +75,7 @@
 									function userselect(url1,url2){
 									  var docServer=$.hori.getconfig().docServer;
 									  url1=url1+docServer;
-									  var url=url1+Url2;
+									  var url=url1+url2;
 										$.mobile.showPageLoadingMsg();
 										if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)||window.navigator.userAgent.match(/android/i)){
 											var cookie_userstore = localStorage.getItem("cookie_userstore");
