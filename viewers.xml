@@ -115,6 +115,39 @@
 			<rule mode="replace" regex="&lt;\!\[CDATA\[" value="" />
 			<rule mode="replace" regex="\]\]&gt;" value="" />
 		</view>
+		<!-- 代办特殊情况 -->
+		<view id="othercontentmobile" template="digi/mobile/othercontent.xsl" encoding="utf-8">
+			<!-- 源数据是符合标签形式的字符串，转换成真正的字符串（把'<','>' 替换成真正的标签） -->
+			<rule mode="replace" regex="0 " value="0&#160;" />
+			<rule mode="replace" regex="1 " value="1&#160;" />
+			<rule mode="replace" regex="2 " value="2&#160;" />
+			<rule mode="replace" regex="3 " value="3&#160;" />
+			<rule mode="replace" regex="4 " value="4&#160;" />
+			<rule mode="replace" regex="5 " value="5&#160;" />
+			<rule mode="replace" regex="6 " value="6&#160;" />
+			<rule mode="replace" regex="7 " value="7&#160;" />
+			<rule mode="replace" regex="8 " value="8&#160;" />
+			<rule mode="replace" regex="9 " value="9&#160;" />
+
+			<rule mode="replace" regex="approver=" value="approver='" />
+			<rule mode="replace" regex="approver=''" value="approver='" />
+			<rule mode="replace" regex=" approveren=" value="' approveren='" />
+			<rule mode="replace" regex=" approvetime=" value="' approvetime=" />
+
+			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
+			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
+
+			<rule mode="replace" regex="&amp;quot;" value="&quot;" />
+			<rule mode="replace" regex="&amp;amp;nbsp;" value="" />
+			<rule mode="replace" regex="&amp;amp;middot;" value="" />
+			<rule mode="replace" regex="&amp;amp;ldquo;" value="" />
+			<rule mode="replace" regex="&amp;amp;rdquo;" value="" />
+			<rule mode="replace" regex="&lt;textarea name=&quot;Fck_HTML&quot;"
+				value="&lt;div name=&quot;Fck_HTML&quot;" />
+
+			<rule mode="replace" regex="&lt;\!\[CDATA\[" value="" />
+			<rule mode="replace" regex="\]\]&gt;" value="" />
+		</view>
 		<!-- 手机已办列表 -->
 		<view id="taskDownList" template="digi/mobile/taskDownList.xsl" encoding="utf-8">
 			<rule mode="replace" regex="&amp;amp;nbsp;" value=" "/>
@@ -129,6 +162,39 @@
 		</view>
 		<!-- 已办展示内容 -->
 		<view id="downcontentmobile" template="digi/mobile/downcontentmobile.xsl" encoding="utf-8">
+			<!-- 源数据是符合标签形式的字符串，转换成真正的字符串（把'<','>' 替换成真正的标签） -->
+			<rule mode="replace" regex="0 " value="0&#160;" />
+			<rule mode="replace" regex="1 " value="1&#160;" />
+			<rule mode="replace" regex="2 " value="2&#160;" />
+			<rule mode="replace" regex="3 " value="3&#160;" />
+			<rule mode="replace" regex="4 " value="4&#160;" />
+			<rule mode="replace" regex="5 " value="5&#160;" />
+			<rule mode="replace" regex="6 " value="6&#160;" />
+			<rule mode="replace" regex="7 " value="7&#160;" />
+			<rule mode="replace" regex="8 " value="8&#160;" />
+			<rule mode="replace" regex="9 " value="9&#160;" />
+
+			<rule mode="replace" regex="approver=" value="approver='" />
+			<rule mode="replace" regex="approver=''" value="approver='" />
+			<rule mode="replace" regex=" approveren=" value="' approveren='" />
+			<rule mode="replace" regex=" approvetime=" value="' approvetime=" />
+
+			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
+			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
+
+			<rule mode="replace" regex="&amp;quot;" value="&quot;" />
+			<rule mode="replace" regex="&amp;amp;nbsp;" value="" />
+			<rule mode="replace" regex="&amp;amp;middot;" value="" />
+			<rule mode="replace" regex="&amp;amp;ldquo;" value="" />
+			<rule mode="replace" regex="&amp;amp;rdquo;" value="" />
+			<rule mode="replace" regex="&lt;textarea name=&quot;Fck_HTML&quot;"
+				value="&lt;div name=&quot;Fck_HTML&quot;" />
+
+			<rule mode="replace" regex="&lt;\!\[CDATA\[" value="" />
+			<rule mode="replace" regex="\]\]&gt;" value="" />
+		</view>
+		<!-- 已办公告审批特殊展示 -->
+		<view id="otherdowncontentmobile" template="digi/mobile/otherdowncontentmobile.xsl" encoding="utf-8">
 			<!-- 源数据是符合标签形式的字符串，转换成真正的字符串（把'<','>' 替换成真正的标签） -->
 			<rule mode="replace" regex="0 " value="0&#160;" />
 			<rule mode="replace" regex="1 " value="1&#160;" />

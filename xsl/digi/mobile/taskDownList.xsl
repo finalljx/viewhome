@@ -16,8 +16,9 @@
 	</xsl:template>
 	<xsl:template match="viewentry">
 		<xsl:variable name="unid"><xsl:value-of select="@unid"/></xsl:variable>
+		<xsl:variable name="dbpath"><xsl:value-of select="entrydata[4]/."/></xsl:variable>
 		<li name="lilist" href="#" data-icon="true" class="ui-first-child ui-last-child">
-			<a href="javascript:void(0)" onclick="loadDidPageForm(this);" data-unid="{$unid}" class="ui-btn">
+			<a href="javascript:void(0)" onclick="loadDidPageForm(this);" data-unid="{$unid}" data-dbpath="{$dbpath}" class="ui-btn">
 				<h3 style="white-space: normal;">
 					<span>
 						<xsl:value-of select="entrydata[2]/."/>
