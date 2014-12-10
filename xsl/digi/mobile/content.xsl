@@ -56,10 +56,10 @@
 						<script>
 							<![CDATA[
 							//viewfile 附件函数
-						 //function viewfile(url){ 
- 								//localStorage.setItem("attachmentUrl",url);
-								//$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml"); 
-							//} 
+						 function viewfile(url){ 
+ 								localStorage.setItem("attachmentUrl",url);
+								$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml"); 
+							} 
 							
 							function post(value, flowid, confirmflag, confirmstr){
 								var appserver = $("#appserver").val();
@@ -102,8 +102,9 @@
 									type: "post", url: url, data:data,
 									success: function(response){
 											var result = response;
+											alert(result);
 											$.mobile.hidePageLoadingMsg();
-											alert(result+"11111111111");return;
+											
 											//下一环节处理人为空时，需要选择处理人
 											if(result.indexOf("环节处理人为空")>=0){
 												alert(value);
@@ -399,52 +400,6 @@
 	<!-- 处理 附件（目前前仅支持单个附件） -->
 	<xsl:template name="file">
 		<xsl:param name="info" />
-		<xsl:choose>
-			<xsl:when test="contains($info, ';')">
-				<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{substring-before($info, '(')}');"  data-role="button">
-				<xsl:variable name="zhengwen">
-					<xsl:value-of select="substring-before($info, '(')"/>
-				</xsl:variable>
-				<xsl:if test="$zhengwen = 'zhengwen.doc'">
-					查看正文
-				</xsl:if>
-				<xsl:if test="$zhengwen != 'zhengwen.doc'">
-					<xsl:value-of select="substring-before($info, '(')"/>
-				</xsl:if>
-				</a>
-				<xsl:call-template name="file">
-					<xsl:with-param name="info" select="substring-after($info, ';')"/>
-				</xsl:call-template>
-			</xsl:when>
-
-			<xsl:when test="contains($info, '(')">
-				<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{substring-before($info, '(')}');"  data-role="button">
-				<xsl:variable name="zhengwen">
-					<xsl:value-of select="substring-before($info, '(')"/>
-				</xsl:variable>
-				<xsl:if test="$zhengwen = 'zhengwen.doc'">
-					查看正文
-				</xsl:if>
-				<xsl:if test="$zhengwen != 'zhengwen.doc'">
-					<xsl:value-of select="substring-before($info, '(')"/>
-				</xsl:if>
-				</a>
-				
-			</xsl:when>
-			<xsl:otherwise>
-				<a href="javascript:void(0)" onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{$info}');"  data-role="button">
-				<xsl:variable name="zhengwen">
-					<xsl:value-of select="$info"/>
-				</xsl:variable>
-				<xsl:if test="$zhengwen = 'zhengwen.doc'">
-					查看正文
-				</xsl:if>
-				<xsl:if test="$zhengwen != 'zhengwen.doc'">
-					<xsl:value-of select="$info"/>
-				</xsl:if>
-				</a>
-			</xsl:otherwise>
-		</xsl:choose>
 		<li>
 			<xsl:choose>
 				<xsl:when test="contains($info, ';')">
