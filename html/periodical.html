@@ -39,6 +39,16 @@
 		font-size: 20px;
 	}
 } 
+
+
+#wrapper {
+	position: fixed;
+	top: 10px;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+}
+
 </style>
 <script type="text/javascript">
 	var jsonData = new Object();
@@ -99,7 +109,7 @@
 				<li>数据加载中……</li>
 			</ul>
 		</div>
-		<div >
+		<div id="wrapper">
 			<ul id="dzqkList" data-bind="foreach: file" data-role="listview"
 				class="ui-listview" data-inset="false">
 				<li class="ui-first-child ui-last-child" data-icon="false" ><a
