@@ -2,40 +2,44 @@
 <head>
 <title>相关版本</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
 <link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" />
 <script src="../lib/jquery/jquery.min.js"></script>
-<script src="../lib/jquery-cookie/jquery.cookie.js"></script>
-<script src="../lib/encrypt/encrypt.js"></script>
-<script src="../lib/json/json2.js"></script>
 <script src="../lib/hori/hori.js?tag=21369"></script>
 <script src="../config/web/config.js"></script>
 </head>
 <script type="text/javascript">
-$(document).ready(function() {
-	$.hori.getClientVersion(function(data){
-		document.getElementById("banben").innerHTML =data;
+	$(document).ready(function() {
+		$.hori.getClientVersion(function(data) {
+			document.getElementById("banben").innerHTML = data;
+		});
+
 	});
-	
-});
 </script>
 <style>
-.divwh{
- height 5em;
+a {
+	text-decoration: none;
+	color: #000;
+}
+
+.divwh {height 5em;
+	
 }
 </style>
 <body>
-  <div data-role="content" align="center" style="margin-top:20%;">
-		<div class="ui-grid-b divwh">
-		<img class="imgToDo" src="../assets/home/ic_launcher.png" />
-		<br><span >版本号  <font color="blue"><apsn id="banben"></span></font></span>
+	<div data-role="content" align="center" style="margin-top: 10px;">
+		<div class="divwh">
+			<img class="imgToDo" src="../assets/home/ic_launcher.png" /> <br> <span>版本号 <font color="blue"><a
+					href="#" id="banben"></a></font></span><p> <img src="../assets/home/qrcode.png" style="width: 180px; height: 180px;" /> <br>
 		</div>
 	</div>
-	<div style="position:relative;" >
-	<div style="width:100%; position:fixed; left:20px; bottom:10%;">
-	<p><span>版权所有： 中国通用技术集团</span></p>
+	<div style="position: relative;">
+		<div style="width: 100%; position: fixed; left: 20px; bottom: 10px;">
+			<p>
+				<span>版权所有：<br>&copy;中国通用技术(集团)控股有限责任公司
+				</span>
+			</p>
+		</div>
 	</div>
-</div>
 </body>
 </html>
