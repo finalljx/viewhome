@@ -16,7 +16,7 @@
 		<html lang="zh_cn">
 			<head>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-				
+
 				<script>
 				<![CDATA[
 				 
@@ -49,7 +49,7 @@
 
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			</head>
-			<body >
+			<body>
 				<div id="notice" data-role="page">
 
 					<div data-role="content" align="center">
@@ -123,7 +123,45 @@
 									}
 								});
 							}
-
+						var jsonData = new Object();
+						function getNodes(){
+	                      var TFCurNodeID = $("input[name='TFCurNodeID']").val();
+	                      alert(TFCurNodeID);
+	                      var appserver = $("#appserver").val();
+	                      alert(appserver);
+	                      var appdbpath = $("#appdbpath").val();
+	                      var appdocunid = $("#appdocunid").val();
+	                      var opttype='submit';
+	                      var optpsnid='';
+	                      var url= $.hori.getconfig().appServerHost+
+			                "view/oa/attach/Produce/ProInd.nsf/MobileNextOptionAgent?openAgent&optpsnid=" + optpsnid +
+		                    "&appserver=" + appserver +
+		                    "&appdbpath=" + appdbpath +
+		                    "&appdocunid=" + appdocunid +
+		                    "&opttype="+opttype+"&data-result=text";
+	                      $.hori.ajax({
+									type: "post", url: url, 
+									success: function(res){
+									alert(res);
+									var list = JSON.parse(res);
+									jsonData.nodes = list.nodes;
+			                        renderDetail();
+			                        $("#flowpupups" ).popup("open");
+									
+									},
+									error:function(response){
+										$.mobile.hidePageLoadingMsg();
+										alert(result);
+										setTimeout("$.hori.backPage(1)",1000);
+									}
+								});
+	                   
+                           }
+                           function renderDetail() {
+						var viewModelDetail = ko.mapping.fromJS(jsonData);
+						console.log(viewModelDetail);
+						ko.applyBindings(viewModelDetail, document.getElementById("nodes"));
+					}
 							function submit(value){
 								//意见不可为空
 								var sel = $("#FlowMindInfo").val();
@@ -171,7 +209,7 @@
 							<div class="ui-block-a" style="padding-bottom:5px;" align="center">
 								<xsl:if
 									test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
-									<a data-role="button" value="submit" onclick="submit('submit');"
+									<a data-role="button" value="submit" onclick="getNodes();"
 										data-mini='true' data-theme="f">提 交</a>
 								</xsl:if>
 							</div>
@@ -194,7 +232,7 @@
 						</div>
 
 						<!-- 驳回选关 -->
-						<div data-role="popup" id="flowpupups">
+						<!-- <div data-role="popup" id="flowpupups">
 							<fieldset data-role="controlgroup" data-mini="true">
 								<xsl:call-template name="flows">
 									<xsl:with-param name="flows"
@@ -202,7 +240,7 @@
 									<xsl:with-param name="alreadyflowids" />
 								</xsl:call-template>
 							</fieldset>
-						</div>
+						</div> -->
 
 						<h3>
 							<xsl:value-of select="//title/text()" />
@@ -228,6 +266,20 @@
 												<td style="width:70%" align="left">
 
 												</td>
+												<td>
+													<!-- 选择环节 -->
+													<div data-role="popup" id="flowpupups">
+														<fieldset data-role="controlgroup" id="nodes" data-bind="foreach: nodes">
+															<input type="radio" 
+																onclick="post('submit',this.value,this.name)" />
+															<label >
+																<span  data-bind="text: Name"></span>
+															</label>
+															
+														</fieldset>
+													</div>
+
+												</td>
 												<td style="width:30%" align="right">
 													<select onChange='$("#FlowMindInfo").val(this.value);'
 														data-theme="a" data-mini='true' data-icon="gear"
@@ -242,7 +294,7 @@
 												</td>
 											</tr>
 											<tr style="width:100%">
-												<td colspan="2" style="width:100%" align="center">
+												<td colspan="3" style="width:100%" align="center">
 													<textarea id="FlowMindInfo" name="FlowMindInfo"></textarea>
 												</td>
 											</tr>
@@ -261,19 +313,11 @@
 								</xsl:if>
 								<xsl:apply-templates select="//div[@name='Fck_HTML']//fieldentry" />
 							</li>
-							<!-- <li data-role="list-divider" class="word">正文内容</li>
-							<li data-bind="foreach: word" id="word" class="word">
-								<a data-role="button" data-bind="click:viewfile">
-									<span data-bind="text: name"></span>
-								</a>
-							</li>
-
-							<li data-role="list-divider">附件信息</li>
-							<li data-bind="foreach: attachment" id="attachment">
-								<a data-role="button" data-bind="click:viewfile">
-									<span data-bind="text: name"></span>
-								</a> 
-							</li>-->
+							<!-- <li data-role="list-divider" class="word">正文内容</li> <li data-bind="foreach: 
+								word" id="word" class="word"> <a data-role="button" data-bind="click:viewfile"> 
+								<span data-bind="text: name"></span> </a> </li> <li data-role="list-divider">附件信息</li> 
+								<li data-bind="foreach: attachment" id="attachment"> <a data-role="button" 
+								data-bind="click:viewfile"> <span data-bind="text: name"></span> </a> </li> -->
 							<!-- select="translate(//input[@name='AttachInfo']/@value, ' ', '')"/> -->
 							<!-- <xsl:if test="//input[@name='AttachInfo']/@value =''"> <li> 无附件 
 								</li> </xsl:if> <xsl:if test="//input[@name='AttachInfo']/@value !=''"> <xsl:call-template 
@@ -300,19 +344,21 @@
 								</xsl:if>
 							</li>
 						</ul>
-						<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
+						<ul data-role="listview" data-inset="true" data-theme="d"
+							style="word-wrap:break-word">
 							<li data-role="list-divider">附件信息</li>
 							<!-- select="translate(//input[@name='AttachInfo']/@value, ' ', '')"/> -->
-								<xsl:if test="//input[@name='AttachInfo']/@value =''">
-									<li>
-										无附件
-									</li>	
-								</xsl:if>
-								<xsl:if test="//input[@name='AttachInfo']/@value !=''">
-									<xsl:call-template name="file">
-										<xsl:with-param name="info" select="translate(//input[@name='AttachInfo']/@value, ' ', '')"/>
-									</xsl:call-template>
-								</xsl:if>
+							<xsl:if test="//input[@name='AttachInfo']/@value =''">
+								<li>
+									无附件
+								</li>
+							</xsl:if>
+							<xsl:if test="//input[@name='AttachInfo']/@value !=''">
+								<xsl:call-template name="file">
+									<xsl:with-param name="info"
+										select="translate(//input[@name='AttachInfo']/@value, ' ', '')" />
+								</xsl:call-template>
+							</xsl:if>
 						</ul>
 						<xsl:apply-templates select="//input[@type='hidden' or not(@type)]"
 							mode="hidden" />

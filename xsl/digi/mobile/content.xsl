@@ -92,7 +92,7 @@
 								
 								
 								localStorage.setItem("FlowMindInfo",FlowMindInfo);
-								var soap = "<SOAP-ENV:Envelope xmlns:SOAP-ENV='http://schemas.xmlsoap.org/soap/envelope/' xmlns:SOAP-ENC='http://schemas.xmlsoap.org/soap/encoding/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'><SOAP-ENV:Body><m:bb_dd_GetDataByView xmlns:m='http://sxg.bbdd.org' SOAP-ENV:encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'><db_ServerName xsi:type='xsd:string'>"+appserver+"</db_ServerName><db_DbPath xsi:type='xsd:string'>"+appdbpath+"</db_DbPath><db_DocUID xsi:type='xsd:string'>"+appdocunid+"</db_DocUID><db_UpdInfo xsi:type='xsd:string'></db_UpdInfo><db_OptPsnID xsi:type='xsd:string'>"+CurUserITCode+"</db_OptPsnID><db_TempAuthors xsi:type='xsd:string'></db_TempAuthors><db_MsgTitle xsi:type='xsd:string'></db_MsgTitle><db_ToNodeId xsi:type='xsd:string'>"+toNodeId+"</db_ToNodeId><db_Mind xsi:type='xsd:string'>"+FlowMindInfo+"</db_Mind><db_OptType xsi:type='xsd:string'>"+value+"</db_OptType></m:bb_dd_GetDataByView></SOAP-ENV:Body></SOAP-ENV:Envelope>";
+								var soap = "<SOAP-ENV:Envelope xmlns:SOAP-ENV='http://schemas.xmlsoap.org/soap/envelope/' xmlns:SOAP-ENC='http://schemas.xmlsoap.org/soap/encoding/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'><SOAP-ENV:Body><m:bb_dd_GetDataByView xmlns:m='http://sxg.bbdd.org' SOAP-ENV:encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'><db_ServerName xsi:type='xsd:string'>"+appserver+"</db_ServerName><db_DbPath xsi:type='xsd:string'>"+appdbpath+"</db_DbPath><db_DocUID xsi:type='xsd:string'>"+appdocunid+"</db_DocUID><db_UpdInfo xsi:type='xsd:string'></db_UpdInfo><db_OptPsnID xsi:type='xsd:string'>"+CurUserITCode+"</db_OptPsnID><db_TempAuthors xsi:type='xsd:string'></db_TempAuthors><db_MsgTitle xsi:type='xsd:string'></db_MsgTitle><db_ToNodeId xsi:type='xsd:string'>"+toNodeId+"</db_ToNodeId><db_Mind xsi:type='xsd:string'>"+FlowMindInfo+"</db_Mind><db_OptType xsi:type='xsd:string'>"+value+"</db_OptType><db_SelectPsn xsi:type='xsd:string'>"+selectPsn+"</db_SelectPsn></m:bb_dd_GetDataByView></SOAP-ENV:Body></SOAP-ENV:Envelope>";
 								$.mobile.showPageLoadingMsg();
 								var url = $.hori.getconfig().appServerHost+"view/oa/request/Produce/ProInd.nsf/THFlowBackTraceAgent?openagent&login";
 								var data = "data-xml="+soap;
@@ -123,7 +123,39 @@
 									}
 								});
 							}
-
+	                      function getNodes(){
+	                      var TFCurNodeID = $("input[name='TFCurNodeID']").val();
+	                      alert(TFCurNodeID);
+	                      var appserver = $("#appserver").val();
+	                      alert(appserver);
+	                      var appdbpath = $("#appdbpath").val();
+	                      var appdocunid = $("#appdocunid").val();
+	                       var opttype='submit';
+	                      var optpsnid='';
+	                      var url= $.hori.getconfig().appServerHost+
+			                "view/oa/attach/Produce/ProInd.nsf/MobileNextOptionAgent?openAgent&optpsnid=" + optpsnid +
+		                    "&appserver=" + appserver +
+		                    "&appdbpath=" + appdbpath +
+		                    "&appdocunid=" + appdocunid +
+		                    "&opttype="+opttype+"&data-result=text";
+	                      $.hori.ajax({
+									type: "post", url: url, 
+									success: function(res){
+									alert(res);
+									var list = JSON.parse(res);
+									jsonData.nodes = list.nodes;
+			                        renderDetail();
+			                        $("#flowpupups" ).popup("open");
+									
+									},
+									error:function(response){
+										$.mobile.hidePageLoadingMsg();
+										alert(result);
+										setTimeout("$.hori.backPage(1)",1000);
+									}
+								});
+	                   
+                           }
 							function submit(value){
 								//意见不可为空
 								var sel = $("#FlowMindInfo").val();
@@ -171,7 +203,7 @@
 							<div class="ui-block-a" style="padding-bottom:5px;" align="center">
 								<xsl:if
 									test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
-									<a data-role="button" value="submit" onclick="submit('submit');"
+									<a data-role="button" value="submit" onclick="getNodes();"
 										data-mini='true' data-theme="f">提 交</a>
 								</xsl:if>
 							</div>
