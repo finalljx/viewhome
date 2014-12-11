@@ -9,11 +9,14 @@
 <link rel="stylesheet"
 	href="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" />
 <link rel="stylesheet" href="../../assets/jquery.mobile-sugon.css" />
+<link rel="stylesheet"
+		href="../../lib/jquery-mobile/loading.jquery.mobile.min.css" /> 
 <script src="../../lib/jquery/jquery.min.js"></script>
 <script src="../../lib/encrypt/encrypt.js"></script>
 <script src="../../lib/json/json2.js"></script>
 <script src="../../lib/hori/hori.js?tag=21369"></script>
 <script src="../../config/web/config.js"></script>
+
 <script
 	src="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
 <script src="../../lib/knockout/knockout.js"></script>
@@ -60,7 +63,7 @@
 	var page = 0;
 	var viewModel = new Object();
 	function pullUpAction(itcode) {
-		$.hori.showLoading();
+		$.hori.loading();
 		setTimeout(
 				function() {
 					
@@ -87,7 +90,6 @@
 								"url" : url,
 								"data" : data,
 								"success" : function(res) {
-									$.hori.hideLoading();
 									$("#newsList").css("display", "");
 									$("#divDataLoading").css("display", "none");
 									var list = JSON.parse(res);
@@ -131,7 +133,7 @@
 										}
 										myScroll.refresh();
 									}
-									$.hori.hideLoading();
+									$.hori.loading("hide");
 								},
 								"error" : function(res) {
 									alert("error:" + res);
@@ -267,7 +269,7 @@ a {
 <body>
 	<div id="list" data-role="page" class="type-home">
 		<div data-role="content" align="center">
-			<div id="divDataLoading">
+			<div id="divDataLoading" style="display: none;">
 				<ul data-role="listview" data-inset="true">
 					<li>数据加载中……</li>
 				</ul>

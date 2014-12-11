@@ -6,14 +6,23 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
 <script type="application/javascript" src="../../assets/iscroll.js"></script>
-<link rel="stylesheet" href="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" />
+<link rel="stylesheet"
+	href="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" />
+
+<!-- <link rel="stylesheet"
+	href="../../lib/jquery-mobile/jquery.mobile.min.css" /> -->
+
+<link rel="stylesheet"
+	href="../../lib/jquery-mobile/loading.jquery.mobile.min.css" />
+
 <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
 <script src="../../lib/jquery/jquery.min.js"></script>
 <script src="../../lib/encrypt/encrypt.js"></script>
 <script src="../../lib/json/json2.js"></script>
 <script src="../../lib/hori/hori.js?tag=21369"></script>
 <script src="../../config/web/config.js"></script>
-<script src="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
+<script
+	src="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
 <script src="../../lib/knockout/knockout.js"></script>
 <script src="../../lib/knockout/knockout.mapping.js"></script>
 <style>
@@ -24,7 +33,7 @@ a {
 .ui-listview .ui-li-has-thumb>img:first-child, .ui-listview .ui-li-has-thumb>.ui-btn>img:first-child,
 	.ui-listview .ui-li-has-thumb .ui-li-thumb {
 	position: absolute;
-	left: 10px; 
+	left: 10px;
 	top: auto;
 	bottom: auto;
 	max-width: 5em;
@@ -32,19 +41,20 @@ a {
 }
 
 #wrapper {
-    position: fixed;
-    top: 10px;
-    bottom: 0px;
-    left: 0px;
-    width: 100%; 
+	position: fixed;
+	top: 10px;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
 }
 
-@media  only screen and (min-width: 1070px) and (max-width: 1242px) {
-  .idiv {
-    font-size: 22px;
-  }
-} 
-@media  screen and (min-width: 400px) and (max-width: 800px) {
+@media only screen and (min-width: 1070px) and (max-width: 1242px) {
+	.idiv {
+		font-size: 22px;
+	}
+}
+
+@media screen and (min-width: 400px) and (max-width: 800px) {
 	.idiv {
 		font-size: 21px;
 	}
@@ -54,14 +64,13 @@ a {
 	.idiv {
 		font-size: 20px;
 	}
-}  
-
+}
 </style>
 <script type="text/javascript">
 	var itcode;
 	$(document).ready(function() {
 		//默认隐藏列表显示
-        $("#newsList").css("display","none");
+		$("#newsList").css("display", "none");
 		itcode = localStorage.getItem("itcode");
 		$.hori.setHeaderTitle("图片新闻");
 		pullUpAction(itcode);
@@ -72,9 +81,9 @@ a {
 	var page = 0;
 	var viewModel = new Object();
 	function pullUpAction(itcode) {
-		$.hori.showLoading();
 		setTimeout(
 				function() {
+					$.hori.loading();
 					page = page + 1;
 					var url = $.hori.getconfig().appServerHost
 							+ "view/news/newsList/accsyWcmNews/services/WcmNewsList";
@@ -90,6 +99,7 @@ a {
 					soap += '</web:getWcmNewsList>';
 					soap += ' </soapenv:Body></soapenv:Envelope>';
 					var data = "data-xml=" + soap;
+
 					$.hori
 							.ajax({
 								"type" : "post",
@@ -99,16 +109,19 @@ a {
 									"Authorization" : "Basic d3BzYWRtaW46R1RBZG1pbg=="
 								},
 								"success" : function(res) {
-									res=res.replace(/\?/g,"");
-									$("#newsList").css("display","");
-                                    $("#divDataLoading").css("display","none");
+									res = res.replace(/\?/g, "");
+									$("#newsList").css("display", "");
+									$("#divDataLoading").css("display", "none");
 									var list = JSON.parse(res);
 									for ( var item in list) {
-										list[item].tpxwImage = list[item].tpxwImage.substring(list[item].tpxwImage.indexOf(".cn")+3);
+										list[item].tpxwImage = list[item].tpxwImage
+												.substring(list[item].tpxwImage
+														.indexOf(".cn") + 3);
 										var targetURL = $.hori.getconfig().appServerHost2
 												+ 'view/tpxw/file'
 												+ list[item].tpxwImage
-												+ "?data-result=file&data-application=" + $.hori.getconfig().appKey;
+												+ "?data-result=file&data-application="
+												+ $.hori.getconfig().appKey;
 										list[item].tpxwImage = targetURL;
 									}
 
@@ -119,11 +132,11 @@ a {
 										if (time == myDate.getFullYear()) {
 											list[i].creatTime = list[i].creatTime
 													.substr(5, 9);
-											
+
 											list[i].creatTime = "["
-												+ list[i].creatTime + "]";
+													+ list[i].creatTime + "]";
 										} else {
-											
+
 										}
 									}
 									if (page == 1) {
@@ -142,7 +155,7 @@ a {
 										}
 										myScroll.refresh();
 									}
-									$.hori.hideLoading();
+									$.hori.loading('hide');
 								},
 								"error" : function(res) {
 									alert("error:" + res);
@@ -201,17 +214,17 @@ a {
 	var t1 = null;//这个设置为全局
 	//跳转新闻详情页
 	function showDetail(item, moreCurrentName) {
-		if (t1 == null){
-	        t1 = new Date().getTime();
-	    }else{       
-	        var t2 = new Date().getTime();
-	        if(t2 - t1 < 500){
-	            t1 = t2;
-	            return;
-	        }else{
-	            t1 = t2;
-	        }
-	    }
+		if (t1 == null) {
+			t1 = new Date().getTime();
+		} else {
+			var t2 = new Date().getTime();
+			if (t2 - t1 < 500) {
+				t1 = t2;
+				return;
+			} else {
+				t1 = t2;
+			}
+		}
 		var contentName = item.contentName();
 		localStorage.setItem("currentContentName", contentName);
 		localStorage.setItem("moreCurrentName", "GT_HomePage_SiteArea_tpxw");
@@ -224,7 +237,7 @@ a {
 <body>
 	<div id="list" data-role="page" class="type-home">
 		<div data-role="content" align="center">
-			<div id="divDataLoading">
+			<div id="divDataLoading" style="display: none;">
 				<ul data-role="listview" data-inset="true">
 					<li>数据加载中……</li>
 				</ul>
@@ -235,17 +248,20 @@ a {
 						<p></p>
 						<ul data-bind="foreach: list" id="querydataList"
 							data-role="listview">
-							<li data-icon="false"><a data-bind="click:showDetail" style="margin-left: 3px; margin-right: 10px;" >
-									<img data-bind="attr:{'src':tpxwImage}"
+							<li data-icon="false"><a data-bind="click:showDetail"
+								style="margin-left: 3px; margin-right: 10px;"> <img
+									data-bind="attr:{'src':tpxwImage}"
 									style="margin-left: 10px; margin-top: 10px; margin-right: 10px;" />
 									<h3 style="white-space: normal;">
-									<div style="margin-right: 20px; margin-left: 10px;" class='idiv'>
-										<span data-bind="text: contentTitle" ></span>
-									</div>
+										<div style="margin-right: 20px; margin-left: 10px;"
+											class='idiv'>
+											<span data-bind="text: contentTitle"></span>
+										</div>
 									</h3>
 
 									<p style="text-align: right;">
-										<span style="margin-right: 20px;font-size: 15px;" data-bind="text:creatTime"></span>
+										<span style="margin-right: 20px; font-size: 15px;"
+											data-bind="text:creatTime"></span>
 									</p>
 							</a></li>
 						</ul>

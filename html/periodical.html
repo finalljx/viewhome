@@ -22,7 +22,7 @@
 <script src="../lib/knockout/knockout.js"></script>
 <script src="../lib/knockout/knockout.mapping.js"></script>
 <style>
- @media only screen and (min-width: 1070px) and (max-width: 1242px) {
+@media only screen and (min-width: 1070px) and (max-width: 1242px) {
 	.ispan {
 		font-size: 22px;
 	}
@@ -38,14 +38,13 @@
 	.ispan {
 		font-size: 20px;
 	}
-} 
-
+}
 
 #wrapper {
 	position: fixed;
-	top: 10px;
+	top: -17px;
 	bottom: 0px;
-	left: 0px;
+	left: -5px;
 	width: 100%;
 }
 
@@ -89,11 +88,9 @@
 		var url = $.hori.getconfig().appServerHost + "view/tpxw/file"
 				+ item.lianjie() + "?data-convert=office&data-cache=true";
 		localStorage.setItem("attachmentUrl", url);
-		$.hori
-				.loadPage(
-						$.hori.getconfig().serverBaseUrl
-								+ "viewhome/html/attachmentShowForm.html",
-						"viewhome/xml/AttachView.xml");
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl
+				+ "viewhome/html/attachmentShowForm.html",
+				"viewhome/xml/AttachView.xml");
 	}
 	function renderDetail() {
 		var viewModelDetail = ko.mapping.fromJS(jsonData);
@@ -103,7 +100,7 @@
 </script>
 </head>
 <body>
-	<div data-role="content" align="center">
+	<!-- <div data-role="content" align="center">
 		<div id="divDataLoading">
 			<ul data-role="listview" data-inset="true">
 				<li>数据加载中……</li>
@@ -117,6 +114,30 @@
 						data-bind="text: fileName" class='ispan'></span>
 						<p></p> </a></li>
 			</ul>
+		</div>
+	</div> -->
+
+	<div data-role="page" class="type-home" style="height: 99.9%">
+		<div data-role="content" align="center">
+			<div id="divDataLoading" style="display: none;">
+				<ul data-role="listview" data-inset="true">
+					<li>数据加载中……</li>
+				</ul>
+			</div>
+			<div id="newsList" class='newList'>
+				<div id="wrapper">
+					<div id="scroller" >
+						<p></p>
+						<ul id="dzqkList" data-bind="foreach: file" data-role="listview"
+							class="ui-listview" data-inset="false"  style="margin: 0px;">
+							<li class="ui-first-child ui-last-child" data-icon="false"><a
+								data-bind="click: viewFile"><p></p> <span
+									data-bind="text: fileName" class='ispan'></span>
+									<p></p> </a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
