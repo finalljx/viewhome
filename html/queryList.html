@@ -23,6 +23,27 @@
 			var fstart=1;
 			var view="";
 			var dataid = ""
+			var ayeartime;
+			var formtime;
+			function fiteryear(){ //过滤年份显示
+			    var now = new Date();
+			    var year=now.getFullYear()-1;   
+			    var month=now.getMonth()+1;
+			    if(month<10){month="0"+month;}
+			    var date=now.getDate();
+			    if(date<10){date="0"+date;}
+			    var hour=now.getHours();   
+			    var minute=now.getMinutes();   
+			    var second=now.getSeconds();
+			    ayeartime=year+"-"+month+"-"+date+" "+hour+":"+minute+":"+second;
+			    $("li").each(function(){
+			        formtime = $(this).data("time");
+			        if(ayeartime>formtime){
+			            $(this).hide();
+			        }else{
+			        }
+			    });
+			}
 			function pullUpAction () {
 				$.hori.showLoading();
 				setTimeout(function () {
@@ -35,88 +56,77 @@
 						dbpath="/"+$.hori.getconfig().docServer+"/genertec/dep1/qsbg_1.nsf";
 						Astart=Astart+10;
 						start=Astart;
-					}
-					if(type=="querydoing"){
+					}else if(type=="querydoing"){
 						template="queryForDoing";
 						view = "vwDocByDate";
 						dataid = "querydataList";
 						dbpath="/"+$.hori.getconfig().docServer+"/genertec/dep1/qsbg_1.nsf";
 						Astart=Astart+10;
 						start=Astart;
-					}
-					if(type=="querytoArchive"){
+					}else if(type=="querytoArchive"){
 						template="toArchive";
 						view = "vwtoArchive";
 						dataid = "querydataList";
 						dbpath="/"+$.hori.getconfig().docServer+"/genertec/dep1/qsbg_1.nsf";
 						Bstart=Bstart+10;
 						start=Bstart;
-					}
-					if(type=="searchquerytoArchive"){
+					}else if(type=="searchquerytoArchive"){
 						template="searchquerytoArchive";
 						view = "vwtoArchive";
 						dataid = "querydataList";
 						dbpath="/"+$.hori.getconfig().docServer+"/genertec/dep1/qsbg_1.nsf";
 						Bstart=Bstart+10;
 						start=Bstart;
-					}
-					if(type=="queryArchvied"){
+					}else if(type=="queryArchvied"){
 						template="Archvied";
 						view = "vwDocByArchived";
 						dataid = "querydataList";
 						dbpath="/"+$.hori.getconfig().docServer+"/genertec/dep1/qsbg_1.nsf";
 						Cstart=Cstart+10;
 						start=Cstart;
-					}
-					if(type=="searchqueryArchvied"){
+					}else if(type=="searchqueryArchvied"){
 						template="searchqueryArchvied";
 						view = "vwDocByArchived";
 						dataid = "querydataList";
 						dbpath="/"+$.hori.getconfig().docServer+"/genertec/dep1/qsbg_1.nsf";
 						Cstart=Cstart+10;
 						start=Cstart;
-					}
-					if(type=="signForDoing"){
+					}else if(type=="signForDoing"){
 						template="signForDoing";
 						view = "vwDocByDate";
 						dataid = "signdataList";
 						dbpath = localStorage.getItem("singdbPath");
 						dstart=dstart+10;
 						start=dstart;
-					}
-					if(type=="searchsignForDoing"){
+					}else if(type=="searchsignForDoing"){
 						template="searchsignForDoing";
 						view = "vwDocByDate";
 						dataid = "signdataList";
 						dbpath = localStorage.getItem("singdbPath");
 						dstart=dstart+10;
 						start=dstart;
-					}
-					if(type=="signtoArchive"){
+					}else if(type=="signtoArchive"){
 						template="signtoArchive";
 						view = "vwtoArchive";
 						dataid = "signdataList";
 						dbpath = localStorage.getItem("singdbPath");
 						estart=estart+10;
 						start=estart;
-					}
-					if(type=="searchsigntoArchive"){
+					}else if(type=="searchsigntoArchive"){
 						template="searchsigntoArchive";
 						view = "vwtoArchive";
 						dataid = "signdataList";
 						dbpath = localStorage.getItem("singdbPath");
 						estart=estart+10;
 						start=estart;
-					}
-					if(type=="signArchvied"){
+					}else if(type=="signArchvied"){
 						template="signArchvied";
 						view = "vwDocByArchived";
 						dataid = "signdataList";
 						dbpath = localStorage.getItem("singdbPath");
 						fstart=fstart+10;
 						start=fstart;
-					}
-					if(type=="searchsignArchvied"){
+					}else if(type=="searchsignArchvied"){
 						template="searchsignArchvied";
 						view = "vwDocByArchived";
 						dataid = "signdataList";
@@ -144,6 +154,7 @@
 								}
 							}
 							$("#"+dataid).append(res).listview("refresh");
+							fiteryear();
 							myStartTaskLoad=true;
 							myScroll.refresh();
 							$.hori.hideLoading();
@@ -281,6 +292,7 @@
 					$("#querydataList").empty();
 					$("#signdataList").empty();
 					$("#querydataList").append(res).listview("refresh");
+					fiteryear();
 					$.hori.hideLoading();
 					myScroll.refresh();
 					signLoad=true;
@@ -302,8 +314,8 @@
 					//alert(res);
 					//doctest/genertec/dep26/hqk_26.nsf
 					//用于测试写死，正式时要放开
-					//singdbPath = res; 
-					singdbPath="/"+$.hori.getconfig().docServer+"/genertec/dep26/hqk_26.nsf";
+					singdbPath = res; 
+					//singdbPath="/"+$.hori.getconfig().docServer+"/genertec/dep26/hqk_26.nsf";
 					localStorage.setItem("singdbPath",singdbPath);
 					$.hori.hideLoading();
 				},
@@ -344,6 +356,7 @@
 					$("#querydataList").empty();
 					$("#signdataList").append(res).listview("refresh");
 					$.hori.hideLoading();
+                    fiteryear();
 					myScroll.refresh();
 					
 				},
@@ -399,8 +412,12 @@
 			$.hori.loadPage(loadurl);
 		}
 		function querysearchlist(){
-			$.hori.showLoading();
 			var searchkey=$("#querysearchKey").val();
+			if(searchkey == ''){
+				alert("请输入查询条件");
+				return;
+			}
+			$.hori.showLoading();
 			localStorage.setItem("searchkey", searchkey);
 			//alert(searchkey);
 			var view = $('option:selected', '#querytype').val();
@@ -430,6 +447,7 @@
 					$("#querydataList").empty();
 					$("#signdataList").empty();
 					$("#querydataList").append(res).listview("refresh");
+					fiteryear();
 					$.hori.hideLoading();
 					myScroll.refresh();
 					signLoad=true;
@@ -441,8 +459,12 @@
 			});
 		}
 		function signsearchlist(){
-			$.hori.showLoading();
 			var searchkey=$("#signsearchKey").val();
+			if(searchkey == ''){
+				alert("请输入查询条件");
+				return;
+			}
+			$.hori.showLoading();
 			localStorage.setItem("searchkey", searchkey);
 			//alert(searchkey);
 			var value = $('option:selected', '#signtype').val();
@@ -475,6 +497,7 @@
 					$("#signdataList").empty();
 					$("#querydataList").empty();
 					$("#signdataList").append(res).listview("refresh");
+					fiteryear();
 					$.hori.hideLoading();
 					myScroll.refresh();
 					
