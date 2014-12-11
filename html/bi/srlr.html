@@ -54,13 +54,10 @@ a {
 	<div id="main" style=" float: left;"></div>
 	<div id="main1" style=" float: left;"></div>
 	
-	<div  style="float: right;  margin-bottom: 15px;">
-		<span>点击图表显示详细。</span>
-	</div>
 	
 	<script type="text/javascript">
 		window.onload = function() {
-			var h = document.documentElement.clientHeight / 2;//可见区域高度
+			var h = (document.documentElement.clientHeight) / 2;//可见区域高度
 			var w = document.documentElement.clientWidth;//可见区域高度
 			var sm = document.getElementById('main');
 			sm.style.height = h + "px";
@@ -99,15 +96,15 @@ a {
 					var fontSize;
 					var fontSize2;
 					if (cWidth < 720) {
-						fontSize = 16;
-						fontSize2 = 14;
+						fontSize = 15;
+						fontSize2 = 13;
 					} else {
 						fontSize = 18;
 						fontSize2 = 16;
 					}
 					var json = JSON.parse(res);
 					render(json);
-					$("#month").css('display', '');
+					
 					console.log(res);
 					var income = json.reportdata.income;
 					var profit = json.reportdata.profit;
@@ -130,6 +127,7 @@ a {
 							serieschart, year, month, fontSize, fontSize2);
 					
 					$.hori.loading("hide");
+					$("#month").css('display', '');
 				},
 				"error" : function(res) {
 					alert("error:" + res);

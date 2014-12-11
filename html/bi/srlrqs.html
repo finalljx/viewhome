@@ -39,22 +39,22 @@ a {
 		font-size: 15px;
 	}
 }
-
 </style>
 </head>
 <body>
-	<div id='month' style="float: right; display: none; margin-bottom: 15px;">
+	<div id='month'
+		style="float: right; display: none; margin-bottom: 15px;">
 		注：此经营数据截至<span data-bind="text: reportdata.year"></span>年<span
 			data-bind="text: reportdata.month"></span>月。
 	</div>
 	<!-- 收入利润趋势 -->
-	<div id="main" ></div><p></p>
+	<div id="main"></div>
+	<p></p>
 	<div id="main1"></div>
-
 
 	<script type="text/javascript">
 		window.onload = function() {
-			var h = document.documentElement.clientHeight / 2;//可见区域高度
+			var h = (document.documentElement.clientHeight) / 2;//可见区域高度
 			var w = document.documentElement.clientWidth;//可见区域高度
 			var sm = document.getElementById('main');
 			//h= parseInt(h)-5;
@@ -98,8 +98,8 @@ a {
 					$("#month").css('display', '');
 					var cWidth = window.screen.width;
 					if (cWidth < 730) {
-						fontSize = 16;
-						fontSize2 = 14;
+						fontSize = 15;
+						fontSize2 = 13;
 					} else {
 						fontSize = 18;
 						fontSize2 = 16;
@@ -122,7 +122,7 @@ a {
 					var yearBudget2 = profit.yearBudget.split('|');
 					loadSrlrqs2(month2, seriesname2, lastSumData2, nowSumData2,
 							increaseData2, yearBudget2, fontSize);
-					
+
 					$.hori.loading("hide");
 				},
 				"error" : function(res) {
@@ -175,7 +175,7 @@ a {
 				calculable : false,
 				legend : {
 					data : seriesname,
-					selectedMode: false,
+					selectedMode : false,
 					textStyle : {
 						fontSize : fontSize
 					}
@@ -265,7 +265,7 @@ a {
 				calculable : false,
 				legend : {
 					data : seriesname2,
-					selectedMode: false,
+					selectedMode : false,
 					textStyle : {
 						fontSize : fontSize
 					}

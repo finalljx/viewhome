@@ -43,7 +43,8 @@ a {
 
 </head>
 <body>
-	<div id='month' style="float: right; display: none; margin-bottom: 15px;">
+	<div id='month'
+		style="float: right; display: none; margin-bottom: 15px;">
 		注：此经营数据截至<span data-bind="text: reportdata.year"></span>年<span
 			data-bind="text: reportdata.month"></span>月。
 	</div>
@@ -52,6 +53,12 @@ a {
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$.hori.setHeaderTitle("收入板块");
+			var h = (document.documentElement.clientHeight);//可见区域高度
+			var w = document.documentElement.clientWidth;//可见区域高度
+			var sm = document.getElementById('main');
+			//h= parseInt(h)-5;
+			sm.style.height = h + "px";
+			sm.style.width = w + "px";
 			//加载收入板块图表数据
 			loadSrbkChart();
 		});
@@ -125,7 +132,7 @@ a {
 					data : category,
 					x : 'left',
 					margin : 200,
-					selectedMode: false,
+					selectedMode : false,
 					// 主题，主题
 					textStyle : {
 						fontSize : fontSize
@@ -145,12 +152,12 @@ a {
 					},
 					name : title,
 					type : 'pie',
-					center : [ '50%', '70%' ],
+					center : [ '50%', '50%' ],
 					radius : '50%',
 					data : [ {
 						value : seriesdata[0],
 						name : category[0],
-						clickable: false 
+						clickable : false
 					}, {
 						value : seriesdata[1],
 						name : category[1]

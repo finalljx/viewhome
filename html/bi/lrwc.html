@@ -7,16 +7,15 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
 <link rel="stylesheet"
 	href="../../lib/jquery-mobile/jquery.mobile.min.css" />
-<link rel="stylesheet" href="../../assets/jquery.mobile-sugon.css" />
-
 <script src="../../lib/jquery/jquery.min.js"></script>
 <script src="../../lib/jquery-cookie/jquery.cookie.js"></script>
 <script src="../../lib/encrypt/encrypt.js"></script>
 <script src="../../lib/json/json2.js"></script>
 <script src="../../lib/hori/hori.js?tag=21369"></script>
-
+<script src="../../lib/jquery-mobile/jquery.mobile.min.js"></script>
 <script src="../asset/js/echarts-plain.js"></script>
 <script src="../../config/web/config.js"></script>
+
 <script src="../../lib/knockout/knockout.js"></script>
 <script src="../../lib/knockout/knockout.mapping.js"></script>
 <style>
@@ -24,194 +23,194 @@ a {
 	text-decoration: none;
 }
 
-@media  all and (min-device-width: 1080px) and (max-device-width: 1242px) {
-  #month {
+@media all and (min-device-width: 1080px) and (max-device-width: 1242px)
+	{
+	#month {
 		font-size: 17px;
 	}
-} 
+}
 
-@media  all and (min-device-width: 720px) and (max-device-width: 1079px) {
-    #month {
+@media all and (min-device-width: 720px) and (max-device-width: 1079px)
+	{
+	#month {
 		font-size: 16px;
 	}
 }
 
- @media  all and (min-device-width: 339px) and (max-device-width: 719px) {
+@media all and (min-device-width: 339px) and (max-device-width: 719px) {
 	#month {
 		font-size: 15px;
 	}
-} 
+}
 
-@media  screen  and (min-width: 310px) and (max-width: 338px) {
+@media screen and (min-width: 310px) and (max-width: 338px) {
 	#month {
 		font-size: 14px;
 	}
-}  
+}
 </style>
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		$.hori.setHeaderTitle("利润完成");
-		//加载收入完成图表数据
-		loadSrwcChart();
-	});
-	//加载收入完成图表数据
-	function loadSrwcChart() {
-		$.hori.loading();
-		var url = $.hori.getconfig().appServerHost
-				+ "view/bi/loadSrwcChart/accsyBiReport/services/reqBiReportData";
-		var temp = "$lt;?xml version='1.0' encoding='utf-8'?$gt;$lt;root$gt;$lt;reportdata$gt;$lt;reportid$gt;16$lt;/reportid$gt;$lt;/reportdata$gt;$lt;/root$gt;";
-		var soap = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='http://webservice.biz.digiwin.com'>";
-		soap += '<soapenv:Header/><soapenv:Body>';
-		soap += '<web:viewReportById>';
-		soap += '<web:in0>' + temp + '</web:in0>';
-		soap += '</web:viewReportById>';
-		soap += ' </soapenv:Body></soapenv:Envelope>';
-		var data = "data-xml=" + soap;
-		var viewModel;
-		$.hori.ajax({
-			"type" : "post",
-			"url" : url,
-			"data" : data,
-			"success" : function(res) {
-				console.log('res==' + res);
-				var json = JSON.parse(res);
-				render(json);
-				$("#month").css('display', '');
-				reportdata = json.reportdata;
-				var seriesname = reportdata.seriesname.split('|');
-				var seriesdata = reportdata.seriesdata.split('|');
-				var one = seriesdata[1] / seriesdata[0] - 0.1;
-				var two = seriesdata[2] / 100 + 0.1;
-				var lrwc = seriesdata[1];
-				var b = seriesname[0] + ":" + seriesdata[0]
-						+ reportdata.primaryunit;
-				var c = seriesname[1] + ":" + seriesdata[1]
-						+ reportdata.primaryunit;
-				var d = seriesname[2] + ":" + seriesdata[2] + "%";
-				var ww = (Math.ceil((seriesdata[0]) / 10)) * 10;
-				draw(ww, lrwc, 0.6, 0.7, b + "\n" + c + "\n" + d);
-				$.hori.loading("hide");
-			},
-			"error" : function(res) {
-				alert("error:" + res);
-				$.hori.loading("hide");
-				$.hori.hideLoading();
-			}
-		});
-	}
-	function draw(ljwcz, lrwc, colorOne, colorTwo, title) {
-		var option = {
-			animation : false,
-			backgroundColor : "#EEF5F6",
-			title : {
-				text : title,
-				x : "center",
-				y : "bottom"
-			},
-			toolbox : {
-				show : false,
-				feature : {
-					mark : {
-						show : false
-					},
-					restore : {
-						show : false
-					},
-					saveAsImage : {
-						show : false
-					}
-				}
-			},
-
-			series : [ {
-				name : '收入完成',
-				type : 'gauge',
-				startAngle : 179,
-				endAngle : 0,
-				splitNumber : 4, // 分割段数，默认为5
-				max : ljwcz,
-				radius : [ 0, '85%' ],
-				axisLine : { // 坐标轴线
-					lineStyle : { // 属性lineStyle控制线条样式
-						color : [ [ colorOne, '#FFCC66' ],
-								[ colorTwo, '#3399ff' ], [ 1, '#A066D3' ] ],
-						width : 50
-					}
-				},
-				axisTick : { // 坐标轴小标记
-					splitNumber : 10, // 每份split细分多少段
-					length : 4, // 属性length控制线长
-					lineStyle : { // 属性lineStyle控制线条样式
-						color : '#F5F5F5'
-					//color : '#292421'
-					}
-				},
-				axisLabel : { // 坐标轴文本标签，详见axis.axisLabel
-					textStyle : { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-						color : 'black',
-						fontWeight : 'bolder',
-						fontSize : 14
-					}
-				},
-				splitLine : { // 分隔线
-					show : true, // 默认显示，属性show控制显示与否
-					length : 10, // 属性length控制线长
-					lineStyle : { // 属性lineStyle（详见lineStyle）控制线条样式
-						color : '#00EEEE'
-					}
-				},
-
-				pointer : {
-					width : 5
-				},
-				title : {
-					show : true,
-					margin : 20,
-					offsetCenter : [ 0, '-10%' ], // x, y，单位px
-					textStyle : { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-						fontWeight : 'bolder',
-						fontSize : '1'
-					}
-				},
-
-				detail : {
-					show : true,
-					formatter : '{value}亿元',
-					offsetCenter : [ 0, '30%' ],
-					textStyle : { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-						fontWeight : 'bolder'
-					}
-				},
-				data : [ {
-					value : 0,
-					name : ''
-				} ]
-			} ]
-		};
-		var myChart = echarts.init(document.getElementById('main'));
-		option.series[0].data[0].value = lrwc;
-		myChart.setOption(option);
-	}
-
-	function render(parsedStr) {
-		viewModel = ko.mapping.fromJS(parsedStr);
-		ko.applyBindings(viewModel, document.getElementById('month'));
-	}
-</script>
-
 </head>
-<body style="position:relative;top: -27px;left: -8px; width: 99.9%;">
+<body style="margin: 0px;">
 	<!-- 利润完成 -->
 	<div id='month' style="float: right; display: none;">
 		注：此经营数据截至<span data-bind="text: reportdata.year"></span>年<span
 			data-bind="text: reportdata.month"></span>月。
 	</div>
 	<div id="main"
-		style="height: 400px; padding-top: 10px; padding-bottom: 10px; ">
+		style="height: 400px; padding-top: 10px; padding-bottom: 10px;">
 
 	</div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$.hori.setHeaderTitle("利润完成");
+			//加载收入完成图表数据
+			loadSrwcChart();
+		});
+		//加载收入完成图表数据
+		function loadSrwcChart() {
+			var url = $.hori.getconfig().appServerHost
+					+ "view/bi/loadSrwcChart/accsyBiReport/services/reqBiReportData";
+			var temp = "$lt;?xml version='1.0' encoding='utf-8'?$gt;$lt;root$gt;$lt;reportdata$gt;$lt;reportid$gt;16$lt;/reportid$gt;$lt;/reportdata$gt;$lt;/root$gt;";
+			var soap = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='http://webservice.biz.digiwin.com'>";
+			soap += '<soapenv:Header/><soapenv:Body>';
+			soap += '<web:viewReportById>';
+			soap += '<web:in0>' + temp + '</web:in0>';
+			soap += '</web:viewReportById>';
+			soap += ' </soapenv:Body></soapenv:Envelope>';
+			var data = "data-xml=" + soap;
+			var viewModel;
+			$.hori.loading("show");
+			$.hori.ajax({
+				"type" : "post",
+				"url" : url,
+				"data" : data,
+				"success" : function(res) {
+					console.log('res==' + res);
+					var json = JSON.parse(res);
+					render(json);
+					$("#month").css('display', '');
+					reportdata = json.reportdata;
+					var seriesname = reportdata.seriesname.split('|');
+					var seriesdata = reportdata.seriesdata.split('|');
+					var one = seriesdata[1] / seriesdata[0] - 0.1;
+					var two = seriesdata[2] / 100 + 0.1;
+					var lrwc = seriesdata[1];
+					var b = seriesname[0] + ":" + seriesdata[0]
+							+ reportdata.primaryunit;
+					var c = seriesname[1] + ":" + seriesdata[1]
+							+ reportdata.primaryunit;
+					var d = seriesname[2] + ":" + seriesdata[2] + "%";
+					var ww = (Math.ceil((seriesdata[0]) / 10)) * 10;
+					draw(ww, lrwc, 0.6, 0.7, b + "\n" + c + "\n" + d);
+					$.hori.loading("hide");
+				},
+				"error" : function(res) {
+					alert("error:" + res);
+					$.hori.loading("hide");
+					$.hori.hideLoading();
+				}
+			});
+		}
+		function draw(ljwcz, lrwc, colorOne, colorTwo, title) {
+			var option = {
+				animation : false,
+				backgroundColor : "#EEF5F6",
+				title : {
+					text : title,
+					x : "center",
+					y : "bottom"
+				},
+				toolbox : {
+					show : false,
+					feature : {
+						mark : {
+							show : false
+						},
+						restore : {
+							show : false
+						},
+						saveAsImage : {
+							show : false
+						}
+					}
+				},
 
+				series : [ {
+					name : '收入完成',
+					type : 'gauge',
+					startAngle : 179,
+					endAngle : 0,
+					splitNumber : 4, // 分割段数，默认为5
+					max : ljwcz,
+					radius : [ 0, '85%' ],
+					axisLine : { // 坐标轴线
+						lineStyle : { // 属性lineStyle控制线条样式
+							color : [ [ colorOne, '#FFCC66' ],
+									[ colorTwo, '#3399ff' ], [ 1, '#A066D3' ] ],
+							width : 50
+						}
+					},
+					axisTick : { // 坐标轴小标记
+						splitNumber : 10, // 每份split细分多少段
+						length : 4, // 属性length控制线长
+						lineStyle : { // 属性lineStyle控制线条样式
+							color : '#F5F5F5'
+						//color : '#292421'
+						}
+					},
+					axisLabel : { // 坐标轴文本标签，详见axis.axisLabel
+						textStyle : { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+							color : 'black',
+							fontWeight : 'bolder',
+							fontSize : 14
+						}
+					},
+					splitLine : { // 分隔线
+						show : true, // 默认显示，属性show控制显示与否
+						length : 10, // 属性length控制线长
+						lineStyle : { // 属性lineStyle（详见lineStyle）控制线条样式
+							color : '#00EEEE'
+						}
+					},
+
+					pointer : {
+						width : 5
+					},
+					title : {
+						show : true,
+						margin : 20,
+						offsetCenter : [ 0, '-10%' ], // x, y，单位px
+						textStyle : { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+							fontWeight : 'bolder',
+							fontSize : '1'
+						}
+					},
+
+					detail : {
+						show : true,
+						formatter : '{value}亿元',
+						offsetCenter : [ 0, '30%' ],
+						textStyle : { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+							fontWeight : 'bolder'
+						}
+					},
+					data : [ {
+						value : 0,
+						name : ''
+					} ]
+				} ]
+			};
+			var myChart = echarts.init(document.getElementById('main'));
+			option.series[0].data[0].value = lrwc;
+			myChart.setOption(option);
+		}
+
+		function render(parsedStr) {
+			viewModel = ko.mapping.fromJS(parsedStr);
+			ko.applyBindings(viewModel, document.getElementById('month'));
+		}
+	</script>
 
 </body>
 </html>
