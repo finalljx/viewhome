@@ -11,6 +11,7 @@
 <script src="../lib/json/json2.js"></script>
 <script src="../lib/hori/hori.js?tag=21369"></script>
 <script src="../config/web/config.js"></script>
+<script src="../lib/jquery-mobile/jquery.mobile.min.js"></script>
 </head>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -19,6 +20,9 @@ $(document).ready(function() {
 	});
 	
 });
+</script>
+<script>
+	function fun(){$.hori.backPage();$.hori.backPage();}
 </script>
 <style>
 .divwh{
@@ -33,7 +37,13 @@ $(document).ready(function() {
 		</div>
 	</div>
 	<div style="position:relative;" >
-	<div style="width:100%; position:fixed; left:20px; bottom:10%;">
+	<div class="ui-grid-a" style=" position: fixed; width: 85%; align: center; bottom: 10%;left: 8%;">
+				<div class="ui-block-a" style="width: 100%" >
+					<a href="javascript:void(0)" data-theme="b" onclick="$.hori.backPage();$.hori.backPage();"
+						data-role="button">&nbsp;退&nbsp;出&nbsp;</a>
+				</div>
+			</div>
+	<div style="width:100%; position:fixed; left:20px; bottom:0;text-align: center;">
 	<p><span>版权所有： 中国通用技术集团</span></p>
 	</div>
 </div>
