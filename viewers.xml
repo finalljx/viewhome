@@ -76,8 +76,7 @@
 		    <rule mode="replace" regex="&amp;quot;" value=""/>
 		</view>
 		<!-- 通知公告列表 -->
-		<view id="annoucement" template="digi/mobile/annouce.xsl" encoding="utf-8">
-		</view>
+		<view id="annoucement" template="digi/mobile/annouce.xsl" encoding="utf-8"></view>
 		<!-- 公告展示 -->
 		<view id="contentAnnouce" template="digi/mobile/annouceform.xsl" encoding="utf-8">
 			
