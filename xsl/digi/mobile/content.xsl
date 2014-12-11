@@ -332,20 +332,7 @@
 								</xsl:if>
 							</li>
 						</ul>
-						<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
-							<li data-role="list-divider">附件信息</li>
-							<!-- select="translate(//input[@name='AttachInfo']/@value, ' ', '')"/> -->
-								<xsl:if test="//input[@name='AttachInfo']/@value =''">
-									<li>
-										无附件
-									</li>	
-								</xsl:if>
-								<xsl:if test="//input[@name='AttachInfo']/@value !=''">
-									<xsl:call-template name="file">
-										<xsl:with-param name="info" select="translate(//input[@name='AttachInfo']/@value, ' ', '')"/>
-									</xsl:call-template>
-								</xsl:if>
-						</ul>
+						
 						<xsl:apply-templates select="//input[@type='hidden' or not(@type)]"
 							mode="hidden" />
 					</div><!-- /content -->
