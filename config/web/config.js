@@ -9,7 +9,7 @@
 			"appServerHost":"https://mobile.genertec.com.cn/",
 			"appServerHost2":"http://mobile.genertec.com.cn:8981/",
 			"appKey":"mobile",
-			"docServer":"doctest"
+			"docServer":"docapp"
 		};
 	};
 })($.hori);
