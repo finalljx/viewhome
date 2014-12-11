@@ -9,6 +9,8 @@
 <link rel="stylesheet"
 	href="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" />
 <link rel="stylesheet" href="../../assets/jquery.mobile-sugon.css" />
+<link rel="stylesheet"
+		href="../../lib/jquery-mobile/loading.jquery.mobile.min.css" /> 
 <script src="../../lib/jquery/jquery.min.js"></script>
 <script src="../../lib/encrypt/encrypt.js"></script>
 <script src="../../lib/json/json2.js"></script>
@@ -116,7 +118,7 @@ img {
 <script type="text/javascript">
 	$(document).ready(function() {
 		/*设置标题*/
-		$.hori.showLoading();
+		$.hori.loading();
 		setHead();
 		//加载新闻详情
 		getWcmNewsData();
@@ -241,9 +243,7 @@ img {
 							renderfj(dataData);
 
 						}
-						setTimeout(function() {
-							$.hori.hideLoading();
-						}, 2000);
+						$.hori.loading("hide");
 						render(data);
 					},
 					"error" : function(res) {
