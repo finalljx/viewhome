@@ -121,7 +121,6 @@ img {
 		//加载新闻详情
 		getWcmNewsData();
 	});
-
 	//设置标题
 	function setHead() {
 		moreCurrentName = localStorage.getItem("moreCurrentName");
@@ -273,20 +272,20 @@ img {
 
 	function render(jsonData) {
 		var viewModel = ko.mapping.fromJS(jsonData);
-		ko.applyBindings(viewModel, document.getElementById("textRich"));
 		document.getElementById("divContent").style.display = '';
+		ko.applyBindings(viewModel, document.getElementById("textRich2"));
 		//$.hori.hideLoading();
 	}
 	function renderfj(jsonData) {
-		var viewModel = ko.mapping.fromJS(jsonData);
-		ko.applyBindings(viewModel, document.getElementById("fujian"));
+		var viewModel2 = ko.mapping.fromJS(jsonData);
+		ko.applyBindings(viewModel2, document.getElementById("fujian"));
 		//$.hori.hideLoading();
 	}
 </script>
 </head>
 <body>
 	<div data-role="page" id="newsDetail">
-		<div data-role="content">
+		<div data-role="content" id="textRich2">
 			<!-- 标题 -->
 			<div>
 				<h2 style='font-size: 28px;'>
