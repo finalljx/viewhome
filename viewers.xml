@@ -153,7 +153,7 @@
 			<rule mode="remove" regex="&amp;nbsp;"/>
 		</view>
 		<!-- 流程组织选择 -->
-		<view id="userselectorg" template="oa/userselect/listorg.xsl">
+		<view id="userselectorg" template="oa/userselect/listorg.xsl" encoding="GB2312">
 			<rule mode="remove" regex="&amp;nbsp;"/>
 		</view>
 		<!-- 会签普通选择 -->
@@ -161,7 +161,7 @@
 			<rule mode="remove" regex="&amp;nbsp;"/>
 		</view>
 		<!-- 会签流程人员选择 -->
-		<view id="userselect" template="oa/userselect/signlistorg.xsl" encoding="GB2312">
+		<view id="userselect" template="oa/userselect/signlistorg.xsl" encoding="utf-8">
 			<rule mode="remove" regex="&amp;nbsp;"/>
 		</view>
 		<view id="userselectuser" template="oa/userselect/signlistuser.xsl" encoding="GB2312">
