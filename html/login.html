@@ -3,8 +3,7 @@
 <head>
 <title>移动办公</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
 <link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" />
 <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
 <script src="../lib/jquery/jquery.min.js"></script>
@@ -26,8 +25,8 @@ a {
 	var captcha_id = "";
 	$(document).ready(function() {
 		//获取验证码
-		var isMobileDevice=$.hori.isMobileDevice();
-		if(!isMobileDevice){ //如果浏览器登陆
+		var isMobileDevice = $.hori.isMobileDevice();
+		if (!isMobileDevice) { //如果浏览器登陆
 			getCaptcha();
 		}
 		if (localStorage.getItem("data-saveusername") == "true") {
@@ -71,17 +70,17 @@ a {
 		//注销登录
 		loginout();
 	});
-	
+
 	//验证码加载失败
-	function captchaLoadError(){
+	function captchaLoadError() {
 		//隐藏loading
-        $.hori.loading("hide");
+		$.hori.loading("hide");
 		//使用占位符替换图片
-		$("#captchaImg").attr("src","../assets/login/captcha_load_error.png");
+		$("#captchaImg").attr("src", "../assets/login/captcha_load_error.png");
 	}
-	
+
 	//验证码加载完成
-	function captchaLoad(){
+	function captchaLoad() {
 		//隐藏loading
 		$.hori.loading("hide");
 	}
@@ -90,15 +89,30 @@ a {
 	function clearLoginInput() {
 		$("#password").val("");
 		$("#captcha").val("");
-	    if (!document.getElementById("saveusername").checked) {//未选中状态，清空用户名输入
+		if (!document.getElementById("saveusername").checked) {//未选中状态，清空用户名输入
 			$("#username").val("");
 		}
 	}
 	function getCaptcha() {
-		$.hori.loading();
+		setTimeout(loadCaptcha(), 500);
+		/* $.hori.loading();
 		captcha_id = $.uuid();
 		$("#captcha").val(""); //清空验证码内容
 		$("#captcha_id").val(captcha_id); //设置验证码id
+		$("#captchaImg").attr(
+				"src",
+				$.hori.getconfig().appServerHost2
+						+ "/servlet/captcha?captcha_id=" + captcha_id); */
+	}
+
+	function loadCaptcha() {
+		$.hori.loading();
+		//显示加载图
+		$("#captchaImg").attr("src", "../assets/login/loading.png");
+		captcha_id = $.uuid();
+		$("#captcha").val(""); //清空验证码内容
+		$("#captcha_id").val(captcha_id); //设置验证码id
+		//获取验证码
 		$("#captchaImg").attr(
 				"src",
 				$.hori.getconfig().appServerHost2
@@ -124,16 +138,16 @@ a {
 		}
 		return false;
 	}
-function loginWithLoading(){
-	$.hori.loading("show");
-	setTimeout(login,500);
-}
+	function loginWithLoading() {
+		$.hori.loading("show");
+		setTimeout(login, 500);
+	}
 	function login() {
 		$.hori.loading();
 		var username = $.trim($("#username").val());
 		var password = $("#password").val();
 		var captcha = $("#captcha").val();
-		localStorage.setItem("itcodetasklist","1");
+		localStorage.setItem("itcodetasklist", "1");
 		if (username == "") {
 			$.hori.loading("hide");
 			alert("请输入用户名!");
@@ -360,44 +374,37 @@ function loginWithLoading(){
 	<!-- 登录页面 -->
 	<div data-role="page" id="login" class="login">
 		<div data-role="content" align="center">
-			<ul id="viewBody" data-role="listview" data-theme="c"
-				data-inset="true" style="max-width: 400px;">
-				<li data-role="list-divider"><a href="javascript:void(0);"
-					data-theme="f"></a></li>
+			<ul id="viewBody" data-role="listview" data-theme="c" data-inset="true" style="max-width: 400px;">
+				<li data-role="list-divider"><a href="javascript:void(0);" data-theme="f"></a></li>
 				<li data-role="fieldcontain" data-type="horizontal">
-					<table style="width: 100%" cellspaceing="0" cellpadding="0"
-						border="0">
+					<table style="width: 100%" cellspaceing="0" cellpadding="0" border="0">
 						<tr>
 							<td style="min-width: 56px"><strong>用户名:</strong></td>
 							<td><input type="text" name="username"
-								style="outline: none; width: 100%; border: 0; background: transparent;"
-								id="username" value="" onfocus="clearData()" onblur="showTips()" /></td>
+								style="outline: none; width: 100%; border: 0; background: transparent;" id="username" value=""
+								onfocus="clearData()" onblur="showTips()" /></td>
 						</tr>
 					</table>
 				</li>
 				<li data-role="fieldcontain">
-					<table style="width: 100%" cellspaceing="0" cellpadding="0"
-						border="0">
+					<table style="width: 100%" cellspaceing="0" cellpadding="0" border="0">
 						<tr>
 							<td style="min-width: 56px"><strong>密&#160;&#160;&#160;&#160;码:</strong></td>
 							<td><input type="password" name="password"
-								style="outline: none; width: 100%; border: 0; background: transparent;"
-								id="password" value="" /></td>
+								style="outline: none; width: 100%; border: 0; background: transparent;" id="password" value="" /></td>
 						</tr>
 					</table>
 				</li>
 				<li data-role="fieldcontain">
-					<table style="width: 100%" cellspaceing="0" cellpadding="0"
-						border="0">
+					<table style="width: 100%" cellspaceing="0" cellpadding="0" border="0">
 						<tr>
 							<td style="min-width: 56px"><strong>验证码:</strong></td>
-							<td><input type="text" name="captcha" id="captcha"
-								maxlength="4" style="width: 80px;" /></td>
+							<td><input type="text" name="captcha" id="captcha" maxlength="4" style="width: 80px;" /></td>
 							<!-- <input type="hidden" id="captcha_id" /> -->
 							<td style="text-align: center;">
-								<!-- <a data-role="button" data-theme="f" data-mini="true" onclick="">1234</a> -->
-								<img id="captchaImg" onclick="getCaptcha();" onload="captchaLoad();" onerror="captchaLoadError();" src="../assets/login/loading.png"
-								style="width: 100px; height:40px; margin-left: 10px; text-align: right;" alt="点击重新加载" >
+								<!-- <a data-role="button" data-theme="f" data-mini="true" onclick="">1234</a> --> <img id="captchaImg"
+								onclick="getCaptcha();" onload="captchaLoad();" onerror="captchaLoadError();" src="../assets/login/loading.png"
+								style="width: 100px; height: 40px; margin-left: 10px; text-align: right;" alt="点击重新加载">
 							</td>
 						</tr>
 					</table>
@@ -405,23 +412,21 @@ function loginWithLoading(){
 				<li data-role="fieldcontain">
 					<div class="ui-grid-a">
 						<div class="ui-block-a">
-							<input type="checkbox"  name="saveusername" id="saveusername" data-mini="true" /> <label
-								for="saveusername" data-mini="true" >记住帐号</label>
+							<input type="checkbox" name="saveusername" id="saveusername" data-mini="true" /> <label for="saveusername"
+								data-mini="true">记住帐号</label>
 
 						</div>
 						<div class="ui-block-b">
-							<a data-role="button" data-mini="true" style="border:none;"
-								onclick="forgetPwd()">忘记密码</a>
+							<a data-role="button" data-mini="true" style="border: none;" onclick="forgetPwd()">忘记密码</a>
 						</div>
 					</div>
 				</li>
 			</ul>
 			<div class="ui-grid-a">
 				<div class="ui-block-a" style="width: 100%">
-					<a href="javascript:void(0)" onclick="loginWithLoading()" data-theme="f"
-						data-role="button" >&nbsp;登&nbsp;录&nbsp;</a>
+					<a href="javascript:void(0)" onclick="loginWithLoading()" data-theme="f" data-role="button">&nbsp;登&nbsp;录&nbsp;</a>
 				</div>
-				
+
 			</div>
 			<div>
 				<div style="float: right; margin-top: 5px;">
