@@ -71,6 +71,20 @@ a {
 		//注销登录
 		loginout();
 	});
+	
+	//验证码加载失败
+	function captchaLoadError(){
+		//隐藏loading
+        $.hori.loading("hide");
+		//使用占位符替换图片
+		$("#captchaImg").attr("src","../assets/login/captcha_load_error.png");
+	}
+	
+	//验证码加载完成
+	function captchaLoad(){
+		//隐藏loading
+		$.hori.loading("hide");
+	}
 
 	//清除输入登录信息
 	function clearLoginInput() {
@@ -81,6 +95,7 @@ a {
 		}
 	}
 	function getCaptcha() {
+		$.hori.loading();
 		captcha_id = $.uuid();
 		$("#captcha").val(""); //清空验证码内容
 		$("#captcha_id").val(captcha_id); //设置验证码id
@@ -380,8 +395,8 @@ function loginWithLoading(){
 							<!-- <input type="hidden" id="captcha_id" /> -->
 							<td style="text-align: center;">
 								<!-- <a data-role="button" data-theme="f" data-mini="true" onclick="">1234</a> -->
-								<img id="captchaImg" onclick="getCaptcha();" src="../assets/login/loading.png"
-								style="width: 100px; margin-left: 10px; text-align: right;">
+								<img id="captchaImg" onclick="getCaptcha();" onload="captchaLoad();" onerror="captchaLoadError();" src="../assets/login/loading.png"
+								style="width: 100px; height:40px; margin-left: 10px; text-align: right;" alt="点击重新加载" >
 							</td>
 						</tr>
 					</table>
