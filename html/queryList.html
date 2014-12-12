@@ -25,7 +25,9 @@
 			var dataid = ""
 			var ayeartime;
 			var formtime;
+			var taskListNum;
 			function fiteryear(){ //过滤年份显示
+				var taskListLiHideNum=0;
 			    var now = new Date();
 			    var year=now.getFullYear()-1;   
 			    var month=now.getMonth()+1;
@@ -40,14 +42,28 @@
 			        formtime = $(this).data("time");
 			        if(ayeartime>formtime){
 			            $(this).hide();
+						taskListLiHideNum=taskListLiHideNum+1;
 			        }else{
 			        }
 			    });
+				var querydataListHide = localStorage.getItem("querydataListHide");
+				taskListNum = taskListNum-1;
+				var nodataHtml='<li name="more" class="ui-li-static ui-body-inherit ui-first-child ui-last-child"><div style="width:100%;" align="center"><h3>无内容</h3></div></li>';
+				if(taskListNum==taskListLiHideNum){
+					$("#"+querydataListHide).append(nodataHtml);
+					$("#moredata").hide();
+					localStorage.setItem("pullUpActionVal","no");
+				}
 			}
 			function pullUpAction () {
 				$.hori.showLoading();
 				setTimeout(function () {
 					var type = localStorage.getItem("type");
+					var pullUpActionVal = localStorage.getItem("pullUpActionVal");
+					if(pullUpActionVal=="no"){
+						$.hori.loading("hide");
+						return false;
+					}
 					var dbpath = "";
 					if(type=="searchqueryForDoing"){
 						template="searchqueryForDoing";
@@ -154,6 +170,7 @@
 								}
 							}
 							$("#"+dataid).append(res).listview("refresh");
+							localStorage.setItem("pullUpActionVal","yes");
 							fiteryear();
 							myStartTaskLoad=true;
 							myScroll.refresh();
@@ -292,6 +309,9 @@
 					$("#querydataList").empty();
 					$("#signdataList").empty();
 					$("#querydataList").append(res).listview("refresh");
+					taskListNum = $("#querydataList li").length;
+					localStorage.setItem("querydataListHide","querydataList");
+					localStorage.setItem("pullUpActionVal","yes");
 					fiteryear();
 					$.hori.hideLoading();
 					myScroll.refresh();
@@ -355,6 +375,9 @@
 					$("#signdataList").empty();
 					$("#querydataList").empty();
 					$("#signdataList").append(res).listview("refresh");
+					taskListNum = $("#signdataList li").length;
+					localStorage.setItem("querydataListHide","signdataList");
+					localStorage.setItem("pullUpActionVal","yes");
 					$.hori.hideLoading();
                     fiteryear();
 					myScroll.refresh();
@@ -447,6 +470,9 @@
 					$("#querydataList").empty();
 					$("#signdataList").empty();
 					$("#querydataList").append(res).listview("refresh");
+					taskListNum = $("#querydataList li").length;
+					localStorage.setItem("querydataListHide","querydataList");
+					localStorage.setItem("pullUpActionVal","yes");
 					fiteryear();
 					$.hori.hideLoading();
 					myScroll.refresh();
@@ -497,6 +523,9 @@
 					$("#signdataList").empty();
 					$("#querydataList").empty();
 					$("#signdataList").append(res).listview("refresh");
+					taskListNum = $("#signdataList li").length;
+					localStorage.setItem("querydataListHide","signdataList");
+					localStorage.setItem("pullUpActionVal","yes");
 					fiteryear();
 					$.hori.hideLoading();
 					myScroll.refresh();
