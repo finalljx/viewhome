@@ -164,7 +164,7 @@
 		<view id="userselect" template="oa/userselect/signlistorg.xsl" encoding="utf-8">
 			<rule mode="remove" regex="&amp;nbsp;"/>
 		</view>
-		<view id="userselectuser" template="oa/userselect/signlistuser.xsl" encoding="GB2312">
+		<view id="userselectuser" template="oa/userselect/signlistuser.xsl" encoding="utf-8">
 			<rule mode="remove" regex="&amp;nbsp;"/>
 		</view>
 		<!-- 发起会签人员选择 -->
