@@ -118,6 +118,7 @@ function loginWithLoading(){
 		var username = $.trim($("#username").val());
 		var password = $("#password").val();
 		var captcha = $("#captcha").val();
+		localStorage.setItem("itcodetasklist","1");
 		if (username == "") {
 			$.hori.loading("hide");
 			alert("请输入用户名!");
