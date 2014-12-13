@@ -50,9 +50,8 @@
 
 						var list = JSON.parse(res);
 						$(".content").html(list.content);
-						var contentAgyj = escape(list.agyj);
-						contentAgyj = contentAgyj.replace(/%3F%3F/g,"%20");
-						contentAgyj = unescape(contentAgyj);
+						console.log(list.agyj);
+						var contentAgyj = list.agyj.replace(/意.*见/g,"意  见");
 						$("#agyjDiv").html(contentAgyj);
 						if (null != list.lianjie) {
 							for ( var i = 0; i < list.lianjie.length; i++) {
