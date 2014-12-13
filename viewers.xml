@@ -13,24 +13,24 @@
 	    <view id="getInfo" template="guide/guide.jsp" />
 	    <view id="updateMo" template="guide/guide.jsp" />
 	</viewer>
-	<viewer id="oa" type="remote" source="http://webseal.genertec.com.cn" 	encoding="utf-8">
+	<viewer id="oa" type="remote" source="http://webseal.genertec.com.cn" 	encoding="GB2312">
 		<!-- 登陆验证 $.hori.backPage(1)-->
-		<view id="loginvalidate" template="login/loginValidate.jsp"	encoding="utf-8" />
-		<view id="loginOut" template="login/loginOut.jsp"	encoding="gb2312" />
-		<view id="loginOut2" template="login/loginOut.jsp"	encoding="utf-8" />
+		<view id="loginvalidate" template="login/loginValidate.jsp"	encoding="GB2312" />
+		<view id="loginOut" template="login/loginOut.jsp"	encoding="GB2312" />
+		<view id="loginOut2" template="login/loginOut.jsp"	encoding="GB2312" />
 		<!-- 获取用户 -->
-		<view id="currentuser" template="login/loginUser.jsp" encoding="utf-8"/>
+		<view id="currentuser" template="login/loginUser.jsp" encoding="GB2312"/>
 		<!-- 请示代办列表-->
-		<view id="todos" template="oa/task/todos.xsl" encoding="utf-8">
+		<view id="todos" template="oa/task/todos.xsl" encoding="GB2312">
 			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
-		<view id="todossub" template="oa/task/sublist.xsl" encoding="gb18030">
+		<view id="todossub" template="oa/task/sublist.xsl" encoding="GB2312">
 			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
 		
-		<view id="watchlistInfo" template="digi/watchlist/content.xsl"  encoding="gb2312">
+		<view id="watchlistInfo" template="digi/watchlist/content.xsl"  encoding="GB2312">
             <!-- 源数据是符合标签形式的字符串，转换成真正的字符串（把'<','>' 替换成真正的标签） -->
 
             <rule mode="replace" regex="0 " value="0&#160;" />
@@ -65,7 +65,7 @@
         </view>
 		
 		<!-- 代办unid -->
-		<view id="getunid" template="oa/task/getunid.xsl" encoding="utf-8">
+		<view id="getunid" template="oa/task/getunid.xsl" encoding="GB2312">
 			<!-- 源数据是符合标签形式的字符串，转换成真正的字符串（把'<','>' 替换成真正的标签）-->
 			<rule mode="replace" regex="&amp;nbsp;" value="" />
 			<rule mode="replace" regex="&lt;!" value="&amp;lt;!" />
@@ -90,8 +90,8 @@
 			<rule mode="replace" regex="&lt;/doc_unid&gt;" value="&amp;lt;/doc_unid&amp;gt;" />
 		</view>
 		<!-- 请示代办展示内容 -->
-		<view id="taskneiqing" template="taskneiqing.jsp" encoding="GBK"></view>
-		<view id="todoscontent" template="oa/task/content.xsl" encoding="utf-8">
+		<view id="taskneiqing" template="taskneiqing.jsp" encoding="GB2312"></view>
+		<view id="todoscontent" template="oa/task/content.xsl" encoding="GB2312">
 			<!-- 源数据是符合标签形式的字符串，转换成真正的字符串（把'<','>' 替换成真正的标签） -->
 			
 			<rule mode="replace" regex="&amp;nbsp;" value="" />
@@ -121,8 +121,8 @@
 			<rule mode="replace" regex="&lt;/doc_unid&gt;" value="&amp;lt;/doc_unid&amp;gt;" />
 		</view>
 		<!-- 请示代办会签展示内容 -->
-		<view id="tasksign" template="tasksign.jsp" encoding="GBK"></view>
-		<view id="signcontent" template="oa/task/signcontent.xsl" encoding="utf-8">
+		<view id="tasksign" template="tasksign.jsp" encoding="GB2312"></view>
+		<view id="signcontent" template="oa/task/signcontent.xsl" encoding="GB2312">
 			<!-- 源数据是符合标签形式的字符串，转换成真正的字符串（把'<','>' 替换成真正的标签） -->
 			
 			<rule mode="replace" regex="&amp;nbsp;" value="" />
@@ -153,25 +153,25 @@
 		</view>
 
 		<!-- 流程处理 -->
-		<view id="submit" template="oa/flow/submit.xsl" encoding="utf-8">
+		<view id="submit" template="oa/flow/submit.xsl" encoding="GB2312">
 			<rule mode="remove" regex="&amp;nbsp;"/>
 		</view>
-		<view id="signstart" template="oa/flow/signstart.xsl" encoding="utf-8">
+		<view id="signstart" template="oa/flow/signstart.xsl" encoding="GB2312">
 			<rule mode="remove" regex="&amp;nbsp;"/>
 		</view>
-		<view id="signsubmit" template="oa/flow/signsubmit.xsl" encoding="utf-8">
+		<view id="signsubmit" template="oa/flow/signsubmit.xsl" encoding="GB2312">
 			<rule mode="remove" regex="&amp;nbsp;"/>
 		</view>
 		<!-- 返回结果 -->
-		<view id="responsesubmit" template="oa/flow/result_submit.xsl" encoding="utf-8">
+		<view id="responsesubmit" template="oa/flow/result_submit.xsl" encoding="GB2312">
 			<rule mode="remove" regex="&amp;nbsp;"/>
 		</view>
 		<!-- 流程人员选择 -->
-		<view id="userselectorg" template="oa/userselect/listorg.xsl" encoding="utf-8">
+		<view id="userselectorg" template="oa/userselect/listorg.xsl" encoding="GB2312">
 			<rule mode="remove" regex="&amp;nbsp;"/>
 		</view>
 		<!-- 会签普通选择 -->
-		<view id="userselectorgnormal" template="oa/userselect/listorgnormal.xsl" encoding="utf-8">
+		<view id="userselectorgnormal" template="oa/userselect/listorgnormal.xsl" encoding="GB2312">
 			<rule mode="remove" regex="&amp;nbsp;"/>
 		</view>
 		<!-- 会签流程人员选择 -->
@@ -182,45 +182,45 @@
 			<rule mode="remove" regex="&amp;nbsp;"/>
 		</view>
 
-		<view id="request" template="oa/task/request.xsl" encoding="utf-8">
+		<view id="request" template="oa/task/request.xsl" encoding="GB2312">
 			<rule mode="replace" regex="soap:" value="" />
 			<rule mode="replace" regex="ns1:" value="" />
 		</view>
 		<!-- 获取用户 -->
-		<view id="signtype" template="oa/query/signtype.xsl" encoding="gb18030"/>
+		<view id="signtype" template="oa/query/signtype.xsl" encoding="GB2312"/>
 		<!-- 请示查阅内请办理中-->
-		<view id="queryForDoing" template="oa/query/queryForDoing.xsl" encoding="utf-8">
+		<view id="queryForDoing" template="oa/query/queryForDoing.xsl" encoding="GB2312">
 			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
 		<!-- 请示查阅内请待归档-->
-		<view id="toArchive" template="oa/query/toArchive.xsl" encoding="utf-8">
+		<view id="toArchive" template="oa/query/toArchive.xsl" encoding="GB2312">
 			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
 		<!-- 请示查阅内请已归档-->
-		<view id="Archvied" template="oa/query/Archvied.xsl" encoding="utf-8">
+		<view id="Archvied" template="oa/query/Archvied.xsl" encoding="GB2312">
 			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
 		<!-- 请示查阅内请办理中搜索-->
-		<view id="searchqueryForDoing" template="oa/query/searchqueryForDoing.xsl" encoding="utf-8">
+		<view id="searchqueryForDoing" template="oa/query/searchqueryForDoing.xsl" encoding="GB2312">
 			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
 		<!-- 请示查阅内请待归档搜索-->
-		<view id="searchquerytoArchive" template="oa/query/searchquerytoArchive.xsl" encoding="utf-8">
+		<view id="searchquerytoArchive" template="oa/query/searchquerytoArchive.xsl" encoding="GB2312">
 			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
 		<!-- 请示查阅内请已归档搜索-->
-		<view id="searchqueryArchvied" template="oa/query/searchqueryArchvied.xsl" encoding="utf-8">
+		<view id="searchqueryArchvied" template="oa/query/searchqueryArchvied.xsl" encoding="GB2312">
 			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
 		<!-- 请示查阅内请办理中展示内容 -->
-		<view id="neiqingsign" template="neiqingform.jsp" encoding="utf-8"></view>
-		<view id="querycontent" template="oa/query/querycontent.xsl" encoding="GBK">
+		<view id="neiqingsign" template="neiqingform.jsp" encoding="GB2312"></view>
+		<view id="querycontent" template="oa/query/querycontent.xsl" encoding="GB2312">
 			<rule mode="replace" regex="&amp;nbsp;" value="" />
 			<rule mode="replace" regex="&lt;!" value="&amp;lt;!" />
 			<rule mode="replace" regex="&lt;/!" value="&amp;lt;/!" />
@@ -241,37 +241,37 @@
 			<rule mode="replace" regex="&lt;/doc_unid&gt;" value="&amp;lt;/doc_unid&amp;gt;" />
 		</view>
 		<!-- 会签办理中-->
-		<view id="signForDoing" template="oa/query/signForDoing.xsl" encoding="utf-8">
+		<view id="signForDoing" template="oa/query/signForDoing.xsl" encoding="GB2312">
 			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
 		<!-- 会签办理中搜索-->
-		<view id="searchsignForDoing" template="oa/query/searchsignForDoing.xsl" encoding="utf-8">
+		<view id="searchsignForDoing" template="oa/query/searchsignForDoing.xsl" encoding="GB2312">
 			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
 		<!-- 会签待归档搜索-->
-		<view id="searchsigntoArchive" template="oa/query/searchsigntoArchive.xsl" encoding="utf-8">
+		<view id="searchsigntoArchive" template="oa/query/searchsigntoArchive.xsl" encoding="GB2312">
 			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
 		<!-- 会签待归档-->
-		<view id="signtoArchive" template="oa/query/signtoArchive.xsl" encoding="utf-8">
+		<view id="signtoArchive" template="oa/query/signtoArchive.xsl" encoding="GB2312">
 			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
 		<!-- 会签已归档-->
-		<view id="signArchvied" template="oa/query/signArchvied.xsl" encoding="utf-8">
+		<view id="signArchvied" template="oa/query/signArchvied.xsl" encoding="GB2312">
 			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
 		<!-- 会签已归档-->
-		<view id="searchsignArchvied" template="oa/query/searchsignArchvied.xsl" encoding="utf-8">
+		<view id="searchsignArchvied" template="oa/query/searchsignArchvied.xsl" encoding="GB2312">
 			<rule mode="replace" regex="&amp;lt;" value="&lt;" />
 			<rule mode="replace" regex="&amp;gt;" value="&gt;" />
 		</view>
 		<!-- 会签展示内容 -->
-		<view id="contentsign" template="signForm.jsp" encoding="utf-8"></view>
+		<view id="contentsign" template="signForm.jsp" encoding="GB2312"></view>
 		<view id="contentsign1" template="oa/query/contentsign.xsl" encoding="GBK">
 			<rule mode="replace" regex="&amp;nbsp;" value="" />
 			<rule mode="replace" regex="&lt;!" value="&amp;lt;!" />

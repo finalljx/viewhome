@@ -50,9 +50,10 @@
 
 						var list = JSON.parse(res);
 						$(".content").html(list.content);
-
-						$("#agyjDiv").html(list.agyj);
-
+						var contentAgyj = escape(list.agyj);
+						contentAgyj = contentAgyj.replace(/%3F%3F/g,"%20");
+						contentAgyj = unescape(contentAgyj);
+						$("#agyjDiv").html(contentAgyj);
 						if (null != list.lianjie) {
 							for ( var i = 0; i < list.lianjie.length; i++) {
 								var j = list.fileName[i].split(".");

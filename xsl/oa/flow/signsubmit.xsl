@@ -72,7 +72,10 @@
 									function clearperson(){
 										$('#fldXyspr').attr('value', '');
 									}
-									function userselect(url){
+									function userselect(url1,url2){
+									  var docServer=$.hori.getconfig().docServer;
+									  url1=url1+docServer;
+									  var url=url1+url2;
 										$.mobile.showPageLoadingMsg();
 										if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)||window.navigator.userAgent.match(/android/i)){
 											var cookie_userstore = localStorage.getItem("cookie_userstore");
@@ -535,7 +538,7 @@
 								<input type="hidden" name="selectedYjNum" value=""/>
 								<input type="hidden" name="selectedYjtocld" value=""/>
 								<!-- <a href="javascript:void(0)" onclick="clearperson();" style="margin-left:30px;" data-role="button" data-inline="true">清空</a> -->
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/'+$.hori.getconfig().docServer+'/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10&amp;data-userstore=')" data-role="button" data-inline="true" data-theme="f">选　人
+								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/','/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10&amp;data-userstore=')" data-role="button" data-inline="true" data-theme="f">选　人
 								</a>
 							</fieldset>
 							
@@ -548,7 +551,7 @@
 								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
 								<input type="hidden" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
 								<!--<a href="javascript:void(0)" style="margin-left:30px;" onclick="clearperson();" data-role="button" data-inline="true">清空</a> -->
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/'+$.hori.getconfig().docServer+'/{$dbpath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}&amp;data-userstore=')" data-role="button" data-inline="true" data-theme="f">选　人</a>
+								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/','/{$dbpath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}&amp;data-userstore=')" data-role="button" data-inline="true" data-theme="f">选　人</a>
 							</fieldset>
 						</li>
 					</xsl:when>

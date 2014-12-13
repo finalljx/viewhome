@@ -29,7 +29,7 @@
 				<div id="submit" data-role="dialog" class="type-home">
 					<div data-role="header">
 						<style>.ui-dialog .ui-header .ui-btn-icon-notext { display:none;} </style>
-						<h1>请确认提交信息</h1>
+						<h1>提交信息</h1>
 					</div>
 					<div id="faqdiv" style="display:none;min-height:300px;" class="ui-overlay-shadow ui-corner-bottom ui-body-c">
 						<ul id="userselect" data-role="listview" data-inset="true">
@@ -63,7 +63,10 @@
 										$('#fldXyspr').attr('value', '');
 									}
 									
-									function userselect(url){
+									function userselect(url1,url2){
+									var docServer=$.hori.getconfig().docServer;
+									  url1=url1+docServer;
+									  var url=url1+url2;
 										if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)||window.navigator.userAgent.match(/android/i)){
 											var cookie_userstore = localStorage.getItem("cookie_userstore");
 											url=url +cookie_userstore;
@@ -130,21 +133,24 @@
 										$("input[name='chooseperson']:checked").each(function(){
 											personstr+=$(this).val()+",";
 										})
-
 										personstr=personstr.replace(/[\n\r]/g,"");
 										personstr=personstr.substring(0,personstr.length-1);
-										//console.log(personstr);
-										var number2 = personstr.indexOf("genertec");
-										if(number2!="-1"){
-											var personstrCH = personstr.split(",");
+										var none = personstr.indexOf("/");
+										if(none!="-1"){
+											var number2 = personstr.indexOf(",");
 											var personName="";
-											for(var i=0;i<personstrCH.length;i++){
-												var num3 = personstrCH[i].indexOf("genertec");
-												personName+= personstrCH[i].substring(num3+9,personstrCH[i].length)+",";
+											if(number2!="-1"){
+												var personstrCH = personstr.split(",");
+												for(var i=0;i<personstrCH.length;i++){
+													var num3 = personstrCH[i].indexOf("/");
+													personName+= personstrCH[i].substring(0,num3)+",";
+												}
+											}else{
+												var num3 = personstr.indexOf("/");
+												personName= personstr.substring(0,num3)
 											}
-											$('#forshowcheck').val(personName);
+											$('#forshow').val(personName);
 											$('#fldXyspr').attr('value',personstr);
-											//$("#faqdiv").css("display","none");
 										}
 										$("#faqdiv").css("display","none");
 									}
@@ -343,6 +349,9 @@
 									<li>
 										<xsl:if test="//body/script"><xsl:value-of select="substring-before(substring-after(//body/script/text(),'('),')')"/></xsl:if>
 										<xsl:if test="not(//body/script)"><xsl:value-of select="//body/text()"/></xsl:if>
+										<xsl:if test="contains(//td/@class,'msgok_msg')">
+											<xsl:value-of select="//td[@class='msgok_msg']/."/>
+										</xsl:if>
 										
 									</li>
 									<li data-role="list-divider"></li>
@@ -431,7 +440,7 @@
 								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
 								<input type="hidden" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
 								<!-- <a href="javascript:void(0)" onclick="clearperson();" style="margin-left:100px;" data-role="button" data-inline="true">清空666</a> -->
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/'+$.hori.getconfig().docServer+'/{$dbPath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}&amp;data-userstore=')" data-role="button" data-inline="true" data-theme="f">选　人</a>
+								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/','/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10&amp;data-userstore=')" data-role="button" data-inline="true" data-theme="f">选　人1</a>
 							</fieldset>
 						</li>
 					</xsl:when>
@@ -442,7 +451,7 @@
 								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
 								<input type="hidden" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
 								<!-- <a href="javascript:void(0)" style="margin-left:30px;" onclick="clearperson();" data-role="button" data-inline="true">清空</a> -->
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/'+$.hori.getconfig().docServer+'/{$dbPath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}&amp;data-userstore=')" data-role="button" data-inline="true" data-theme="f">选　人</a>
+								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/','/{$dbPath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}&amp;data-userstore=')" data-role="button" data-inline="true" data-theme="f">选　人2</a>
 							</fieldset>
 						</li>
 					</xsl:when>
@@ -473,8 +482,8 @@
 						<!-- <legend>请选择会签审批人:</legend>
 						<textarea id="forshowcheck" name="forshowcheck"></textarea> -->
 						<!-- <input type="hidden" id="fldXyspr" name="fldXyspr" value="" readonly="true"  data-inline="true"/> -->
-						<!-- <a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/doctest/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10')" data-role="button" data-inline="true" data-theme="f">选人员</a> -->
-						<!-- <a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/doctest/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10')" data-role="button" data-inline="true" data-theme="f">选角色</a> -->
+						<!-- <a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/docapp/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10')" data-role="button" data-inline="true" data-theme="f">选人员</a> -->
+						<!-- <a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/docapp/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10')" data-role="button" data-inline="true" data-theme="f">选角色</a> -->
 						<!-- <input id="fldXyspr" name="fldXyspr" type="hidden" value="{//input[@name='fldXyspr']/@value}"/>
 					</fieldset>
 				</li> -->
