@@ -45,12 +45,12 @@
     });
 
         function doSearch() {
-			$.hori.showLoading();
+			$.hori.loading("show");
             try {
                 var skey = $("#searchKey").val();
                 if(skey == null || skey.length == 0){
     				alert("关键词不能为空！");
-    				 $.hori.hideLoading();
+    				 $.hori.loading("hide");
     				return;
     			} 
                 //skey = encodeURI(skey);
@@ -76,11 +76,11 @@
                     }else{
                         alert(dataObj.flagMessage);
                     }
-					$.hori.hideLoading();
+					$.hori.loading("hide");
                 },
                 "error": function (res) {
                     alert(res);
-                    $.hori.hideLoading();
+                    $.hori.loading("hide");
                 }
             })
         }
