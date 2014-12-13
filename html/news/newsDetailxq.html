@@ -85,7 +85,7 @@ function getWcmNewsData1() {
 		},
 		"success" : function(res) {
 			var widthImg=document.documentElement.clientWidth*0.5;
-			var url=$.hori.getconfig().appServerHost+"view/tpxw/file";
+			var url=$.hori.getconfig().appServerHost2+"view/tpxw/file";
 			var key=$.hori.getconfig().appKey;
 			res=res.replace(/http:\/\/webseal.genertec.com.cn/g,url).replace(/&amp;amp;/g,"&");
 			res=res.replace(/CACHEID=.*?\\/g,'data-result=file&data-application='+key+'\\\" width=\\\"'+widthImg+'\\');
