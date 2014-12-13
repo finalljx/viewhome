@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="../../assets/jquery.mobile-sugon.css" />
 <link href="../../lib/jquery-mobile/jquery-mobile-fluid960.css"
 	rel="stylesheet"></link>
+<link href="../../lib/jquery-mobile/loading.background.color.css"
+rel="stylesheet" />
 <script type="application/javascript" src="../assets/iscroll.js"></script>
 <script src="../../lib/jquery/jquery.min.js"></script>
 <script src="../../lib/jquery-cookie/jquery.cookie.js"></script>
@@ -19,7 +21,6 @@
 <script src="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
 <script src="../../lib/knockout/knockout.js"></script>
 <script src="../../lib/knockout/knockout.mapping.js"></script>
-<script src="../../lib/swiper/idangerous.swiper.min.js"></script>
 <script src="../../config/web/config.js"></script>
 	<script src="../asset/js/bootstrap.min.js"></script>
 <style>
@@ -42,6 +43,7 @@ $(document).ready(function() {
 // 加载新闻详情
 function getWcmNewsData1() {
 	try{
+		$.hori.loading("show");
 	var currentContentName = localStorage.getItem("currentContentName");
 	var currentGT_HomePage = localStorage.getItem("moreCurrentName");
 	switch (currentGT_HomePage){
@@ -83,7 +85,7 @@ function getWcmNewsData1() {
 		},
 		"success" : function(res) {
 			var widthImg=document.documentElement.clientWidth*0.5;
-			var url=$.hori.getconfig().appServerHost2+"view/tpxw/file";
+			var url=$.hori.getconfig().appServerHost+"view/tpxw/file";
 			var key=$.hori.getconfig().appKey;
 			res=res.replace(/http:\/\/webseal.genertec.com.cn/g,url).replace(/&amp;amp;/g,"&");
 			res=res.replace(/CACHEID=.*?\\/g,'data-result=file&data-application='+key+'\\\" width=\\\"'+widthImg+'\\');
@@ -126,6 +128,7 @@ function getWcmNewsData1() {
 				}
 				renderDetail1(data);
 				$('#hiddenDiv').css('display', 'block');
+				$.hori.loading('hide');
 		},
 		"error" : function(res) {
 			alert("error:" + res);
@@ -154,11 +157,11 @@ function viewfile(item){
 	}
 	if(type == "iphone"){
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl
-				+ "viewhome/html/attachmentShowForm.html",
+				+ "viewhome/html/attachmentShowForm4News.html",
 				"viewhome/xml/AttachView4I.xml");
 	}else if(type == "android"){
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl
-				+ "viewhome/html/attachmentShowForm.html",
+				+ "viewhome/html/attachmentShowForm4News.html",
 				"viewhome/xml/AttachView.xml");
 	}
 }
@@ -191,7 +194,7 @@ function renderDetail1(data) {
 			<div style="clear: both;">
 				<span data-bind="html:richText" ></span>
 			</div>
-			<div style="clear: both; display: inline;" id="fujian">
+			<div style="clear: both; display: inline;" id="fujian" data-bind="if:$root.attachmentList">
 				<ul data-bind="foreach: attachmentList">
 					<li><a data-bind="click:viewfile" ><span
 							data-bind="text: attachment"></span></a></li>
