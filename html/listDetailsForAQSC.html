@@ -9,7 +9,8 @@
 <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
 <link href="../lib/jquery-mobile/jquery-mobile-fluid960.css"
 	rel="stylesheet" />
-<script src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
+<script
+	src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
 <script src="../lib/encrypt/encrypt.js"></script>
 <script src="../lib/json/json2.js"></script>
 <script src="../lib/hori/hori.js?tag=21369"></script>
@@ -22,35 +23,48 @@
 	$(document)
 			.ready(
 					function() {
-						try{
-						$.hori.setHeaderTitle("安全生产值班表详情");
-						var config = $.hori.getconfig();
-						var docunid = localStorage.getItem("watchDocUnid");
-						var serverUrl = $.hori.getconfig().appServerHost;
-						var dataSource = "view/safety/detail/Application/Safety/SafetyProBasic.nsf/loadAppContentForMobile?openagent&data-result=text&docunid="+docunid;
-						serverUrl = serverUrl + dataSource;
-						
-						$.hori.hideLoading();
-						$.hori.ajax({
-							"type" : "get",
-							"url" : serverUrl,
-							"dataType" : "json",
-							
-							"success" : function(res) {
-								
-								$.hori.hideLoading();
-								var parsedStr = JSON.parse(res);
-								
-								render(parsedStr);
-								$.mobile.loading("hide");
-								$.hori.hideLoading();
-							},
-							"error" : function(res) {
-								alert("error" + res);
-								$.hori.hideLoading();
-							}
-						});
-						}catch(e){
+						try {
+							$.hori.setHeaderTitle("安全生产值班表详情");
+							var config = $.hori.getconfig();
+							var docunid = localStorage.getItem("watchDocUnid");
+							var serverUrl = $.hori.getconfig().appServerHost;
+							var dataSource = "view/safety/detail/Application/Safety/SafetyProBasic.nsf/loadAppContentForMobile?openagent&data-result=text&docunid="
+									+ docunid;
+							serverUrl = serverUrl + dataSource;
+
+							$.hori.hideLoading();
+							$.hori
+									.ajax({
+										"type" : "get",
+										"url" : serverUrl,
+										"dataType" : "json",
+
+										"success" : function(res) {
+
+											$.hori.hideLoading();
+											var parsedStr = JSON.parse(res);
+
+											render(parsedStr);
+
+											//console.log('=='+$('#divO ul:first').html());
+											var reg = /((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)/g;
+											var rep = '<a href="tel:$1" style="">$1</a>';
+											var exp = $(
+													'#divO ul:first')
+													.html();
+											exp = exp.replace(reg, rep);
+											$('#divO ul:first')
+													.html(exp);
+
+											$.mobile.loading("hide");
+											$.hori.hideLoading();
+										},
+										"error" : function(res) {
+											alert("error" + res);
+											$.hori.hideLoading();
+										}
+									});
+						} catch (e) {
 							alert(e.message);
 						}
 					});
@@ -65,7 +79,7 @@
 
 	<div id="notice" data-role="page" data-url="notice" tabindex="0"
 		class="ui-page ui-body-c ui-page-active"
-		 style="height:100%;margin:5px;">
+		style="height: 100%; margin: 5px;">
 		<div data-role="content" align="center" class="ui-content" role="main">
 			<div data-role="content" class="ui-content" role="main" id='divO'
 				style='font-weight: bold;'>
