@@ -50,7 +50,12 @@
 				taskListNum = taskListNum-1;
 				var nodataHtml='<li name="more" class="ui-li-static ui-body-inherit ui-first-child ui-last-child"><div style="width:100%;" align="center"><h3>无内容</h3></div></li>';
 				if(taskListNum==taskListLiHideNum){
-					$("#"+querydataListHide).empty();
+					//$("#"+querydataListHide).empty();
+					var divs = document.getElementsByName("more");
+					for(var i=0; i<divs.length; i++)
+					{
+						divs[i].style.display='none';
+					}
 					$("#"+querydataListHide).append(nodataHtml);
 					$("#moredata").hide();
 					localStorage.setItem("pullUpActionVal","no");
