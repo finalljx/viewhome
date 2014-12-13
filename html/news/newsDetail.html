@@ -34,52 +34,14 @@ img {
 	margin: auto;
 }
 
-/* @media only screen and (min-width: 1070px) and (max-width: 1242px) {
-	.details {
-		font-size: 22px;
-	}
-	.div1 {
-		font-size: 15px;
-		color: blue;
-	}
-}
-
-@media screen and (min-width: 800px) and (max-width: 1070px) {
-	.details {
-		font-size: 21px;
-	}
-	.div1 {
-		font-size: 13px;
-		color: green;
-	}
-}
-
-@media screen and (min-width: 400px) and (max-width: 800px) {
-	.details {
-		font-size: 21px;
-	}
-	.div1 {
-		font-size: 13px;
-		color: red;
-	}
-}
-
-@media screen and (min-width: 310px) and (max-width: 330px) {
-	.details {
-		font-size: 20px;
-	}
-	.div1 {
-		font-size: 13px;
-	}
-}
- */
  
- @media  all and (min-device-width: 1080px) and (max-device-width: 1242px) {
+ @media  all and (min-device-width: 1080px) and (max-device-width: 1450px) {
   .details {
 		font-size: 22px;
 	}
 	.div1 {
 		font-size: 15px;
+		color:gray;
 	}
 } 
 
@@ -98,6 +60,7 @@ img {
 	}
 	.div1 {
 		font-size: 13px;
+		color:red;
 	}
 } 
 
@@ -107,6 +70,7 @@ img {
 	}
 	.div1 {
 		font-size: 13px;
+		color:blue;
 	}
 }   
  
@@ -186,6 +150,7 @@ img {
 						res = res.replace(/style=.*?\\"/g, "");
 						res = res.replace(/WIDTH=.*?\\"/g, "");
 						res = res.replace(/HEIGHT=.*?\\"/g, "");
+						console.log(res);
 						res = res.replace(/<p.+>(<img.+>)<\/p>/g, '$1');
 						console.log(res);
 						var data = JSON.parse(res);
