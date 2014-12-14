@@ -72,20 +72,51 @@ a {
 		loginout();
 	});
 
+	//验证码加载失败
+	function captchaLoadError() {
+		//隐藏loading
+		$.hori.loading("hide");
+		//使用占位符替换图片
+		$("#captchaImg").attr("src", "../assets/login/captcha_load_error.png");
+	}
+
+	//验证码加载完成
+	function captchaLoad() {
+		//隐藏loading
+		$.hori.loading("hide");
+	}
+
 	//清除输入登录信息
 	function clearLoginInput() {
 		$("#password").val("");
 		$("#captcha").val("");
 	}
 	function getCaptcha() {
+		setTimeout(loadCaptcha(), 500);
+		/* $.hori.loading();
 		captcha_id = $.uuid();
 		$("#captcha").val(""); //清空验证码内容
 		$("#captcha_id").val(captcha_id); //设置验证码id
 		$("#captchaImg").attr(
 				"src",
 				$.hori.getconfig().appServerHost2
+						+ "/servlet/captcha?captcha_id=" + captcha_id); */
+	}
+
+	function loadCaptcha() {
+		$.hori.loading();
+		//显示加载图
+		$("#captchaImg").attr("src", "../assets/login/loading.png");
+		captcha_id = $.uuid();
+		$("#captcha").val(""); //清空验证码内容
+		$("#captcha_id").val(captcha_id); //设置验证码id
+		//获取验证码
+		$("#captchaImg").attr(
+				"src",
+				$.hori.getconfig().appServerHost2
 						+ "/servlet/captcha?captcha_id=" + captcha_id);
 	}
+
 	function clearData() {
 		if ($.trim($("#username").val()) == "用户名") {
 			$("#username").val("");
@@ -372,7 +403,10 @@ a {
 							<td style="text-align: center;">
 								<!-- <a data-role="button" data-theme="f" data-mini="true" onclick="">1234</a> -->
 								<img id="captchaImg" onclick="getCaptcha();"
-								style="width: 100px; margin-left: 10px; text-align: right;">
+								onload="captchaLoad();" onerror="captchaLoadError();"
+								src="../assets/login/loading.png"
+								style="width: 100px; margin-left: 10px; text-align: right;"
+								alt="点击重新加载">
 							</td>
 						</tr>
 					</table>
