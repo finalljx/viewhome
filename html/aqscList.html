@@ -74,8 +74,6 @@
             $.hori.showLoading();
             var docunid=$(aElement).data("docunid");
             localStorage.setItem("watchDocUnid",docunid);
-            //$.hori.loadPage($.hori.getconfig().serverBaseUrl + 'viewhome/html/listDetails_cbn.html');
-            
             $("#rightContent").load("listDetailsForAQSC.html", function(a, b, c) {
         	});
         }
