@@ -21,8 +21,6 @@
 			.ready(
 					function() {
 						try {
-							$.hori.hideLoading();
-							$.hori.loading();
 							$.hori.setHeaderTitle("安全生产值班表详情");
 							var config = $.hori.getconfig();
 							var docunid = localStorage.getItem("watchDocUnid");
@@ -51,8 +49,8 @@
 											exp = exp.replace(reg, rep);
 											$('#divO ul:first')
 													.html(exp);
-											$.hori.loading('hide');
 											
+											$.hori.hideLoading();
 										},
 										"error" : function(res) {
 											alert("error" + res);
