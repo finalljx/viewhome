@@ -85,11 +85,24 @@ function getWcmNewsData1() {
 		},
 		"success" : function(res) {
 			var widthImg=document.documentElement.clientWidth*0.5;
+			
 			var url=$.hori.getconfig().appServerHost2+"view/tpxw/file";
 			var key=$.hori.getconfig().appKey;
 			res=res.replace(/http:\/\/webseal.genertec.com.cn/g,url).replace(/&amp;amp;/g,"&");
-			res=res.replace(/CACHEID=.*?\\/g,'data-result=file&data-thumb=650&data-application='+key+'\\\" width=\\\"'+widthImg+'\\');
-			res=res.replace(/style=.*?\\"/g,"");
+			var r = /<.*table/g;
+			console.log('1: ' + res);
+			if (!(r.test(res))) {
+				res = res.replace(/CACHEID=.*?\\/g,
+						'data-result=file&data-thumb=650&data-application='
+								+ key + '\\\" width=\\\"'
+								+ widthImg + '\\');
+				res=res.replace(/style=.*?\\"/g,"");
+			} else {
+				res = res.replace(/CACHEID=.*?\\/g,
+						'data-result=file&data-thumb=650&data-application='
+								+ key + '\\\" width=\\\"'
+								+ '40px' + '\\');
+			}
 			var data = JSON.parse(res);
 				if (data.attachmentSource!=undefined) {
 					document.getElementById("fujian").style.display = "inline";
