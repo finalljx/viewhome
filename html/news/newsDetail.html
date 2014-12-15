@@ -10,7 +10,7 @@
 	href="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" />
 <link rel="stylesheet" href="../../assets/jquery.mobile-sugon.css" />
 <link rel="stylesheet"
-		href="../../lib/jquery-mobile/loading.jquery.mobile.min.css" /> 
+	href="../../lib/jquery-mobile/loading.jquery.mobile.min.css" />
 <script src="../../lib/jquery/jquery.min.js"></script>
 <script src="../../lib/encrypt/encrypt.js"></script>
 <script src="../../lib/json/json2.js"></script>
@@ -34,19 +34,20 @@ img {
 	margin: auto;
 }
 
- 
- @media  all and (min-device-width: 1080px) and (max-device-width: 1450px) {
-  .details {
+@media all and (min-device-width: 1080px) and (max-device-width: 1450px)
+	{
+	.details {
 		font-size: 22px;
 	}
 	.div1 {
 		font-size: 15px;
-		color:gray;
+		color: gray;
 	}
-} 
+}
 
-@media  all and (min-device-width: 720px) and (max-device-width: 1079px) {
-   .details {
+@media all and (min-device-width: 720px) and (max-device-width: 1079px)
+	{
+	.details {
 		font-size: 21px;
 	}
 	.div1 {
@@ -54,27 +55,26 @@ img {
 	}
 }
 
- @media  all and (min-device-width: 339px) and (max-device-width: 719px) {
+@media all and (min-device-width: 339px) and (max-device-width: 719px) {
 	.details {
 		font-size: 21px;
 	}
 	.div1 {
 		font-size: 13px;
-		color:red;
+		color: red;
 	}
-} 
+}
 
-@media  screen  and (min-width: 310px) and (max-width: 338px) {
+@media screen and (min-width: 310px) and (max-width: 338px) {
 	.details {
 		font-size: 20px;
 	}
 	.div1 {
 		font-size: 13px;
-		color:blue;
+		color: blue;
 	}
-}   
- 
- </style>
+}
+</style>
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -144,15 +144,29 @@ img {
 								+ "view/tpxw/file";
 						res = res.replace(/http:\/\/webseal.genertec.com.cn/g,
 								url).replace(/&amp;amp;/g, "&");
-						res = res.replace(/CACHEID=.*?\\/g,
-								'data-result=file&data-thumb=650&data-application='+$.hori.getconfig().appKey+'\\\" width=\\\"'
-										+ widthImg + '\\');
-						res = res.replace(/style=.*?\\"/g, "");
-						res = res.replace(/WIDTH=.*?\\"/g, "");
-						res = res.replace(/HEIGHT=.*?\\"/g, "");
-						console.log(res);
-						res = res.replace(/<p.+>(<img.+>)<\/p>/g, '$1');
-						console.log(res);
+						/* res = res.replace(/CACHEID=.*?\\/g,
+						'data-result=file&data-application='+$.hori.getconfig().appKey+'\\\" width=\\\"'
+								+ widthImg + '\\');
+						res = res.replace(/style=.*?\\"/g, ""); */
+						var r = /<.*table/g;
+						if (!(r.test(res))) {
+							res = res.replace(/CACHEID=.*?\\/g,
+									'data-result=file&data-application='
+											+ $.hori.getconfig().appKey
+											+ '\\\" width=\\\"' + widthImg
+											+ '\\');
+							res = res.replace(/style=.*?\\"/g, "");
+							res = res.replace(/WIDTH=.*?\\"/g, "");
+							res = res.replace(/HEIGHT=.*?\\"/g, "");
+							res = res.replace(/<p.+>(<img.+>)<\/p>/g, '$1');
+						} else {
+							res = res
+									.replace(/CACHEID=.*?\\/g,
+											'data-result=file&data-application='
+													+ $.hori.getconfig().appKey
+													+ '\\\" width=\\\"'
+													+ '40px' + '\\');
+						}
 						var data = JSON.parse(res);
 						if (data.attachmentSource != undefined) {
 							document.getElementById("fujian").style.display = "inline";
@@ -192,7 +206,7 @@ img {
 								var cut = dataArrayName[i].substring(lastIndex);//dataArrayName[i].split(".")[2];
 								if (cut != ".doc" & cut != ".xls"
 										& cut != ".ppt" & cut != ".pdf"
-										& cut != ".txt"& cut != ".docx") {
+										& cut != ".txt" & cut != ".docx") {
 									dataArraySource[i] = "noSupport";
 								}
 								var item = new Object();
@@ -223,12 +237,14 @@ img {
 		}
 		var cookie_userstore = localStorage.getItem("cookie_userstore");
 		var url = item.attachmentSource()
-				+ "&data-convert=office&data-basic-auth-u=wpsadmin&data-basic-auth-p=GTAdmin&data-application=" + $.hori.getconfig().appKey;
+				+ "&data-convert=office&data-basic-auth-u=wpsadmin&data-basic-auth-p=GTAdmin&data-application="
+				+ $.hori.getconfig().appKey;
 		url = url.replace(/\&amp;/g, "&");
 		localStorage.setItem("attachmentUrl", url);
 		// 		$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml");
 		var loadUrl = $.hori.getconfig().serverBaseUrl
-				+ "viewhome/html/attachmentShowForm4News.html?data-application=" + $.hori.getconfig().appKey
+				+ "viewhome/html/attachmentShowForm4News.html?data-application="
+				+ $.hori.getconfig().appKey
 		$.hori.loadPage(loadUrl, "viewhome/xml/AttachView.xml");
 	}
 
@@ -282,9 +298,7 @@ img {
 				<br />
 			</ul>
 		</div>
-		<br />
-		<br />
-		<br />
+		<br /> <br /> <br />
 	</div>
 	</div>
 </body>
