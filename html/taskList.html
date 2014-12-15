@@ -99,7 +99,7 @@
 			$.hori.showLoading();
 			localStorage.setItem("getTaskMoreData","todoList");
 			var url = $.hori.getconfig().appServerHost+'view/oamobile/todosList/Produce/DigiFlowMobile.nsf/agGetMsgViewData?openagent&login&server='+oaMsgServer+'&dbpath=DFMessage/dfmsg_'+itcode+'.nsf&view=vwTaskUnDoneForMobile&thclass=&page='+todoStart+'&count=10';
-			alert(url);
+			$.hori.showLoading();
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
@@ -128,7 +128,7 @@
 			$.hori.showLoading();
 			localStorage.setItem("getTaskMoreData","didList");
 			var url = $.hori.getconfig().appServerHost+'view/oamobile/taskDownList/Produce/DigiFlowMobile.nsf/agGetMsgViewData?openagent&login&server='+oaMsgServer+'&dbpath=DFMessage/dfmsg_'+itcode+'.nsf&view=vwTaskDoneForMobile&thclass=&page='+didStart+'&count=10';
-			alert(url);
+			$.hori.showLoading();
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
@@ -202,7 +202,6 @@
 			}
 			var docunid = $(str).data("unid");
 			var dbpath = $(str).data("dbpath");
-			alert(dbpath);
 			var oaurl="/Produce/DigiFlowMobile.nsf/showform?openform&login&apptype=msg&appserver="+oaMsgServer+"&appdbpath=DFMessage/dfmsg_"+itcode+".nsf&appdocunid="+docunid;
 			/*if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)||window.navigator.userAgent.match(/android/i)){
 				var oaurl =$.hori.getconfig().appServerHost+"view/oamobile/downcontentmobile/Produce/DigiFlowMobile.nsf/showform?openform&login&apptype=msg&appserver="+oaMsgServer+"&appdbpath=DFMessage/dfmsg_"+itcode+".nsf&appdocunid="+docunid+'?editdocument&data-application=' + $.hori.getconfig().appKey + "&data-userstore=" + localStorage.getItem("cookie_userstore");

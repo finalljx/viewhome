@@ -97,7 +97,7 @@
 			localStorage.setItem("getMoreData","issuedoc");
 			var issuedoc = localStorage.getItem("issuedoc");
 			var url = $.hori.getconfig().appServerHost+"view/oa/issuedocList/"+issuedoc+"/AppDoingView?readviewentries?login&start="+issuedocStart+"&count=10";
-			alert(url);
+			$.hori.showLoading();
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
@@ -123,11 +123,11 @@
 		}
 		//收文列表
 		function getReceivedocList(){
-			$.hori.showLoading();
+			
 			localStorage.setItem("getMoreData","receivedoc");
 			var receivedoc = localStorage.getItem("receivedoc");
 			var url = $.hori.getconfig().appServerHost+"view/oa/receivedocList/"+receivedoc+"/AppDoingView?readviewentries?login&start="+receivedocStart+"&count=2";
-			alert(url);
+			$.hori.showLoading();
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
