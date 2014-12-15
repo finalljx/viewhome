@@ -31,7 +31,6 @@
 	$(document).ready(
 			function() {
 				$.mobile.loading('show');
-				//$.hori.hideLoading();
 				$.hori.setHeaderTitle("表单");
 				var config = $.hori.getconfig();
 				var itcode = localStorage.getItem("Chinesename");
@@ -71,7 +70,7 @@
 							console.log(jsonData);
 							renderDetail2();
 						}
-						setTimeout("$.mobile.loading('hide');",5000);
+						$.mobile.loading('hide');
 					},
 					"error" : function(res) {
 						$.hori.hideLoading();

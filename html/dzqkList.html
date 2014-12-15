@@ -134,6 +134,7 @@ a {
 				renderDzqk(json);
 				$("#loadNextYear").attr({"onclick":"dzqkAction(1)"});
 				$("#loadPreYear").attr({"onclick":"dzqkAction(-1)"});
+				$.hori.hideLoading();
 			},
 			"error" : function(res) {
 				alert("error:" + res);
