@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>首页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" />
+<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
+<link rel="stylesheet" href="../lib/app/home/css/news.css">
+</head>
+<body>
+	<div data-role="page" id="home" style="background: url(../assets/home/bg_empty.jpg); -moz-background-size: cover; background-repeat: repeat;">
+		<div data-role="content" align="center">
+			<ul id="jttzList" data-role="listview" data-theme="d" data-bind="foreach: list" class="ui-listview">
+				
+					<li data-icon="false" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-iconpos="right" data-theme="d" class="ui-btn ui-btn-icon-right ui-li ui-li-has-count ui-first-child ui-last-child ui-btn-up-d"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a data-bind="click:showDetailJttz" class="ui-link-inherit">
+							<!-- ko text: contentTitle -->中国各地房价暴跌 面临更严重危机到对顶顶顶顶顶顶顶顶顶顶<!-- /ko --> <span class="ui-li-count ui-date-item ui-btn-up-c ui-btn-corner-all" data-bind="text:newsDate">10-14111111111 07:00</span></a> </div></div></li>
+				
+					<li data-icon="false" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-iconpos="right" data-theme="d" class="ui-btn ui-btn-icon-right ui-li ui-li-has-count ui-first-child ui-last-child ui-btn-up-d"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a data-bind="click:showDetailJttz" class="ui-link-inherit">
+							<!-- ko text: contentTitle -->山东一数千万水利项目建成就报废<!-- /ko --> <span class="ui-li-count ui-date-item ui-btn-up-c ui-btn-corner-all" data-bind="text:newsDate">10-14 06:54</span></a> </div></div></li>
+				</ul>
+		</div>
+	</div>
+</body>
+</html>
