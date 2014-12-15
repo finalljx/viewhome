@@ -77,6 +77,8 @@
 		</view>
 		<!-- 通知公告列表 -->
 		<view id="annoucement" template="digi/mobile/annouce.xsl" encoding="utf-8"></view>
+		<!-- 获取公告列表初始position -->
+		<view id="annoucementstarnumber" template="digi/mobile/starnumber.xsl" encoding="utf-8"></view>
 		<!-- 公告展示 -->
 		<view id="contentAnnouce" template="digi/mobile/annouceform.xsl" encoding="utf-8">
 			

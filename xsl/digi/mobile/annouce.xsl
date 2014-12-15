@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-<xsl:variable name="startNumber"><xsl:value-of select="//viewentries/viewentry/@position"/></xsl:variable>
+<xsl:variable name="startNumber"><xsl:value-of select="//viewentries/viewentry[1]/@position"/></xsl:variable>
+<xsl:variable name="endNumber"><xsl:value-of select="//viewentries/viewentry[last()]/@position"/></xsl:variable>
 <xsl:output method="html" indent="yes"/>
 	<xsl:template match="/">
 			<xsl:if test="count(//viewentries//viewentry)=0">
@@ -15,7 +16,7 @@
 	<xsl:template match="viewentry">
 		<xsl:variable name="unid"><xsl:value-of select="@unid"/></xsl:variable>
 		<li name="lilist" href="#" data-icon="true" class="ui-first-child ui-last-child">
-			<a href="javascript:void(0)" onclick="loadPageForm(this);" data-unid="{$unid}" data-startNumber="{$startNumber}" class="ui-btn">
+			<a href="javascript:void(0)" onclick="loadPageForm(this);" data-unid="{$unid}" data-startNumber="{$startNumber}" data-endNumber="{$endNumber}" class="ui-btn">
 				<h3 style="white-space: normal;">
 					<span>
 						<xsl:value-of select="entrydata[4]/."/>
