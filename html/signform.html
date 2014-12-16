@@ -111,10 +111,21 @@
 		console.log(item.lianjie());
 
 		localStorage.setItem("attachmentUrl", url);
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl
-				+ "viewhome/html/attachmentShowForm.html",
-				$.hori.getconfig().serverBaseUrl
-						+ "viewhome/xml/AttachView.xml");
+		var type = "android";
+		if (window.navigator.userAgent.match(/iPad/i)
+				|| window.navigator.userAgent.match(/iPhone/i)
+				|| window.navigator.userAgent.match(/iPod/i)) {
+			type = "iphone";
+		}
+		if(type == "iphone"){
+			$.hori.loadPage($.hori.getconfig().serverBaseUrl
+					+ "viewhome/html/attachmentShowForm.html",
+					"viewhome/xml/AttachView4I.xml");
+		}else if(type == "android"){
+			$.hori.loadPage($.hori.getconfig().serverBaseUrl
+					+ "viewhome/html/attachmentShowForm.html",
+					"viewhome/xml/AttachView.xml");
+		}
 	}
 </script>
 <style type="text/css">
