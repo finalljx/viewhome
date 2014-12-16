@@ -152,10 +152,16 @@
 		<hr/>
 	</xsl:template>
 	<!-- 处理基本信息 select="tr[5]/table/tbody/tr"-->
-	<xsl:template match="tbody" mode="basedata">	
-		<xsl:value-of select="tr[5]/td/table/tbody/tr/td[1]/." /><hr/>
+	<xsl:template match="tbody" mode="basedata">
+		<xsl:value-of select="substring-before(tr[5]/td/table/tbody/tr/td[1]/.,'：')" />：<xsl:value-of select="tr[5]/td/table/tbody/tr/td[1]/font/font/text()" />
+		<xsl:value-of select="tr[5]/td/table/tbody/tr/td[1]/font/text()" />
+		<xsl:value-of select="tr[5]/td/table/tbody/tr/td[1]/font/font/select/option[@selected='selected']/." /><hr/>
+		<xsl:if test="tr[5]/td/table/tbody/tr/td[1]/font/font/select/option[contains(@selected,'selected')]">
+			<input type="hidden" name="fldSelSPQX" value="{tr[5]/td/table/tbody/tr/td[1]/font/font/select/option[@selected='selected']/@value}"/>
+		</xsl:if>
 		<xsl:value-of select="tr[5]/td/table/tbody/tr/td[2]/." /><hr/>
-		<xsl:value-of select="tr[5]/td/table/tbody/tr/td[3]/." /><hr/>
+		会签单位：<xsl:value-of select="tr[5]/td/table/tbody/tr/td[3]/table/tbody/tr/td[2]/." />
+		<xsl:value-of select="//textarea[@name='flddanwei']/." /><hr/>
 			<xsl:apply-templates select="tr[5]/td/table/tbody/tr/td[4]/table/tbody/tr[2]" mode="yu1"/>
 			<xsl:apply-templates select="tr[5]/td/table/tbody/tr/td[5]/table/tbody//tr" mode="yu9"/>
 	</xsl:template>

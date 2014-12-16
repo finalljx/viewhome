@@ -12,7 +12,7 @@
 	<xsl:value-of select="substring-before(substring-after(//param[@name='to']/@value,'unid='),'&amp;seluser')"/>
 	</xsl:variable>
 	<xsl:variable name="dbpath">
-	<xsl:value-of select="//param[@name='fldFromDB']/@value"/>
+	<xsl:value-of select="//param[@name='dbpath']/@value"/>
 	</xsl:variable>
 
 	<xsl:template match="/">
