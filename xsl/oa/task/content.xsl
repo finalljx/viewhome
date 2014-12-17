@@ -24,7 +24,6 @@
 					<link rel="stylesheet" href="http://lib.sinaapp.com/js/jquery-mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
 					<link rel="stylesheet" href="/view/assets/jquery.mobile-sugon.css" />
 					<script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
-					<script src="/view/lib/encrypt/encrypt.js"></script>
 					<script src="/view/lib/json/json2.js"></script>
 					<script src="/view/lib/hori/hori.js?tag=21369"></script>
 					<script src="http://lib.sinaapp.com/js/jquery-mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
@@ -146,7 +145,7 @@
 									<b><xsl:value-of select="substring-before(//td[@class='rightHei'][1]/.,'：')" />:</b>
 									<br />
 									<br />
-									<font size="2"><xsl:value-of select="//td[@class='rightHei'][1]/font/text()" />
+									<font style="font-size:12pt"><xsl:value-of select="//td[@class='rightHei'][1]/font/text()" />
 									<xsl:value-of select="//td[@class='rightHei'][1]/font/font/text()" />
 									<xsl:value-of select="//td[@class='rightHei'][1]/font/font/select/option[@selected='selected']/." /></font>
 									<xsl:if test="//td[@class='rightHei'][1]/font/font/select/option[contains(@selected,'selected')]">
@@ -160,7 +159,7 @@
 										<b><xsl:value-of select="substring-before(//td[@class='rightHei'][2]/.,'：')" />:</b>
 										<br />
 										<br />
-										<font size="2"><xsl:value-of select="substring-after(//td[@class='rightHei'][2]/.,'：')" /></font>
+										<font style="font-size:12pt"><xsl:value-of select="substring-after(//td[@class='rightHei'][2]/.,'：')" /></font>
 									</font>
 								</td>
 								<td width="20%" valign="top" class="rightHei">
@@ -169,7 +168,7 @@
 										<b><xsl:value-of select="substring-before(//td[@class='rightHei'][3]/.,'：')" />:</b>
 										<br />
 										<br />
-										<font size="2"><xsl:value-of select="//td[@class='rightHei'][3]/table/tbody/tr/td[2]/."/>
+										<font style="font-size:12pt"><xsl:value-of select="//td[@class='rightHei'][3]/table/tbody/tr/td[2]/."/>
 										<xsl:value-of select="//textarea[@name='flddanwei']/." /></font>
 									</font>
 								</td>
@@ -179,7 +178,7 @@
 										<b><xsl:value-of select="substring-before(//td[@class='rightHei'][4]/.,'：')" />:</b>
 										<br />
 										<br />
-										<font size="2"><xsl:value-of select="substring-after(//td[@class='rightHei'][4]/.,'：')" /></font>
+										<font style="font-size:12pt"><xsl:value-of select="substring-after(//td[@class='rightHei'][4]/.,'：')" /></font>
 									</font>
 								</td>
 										<td width="31%" valign="top">
@@ -238,15 +237,9 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="btmHei" style="border-top: 1px solid #000000;"
-							colspan="4">
-							<font class="ztDx">
-								<b>
-									<br />
-									<xsl:value-of select="//table[@id='table1']/tbody/tr[6]/." />
-								</b>
-							</font>
-							<br />
+						<td class="btmHei" style="border-top:1px solid #000000; " colspan="4">
+						<font class="ztDx"><b><br/>会签部门意见:</b></font><br/>
+							<xsl:apply-templates select="//table[@id='table1']/tbody/tr[6]/td//table"  mode="signMind"/>
 						</td>
 					</tr>
 				</tbody>
@@ -307,7 +300,19 @@
 		</body>
 	</html>
 </xsl:template>
-
+<!-- 处理领导审批 -->
+<xsl:template match="table" mode="signMind">
+	<table width="100%" border="0">
+     <tbody>
+      <tr>
+       <td style="font-size:12pt"><xsl:value-of select="tbody/tr[1]/td/text()" /></td>
+      </tr>
+      <tr>
+       <td style="font-size:12pt" align="right"><span class="userName"><xsl:value-of select="tbody/tr[2]/td/span/text()" /></span><xsl:value-of select="tbody/tr[2]/td/text()" /></td>
+      </tr>
+     </tbody>
+    </table>
+</xsl:template>
 <!-- 将隐藏控件传入 -->
 <xsl:template match="input" mode="hidden">
 <xsl:if test="@name!='$$querysaveagent'">

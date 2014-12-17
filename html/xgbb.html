@@ -1,0 +1,109 @@
+<html>
+<head>
+<title>相关版本</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+<link rel="stylesheet"
+	href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" />
+<script src="../lib/jquery/jquery.min.js"></script>
+<script src="../lib/hori/hori.js?tag=21369"></script>
+<script src="../config/web/config.js"></script>
+<script
+	src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
+</head>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$.hori.setHeaderTitle("关于");
+		$.hori.getClientVersion(function(data) {
+			document.getElementById("banben").innerHTML = data;
+		});
+
+	});
+	function doExit() {
+        if($.hori.getMobileType()=="android"){ //android设备
+        	$.hori.backPage();
+        	$.hori.backPage();
+        }else{ //ios设备
+        	var targetURL = $.hori.getconfig().serverBaseUrl + "viewhome/html/login.html";
+        	componentURL = $.hori.getconfig().serverBaseUrl + "viewhome/xml/Login.scene.xml";
+        	$.hori.loadPage(targetURL, componentURL);
+        }
+    }
+</script>
+<script>
+	
+</script>
+<style>
+a {
+	text-decoration: none;
+	color: #000;
+}
+
+.divwh {height 5em;
+	
+}
+
+@media only screen and (min-width: 1070px) and (max-width: 1450px) {
+	.ic_launcher {
+		width: 130px;
+		height: 130px;
+	}
+	.qrcode {
+		width: 200px;
+		height: 200px;
+	}
+}
+
+@media screen and (min-width: 360px) and (max-width: 800px) {
+	.ic_launcher {
+		width: 110px;
+		height: 110px;
+	}
+	.qrcode {
+		width: 160px;
+		height: 160px;
+	}
+}
+
+@media screen and (min-width: 310px) and (max-width: 350px) {
+	.ic_launcher {
+		width: 80px;
+		height: 80px;
+	}
+	.qrcode {
+		width: 120px;
+		height: 120px;
+	}
+}
+</style>
+<body>
+	<div data-role="content" align="center" style="margin-top: 10px;">
+		<div class="divwh">
+			<img class="ic_launcher" src="../assets/home/ic_launcher.png" /> <br>
+			<span style="color: black;">版本号 <font color="blue"><a href="#" id="banben"></a></font></span>
+			<p>
+				<img class="qrcode" src="../assets/home/qrcode.png" /> <br>
+		</div>
+		<div class="ui-grid-b">
+			<div class="ui-block-a">
+			</div>
+			<div class="ui-block-b">
+				<a href="javascript:void(0)"
+					onclick="doExit();" data-role="button"  style="background-color: #3398CC;color: white;">&nbsp;退出登录&nbsp;</a>
+			</div>
+			<div class="ui-block-c">
+			</div>
+		</div>
+	</div>
+	<div style="text-align: center;">
+		<div style="color: black;">
+			<p>
+				<span>版权所有：&copy;中国通用技术(集团)控股有限责任公司<br>
+				联系电话：<a href="tel:63348866">63348866</a>&nbsp;<a href="tel:63448877">63348877</a>
+				</span>
+			</p>
+		</div>
+	</div>
+</body>
+</html>

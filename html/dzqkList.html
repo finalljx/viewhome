@@ -88,6 +88,7 @@ a {
 	var jsonData = new Object();
 	var viewModel;
 	var hasBind = false;
+	var banLoadPreYear=0;
 	$(document).ready(function() {
 		//默认隐藏列表显示
 		/* document.getElementById("middleContent").style.width = '90%';
@@ -133,7 +134,14 @@ a {
 				}
 				renderDzqk(json);
 				$("#loadNextYear").attr({"onclick":"dzqkAction(1)"});
-				$("#loadPreYear").attr({"onclick":"dzqkAction(-1)"});
+				//判断是2014年时改变上一年颜色值，禁止onclick方法
+				if(currentYear=="2014"){
+					$("#loadPreYear").attr("style","float: left;background-color: darkgray;");
+					$("#loadPreYear").attr({"onclick":"return false;"});
+				}else{
+					$("#loadPreYear").attr("style","float: left;");
+					$("#loadPreYear").attr({"onclick":"dzqkAction(-1)"});
+				}
 				$.hori.hideLoading();
 			},
 			"error" : function(res) {
