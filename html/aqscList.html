@@ -9,12 +9,9 @@
 	href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css"
 	rel="stylesheet"></link>
 <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
-<link href="../lib/jquery-mobile/jquery-mobile-fluid960.css"
-	rel="stylesheet"></link>
-<script type="application/javascript" src="../assets/iscroll.js"></script>
+<!-- <script type="application/javascript" src="../assets/iscroll.js"></script> -->
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/jquery-cookie/jquery.cookie.js"></script>
-<script src="../lib/encrypt/encrypt.js"></script>
 <script src="../lib/json/json2.js"></script>
 <script src="../lib/hori/hori.js?tag=21369"></script>
 <script src="../lib/arttemplate/template.js"></script>
@@ -24,13 +21,15 @@
 
 <script>
 	function doSearch() {
-		$.hori.showLoading();
+		//$.hori.showLoading();
+		$.hori.loading();
 		try {
 			var skey = $("#searchKey").val();
 
 			if (skey == null || skey.length == 0) {
 				alert("关键词不能为空");
-				$.hori.hideLoading();  
+				//$.hori.hideLoading();  
+				$.hori.loading("hide");
 				return;
 
 			}
@@ -47,6 +46,7 @@
 			"url" : url,
 			"data" : data,
 			"success" : function(res) {
+				$.hori.loading("hide");
 				var jsonData = new Object();
 				var dataObj = JSON.parse(res);
 				//json {"data":[{"DeptID":"1351","Date":"2013-12-23","StPsnCN":"史海","Dept":"中国仪器进出口(集团)公司","Holiday":"元旦"}]}
@@ -58,13 +58,15 @@
 				} else {
 					alert(dataObj.flagMessage);
 				}
-				$.hori.hideLoading();
+				//$.hori.hideLoading();
 			},
 			"error" : function(res) {
-				$.hori.hideLoading();
+				//$.hori.hideLoading();
+				$.hori.loading("hide");
 			}
 		})
 		} catch (e) {
+			$.hori.loading("hide");
 			alert(e.message);
 		}
 	}
@@ -87,7 +89,7 @@
 	<div style="margin-left: 15px;">
 		<table>
 			<tr>
-				<td width="95%" height="20px"><input id="searchKey" type="text"
+				<td width="95%" height="20px"><input id="searchKey" placeholder="请输入公司名称" type="text"
 					 /></td>
 				<td><a href="#search" data-role="button" data-inline="true"
 					onclick="doSearch()" data-rel="dialog" data-corners="true"
@@ -107,9 +109,9 @@
 
 
 	<script id="watchlist" type="text/html">
-		<ul  data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+		<ul  data-role="listview" data-inset="false" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
 			{{each data as rowObj i}}
-			<li href="#" data-icon="false" class="ui-first-child ui-last-child">
+			<li href="#" data-icon="false" data-inset="false" >
 				<a href="javascript:void(0)" data-docunid='{{rowObj["docunid"]}}' onclick="loadListDetails(this)" class="ui-btn">
 					<h3 style="white-space: normal;"><span>{{rowObj["Dept"]}}</span></h3>
 					<p style="font-size: 14px;line-height: 2em;"> 
