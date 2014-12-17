@@ -146,7 +146,12 @@
 									<b><xsl:value-of select="substring-before(//td[@class='rightHei'][1]/.,'：')" />:</b>
 									<br />
 									<br />
-									<font size="2"><xsl:value-of select="substring-after(//td[@class='rightHei'][1]/.,'：')" /></font>
+									<font size="2"><xsl:value-of select="//td[@class='rightHei'][1]/font/text()" />
+									<xsl:value-of select="//td[@class='rightHei'][1]/font/font/text()" />
+									<xsl:value-of select="//td[@class='rightHei'][1]/font/font/select/option[@selected='selected']/." /></font>
+									<xsl:if test="//td[@class='rightHei'][1]/font/font/select/option[contains(@selected,'selected')]">
+										<input type="hidden" name="fldSelSPQX" value="{//td[@class='rightHei'][1]/font/font/select/option[@selected='selected']/@value}"/>
+									</xsl:if>
 								</font>
 								</td>
 								<td width="20%" height="188" valign="top" class="rightHei">
@@ -164,7 +169,8 @@
 										<b><xsl:value-of select="substring-before(//td[@class='rightHei'][3]/.,'：')" />:</b>
 										<br />
 										<br />
-										<font size="2"><xsl:value-of select="substring-after(//td[@class='rightHei'][3]/.,'：')" /></font>
+										<font size="2"><xsl:value-of select="//td[@class='rightHei'][3]/table/tbody/tr/td[2]/."/>
+										<xsl:value-of select="//textarea[@name='flddanwei']/." /></font>
 									</font>
 								</td>
 								<td width="15%" valign="top" class="rightHei">
@@ -188,7 +194,9 @@
 															</font>
 														</td>
 														<td>
-															<span class="userName"><xsl:value-of select="substring-after(//table[@height='130' and @width='100%']/tbody/tr[1]/.,'：')" /></span>
+															<span class="userName"><xsl:value-of select="substring-before(substring-after(//table[@height='130' and @width='100%']/tbody/tr[1]/.,'：'),'/')" />
+															<xsl:value-of select="substring-before(//table[@height='130' and @width='100%']/tbody/tr[1]//input/@value,'/')" /></span>
+															<input type="hidden" name="{//table[@height='130' and @width='100%']/tbody/tr[1]//input/@name}" value="{//table[@height='130' and @width='100%']/tbody/tr[1]//input/@value}"/>
 														</td>
 													</tr>
 													<tr>
@@ -197,7 +205,9 @@
 																<b><xsl:value-of select="substring-before(//table[@height='130' and @width='100%']/tbody/tr[2]/.,'：')" />：</b>
 															</font>
 														</td>
-														<td><xsl:value-of select="substring-after(//table[@height='130' and @width='100%']/tbody/tr[2]/.,'：')" /></td>
+														<td><xsl:value-of select="substring-after(//table[@height='130' and @width='100%']/tbody/tr[2]/.,'：')" />
+															<xsl:value-of select="//table[@height='130' and @width='100%']/tbody/tr[2]//input/@value" />
+															<input type="hidden" name="{//table[@height='130' and @width='100%']/tbody/tr[2]//input/@name}" value="{//table[@height='130' and @width='100%']/tbody/tr[2]//input/@value}"/></td>
 													</tr>
 													<tr>
 														<td width="90" align="right">
@@ -205,7 +215,9 @@
 																<b><xsl:value-of select="substring-before(//table[@height='130' and @width='100%']/tbody/tr[3]/.,'：')" />：</b>
 															</font>
 														</td>
-														<td><xsl:value-of select="substring-after(//table[@height='130' and @width='100%']/tbody/tr[3]/.,'：')" /></td>
+														<td><xsl:value-of select="substring-after(//table[@height='130' and @width='100%']/tbody/tr[3]/.,'：')" />
+															<xsl:value-of select="//table[@height='130' and @width='100%']/tbody/tr[3]//input/@value" />
+															<input type="hidden" name="{//table[@height='130' and @width='100%']/tbody/tr[3]//input/@name}" value="{//table[@height='130' and @width='100%']/tbody/tr[3]//input/@value}"/></td>
 													</tr>
 													<tr>
 														<td width="90" align="right">
@@ -213,7 +225,9 @@
 																<b><xsl:value-of select="substring-before(//table[@height='130' and @width='100%']/tbody/tr[4]/.,'：')" />：</b>
 															</font>
 														</td>
-														<td><xsl:value-of select="substring-after(//table[@height='130' and @width='100%']/tbody/tr[4]/.,'：')" /></td>
+														<td><xsl:value-of select="substring-after(//table[@height='130' and @width='100%']/tbody/tr[4]/.,'：')" />
+															<xsl:value-of select="//table[@height='130' and @width='100%']/tbody/tr[4]//input/@value" />
+															<input type="hidden" name="{//table[@height='130' and @width='100%']/tbody/tr[4]//input/@name}" value="{//table[@height='130' and @width='100%']/tbody/tr[4]//input/@value}"/></td>
 													</tr>
 												</tbody>
 											</table>
@@ -253,9 +267,11 @@
 					<TABLE class="fjTable" style="width: 90%" id="table2">
 
 						<TR>
+							<td>
 							<xsl:call-template name="attachedFiles">
 								<xsl:with-param name="FileInfosValue" select="//param[@name='FileInfos']/@value"/>
 							</xsl:call-template>
+							</td>
 						</TR>
 					</TABLE>
 				</div>
@@ -335,12 +351,12 @@ select="substring-before(substring-after($FileInfosValue,'&lt;doc_unid&gt;'),'&l
 <xsl:variable name="type"
 select="translate($filetype, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" />
 <xsl:if test="not(contains($fileunids, $fileunid))">
-<li>
+
 	<a href="javascript:void(0)"
 		onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/'+$.hori.getconfig().docServer+'/{$dbPath}/0/{$docunid}/$file/{$fileunid}.{$filetype}')">
 		<xsl:value-of select="$file" />
 		</a>
-</li>
+
 </xsl:if>
 <xsl:if
 	test="contains(substring-after($FileInfosValue,'/doc_unid'),'file_unid')">

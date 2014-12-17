@@ -63,7 +63,8 @@
             <rule mode="replace" regex="&lt;\!\[CDATA\[" value="" />
             <rule mode="replace" regex="\]\]&gt;" value="" />
         </view>
-		
+		<!-- 代办unid -->
+		<view id="getDaili" template="oa/task/getDaili.xsl" encoding="GB2312"></view>
 		<!-- 代办unid -->
 		<view id="getunid" template="oa/task/getunid.xsl" encoding="GB2312">
 			<!-- 源数据是符合标签形式的字符串，转换成真正的字符串（把'<','>' 替换成真正的标签）-->
