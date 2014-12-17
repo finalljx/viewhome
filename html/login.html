@@ -32,14 +32,14 @@ a {
 		}
 		if (localStorage.getItem("data-saveusername") == "true") {
 			var username = localStorage.getItem("username");
-			if (username == null) {
+			/* if (username == null) {
 				username = "用户名";
-			}
+			} */
 			$("#username").attr("value", username);
 			$('#saveusername').attr("checked", true).checkboxradio("refresh");
 		} else {
-			$("#username").val("用户名");
-			$("#username").css("color", "#9e9e9e");
+			/* $("#username").val("用户名");
+			$("#username").css("color", "#9e9e9e"); */
 			$('#saveusername').removeAttr("checked").checkboxradio("refresh");
 		}
 		var hori = $.hori;
@@ -117,7 +117,7 @@ a {
 						+ "/servlet/captcha?captcha_id=" + captcha_id);
 	}
 
-	function clearData() {
+	/* function clearData() {
 		if ($.trim($("#username").val()) == "用户名") {
 			$("#username").val("");
 			$("#username").css("color", "#0F0E0E");
@@ -125,8 +125,8 @@ a {
 
 		}
 		return false;
-	}
-	function showTips() {
+	} */
+	/* function showTips() {
 		var userName = $.trim($("#username").val());
 		if ($.trim($("#username").val()) == "") {
 			$("#username").css("color", "#9e9e9e");
@@ -136,14 +136,14 @@ a {
 			$("#username").css("color", "#0F0E0E");
 		}
 		return false;
-	}
+	} */
 	function loginWithLoading() {
 		$.hori.loading("show");
 		setTimeout(login, 500);
 	}
 	function login() {
 		var username = $.trim($("#username").val());
-		var password = $("#password").val();
+		var password = $.trim($("#password").val());
 		var captcha = $("#captcha").val();
 		if (username == "") {
 			$.hori.loading("hide");
@@ -375,9 +375,9 @@ a {
 						border="0">
 						<tr>
 							<td style="min-width: 56px"><strong>用户名:</strong></td>
-							<td><input type="text" name="username"
+							<td><input type="text" name="username" placeholder="用户名"
 								style="outline: none; width: 100%; border: 0; background: transparent;"
-								id="username" value="" onfocus="clearData()" onblur="showTips()" /></td>
+								id="username" value="" /></td>
 						</tr>
 					</table>
 				</li>
@@ -386,7 +386,7 @@ a {
 						border="0">
 						<tr>
 							<td style="min-width: 56px"><strong>密&#160;&#160;&#160;&#160;码:</strong></td>
-							<td><input type="password" name="password"
+							<td><input type="password" name="password" 
 								style="outline: none; width: 100%; border: 0; background: transparent;"
 								id="password" value="" /></td>
 						</tr>
@@ -397,7 +397,7 @@ a {
 						border="0">
 						<tr>
 							<td style="min-width: 56px"><strong>验证码:</strong></td>
-							<td><input type="tel" name="captcha" id="captcha"
+							<td><input type="tel" name="captcha" id="captcha" 
 								maxlength="4" style="width: 80px;" /></td>
 							<!-- <input type="hidden" id="captcha_id" /> -->
 							<td style="text-align: center;">
