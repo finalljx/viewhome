@@ -53,10 +53,7 @@
 			}
 			});
 		}
-	</script>
-	<script>
-		var issuedocStart=1;
-		var receivedocStart=1;
+	
 		$(document).ready(function(){
 			var hori = $.hori;
 			/*设置标题*/
@@ -69,34 +66,35 @@
 					//发文
 					if(tabid=="issuedocList"){
 						localStorage.setItem("getMoreData","issuedoc");
-						issuedocStart=1;
+						starNumber=1;
 						getIssuedocList();
 					}
 					//收文
 					if(tabid=="receivedocList"){
 						localStorage.setItem("getMoreData","receivedoc");
-						receivedocStart=1;
+						starNumber=1;
 						getReceivedocList();
 					}
 			}})
 			//localStorage.setItem("officialVal","1");
 			var onlist=localStorage.getItem("officialVal");
 			if(onlist=="1"){
-				$("#ui-id-1").click()	
+				$("#ui-id-1").click()
+				 getIssuedocList();
 			}
 			if(onlist=="2"){
 				$("#ui-id-2").click()	
 			}
-			getIssuedocList();
+			
 		})
-	</script>
-	<script type="text/javascript">
+	
 		//发文列表
+		var starNumber=1;
 		function getIssuedocList(){
 			$.hori.showLoading();
 			localStorage.setItem("getMoreData","issuedoc");
 			var issuedoc = localStorage.getItem("issuedoc");
-			var url = $.hori.getconfig().appServerHost+"view/oa/issuedocList/"+issuedoc+"/AppDoingView?readviewentries?login&start="+issuedocStart+"&count=10";
+			var url = $.hori.getconfig().appServerHost+"view/oa/issuedocList/"+issuedoc+"/AppDoingView?readviewentries?login&start="+starNumber+"&count=10";
 			$.hori.showLoading();
 			$.hori.ajax({
 				"type":"post",
@@ -112,8 +110,9 @@
 						}
 					}
 					$("#issuedocDataList").append(res).listview("refresh");
+					starNumber = parseInt($("#issuedocDataList a:last").attr("data-endNumber"))+1;
 					$.hori.hideLoading();
-					issuedocStart=issuedocStart+10;
+					
 					myScroll.refresh();
 				},
 				"error":function(res){
@@ -121,12 +120,12 @@
 				}
 			});
 		}
+	
 		//收文列表
 		function getReceivedocList(){
-			
 			localStorage.setItem("getMoreData","receivedoc");
 			var receivedoc = localStorage.getItem("receivedoc");
-			var url = $.hori.getconfig().appServerHost+"view/oa/receivedocList/"+receivedoc+"/AppDoingView?readviewentries?login&start="+receivedocStart+"&count=2";
+			var url = $.hori.getconfig().appServerHost+"view/oa/receivedocList/"+receivedoc+"/AppDoingView?readviewentries?login&start="+starNumber+"&count=10";
 			$.hori.showLoading();
 			$.hori.ajax({
 				"type":"post",
@@ -134,9 +133,16 @@
 				"success":function(res){
 					$("#issuedocDataList").empty();
 					$("#moredata").remove();
+					if(res.indexOf("无内容")!="-1"){
+						var divs = document.getElementsByName("nodata");
+						for(var i=0; i<divs.length; i++)
+						{
+							divs[i].style.display='none';
+						}
+					}
 					$("#receivedocDataList").append(res).listview("refresh");
+					starNumber = parseInt($("#receivedocDataList a:last").attr("data-endNumber"))+1;
 					$.hori.hideLoading();
-					receivedocStart=receivedocStart+2;
 					myScroll.refresh();
 				},
 				"error":function(res){

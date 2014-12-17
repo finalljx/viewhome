@@ -68,9 +68,15 @@
 					<xsl:if test="div[@class='DF_MindInfo']">
 						<xsl:value-of select="span[1][@class='input-group-addon']/label" />
 						:
-						<xsl:value-of select="div[@class='DF_MindInfo']" />
-						-----------------
+						<xsl:if test="div[@class='DF_MindInfo']!='' and div[@class='DF_QMInfo']!=''">
+						<xsl:value-of select="div[@class='DF_MindInfo']" />/
 						<xsl:value-of select="div[@class='DF_QMInfo']" />
+						</xsl:if>
+						<xsl:if test="div[@class='DF_MindInfo']='' or div[@class='DF_QMInfo']=''">
+						<xsl:value-of select="div[@class='DF_MindInfo']" />
+						<xsl:value-of select="div[@class='DF_QMInfo']" />
+						</xsl:if>
+						
 					</xsl:if>
 					<xsl:if test="not(div[@class='DF_MindInfo'])">
 						<xsl:value-of select="span[1][@class='input-group-addon']/label" />
@@ -112,7 +118,7 @@
 				<li>
 					审批意 见:
 					<xsl:value-of select="td[2]" disable-output-escaping="yes" />
-					<br />
+					<hr />
 				</li>
 			</xsl:when>
 			<xsl:otherwise>
