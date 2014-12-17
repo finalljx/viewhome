@@ -12,6 +12,7 @@
 </head>
 <script type="text/javascript">
 	$(document).ready(function() {
+		$.hori.setHeaderTitle("关于");
 		$.hori.getClientVersion(function(data) {
 			document.getElementById("banben").innerHTML = data;
 		});
