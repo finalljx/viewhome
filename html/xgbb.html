@@ -17,6 +17,7 @@
 		$.hori.setHeaderTitle("关于");
 		$.hori.getClientVersion(function(data) {
 			document.getElementById("banben").innerHTML = data;
+			$.hori.hideLoading();
 		});
 
 	});
