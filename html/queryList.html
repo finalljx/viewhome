@@ -101,14 +101,14 @@
 						start=Bstart;
 					}else if(type=="queryArchvied"){
 						template="Archvied";
-						view = "vwDocByArchived";
+						view = "vwDocByArchvied";
 						dataid = "querydataList";
 						dbpath="/"+$.hori.getconfig().docServer+"/genertec/dep1/qsbg_1.nsf";
 						Cstart=Cstart+10;
 						start=Cstart;
 					}else if(type=="searchqueryArchvied"){
 						template="searchqueryArchvied";
-						view = "vwDocByArchived";
+						view = "vwDocByArchvied";
 						dataid = "querydataList";
 						dbpath="/"+$.hori.getconfig().docServer+"/genertec/dep1/qsbg_1.nsf";
 						Cstart=Cstart+10;
@@ -117,42 +117,42 @@
 						template="signForDoing";
 						view = "vwDocByDate";
 						dataid = "signdataList";
-						dbpath = localStorage.getItem("singdbPath");
+						dbpath = "/"+localStorage.getItem("singdbPath");
 						dstart=dstart+10;
 						start=dstart;
 					}else if(type=="searchsignForDoing"){
 						template="searchsignForDoing";
 						view = "vwDocByDate";
 						dataid = "signdataList";
-						dbpath = localStorage.getItem("singdbPath");
+						dbpath = "/"+localStorage.getItem("singdbPath");
 						dstart=dstart+10;
 						start=dstart;
 					}else if(type=="signtoArchive"){
 						template="signtoArchive";
 						view = "vwtoArchive";
 						dataid = "signdataList";
-						dbpath = localStorage.getItem("singdbPath");
+						dbpath = "/"+localStorage.getItem("singdbPath");
 						estart=estart+10;
 						start=estart;
 					}else if(type=="searchsigntoArchive"){
 						template="searchsigntoArchive";
 						view = "vwtoArchive";
 						dataid = "signdataList";
-						dbpath = localStorage.getItem("singdbPath");
+						dbpath = "/"+localStorage.getItem("singdbPath");
 						estart=estart+10;
 						start=estart;
 					}else if(type=="signArchvied"){
 						template="signArchvied";
 						view = "vwDocByArchived";
 						dataid = "signdataList";
-						dbpath = localStorage.getItem("singdbPath");
+						dbpath = "/"+localStorage.getItem("singdbPath");
 						fstart=fstart+10;
 						start=fstart;
 					}else if(type=="searchsignArchvied"){
 						template="searchsignArchvied";
 						view = "vwDocByArchived";
 						dataid = "signdataList";
-						dbpath = localStorage.getItem("singdbPath");
+						dbpath = "/"+localStorage.getItem("singdbPath");
 						fstart=fstart+10;
 						start=fstart;
 					}
@@ -304,7 +304,7 @@
 			if(view=="vwDocByArchvied"){
 				localStorage.setItem("type","queryArchvied");
 				template="Archvied";
-				view="vwDocByArchived";
+				view="vwDocByArchvied";
 			}
 			var docServer=$.hori.getconfig().docServer;
 			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+docServer+"/genertec/dep1/qsbg_1.nsf/myview?openform&view="+view+"&start=1&count=10";
@@ -337,12 +337,10 @@
 				"type":"post",
 				"url":$.hori.getconfig().appServerHost+"/view/oa/signtype/"+docServer+"/genertec/mgrengine.nsf/createNavigator?openAgent&divIndex=001",
 				"success":function(res){
-					//alert(res);
 					//doctest/genertec/dep26/hqk_26.nsf
 					//用于测试写死，正式时要放开
-					singdbPath = res; 
-					//singdbPath="/"+$.hori.getconfig().docServer+"/genertec/dep26/hqk_26.nsf";
-					localStorage.setItem("singdbPath",singdbPath);
+					//singdbPath = res;
+					localStorage.setItem("singdbPath","docapp/genertec/dep26/hqk_26.nsf");
 					$.hori.hideLoading();
 				},
 				"error":function(res){
@@ -516,7 +514,7 @@
 			}
 			if(value=="did"){
 				template="searchsignArchvied";
-				view="vwDocByArchived";
+				view="vwDocByArchvied";
 				localStorage.setItem("type","searchsignArchvied");
 			}
 			var singdbPath = localStorage.getItem("singdbPath");
