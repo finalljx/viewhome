@@ -4,6 +4,16 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
 </head>
+<link
+    href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css"
+    rel="stylesheet"></link>
+<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
+<script src="../lib/jquery/jquery.min.js"></script>
+<script src="../lib/json/json2.js"></script>
+<script src="../lib/hori/hori.js?tag=21369"></script>
+<script
+    src="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
+<script src="../config/web/config.js"></script>
 <script src="asset/js/echarts-plain.js"></script>
 <style>
 #loadBi{
@@ -16,10 +26,10 @@ margin: 0px;
 </style>
 <body>
 		<div >
-		<ul data-bind="foreach: list" id="loadBi" data-role="listview">
-				<li data-icon="false" data-bind="attr:{'id':reportId}" class="ui-btn  ui-li ui-li-has-thumb ui-first-child ui-last-child ui-btn-up-c">
+		<ul data-bind="foreach: list" id="loadBi" data-role="listview" data-inset="false">
+				<li data-icon="false" data-bind="attr:{'id':reportId}" >
 					<a  data-bind="click:loadRightBIContent"  >
-					<h3  class="ui-li-heading" style=" text-align:center;">
+					<h3 style=" text-align:center;">
 						<span data-bind="text: title" />
 					</h3>
 				</a></li>
