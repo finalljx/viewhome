@@ -102,11 +102,6 @@
 											<a data-role="button" value="reject" onclick="signsubmit('signsubmit');" data-mini='true' data-theme="f">提　交</a>
 										</div>
 									</xsl:if>
-									<xsl:if test="//div[contains(@onclick, 'agtFlowDeny')]">
-										<div class="ui-block-b" style="padding-bottom:5px;" align="center">
-											<a data-role="button" value="reject" onclick="signsubmit('signreject');" data-mini='true' data-theme="f">驳 回</a>
-										</div>
-									</xsl:if>
 									<xsl:if test="//div[contains(@onclick, 'agtResponse')]">
 										<div class="ui-block-c" style="padding-bottom:5px;" align="center">
 											<a data-role="button" value="reject" onclick="signreceive('signreceive');" data-mini='true' data-theme="f">接  收</a>

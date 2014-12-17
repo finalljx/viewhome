@@ -22,9 +22,9 @@
 			<xsl:variable name="unid"><xsl:value-of select="td[3]/font/a/@href"/></xsl:variable>
 			<a href="javascript:void(0)" onclick="loadPageForm(this);" data-unid="{$unid}" data-icon="arrow-r" data-iconpos="right">
 				<h3><xsl:value-of select="td[5]/."/></h3>
-				<p style="font-size: 14px;">
+				<p style="font-size: 14px;line-height: 2em;">
 					日期:<font color="#0080FF"><xsl:value-of select="$formtime"/></font>
-					状态:<font color="#0080FF"><xsl:value-of select="td[6]/."/></font>
+					状态:<font color="#0080FF"><xsl:value-of select="td[6]/."/></font><br/>
 					处理人:<font color="#0080FF"><xsl:value-of select="substring-after(substring-before(td[7]/.,'/'),'CN=')"/></font>
 				</p>
 			</a>
