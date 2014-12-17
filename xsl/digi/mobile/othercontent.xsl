@@ -106,8 +106,9 @@
 												searchPerson();
 												return false;
 											}else{
-												alert(result+"2222");
-												setTimeout("$.hori.backPage(1)",2000);
+												$.hori.hideLoading();
+												alert(result);
+												setTimeout("$.hori.backPage(1)",1000);
 											}
 									},
 									error:function(response){
@@ -217,9 +218,9 @@
 														<option selected="unselected">常用语</option>
 														<option value="同意！">同意！</option>
 														<option value="不同意！">不同意！</option>
-														<option value="返回再议!">返回再议！</option>
-														<option value="请尽快处理!">请尽快处理！</option>
-														<option value="请修改后重新提交!">请修改后重新提交！</option>
+														<option value="返回再议！">返回再议！</option>
+														<option value="请尽快处理！">请尽快处理！</option>
+														<option value="请修改后重新提交！">请修改后重新提交！</option>
 													</select>
 												</td>
 											</tr>

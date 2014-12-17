@@ -96,8 +96,14 @@
 									<xsl:apply-templates
 										select="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo/mindinfo" />
 								</xsl:if>
+								<xsl:if test="not(//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo) and //textarea[@name='ThisFlowMindInfoLog']!=''">
+								   <xsl:call-template name="mindinfo">
+								      <xsl:with-param name="mindinfo" select="//textarea[@name='ThisFlowMindInfoLog']/."></xsl:with-param>
+								      <xsl:with-param name="uninfo" select="substring-before(//textarea[@name='ThisFlowMindInfoLog']/.,'处')"></xsl:with-param>
+								   </xsl:call-template>
+								</xsl:if>
 								<xsl:if
-									test="not(//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo)">
+									test="not(//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo) and //textarea[@name='ThisFlowMindInfoLog']=''">
 									暂无审批意见
 								</xsl:if>
 							</li>
@@ -159,6 +165,27 @@
 				<xsl:with-param name="alreadyflowids" select="$alreadyflowidstr" />
 			</xsl:call-template>
 		</xsl:if>
+	</xsl:template>
+	
+	<!-- 特殊格式的流转意见处理 -->
+	<xsl:template name="mindinfo">
+	 <xsl:param name="mindinfo"/>
+	 <xsl:param name="uninfo"/>
+	 <xsl:variable name="newmindinfo" select="substring-after($mindinfo,$uninfo)"></xsl:variable>
+	 <xsl:choose>
+	    <xsl:when test="contains($newmindinfo,$uninfo)">
+	        <xsl:value-of select="substring-before($newmindinfo,$uninfo)"/>
+	        <br/><hr/>
+	        <xsl:call-template name="mindinfo">
+	            <xsl:with-param name="mindinfo" select="$newmindinfo"/>
+	            <xsl:with-param name="uninfo" select="$uninfo"/>
+	        </xsl:call-template>
+	    </xsl:when>
+	    <xsl:otherwise>
+	     <xsl:value-of select="$newmindinfo"></xsl:value-of>
+	        <br/><hr/>
+	    </xsl:otherwise>
+	 </xsl:choose> 
 	</xsl:template>
 
 	<!-- 处理 流转意见 -->
