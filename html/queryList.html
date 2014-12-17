@@ -337,10 +337,8 @@
 				"type":"post",
 				"url":$.hori.getconfig().appServerHost+"/view/oa/signtype/"+docServer+"/genertec/mgrengine.nsf/createNavigator?openAgent&divIndex=001",
 				"success":function(res){
-					//doctest/genertec/dep26/hqk_26.nsf
-					//用于测试写死，正式时要放开
-					//singdbPath = res;
-					localStorage.setItem("singdbPath","docapp/genertec/dep26/hqk_26.nsf");
+					singdbPath = res.substring(0,res.indexOf("nsf"))+"nsf";
+					localStorage.setItem("singdbPath",singdbPath);
 					$.hori.hideLoading();
 				},
 				"error":function(res){

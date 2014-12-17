@@ -568,7 +568,7 @@
 			</xsl:when>
 			
 			<xsl:when test="td[@class='tdLabel']">
-				<xsl:if test="not(contains(td[@class='tdLabel']/.,'是否邮件'))">
+				<xsl:if test="not(contains(td[@class='tdLabel']/.,'是否'))">
 				<li data-role="fieldcontain">
 					<fieldset data-role="controlgroup">
 						<legend><xsl:value-of select="td[@class='tdLabel']/."/></legend>
