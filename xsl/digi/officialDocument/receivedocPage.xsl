@@ -31,8 +31,10 @@
 									<li>无审批流转意见</li>
 								</xsl:if>
 								<xsl:if test="//table[@class='list']/tbody/tr">
+								  <li>
 									<xsl:apply-templates select="//table[@class='list']/tbody/tr"
 										mode='tr' />
+								 </li>
 								</xsl:if>
 
 
@@ -99,30 +101,30 @@
 	<!-- 处理审批流转意见 -->
 	<xsl:template match="tr" mode="tr">
 		<xsl:variable name="num" select="position()" />
+	<div>
 		<xsl:choose>
 			<xsl:when test="$num mod 3=1">
-				<li>
+				
 					<xsl:value-of select="td[1]/." />
 					<xsl:value-of select="td[2]" />
-				</li>
-				<li>
+			        	<br/>
 					<xsl:value-of select="td[3]/." />
 					<xsl:value-of select="td[4]/." />
-				</li>
-				<li>
+			         	<br/>
 					<xsl:value-of select="td[5]/." />
 					<xsl:value-of select="td[6]/." />
-				</li>
+				    	<br/>
 			</xsl:when>
 			<xsl:when test="$num mod 3=2">
-				<li>
+				
 					审批意 见:
 					<xsl:value-of select="td[2]" disable-output-escaping="yes" />
-					<hr />
-				</li>
+					<hr/>
+				
 			</xsl:when>
 			<xsl:otherwise>
 			</xsl:otherwise>
 		</xsl:choose>
+	</div>
 	</xsl:template>
 </xsl:stylesheet>

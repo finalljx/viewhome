@@ -162,7 +162,7 @@
 							}
 						]]>
 						</script>
-						<div class="ui-grid-b">
+						<div class="ui-grid-a">
 							<div class="ui-block-a" style="padding-bottom:5px;" align="center">
 								<xsl:if
 									test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
