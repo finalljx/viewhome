@@ -32,7 +32,7 @@
 						<string>1</string>
 					</property>
 					<property name="border-color">
-						<string>202,34,37,1</string>
+						<string>192,192,192,1</string>
 					</property>
 					<property name="border-width">
 						<string>2</string>
@@ -46,7 +46,7 @@
 						<string>下一页</string>
 					</property>
 					<property name="border-color">
-						<string>211,211,211,1</string>
+						<string>192,192,192,1</string>
 					</property>
 					<property name="border-width">
 						<string>2</string>
