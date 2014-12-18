@@ -169,7 +169,8 @@
 										<br />
 										<br />
 										<font style="font-size:12pt"><xsl:value-of select="//td[@class='rightHei'][3]/table/tbody/tr/td[2]/."/>
-										<xsl:value-of select="//textarea[@name='flddanwei']/." /></font>
+										<xsl:value-of select="//textarea[@name='flddanwei']/." />
+										<xsl:value-of select="tr[5]/td/table/tbody/tr/td[3]/span[2]/text()" /></font>
 									</font>
 								</td>
 								<td width="15%" valign="top" class="rightHei">
