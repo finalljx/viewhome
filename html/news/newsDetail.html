@@ -83,6 +83,7 @@ img {
 		setHead();
 		//加载新闻详情
 		getWcmNewsData();
+
 	});
 	//设置标题
 	function setHead() {
@@ -148,25 +149,26 @@ img {
 						'data-result=file&data-application='+$.hori.getconfig().appKey+'\\\" width=\\\"'
 								+ widthImg + '\\');
 						res = res.replace(/style=.*?\\"/g, ""); */
-						var r = /<.*table/g;
+						console.log('1==' + res);
+						var r = /<.*table.*img/g;
 						if (!(r.test(res))) {
 							res = res.replace(/CACHEID=.*?\\/g,
 									'data-result=file&data-application='
 											+ $.hori.getconfig().appKey
 											+ '\\\" width=\\\"' + widthImg
 											+ '\\');
-							res = res.replace(/style=.*?\\"/g, "");
-							res = res.replace(/WIDTH=.*?\\"/g, "");
-							res = res.replace(/HEIGHT=.*?\\"/g, "");
+							//res = res.replace(/style=.*?\\"/g, "");
+							res = res.replace(/WIDTH=.*/g, "");
+							res = res.replace(/HEIGHT=.*/g, "");
 							res = res.replace(/<p.+>(<img.+>)<\/p>/g, '$1');
+
 						} else {
-							res = res
-									.replace(/CACHEID=.*?\\/g,
-											'data-result=file&data-application='
-													+ $.hori.getconfig().appKey
-													+ '\\\" width=\\\"'
-													+ '40px' + '\\');
+							res = res.replace(/CACHEID=.*?\\/g,
+									'data-result=file&data-application='
+											+ $.hori.getconfig().appKey + '\\');
+
 						}
+						console.log('2==' + res);
 						var data = JSON.parse(res);
 						if (data.attachmentSource != undefined) {
 							document.getElementById("fujian").style.display = "inline";
@@ -221,6 +223,38 @@ img {
 						}
 						$.hori.loading("hide");
 						render(data);
+						console.log('hello' + $('.details').html());
+
+						//将width都去掉
+						var r1 = /width:\s*\d*\.?\d*%;/g;
+						var r2 = /width:\s*\d*\.?\d*pt;/g;
+						var r3 = /\s+width=\".*?\"/g;
+						var p = $('.details table:first').html().replace(r1,
+								'width:2px;');
+						p = p.replace(r2, 'width:2px;');
+						$('.details table:first').html(p);
+
+						//将table中的p去掉
+						/* var a=$('.details table:first').html();
+						var r=/<\s*p.*?>(.*)<\s*\/p\s*>/g;
+						a=a.replace(r,'$1');
+						$('.details table:first').html(a); */
+
+						/* var a=$('.details table:last').html();
+						var r=/<\s*p.*?>(.*)<\s*\/p\s*>/g;
+						a=a.replace(r,'$1');
+						$('.details table:last').html(a);   */
+
+						var objArr = $('.details table');
+						var a, r;
+						$(objArr).each(function(i) {
+							a = $(this).html();
+							r = /<\s*p.*?>(.*)<\s*\/p\s*>/g;
+							a = a.replace(r, '$1');
+							$(this).html(a);
+							$(this).css('width', widthImg);
+						});
+
 					},
 					"error" : function(res) {
 						alert("error:" + res);
@@ -253,11 +287,15 @@ img {
 		document.getElementById("divContent").style.display = '';
 		ko.applyBindings(viewModel, document.getElementById("textRich2"));
 		//$.hori.hideLoading();
+		imagesWidthJudge();
 	}
 	function renderfj(jsonData) {
 		var viewModel2 = ko.mapping.fromJS(jsonData);
 		ko.applyBindings(viewModel2, document.getElementById("fujian"));
 		//$.hori.hideLoading();
+	}
+	function imagesWidthJudge() {
+		//alert($("img").width());
 	}
 </script>
 </head>
