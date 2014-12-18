@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<meta name="format-detection" content="telephone=no" />
 <head>
 <title>风险状况</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -22,8 +23,8 @@ a {
 
 #xianshi {
 	padding: 0px;
-	margin-left: 10%;
 	float: left;
+	width: 95%;
 }
 
 .top_year {
@@ -86,8 +87,9 @@ a {
 </head>
 <body>
 	<div id='month' style="float: right; display: none;">
+	   <p>
 		注：此经营数据截至<span data-bind="text: reportdata.year"></span>年<span
-			data-bind="text: reportdata.month"></span>月。
+			data-bind="text: reportdata.month"></span>月。</p>
 	</div>
 	<!-- 风险状况 -->
 	<div id="xianshi"></div>
