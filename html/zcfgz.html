@@ -22,6 +22,15 @@
 			var hori = $.hori;
 			/*设置标题*/
 			hori.setHeaderTitle("安全生产");
+			var officialRole = localStorage.getItem("officialRole");
+			if (officialRole == "no"){
+				document.getElementById("zbb").style.display = "none";
+			}else if (officialRole == "yes"){
+				var aqlist = localStorage.getItem("aqsczbb");
+				if(aqlist != "Y"){
+					document.getElementById("zbb").style.display = "none";
+				}
+			}
 		} catch (e) {
 		}
 	});
@@ -51,7 +60,7 @@
 						id="imgToDo" class="imgToDo " src="../assets/home/aqhb.png" />
 					</a> <br /> <span style="color: #434343;"><strong>安全环保</strong></span>
 				</div>
-				<div class="ui-block-b divxs">
+				<div class="ui-block-b divxs" id='zbb'>
 					<a href="javascript:void(0);"
 						onClick="loadSafeList()"> <img
 						id="imgToDo" class="imgToDo " src="../assets/home/aqsc.png" />
