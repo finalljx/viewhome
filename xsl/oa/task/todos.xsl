@@ -23,15 +23,15 @@
 		<xsl:variable name="type"><xsl:value-of select="td[4]/."/></xsl:variable>
 		<xsl:variable name="state"><xsl:value-of select="td[6]/."/></xsl:variable>
 		<xsl:variable name="formtime"><xsl:value-of select="td[7]/."/></xsl:variable>
+		<xsl:variable name="taskTitle"><xsl:value-of select="td[3]/."/></xsl:variable>
 		<xsl:if test="$state!='正在起草'">
 				<li name="lilist" href="#" data-icon="false" class="ui-first-child ui-last-child" data-time="{$formtime}">
-					<a href="javascript:void(0)" onclick="loadPageForm(this);" data-unid="{$unid}"	data-type="{$type}" class="ui-btn">
+					<a href="javascript:void(0)" onclick="loadPageForm(this);" data-title="{$taskTitle}" data-unid="{$unid}"	data-type="{$type}" class="ui-btn">
 						<h3 style="white-space: normal;">
-							<span data-bind="text: contentTitle">
-								<xsl:value-of select="td[3]/."/><xsl:value-of select="td[2]/@value"/>
+							<span>
+								<xsl:value-of select="td[3]/."/>
 							</span>
 						</h3>
-						<xsl:value-of select="//input[@id='time']/@value"/>
 						<p style="font-size: 14px;">
 							类型:<font color="#0080FF"><xsl:value-of select="td[4]/."/></font>
 							来源:<font color="#0080FF"><xsl:value-of select="td[5]/."/></font><br/><br/>

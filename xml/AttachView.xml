@@ -31,6 +31,12 @@
 					<property name="hidden">
 						<string>1</string>
 					</property>
+					<property name="border-color">
+						<string>192,192,192,1</string>
+					</property>
+					<property name="border-width">
+						<string>2</string>
+					</property>
 				</properties>
 			</component>
 			<component name="nextButton" type="builtin:button">
@@ -38,6 +44,12 @@
 				<properties>
 					<property name="text">
 						<string>下一页</string>
+					</property>
+					<property name="border-color">
+						<string>192,192,192,1</string>
+					</property>
+					<property name="border-width">
+						<string>2</string>
 					</property>
 				</properties>
 			</component>
