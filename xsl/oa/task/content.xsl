@@ -40,7 +40,12 @@
 							function viewfile(url){
 								localStorage.setItem("attachmentUrl",url);
 								var fileurl = $.hori.getconfig().appServerHost+"view/html/attachmentShowForm.html";
-								var xmlurl ="viewhome/xml/AttachView.xml";
+								var xmlurl;
+								if(window.navigator.userAgent.match(/android/i)){
+									xmlurl ="viewhome/xml/AttachView.xml";
+								}else{
+									xmlurl ="viewhome/xml/AttachView4I.xml";
+								}
 								$.hori.loadPage(fileurl,xmlurl);
 							}
 							function querysubmit(value){
