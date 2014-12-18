@@ -112,15 +112,14 @@ img {
 							console.log('1: ' + res);
 							if (!(r.test(res))) {
 								res = res.replace(/CACHEID=.*?\\/g,
-										'data-result=file&data-thumb=650&data-application='
+										'data-result=file&data-application='
 												+ key + '\\\" width=\\\"'
 												+ widthImg + '\\');
 								res = res.replace(/style=.*?\\"/g, "");
 							} else {
 								res = res.replace(/CACHEID=.*?\\/g,
-										'data-result=file&data-thumb=650&data-application='
-												+ key + '\\\" width=\\\"'
-												+ '40px' +'\\');
+										'data-result=file&data-application='
+												+ key  + '\\');
 							}
 							var data = JSON.parse(res);
 							if (data.attachmentSource != undefined) {
@@ -174,7 +173,7 @@ img {
 							renderDetail1(data);
 							$('#hiddenDiv').css('display', 'block');
 							$.hori.loading('hide');
-							
+
 							//将width都去掉
 							/* var r1 = /width:\s*\d*\.?\d*%;/g;
 							var r2 = /width:\s*\d*\.?\d*pt;/g;
@@ -183,7 +182,7 @@ img {
 									'width:2px;');
 							p = p.replace(r2, 'width:2px;');
 							$('.details table:first').html(p); */
-							
+
 							//将width都去掉
 							var objArr = $('.details table');
 							var a, r;
@@ -192,8 +191,7 @@ img {
 								var r1 = /width:\s*\d*\.?\d*%;/g;
 								var r2 = /width:\s*\d*\.?\d*pt;/g;
 								//var r3 = /\s+width=\".*?\"/g;
-								var p = a.replace(r1,
-								'');
+								var p = a.replace(r1, '');
 								p = p.replace(r2, '');
 								//p = p.replace(r3, '');
 								$(this).html(p);
@@ -210,8 +208,8 @@ img {
 							a=a.replace(r,'$1');
 							$('.details table:last').html(a);   */
 
+							//将table中的p去掉
 							objArr = $('.details table');
-							
 							$(objArr).each(function(i) {
 								a = $(this).html();
 								r = /<\s*p.*?>(.*)<\s*\/p\s*>/g;
@@ -219,6 +217,7 @@ img {
 								$(this).html(a);
 								$(this).css('width', widthImg);
 							});
+
 						},
 						"error" : function(res) {
 							alert("error:" + res);
@@ -262,6 +261,15 @@ img {
 		ko
 				.applyBindings(viewModelDetail, document
 						.getElementById("newsDetail"));
+		
+/* 		var mWidth;
+		var widthImg = document.documentElement.clientWidth * 0.5;
+		$(".details table img").get(0).onload = function() {
+			mWidth = $(".details table img").get(0).clientWidth;
+			if (mWidth > widthImg) {
+				$(".details table img").css('width', widthImg);
+			}
+		} */
 	}
 </script>
 </head>
