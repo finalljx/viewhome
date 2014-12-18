@@ -41,7 +41,6 @@ img {
 	}
 	.div1 {
 		font-size: 15px;
-		color: gray;
 	}
 }
 
@@ -71,7 +70,6 @@ img {
 	}
 	.div1 {
 		font-size: 13px;
-		color: blue;
 	}
 }
 </style>
@@ -165,7 +163,8 @@ img {
 						} else {
 							res = res.replace(/CACHEID=.*?\\/g,
 									'data-result=file&data-application='
-											+ $.hori.getconfig().appKey + '\\');
+											+ $.hori.getconfig().appKey + '\\\" width=\\\"'
+											+ '40px' +'\\');
 
 						}
 						console.log('2==' + res);
@@ -223,16 +222,21 @@ img {
 						}
 						$.hori.loading("hide");
 						render(data);
-						console.log('hello' + $('.details').html());
 
 						//将width都去掉
-						var r1 = /width:\s*\d*\.?\d*%;/g;
-						var r2 = /width:\s*\d*\.?\d*pt;/g;
-						var r3 = /\s+width=\".*?\"/g;
-						var p = $('.details table:first').html().replace(r1,
-								'width:2px;');
-						p = p.replace(r2, 'width:2px;');
-						$('.details table:first').html(p);
+						var objArr = $('.details table');
+							var a, r;
+							$(objArr).each(function(i) {
+								a = $(this).html();
+								var r1 = /width:\s*\d*\.?\d*%;/g;
+								var r2 = /width:\s*\d*\.?\d*pt;/g;
+								//var r3 = /\s+width=\".*?\"/g;
+								var p = a.replace(r1,
+								'width:20px;');
+								p = p.replace(r2, 'width:20px;');
+								//p = p.replace(r3, '');
+								$(this).html(p);
+							});
 
 						//将table中的p去掉
 						/* var a=$('.details table:first').html();
