@@ -6,212 +6,298 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
 
-<link href="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css" rel="stylesheet"></link>
+<link
+	href="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css"
+	rel="stylesheet"></link>
 <link rel="stylesheet" href="../../assets/jquery.mobile-sugon.css" />
 <link href="../../lib/jquery-mobile/jquery-mobile-fluid960.css"
 	rel="stylesheet"></link>
 <link href="../../lib/jquery-mobile/loading.background.color.css"
-rel="stylesheet" />
+	rel="stylesheet" />
 <script type="application/javascript" src="../assets/iscroll.js"></script>
 <script src="../../lib/jquery/jquery.min.js"></script>
 <script src="../../lib/jquery-cookie/jquery.cookie.js"></script>
 <script src="../../lib/encrypt/encrypt.js"></script>
 <script src="../../lib/json/json2.js"></script>
 <script src="../../lib/hori/hori.js?tag=21369"></script>
-<script src="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
+<script
+	src="../../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.js"></script>
 <script src="../../lib/knockout/knockout.js"></script>
 <script src="../../lib/knockout/knockout.mapping.js"></script>
 <script src="../../config/web/config.js"></script>
-	<script src="../asset/js/bootstrap.min.js"></script>
+<script src="../asset/js/bootstrap.min.js"></script>
 <style>
 a {
 	text-decoration: none;
 }
-p{
-  text-indent:2em;
+
+p {
+	text-indent: 2em;
 }
-img{
-    display: block;
-    margin: auto;
+
+img {
+	display: block;
+	margin: auto;
 }
 </style>
 <script>
-$(document).ready(function() {
-	// 加载新闻详情
-	getWcmNewsData1();
-});
-// 加载新闻详情
-function getWcmNewsData1() {
-	try{
-		$.hori.loading("show");
-	var currentContentName = localStorage.getItem("currentContentName");
-	var currentGT_HomePage = localStorage.getItem("moreCurrentName");
-	switch (currentGT_HomePage){
-	case "GT_HomePage_SiteArea_tpxw":
-		$.hori.setHeaderTitle("图片新闻");break;
-	case "GT_HomePage_SiteArea_jttz":
-		$.hori.setHeaderTitle("集团通知");break;
-	case "GT_HomePage_SiteArea_jtxw":
-		$.hori.setHeaderTitle("集团新闻");break;
-	case "GT_HomePage_SiteArea_zgsxw":
-		$.hori.setHeaderTitle("成员单位新闻");break;
-	case "GT_HomePage_SiteArea_pmgg":
-		$.hori.setHeaderTitle("聘免公告");break;
-	case "GT_HomePage_SiteArea_kjdt":
-		$.hori.setHeaderTitle("科技动态");break;
-	case "GT_HomePage_SiteArea_aqsc":
-		$.hori.setHeaderTitle("安全环保");break;
-	case "GT_HomePage_SiteArea_zcfg":
-	$.hori.setHeaderTitle("政策法规");
-	} 
-	var url = $.hori.getconfig().appServerHost + "view/news/newsDetail/accsyWcmNews/services/WcmNewsData";
-	// var temp = "$lt;?xml version='1.0'
-	// encoding='utf-8'?$gt;$lt;root$gt;$lt;newslist$gt;$lt;type$gt;GT_HomePage_SiteArea_jttz$lt;/type$gt;$lt;userid$gt;fangyonghong$lt;/userid$gt;$lt;pageSize$gt;10$lt;/pageSize$gt;$lt;parent$gt;1$lt;/parent$gt;$lt;pageNow$gt;1$lt;/pageNow$gt;$lt;/newslist$gt;$lt;/root$gt;";
-	var temp = "$lt;root$gt;$lt;newslist$gt;$lt;type$gt;" + currentGT_HomePage + "$lt;/type$gt;$lt;contentName$gt;"
-			+ currentContentName + "$lt;/contentName$gt;$lt;/newslist$gt;$lt;/root$gt;";
-	var soap = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='http://webservice.biz.digiwin.com'>";
-	soap += '<soapenv:Header/><soapenv:Body>';
-	soap += '<web:getWcmNewsData>';
-	soap += '<web:in0>' + temp + '</web:in0>';
-	soap += '</web:getWcmNewsData>';
-	soap += ' </soapenv:Body></soapenv:Envelope>';
-	var data = "data-xml=" + soap;
-	$.hori.ajax({
-		"type" : "post",
-		"url" : url,
-		"data" : data,
-		"headers" : {
-			"Authorization" : "Basic d3BzYWRtaW46R1RBZG1pbg=="
-		},
-		"success" : function(res) {
-			var widthImg=document.documentElement.clientWidth*0.5;
-			
-			var url=$.hori.getconfig().appServerHost2+"view/tpxw/file";
-			var key=$.hori.getconfig().appKey;
-			res=res.replace(/http:\/\/webseal.genertec.com.cn/g,url).replace(/&amp;amp;/g,"&");
-			var r = /<.*table.*img/g;
-			console.log('1: ' + res);
-			if (!(r.test(res))) {
-				res = res.replace(/CACHEID=.*?\\/g,
-						'data-result=file&data-thumb=650&data-application='
-								+ key + '\\\" width=\\\"'
-								+ widthImg + '\\');
-				res=res.replace(/style=.*?\\"/g,"");
-			} else {
-				res = res.replace(/CACHEID=.*?\\/g,
-						'data-result=file&data-thumb=650&data-application='
-								+ key + '\\\" width=\\\"'
-								+ '40px' + '\\');
-			}
-			var data = JSON.parse(res);
-				if (data.attachmentSource!=undefined) {
-					document.getElementById("fujian").style.display = "inline";
-					var attachmentNameLength = data.attachment.length;
-					var attachmentSourceLength = data.attachmentSource.length;
-					if(data.attachment.charAt(attachmentNameLength - 1) === "|"){
-						data.attachment = data.attachment.substring(0,attachmentNameLength -1);
-					}
-					if(data.attachmentSource.charAt(attachmentSourceLength - 1) === "|"){
-						data.attachmentSource = data.attachmentSource.substring(0,attachmentSourceLength - 1);
-					}
-					var dataArrayName = data.attachment.split("|");
-					var dataArraySource = data.attachmentSource.split("|");
-					for(var i=0; i<dataArraySource.length;i++){
-						
-						dataArraySource[i]=dataArraySource[i].replace("http://10.1.32.61:10039/","");
-					} 
-					var list = new Array();
-					for (var i = 0; i < dataArrayName.length; i++) {
-						var lastIndex = dataArrayName[i]
-						.lastIndexOf(".");
-
-				var cut = dataArrayName[i].substring(lastIndex);//dataArrayName[i].split(".")[2];
-				
-						if(cut!=".doc"&cut!=".xls"&cut!=".ppt"&cut!=".pdf"&cut!=".txt"&cut!=".docx"){
-							dataArraySource[i]="noSupport";
-						}
-						var item = new Object();
-						item.attachment = dataArrayName[i];
-						item.attachmentSource = dataArraySource[i];
-						list.push(item);
-					}
-					data.attachmentList = list;
-				} else {
-					document.getElementById("fujian").style.display = "none";
-				}
-				renderDetail1(data);
-				$('#hiddenDiv').css('display', 'block');
-				$.hori.loading('hide');
-		},
-		"error" : function(res) {
-			alert("error:" + res);
-			$.hori.hideLoading();
-		}
+	$(document).ready(function() {
+		// 加载新闻详情
+		getWcmNewsData1();
 	});
-	} catch (e) {
-		alert(e.message);
-	}
-	// 重置ID
-}
-function viewfile(item){
-	if(item.attachmentSource()=="noSupport"){
-		alert("系统不能打开此文件！");return;
-	}
-	var cookie_userstore = localStorage.getItem("cookie_userstore");
-	var url=item.attachmentSource()+"&data-convert=office&data-basic-auth-u=wpsadmin&data-basic-auth-p=GTAdmin";
-	url=url.replace(/\&amp;/g,"&");
-	console.log(item.attachmentSource());
-	localStorage.setItem("attachmentUrl",url);
-	var type = "android";
-	if (window.navigator.userAgent.match(/iPad/i)
-			|| window.navigator.userAgent.match(/iPhone/i)
-			|| window.navigator.userAgent.match(/iPod/i)) {
-		type = "iphone";
-	}
-	if(type == "iphone"){
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl
-				+ "viewhome/html/attachmentShowForm4News.html",
-				"viewhome/xml/AttachView4I.xml");
-	}else if(type == "android"){
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl
-				+ "viewhome/html/attachmentShowForm4News.html",
-				"viewhome/xml/AttachView.xml");
-	}
-}
-function renderDetail1(data) {
-	var viewModelDetail = ko.mapping.fromJS(data);
-	ko.applyBindings(viewModelDetail, document.getElementById("newsDetail"));
-}
+	// 加载新闻详情
+	function getWcmNewsData1() {
+		try {
+			$.hori.loading("show");
+			var currentContentName = localStorage.getItem("currentContentName");
+			var currentGT_HomePage = localStorage.getItem("moreCurrentName");
+			switch (currentGT_HomePage) {
+			case "GT_HomePage_SiteArea_tpxw":
+				$.hori.setHeaderTitle("图片新闻");
+				break;
+			case "GT_HomePage_SiteArea_jttz":
+				$.hori.setHeaderTitle("集团通知");
+				break;
+			case "GT_HomePage_SiteArea_jtxw":
+				$.hori.setHeaderTitle("集团新闻");
+				break;
+			case "GT_HomePage_SiteArea_zgsxw":
+				$.hori.setHeaderTitle("成员单位新闻");
+				break;
+			case "GT_HomePage_SiteArea_pmgg":
+				$.hori.setHeaderTitle("聘免公告");
+				break;
+			case "GT_HomePage_SiteArea_kjdt":
+				$.hori.setHeaderTitle("科技动态");
+				break;
+			case "GT_HomePage_SiteArea_aqsc":
+				$.hori.setHeaderTitle("安全环保");
+				break;
+			case "GT_HomePage_SiteArea_zcfg":
+				$.hori.setHeaderTitle("政策法规");
+			}
+			var url = $.hori.getconfig().appServerHost
+					+ "view/news/newsDetail/accsyWcmNews/services/WcmNewsData";
+			// var temp = "$lt;?xml version='1.0'
+			// encoding='utf-8'?$gt;$lt;root$gt;$lt;newslist$gt;$lt;type$gt;GT_HomePage_SiteArea_jttz$lt;/type$gt;$lt;userid$gt;fangyonghong$lt;/userid$gt;$lt;pageSize$gt;10$lt;/pageSize$gt;$lt;parent$gt;1$lt;/parent$gt;$lt;pageNow$gt;1$lt;/pageNow$gt;$lt;/newslist$gt;$lt;/root$gt;";
+			var temp = "$lt;root$gt;$lt;newslist$gt;$lt;type$gt;"
+					+ currentGT_HomePage + "$lt;/type$gt;$lt;contentName$gt;"
+					+ currentContentName
+					+ "$lt;/contentName$gt;$lt;/newslist$gt;$lt;/root$gt;";
+			var soap = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:web='http://webservice.biz.digiwin.com'>";
+			soap += '<soapenv:Header/><soapenv:Body>';
+			soap += '<web:getWcmNewsData>';
+			soap += '<web:in0>' + temp + '</web:in0>';
+			soap += '</web:getWcmNewsData>';
+			soap += ' </soapenv:Body></soapenv:Envelope>';
+			var data = "data-xml=" + soap;
+			$.hori
+					.ajax({
+						"type" : "post",
+						"url" : url,
+						"data" : data,
+						"headers" : {
+							"Authorization" : "Basic d3BzYWRtaW46R1RBZG1pbg=="
+						},
+						"success" : function(res) {
+							var widthImg = document.documentElement.clientWidth * 0.5;
 
+							var url = $.hori.getconfig().appServerHost2
+									+ "view/tpxw/file";
+							var key = $.hori.getconfig().appKey;
+							res = res.replace(
+									/http:\/\/webseal.genertec.com.cn/g, url)
+									.replace(/&amp;amp;/g, "&");
+							var r = /<.*table.*img/g;
+							console.log('1: ' + res);
+							if (!(r.test(res))) {
+								res = res.replace(/CACHEID=.*?\\/g,
+										'data-result=file&data-thumb=650&data-application='
+												+ key + '\\\" width=\\\"'
+												+ widthImg + '\\');
+								res = res.replace(/style=.*?\\"/g, "");
+							} else {
+								res = res.replace(/CACHEID=.*?\\/g,
+										'data-result=file&data-thumb=650&data-application='
+												+ key + '\\\" width=\\\"'
+												+ '40px' +'\\');
+							}
+							var data = JSON.parse(res);
+							if (data.attachmentSource != undefined) {
+								document.getElementById("fujian").style.display = "inline";
+								var attachmentNameLength = data.attachment.length;
+								var attachmentSourceLength = data.attachmentSource.length;
+								if (data.attachment
+										.charAt(attachmentNameLength - 1) === "|") {
+									data.attachment = data.attachment
+											.substring(0,
+													attachmentNameLength - 1);
+								}
+								if (data.attachmentSource
+										.charAt(attachmentSourceLength - 1) === "|") {
+									data.attachmentSource = data.attachmentSource
+											.substring(0,
+													attachmentSourceLength - 1);
+								}
+								var dataArrayName = data.attachment.split("|");
+								var dataArraySource = data.attachmentSource
+										.split("|");
+								for (var i = 0; i < dataArraySource.length; i++) {
+
+									dataArraySource[i] = dataArraySource[i]
+											.replace(
+													"http://10.1.32.61:10039/",
+													"");
+								}
+								var list = new Array();
+								for (var i = 0; i < dataArrayName.length; i++) {
+									var lastIndex = dataArrayName[i]
+											.lastIndexOf(".");
+
+									var cut = dataArrayName[i]
+											.substring(lastIndex);//dataArrayName[i].split(".")[2];
+
+									if (cut != ".doc" & cut != ".xls"
+											& cut != ".ppt" & cut != ".pdf"
+											& cut != ".txt" & cut != ".docx") {
+										dataArraySource[i] = "noSupport";
+									}
+									var item = new Object();
+									item.attachment = dataArrayName[i];
+									item.attachmentSource = dataArraySource[i];
+									list.push(item);
+								}
+								data.attachmentList = list;
+							} else {
+								document.getElementById("fujian").style.display = "none";
+							}
+							renderDetail1(data);
+							$('#hiddenDiv').css('display', 'block');
+							$.hori.loading('hide');
+							
+							//将width都去掉
+							/* var r1 = /width:\s*\d*\.?\d*%;/g;
+							var r2 = /width:\s*\d*\.?\d*pt;/g;
+							var r3 = /\s+width=\".*?\"/g;
+							var p = $('.details table:first').html().replace(r1,
+									'width:2px;');
+							p = p.replace(r2, 'width:2px;');
+							$('.details table:first').html(p); */
+							
+							//将width都去掉
+							var objArr = $('.details table');
+							var a, r;
+							$(objArr).each(function(i) {
+								a = $(this).html();
+								var r1 = /width:\s*\d*\.?\d*%;/g;
+								var r2 = /width:\s*\d*\.?\d*pt;/g;
+								//var r3 = /\s+width=\".*?\"/g;
+								var p = a.replace(r1,
+								'');
+								p = p.replace(r2, '');
+								//p = p.replace(r3, '');
+								$(this).html(p);
+							});
+
+							//将table中的p去掉
+							/* var a=$('.details table:first').html();
+							var r=/<\s*p.*?>(.*)<\s*\/p\s*>/g;
+							a=a.replace(r,'$1');
+							$('.details table:first').html(a); */
+
+							/* var a=$('.details table:last').html();
+							var r=/<\s*p.*?>(.*)<\s*\/p\s*>/g;
+							a=a.replace(r,'$1');
+							$('.details table:last').html(a);   */
+
+							objArr = $('.details table');
+							
+							$(objArr).each(function(i) {
+								a = $(this).html();
+								r = /<\s*p.*?>(.*)<\s*\/p\s*>/g;
+								a = a.replace(r, '$1');
+								$(this).html(a);
+								$(this).css('width', widthImg);
+							});
+						},
+						"error" : function(res) {
+							alert("error:" + res);
+							$.hori.hideLoading();
+						}
+					});
+		} catch (e) {
+			alert(e.message);
+		}
+		// 重置ID
+	}
+	function viewfile(item) {
+		if (item.attachmentSource() == "noSupport") {
+			alert("系统不能打开此文件！");
+			return;
+		}
+		var cookie_userstore = localStorage.getItem("cookie_userstore");
+		var url = item.attachmentSource()
+				+ "&data-convert=office&data-basic-auth-u=wpsadmin&data-basic-auth-p=GTAdmin";
+		url = url.replace(/\&amp;/g, "&");
+		console.log(item.attachmentSource());
+		localStorage.setItem("attachmentUrl", url);
+		var type = "android";
+		if (window.navigator.userAgent.match(/iPad/i)
+				|| window.navigator.userAgent.match(/iPhone/i)
+				|| window.navigator.userAgent.match(/iPod/i)) {
+			type = "iphone";
+		}
+		if (type == "iphone") {
+			$.hori.loadPage($.hori.getconfig().serverBaseUrl
+					+ "viewhome/html/attachmentShowForm4News.html",
+					"viewhome/xml/AttachView4I.xml");
+		} else if (type == "android") {
+			$.hori.loadPage($.hori.getconfig().serverBaseUrl
+					+ "viewhome/html/attachmentShowForm4News.html",
+					"viewhome/xml/AttachView.xml");
+		}
+	}
+	function renderDetail1(data) {
+		var viewModelDetail = ko.mapping.fromJS(data);
+		ko
+				.applyBindings(viewModelDetail, document
+						.getElementById("newsDetail"));
+	}
 </script>
 </head>
 <body>
-		<div data-role="content" id="newsDetail" >
-			<!-- 标题 -->
-			<div>
-				<h3>
-					<span data-bind="text: contentTitle" ></span>
-				</h3>
-			</div>
-			<!-- 发布信息 -->
-			<div style="background-color: rgba(127,127,127,0.5); display:none;" id='hiddenDiv' >
-				<div style="float: left;">
-					发布时间：<span data-bind="text: creatTime" ></span>
-				</div>
-				<div style="float: right;">
-					发文来源：<span data-bind="text: newsource" ></span>
-				</div>
-			</div>
-			<br>
-			<div style="clear: both;">
-				<span data-bind="html:richText" ></span>
-			</div>
-			<div style="clear: both; display: inline;" id="fujian" data-bind="if:$root.attachmentList">
-				<ul data-bind="foreach: attachmentList">
-					<li><a data-bind="click:viewfile" ><span
-							data-bind="text: attachment"></span></a></li>
-				</ul>
-			</div>
+	<div data-role="content" id="newsDetail">
+		<!-- 标题 -->
+		<div>
+			<h3>
+				<span data-bind="text: contentTitle"></span>
+			</h3>
 		</div>
+		<!-- 发布信息 -->
+		<div
+			style="background-color: rgba(127, 127, 127, 0.3); display: none;"
+			id='hiddenDiv'>
+			<p>
+			<div style="float: left;">
+				发布时间：<span data-bind="text: creatTime"></span>
+			</div>
+			<div style="float: right;">
+				发文来源：<span data-bind="text: newsource"></span>
+			</div>
+			<br />
+			</p>
+		</div>
+		<br>
+		<div style="clear: both;" class='details'>
+			<span data-bind="html:richText"></span>
+		</div>
+		<div style="clear: both; display: inline;" id="fujian"
+			data-bind="if:$root.attachmentList">
+			<ul data-bind="foreach: attachmentList">
+				<li><a data-bind="click:viewfile"><span
+						data-bind="text: attachment"></span></a></li>
+			</ul>
+		</div>
+	</div>
 </body>
 </html>

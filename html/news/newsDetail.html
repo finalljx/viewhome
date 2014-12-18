@@ -23,16 +23,17 @@ p{
 					<span data-bind="text: contentTitle" ></span>
 				</h3>
 			</div>
-			<div style="background-color: rgba(127,127,127,0.5);">
+			<div style="background-color: rgba(127,127,127,0.3);">
 				<div style="float: left;">
 					发布时间：<span data-bind="text: creatTime" ></span>
 				</div>
 				<div style="float: right;">
 					发文来源：<span data-bind="text: newsource" ></span>
 				</div>
+				<br />
 			</div> 
 			<br>
-			<div style="clear: both;"style="height:100%">
+			<div style="clear: both;" style="height:100%" class='details'>
 				<span data-bind="html:richText" ></span>
 			</div>
 			<div style="clear: both; display: inline;" id="fujian" data-bind="if:$root.attachmentList"style="height:100%">
