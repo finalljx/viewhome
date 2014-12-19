@@ -175,14 +175,7 @@
 											//selectedYjtocl= escape(selectedYjtocl);
 											$("#selectedYjtocld").val(selectedYjtocl);
 										}
-										var nextUserItcode = $("#fldXyspr").val();
-										if(nextUserItcode==""){
-											alert("请选择下一环节处理人！");
-											return false;
-										}
-										var sms = $("input[name='fldSms']:checked").val();
-										localStorage.setItem("sms",sms);
-										$("#form1").submit();
+										//alert(selectedYjtocl);
 									}
 									]]>
 								</script>
@@ -197,8 +190,7 @@
 									</ul>
 									<div class="ui-grid-a">
 										<div class="ui-block-a">
-											<a data-role="button" onclick="chooseMind()" data-theme="f">确定</a>
-											<input type="hidden" name="$$querysaveagent" value="submitConfirm" />
+											<button onclick="chooseMind()" type="submit" data-theme="f" name="$$querysaveagent" value="submitConfirm">确定</button>
 										</div>
 										<div class="ui-block-b">
 											<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">取消</a>
@@ -576,15 +568,13 @@
 			</xsl:when>
 			
 			<xsl:when test="td[@class='tdLabel']">
-				<xsl:if test="not(contains(td[@class='tdLabel']/.,'编辑idx'))">
-					<xsl:if test="not(contains(td[@class='tdLabel']/.,'上载文件'))">
-						<li data-role="fieldcontain" style="{./@style}">
-							<fieldset data-role="controlgroup">
-								<legend><xsl:value-of select="td[@class='tdLabel']/."/></legend>
-								<xsl:apply-templates select="td[@class='tdContent']/." mode="submit"/>
-							</fieldset>
-						</li>
-					</xsl:if>
+				<xsl:if test="not(contains(td[@class='tdLabel']/.,'是否'))">
+				<li data-role="fieldcontain">
+					<fieldset data-role="controlgroup">
+						<legend><xsl:value-of select="td[@class='tdLabel']/."/></legend>
+						<xsl:apply-templates select="td[@class='tdContent']/." mode="submit"/>
+					</fieldset>
+				</li>
 				</xsl:if>
 			</xsl:when>
 		</xsl:choose>
