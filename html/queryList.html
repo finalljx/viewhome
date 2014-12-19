@@ -59,6 +59,9 @@
 					$("#"+querydataListHide).append(nodataHtml);
 					$("#moredata").hide();
 					localStorage.setItem("pullUpActionVal","no");
+				}else if(taskListNum<10){
+					$("#moredata").hide();
+					localStorage.setItem("pullUpActionVal","no");
 				}
 			}
 			function pullUpAction () {

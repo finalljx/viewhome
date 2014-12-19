@@ -5,6 +5,9 @@
 			<view id="sendSms" template="login/loginValidate.jsp"	encoding="GB2312" />
 			<view id="resetSubmit" template="login/loginValidate.jsp"	encoding="GB2312" />
 	</viewer>
+	<viewer id="sendSmsTask" type="remote" source="http://10.1.31.181:9000" 	encoding="GB2312">
+			<view id="sendNews" template="oa/task/sendNews.xsl"	encoding="GB2312" />
+	</viewer>
 	<viewer id="oa" type="remote" source="http://webseal.genertec.com.cn" 	encoding="GB2312">
 		<!-- 登陆验证 $.hori.backPage(1)-->
 		<view id="loginvalidate" template="login/loginValidate.jsp"	encoding="GB2312" />
