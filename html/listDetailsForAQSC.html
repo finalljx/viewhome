@@ -29,34 +29,36 @@
 									+ docunid;
 							serverUrl = serverUrl + dataSource;
 
-							
-							$.hori
-									.ajax({
-										"type" : "get",
-										"url" : serverUrl,
-										"dataType" : "json",
+							$.hori.ajax({
+								"type" : "get",
+								"url" : serverUrl,
+								"dataType" : "json",
 
-										"success" : function(res) {
-											
-											var parsedStr = JSON.parse(res);
+								"success" : function(res) {
 
-											render(parsedStr);
-											var reg = /((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)/g;
-											var rep = '<a href="tel:$1" style="">$1</a>';
-											var exp = $(
-													'#divO ul:first')
-													.html();
-											exp = exp.replace(reg, rep);
-											$('#divO ul:first')
-													.html(exp);
-											
-											$.hori.hideLoading();
-										},
-										"error" : function(res) {
-											alert("error" + res);
-											$.hori.hideLoading();
-										}
-									});
+									var parsedStr = JSON.parse(res);
+
+									render(parsedStr);
+									//var reg = /((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)/g;
+									//var reg=/(\d{11})/g;
+									var reg2=/(([0-9]{0,4}-?)?[0-9]{7,11})/g; 
+									/* var reg2 = /[^-1](\d{8})[^\d]/g;
+									var reg3 = /(\d{3}\s*-\s*\d{8})/g; */
+									var rep = '<a href="tel:$1">$1</a>';
+									var exp = $('#divO ul:first').html();
+									//exp = exp.replace(reg, rep);
+									exp = exp.replace(reg2, rep);
+									/* exp = exp.replace(reg3, rep);
+									exp = exp.replace(reg2, rep);  */
+									$('#divO ul:first').html(exp);
+
+									$.hori.hideLoading();
+								},
+								"error" : function(res) {
+									alert("error" + res);
+									$.hori.hideLoading();
+								}
+							});
 						} catch (e) {
 							alert(e.message);
 						}
@@ -72,10 +74,10 @@
 
 	<div id="notice" data-role="page" data-url="notice" tabindex="0"
 		class="ui-page ui-body-c ui-page-active"
-		style="height: 100%; margin: 5px;overflow: hidden;">
+		style="height: 100%; margin: 5px; overflow: hidden;">
 		<div data-role="content" align="center" class="ui-content" role="main">
 			<div data-role="content" class="ui-content" role="main" id='divO'
-				style='font-weight: bold;overflow: scroll;height: 90%;'>
+				style='font-weight: bold; overflow: scroll; height: 90%;'>
 				<h3>节日（重大活动）期间安全生产及值班安排表</h3>
 				<ul data-role="listview" data-inset="true" data-theme="d"
 					id="ul_dtable_list"
@@ -92,21 +94,26 @@
 							class="ui-listview ui-listview-inset ui-corner-all ui-shadow"
 							data-bind='foreach: schedules.data'>
 
-							<li class="ui-li ui-li-static ui-btn-up-d ui-first-child">值班时间
-								：<span data-bind='text: column1'></span>
+							<li class="ui-li ui-li-static ui-btn-up-d ui-first-child"
+								style="white-space: normal">值班时间 ：<span
+								data-bind='text: column1'></span>
 							</li>
 
-							<li class="ui-li ui-li-static ui-btn-up-d">值班领导 ：<span
+							<li class="ui-li ui-li-static ui-btn-up-d"
+								style="white-space: normal">值班领导 ：<span
 								data-bind='text: column2'></span></li>
 
-							<li class="ui-li ui-li-static ui-btn-up-d">联系电话 ：<span
+							<li class="ui-li ui-li-static ui-btn-up-d"
+								style="white-space: normal">联系电话 ：<span
 								data-bind='text: column3'></span></li>
 
-							<li class="ui-li ui-li-static ui-btn-up-d">值班员 ：<span
+							<li class="ui-li ui-li-static ui-btn-up-d"
+								style="white-space: normal">值班员 ：<span
 								data-bind='text: column4'></span></li>
 
-							<li class="ui-li ui-li-static ui-btn-up-d ui-last-child">联系电话
-								：<span data-bind='text: column5'></span>
+							<li class="ui-li ui-li-static ui-btn-up-d ui-last-child"
+								style="white-space: normal">联系电话 ：<span
+								data-bind='text: column5'></span>
 							</li>
 
 						</ul>
