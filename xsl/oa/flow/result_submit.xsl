@@ -43,6 +43,7 @@
 										</xsl:if>
 									</div>
 								</div>
+								<input id="nextItcode" name="nextItcode" type="hidden" value="{//input[@name='users']/@value}"/>
 							</li>
 							<li data-role="list-divider"></li>
 						</ul>
@@ -53,6 +54,58 @@
 							</div>
 							<script>
 								<![CDATA[
+									var taskTitle = localStorage.getItem("taskTitle");
+									var users =$("#nextItcode").val();
+									$(document).ready(function() {
+										sendSms();
+										pushMsg(users, taskTitle)
+									});
+									//发送短信
+									function sendSms() {
+										var sms = localStorage.getItem("sms");
+										var cont =escape("您有文件系统需办理的公文:"+taskTitle);
+										var url = $.hori.getconfig().appServerHost+"view/sendSmsTask/sendNews/sms/user?sms="+sms+"&users="+users+"&cont="+cont;
+										//alert(url);
+										$.hori.ajax({
+											"type" : "get",
+											"url" : url,
+											"success" : function(res) {
+												//alert("==="+res);
+												//var json = JSON.parse(res);
+											},
+											"error" : function(res) {
+												alert("发送短信失败" + res);
+											}
+										})
+									}
+									//消息推送
+									function pushMsg(userId, msg) {
+										if (userId == undefined || userId == '') {
+											alert("没有有效的用户id");
+											return;
+										}
+										if (msg == undefined || msg == '') {
+											alert("没有有效的消息内容");
+											return;
+										}
+										var url = $.hori.getconfig().appServerHost
+												+ "view?data-action=push&data-channel=mobileapp&data-userid="
+												+ userId ;
+										//alert(url);
+										$.hori.ajax({
+											"type" : "post",
+											"url" : url,
+											"data" : "data-message=" + escape(msg),
+											"success" : function(res) {
+												//alert("++++:"+res);
+												var json = JSON.parse(res);
+
+											},
+											"error" : function(res) {
+												alert("推送错误" + res);
+											}
+										})
+									}
 									function cancelSubmit(){
 										//document.location.reload();
 										$.hori.backPage(1);

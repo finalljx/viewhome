@@ -167,7 +167,8 @@
 									</ul>
 									<div class="ui-grid-a">
 										<div class="ui-block-a">
-											<button type="submit" data-theme="f" name="$$querysaveagent" value="submitConfirm">确定</button>
+											<a data-role="button" onclick="determineSubmit()" data-theme="f">确定</a>
+											<input type="hidden" name="$$querysaveagent" value="submitConfirm" />
 										</div>
 										<div class="ui-block-b">
 											<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">取消</a>
@@ -189,6 +190,16 @@
 										function cancelSubmit(){
 											$.mobile.showPageLoadingMsg();
 											document.location.reload();
+										}
+										function determineSubmit(){
+											var nextUserItcode = $("#fldXyspr").val();
+											if(nextUserItcode==""){
+												alert("请选择下一环节处理人！");
+												return false;
+											}
+											var sms = $("input[name='fldSms']:checked").val();
+											localStorage.setItem("sms",sms);
+											$("#form1").submit();
 										}
 									]]>
 								</script>
@@ -343,7 +354,7 @@
 								<ul data-role="listview" data-inset="true">
 									<li data-role="list-divider">
 										<div data-role="controlgroup" data-type="horizontal" style="width:100%;" align="right">
-											<a data-role="button" href="javascript:void(0);" onclick="cancelSubmit()">返回</a>
+											<a id="back111" data-role="button" href="javascript:void(0);" onclick="cancelSubmit()">返回</a>
 										</div>
 									</li>
 									<li>
@@ -352,7 +363,6 @@
 										<xsl:if test="contains(//td/@class,'msgok_msg')">
 											<xsl:value-of select="//td[@class='msgok_msg']/."/>
 										</xsl:if>
-										
 									</li>
 									<li data-role="list-divider"></li>
 								</ul>
@@ -440,7 +450,7 @@
 								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
 								<input type="hidden" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
 								<!-- <a href="javascript:void(0)" onclick="clearperson();" style="margin-left:100px;" data-role="button" data-inline="true">清空666</a> -->
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/','/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10&amp;data-userstore=')" data-role="button" data-inline="true" data-theme="f">选　人1</a>
+								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/','/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10&amp;data-userstore=')" data-role="button" data-inline="true" data-theme="f">选　人</a>
 							</fieldset>
 						</li>
 					</xsl:when>
@@ -451,7 +461,7 @@
 								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
 								<input type="hidden" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
 								<!-- <a href="javascript:void(0)" style="margin-left:30px;" onclick="clearperson();" data-role="button" data-inline="true">清空</a> -->
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/','/{$dbPath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}&amp;data-userstore=')" data-role="button" data-inline="true" data-theme="f">选　人2</a>
+								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/','/{$dbPath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}&amp;data-userstore=')" data-role="button" data-inline="true" data-theme="f">选　人</a>
 							</fieldset>
 						</li>
 					</xsl:when>
@@ -500,14 +510,16 @@
 				</li>
 			</xsl:when>
 			<xsl:when test="td[@class='tdLabel']">
-			<xsl:if test="not(contains(td[@class='tdLabel']/.,'是否邮件'))">
-				<li data-role="fieldcontain" style="{./@style}">
-					<fieldset data-role="controlgroup">
-						<legend><xsl:value-of select="td[@class='tdLabel']/."/></legend>
-						<xsl:apply-templates select="td[@class='tdContent']/." mode="submit"/>
-					</fieldset>
-				</li>
-			</xsl:if>
+				<xsl:if test="not(contains(td[@class='tdLabel']/.,'编辑idx'))">
+					<xsl:if test="not(contains(td[@class='tdLabel']/.,'上载文件'))">
+						<li data-role="fieldcontain" style="{./@style}">
+							<fieldset data-role="controlgroup">
+								<legend><xsl:value-of select="td[@class='tdLabel']/."/></legend>
+								<xsl:apply-templates select="td[@class='tdContent']/." mode="submit"/>
+							</fieldset>
+						</li>
+					</xsl:if>
+				</xsl:if>			
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>

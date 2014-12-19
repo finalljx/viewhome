@@ -11,30 +11,26 @@
 	<xsl:variable name="unidstr">
 	<xsl:value-of select="substring-before(substring-after(//param[@name='to']/@value,'unid='),'&amp;seluser')"/>
 	</xsl:variable>
-	<xsl:variable name="dbpath">
-	<xsl:value-of select="//param[@name='dbpath']/@value"/>
+	<xsl:variable name="dbPath">
+		<xsl:value-of select="//input[@name='dbpath' or @name='dbPath' or @name='dbPath1']/@value" />
 	</xsl:variable>
-
 	<xsl:template match="/">
 		<html lang="zh_cn">
 			<head>
 			<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 			<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
-			<script type="application/javascript" src="/view/assets/iscroll.js"></script>
-			<link rel="stylesheet" href="/view/lib/jquery-mobile/jquery.mobile.min.css" />
-			<link rel="stylesheet" href="/view/assets/jquery.mobile-sugon.css" />
-			<script src="/view/lib/jquery/jquery.min.js"></script>
-			<script src="/view/lib/hori/hori.js?tag=21369"></script>
-			<script src="/view/lib/jquery-mobile/jquery.mobile.min.js"></script>
-			<script src="/view/config/web/config.js"></script>
+			<script>
+				<![CDATA[
+					$.hori.showLoading();
+				]]>
+			</script>
 			</head>
 			<body>
 				<div id="submit" data-role="dialog" class="type-home">
 					<div data-role="header">
 						<style>.ui-dialog .ui-header .ui-btn-icon-notext { display:none;} </style>
-						<h1>请确认提交信息</h1>
-					</div><!-- /header -->
-
+						<h1>提交信息</h1>
+					</div>
 					<div id="faqdiv" style="display:none;min-height:300px;" class="ui-overlay-shadow ui-corner-bottom ui-body-c">
 						<ul id="userselect" data-role="listview" data-inset="true">
 						
@@ -46,15 +42,9 @@
 							<!-- 表单选择人员 -->
 							<xsl:when test="contains(//url/text(), 'frmSubmitPage')">
 								<script>
-									function showorHide(id){
-										//trSelectYj  trWriteYj
-										if(id=="0"){
-											$("#trWriteYj").css("display","none");
-											$("#trSelectYj").css("display","block");
-										}else if(id=="1"){
-											$("#trSelectYj").css("display","none");
-											$("#trWriteYj").css("display","block");
-										}
+									function showAndHide(id, id2){
+										$("#"+id).css("display","block");
+										$("#"+id2).css("display","none");
 									}
 									function choose(ischeck, username){
 										if(ischeck){
@@ -72,16 +62,17 @@
 									function clearperson(){
 										$('#fldXyspr').attr('value', '');
 									}
+									
 									function userselect(url1,url2){
-									  var docServer=$.hori.getconfig().docServer;
+									var docServer=$.hori.getconfig().docServer;
 									  url1=url1+docServer;
 									  var url=url1+url2;
-										$.mobile.showPageLoadingMsg();
 										if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)||window.navigator.userAgent.match(/android/i)){
 											var cookie_userstore = localStorage.getItem("cookie_userstore");
 											url=url +cookie_userstore;
 											//alert(url);
 										}
+										$.mobile.showPageLoadingMsg();
 										$.ajax({
 											type: "get",
 											url: url,
@@ -99,6 +90,7 @@
 											}
 										});
 									}
+									
 									function showuserselect(){
 										var dialogheight = $("#faqdiv").height();
 										var containerheight = document.body.scrollHeight;
@@ -111,7 +103,9 @@
 										$("#faqdiv").css("display", "block");
 
 									}
-									<![CDATA[
+								</script>
+								<script>
+								<![CDATA[
 									function hideuserselect(){
 										//radio
 										var val = $('input:radio:checked').val();
@@ -160,30 +154,6 @@
 										}
 										$("#faqdiv").css("display","none");
 									}
-									
-									//部门反馈时选择领导意见
-									function chooseMind(){
-										var chooseMind="";
-										var selectedYjtocl=""
-										$("input[name='SelectyjNum']:checked").each(function(){
-											chooseMind=$(this).val();
-											var chooseMindAray = chooseMind.split("|");
-											var chooseMindHtml = "<table width=100% border=0><tr><td>"+chooseMindAray[0]+"</td></tr><tr><td align='right'><span class='userName'>"+chooseMindAray[1]+"</span>"+chooseMindAray[2].replace(" ", "&nbsp;")+"</td></tr></table>";
-											selectedYjtocl+=chooseMindHtml;
-										})
-										if(selectedYjtocld!=""){
-											//selectedYjtocl= escape(selectedYjtocl);
-											$("#selectedYjtocld").val(selectedYjtocl);
-										}
-										var nextUserItcode = $("#fldXyspr").val();
-										if(nextUserItcode==""){
-											alert("请选择下一环节处理人！");
-											return false;
-										}
-										var sms = $("input[name='fldSms']:checked").val();
-										localStorage.setItem("sms",sms);
-										$("#form1").submit();
-									}
 									]]>
 								</script>
 								<style type="text/css">
@@ -197,7 +167,7 @@
 									</ul>
 									<div class="ui-grid-a">
 										<div class="ui-block-a">
-											<a data-role="button" onclick="chooseMind()" data-theme="f">确定</a>
+											<a data-role="button" onclick="determineSubmit()" data-theme="f">确定</a>
 											<input type="hidden" name="$$querysaveagent" value="submitConfirm" />
 										</div>
 										<div class="ui-block-b">
@@ -209,6 +179,7 @@
 								</form>
 								<script>
 									<![CDATA[
+										$.hori.hideLoading();
 										//客户端时，cookie_userstore
 										if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)||window.navigator.userAgent.match(/android/i)){
 											var cookie_userstore = localStorage.getItem("cookie_userstore");
@@ -220,20 +191,15 @@
 											$.mobile.showPageLoadingMsg();
 											document.location.reload();
 										}
-									]]>
-								</script>
-								<script>
-									<![CDATA[
-									$('form').submit(function(){
-										if($("#fldXyspr").length>0){
-											var person = $("#fldXyspr").val();
-											if(person == null || person == ""){
-												alert('请选择下一步审批人!');
+										function determineSubmit(){
+											var nextUserItcode = $("#fldXyspr").val();
+											//alert(nextUserItcode);
+											if(nextUserItcode==""){
+												alert("请选择下一环节处理人！");
 												return false;
 											}
+											$("#form1").submit();
 										}
-										return true;
-									});
 									]]>
 								</script>
 							</xsl:when>
@@ -257,6 +223,7 @@
 								</form>
 								<script>
 									<![CDATA[
+										$.hori.hideLoading();
 										//客户端时，cookie_userstore
 										if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)||window.navigator.userAgent.match(/android/i)){
 											var cookie_userstore = localStorage.getItem("cookie_userstore");
@@ -275,10 +242,9 @@
 							<xsl:when test="contains(//url/text(), 'frmBranchSelecter')">
 								<xsl:choose>
 									<xsl:when test="//td[@class='msgok_msg']">
-										<form id="form3" action="/view/oa/signsubmit{//form[1]/@action}" method="post" data-rel="dialog">
+										<form id="form3" action="/view/oa/submit{//form[1]/@action}" method="post" data-rel="dialog">
 											<ul data-role="listview" data-inset="true">
-												<li data-role="list-divider">
-												</li>
+												<li data-role="list-divider"></li>
 												<li>
 													<div style="100%;text-align:center;" align="center">
 														<div align="center">
@@ -296,6 +262,7 @@
 											</div>
 											<script>
 												<![CDATA[
+													$.hori.hideLoading();
 													//客户端时，cookie_userstore
 													if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)||window.navigator.userAgent.match(/android/i)){
 														var cookie_userstore = localStorage.getItem("cookie_userstore");
@@ -312,7 +279,7 @@
 										</form>
 									</xsl:when>
 									<xsl:otherwise>
-										<form id="form4" action="/view/oa/signsubmit{//form[1]/@action}" method="post" data-rel="dialog">
+										<form id="form4" action="/view/oa/submit{//form[1]/@action}" method="post" data-rel="dialog">
 											<xsl:choose>
 												<xsl:when test="contains(//div[@class='Toolbar']/@onclick, 'agSaveSelBranch')">
 													<input type="hidden" id="querysaveagent" name="$$querysaveagent" value="agSaveSelBranch" />
@@ -338,6 +305,7 @@
 										</form>
 										<script>
 											<![CDATA[
+												$.hori.hideLoading();
 												//客户端时，cookie_userstore
 												if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)||window.navigator.userAgent.match(/android/i)){
 													var cookie_userstore = localStorage.getItem("cookie_userstore");
@@ -352,102 +320,52 @@
 											]]>
 										</script>
 									</xsl:otherwise>
+									
 								</xsl:choose>
 								
 							</xsl:when>
-							<xsl:when test="count(//td[@class='msgok_msg'])!=0">
-								<ul data-role="listview" data-inset="true">
-									<li data-role="list-divider"></li>
-									<li>
-										<div style="100%;text-align:center;" align="center">
-											<div align="center">
-												<xsl:if test="contains(//h2/., 'Form processed')">表单已处理</xsl:if>
-												<xsl:if test="contains(//td[@class='msgok_msg']/.,'/')">
-													<xsl:value-of select="//td[@class='msgok_msg']/."/>
-												</xsl:if>
-												<xsl:if test="not(contains(//td[@class='msgok_msg']/.,'/'))">
-													<xsl:value-of select="//td[@class='msgok_msg']/."/>
-												</xsl:if>
-											</div>
-										</div>
-									</li>
-									<li data-role="list-divider"></li>
-								</ul>
-								<div class="ui-grid-a">
-									<div class="ui-block-a"></div>
-									<div class="ui-block-b">
-										<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">返回</a>
-									</div>
-									<script>
-										<![CDATA[
-											function cancelSubmit(){
-												//document.location.reload();
-												$.mobile.showPageLoadingMsg();
-												$.hori.backPage(1);
-											}
-										]]>
-									</script>
-								</div>
-							</xsl:when>
-							<!-- 表单错误提示 -->
 							<xsl:when test="contains(//url/text(), 'Seq=')">
 								<ul data-role="listview" data-inset="true">
-									<li data-role="list-divider"></li>
+									<li data-role="list-divider">
+										<div data-role="controlgroup" data-type="horizontal" style="width:100%;" align="right">
+											<a data-role="button" href="javascript:void(0);" onclick="cancelSubmit()">返回</a>
+										</div>
+									</li>
 									<li>
-										<xsl:choose>
-											<xsl:when test="//body/script">接收成功</xsl:when>
-											<xsl:when test="not(//body/script)"><xsl:value-of select="//body/text()"/></xsl:when>
-											<xsl:otherwise>操作成功</xsl:otherwise>
-										</xsl:choose>
+										<xsl:if test="//body/script"><xsl:value-of select="substring-before(substring-after(//body/script/text(),'('),')')"/></xsl:if>
+										<xsl:if test="not(//body/script)"><xsl:value-of select="//body/text()"/></xsl:if>
+										<xsl:if test="contains(//td/@class,'msgok_msg')">
+											<xsl:value-of select="//td[@class='msgok_msg']/."/>
+										</xsl:if>
+										
 									</li>
 									<li data-role="list-divider"></li>
 								</ul>
-								<div class="ui-grid-a">
-									<div class="ui-block-a"></div>
-									<div class="ui-block-b">
-										<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">返回</a>
-									</div>
-									<script>
-										<![CDATA[
-											function cancelSubmit(){
-												//document.location.reload();
-												$.mobile.showPageLoadingMsg();
-												$.hori.backPage(1);
-											}
-										]]>
-									</script>
-								</div>
+								<script>
+									<![CDATA[
+										$.hori.hideLoading();
+										function cancelSubmit(){
+											$.mobile.showPageLoadingMsg();
+											document.location.reload();
+										}
+									]]>
+								</script>
 							</xsl:when>
 							<xsl:otherwise>
 								<ul data-role="listview" data-inset="true">
 									<li data-role="list-divider"></li>
 									<li>
-										<xsl:choose>
-											<xsl:when test="//fieldset"><xsl:value-of select="//fieldset//table/."/></xsl:when>
-											<xsl:when test="//body/script"><xsl:value-of select="substring-before(substring-after(//body/script/text(),'('),')')"/></xsl:when>
-											<xsl:when test="not(//body/script)"><xsl:value-of select="//body/text()"/></xsl:when>
-										</xsl:choose>
+										保存成功
 									</li>
 									<li data-role="list-divider"></li>
 								</ul>
-								<div class="ui-grid-a">
-									<div class="ui-block-a"></div>
-									<div class="ui-block-b">
-										<a data-role="button" data-theme="f" href="javascript:void(0);" onclick="cancelSubmit()">返回</a>
-									</div>
-									<script>
-										<![CDATA[
-											function cancelSubmit(){
-												$.mobile.showPageLoadingMsg();
-												//document.location.reload();
-												$.hori.backPage(1);
-											}
-										]]>
-									</script>
-								</div>
+								<script>
+									$.hori.hideLoading();
+									document.location.reload();
+								</script>
 							</xsl:otherwise>
 						</xsl:choose>
-					</div><!-- /content -->
+					</div>
 				</div>
 			</body>
 		</html>
@@ -490,66 +408,25 @@
 	<xsl:template match="text()" mode="branchcontent"></xsl:template>
 	<xsl:template match="br" mode="branchcontent"></xsl:template>
 
+
 	
 	<!-- 流程人员选择 -->
 	<xsl:template match="tr" mode="choose">
 		<xsl:choose>
-			<xsl:when test="contains(@style,'display:none')">
-				<input type="hidden" value="" name="fldSelDept"/>
-				<input type="hidden" value="" name="fldSelHuiqianDept"/>
-				<input type="hidden" readonly="true" value="{//input[@name='fldSelHuiqianDept']/@value}" name="fldSelHuiqianDept"/>
-				<input type="hidden" readonly="true" value="{//input[@name='fldSelDept']/@value}" name="fldSelDept"/>
-			</xsl:when>
-			<xsl:when test="contains(.,'意见反馈')">
-				<li data-role="fieldcontain">
-					<fieldset data-role="controlgroup">
-						<legend><xsl:value-of select="td[@class='tdLabel']/."/></legend>
-						<xsl:apply-templates select="td[@class='tdContent']/." mode="fankuimind"/>
-					</fieldset>
-				</li>
-			</xsl:when>
-			<xsl:when test="contains(.,'请选择意见') or contains(., '请选择同步反馈意见的部门')">
-				<li data-role="fieldcontain" style="{./@style}" id="trSelectYj">
-					<fieldset data-role="controlgroup">
-						<legend>请选择意见:</legend>
-						<xsl:if test="count(//tr[@bgcolor='#E0E0E0'])=0">
-							<font size="3">没有可选择的意见，请直接填写!</font>
-						</xsl:if>
-						<xsl:if test="count(//tr[@bgcolor='#E0E0E0'])!=0">
-							<div id="fldyj">
-								<xsl:apply-templates select="//tr[@bgcolor='#E0E0E0']" mode="choosemind"/>
-							</div>
-						</xsl:if>
-						<textarea style="display:none" name="selectedYjtocld" id="selectedYjtocld" rows="2" cols="20"></textarea>
-					</fieldset>
-				</li>
-				<li data-role="fieldcontain" style="display:none" id="trWriteYj">
-					<fieldset data-role="controlgroup" data-type="horizontal">
-						<legend>请填写意见:</legend>
-						<textarea name="fldIdea" rows="7" cols="50"></textarea>
-					</fieldset>
-				</li>
-			</xsl:when>
 			<xsl:when test="contains(.,'下一环节审批人')">
+				<xsl:value-of select="td/b/text()"/>
 				<!--对选人员按钮进行判断，如果调用方法为SelectPerson(),则是普通选择；-->
 				<!--如果调用方法为SelectPersonAdv()；则是给定范围的选择-->
 				<!--如果不能选择人员，则直接给出系统默认的人员-->
 				<xsl:choose>
 					<xsl:when test="contains(.//div[@id='search']/@onclick,'SelectPerson(')">
 						<li data-role="fieldcontain">
-							<fieldset data-role="controlgroup" data-type="horizontal">
-								<legend>下一环节审批人:</legend>
+							<fieldset data-role="controlgroup" data-type="horizontal" style="text-align:center;">
 								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
 								<input type="hidden" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
-								<input type="hidden" name="Address" value="fldXyspr"/>
-								<input type="hidden" name="fldMailSend" value="no"/>
-								<input type="hidden" name="selectedYjNum" value=""/>
-								<input type="hidden" name="selectedYjtocld" value=""/>
-								<!-- <a href="javascript:void(0)" onclick="clearperson();" style="margin-left:30px;" data-role="button" data-inline="true">清空</a> -->
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/','/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10&amp;data-userstore=')" data-role="button" data-inline="true" data-theme="f">选　人
-								</a>
+								<!-- <a href="javascript:void(0)" onclick="clearperson();" style="margin-left:100px;" data-role="button" data-inline="true">清空666</a> -->
+								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/','/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10&amp;data-userstore=')" data-role="button" data-inline="true" data-theme="f">选　人</a>
 							</fieldset>
-							
 						</li>
 					</xsl:when>
 					<xsl:when test="contains(.//div[@id='search']/@onclick,'SelectPersonAdv(')">
@@ -558,8 +435,8 @@
 								<legend>下一环节审批人:</legend>
 								<input type="text" id="forshow" name="forshow" value="{substring-before(translate(//input[@name='fldXyspr']/@value,' ',''),'/')}" readonly="true"  data-inline="true"/>
 								<input type="hidden" id="fldXyspr" name="fldXyspr" value="{translate(//input[@name='fldXyspr']/@value,' ','')}" readonly="true"  data-inline="true"/>
-								<!--<a href="javascript:void(0)" style="margin-left:30px;" onclick="clearperson();" data-role="button" data-inline="true">清空</a> -->
-								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/','/{$dbpath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}&amp;data-userstore=')" data-role="button" data-inline="true" data-theme="f">选　人</a>
+								<!-- <a href="javascript:void(0)" style="margin-left:30px;" onclick="clearperson();" data-role="button" data-inline="true">清空</a> -->
+								<a href="javascript:void(0)" onclick="userselect('/view/oa/userselectorg/','/{$dbPath}/(wAddressAdv)?OpenForm&amp;unid={$unidstr}&amp;data-userstore=')" data-role="button" data-inline="true" data-theme="f">选　人</a>
 							</fieldset>
 						</li>
 					</xsl:when>
@@ -567,55 +444,59 @@
 						<li data-role="fieldcontain">
 							<fieldset data-role="controlgroup" data-type="horizontal">
 								<legend>下一环节审批人:</legend>
-								<xsl:value-of select="//input[@name='fldXyspr']/@value" />
+								<xsl:value-of select="substring-before(//input[@name='fldXyspr']/@value,'/')" />
 								<input id="fldXyspr" name="fldXyspr" type="hidden" value="{//input[@name='fldXyspr']/@value}"/>
 							</fieldset>
 						</li>
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
-			
+			<xsl:when test="contains(.,'请选择会签部门')">
+				<li data-role="fieldcontain" style="{./@style}" id="trSelectOrg">
+					<fieldset data-role="controlgroup" data-type="horizontal">
+						<legend>会签部门:</legend>
+						<xsl:value-of select="//input[@name='fldSelDept']/@value"/>
+						<!-- <a href="javascript:void(0)" onclick="" data-role="button" data-inline="true" data-theme="f">选择</a> -->
+						<input id="fldSelDept" name="fldSelDept" type="hidden" value="{//input[@name='fldSelDept']/@value}"/>
+					</fieldset>
+				</li>
+			</xsl:when>
+			<xsl:when test="contains(.,'请选择会签审批人')">
+				<!-- <li data-role="fieldcontain" style="{./@style}" id="trSelectUser">
+					<fieldset data-role="controlgroup" data-type="horizontal"> -->
+						<!-- <legend>请选择会签审批人:</legend>
+						<textarea id="forshowcheck" name="forshowcheck"></textarea> -->
+						<!-- <input type="hidden" id="fldXyspr" name="fldXyspr" value="" readonly="true"  data-inline="true"/> -->
+						<!-- <a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/docapp/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10')" data-role="button" data-inline="true" data-theme="f">选人员</a> -->
+						<!-- <a href="javascript:void(0)" onclick="userselect('/view/oa/userselect/docapp/indishare/addresstree.nsf/vwdepbyparentcode?readviewentries&amp;count=1000&amp;startkey=1&amp;UntilKey=10')" data-role="button" data-inline="true" data-theme="f">选角色</a> -->
+						<!-- <input id="fldXyspr" name="fldXyspr" type="hidden" value="{//input[@name='fldXyspr']/@value}"/>
+					</fieldset>
+				</li> -->
+			</xsl:when>
+			<xsl:when test="contains(.,'会 签　规 则')">
+				<li data-role="fieldcontain" style="{./@style}" id="{./@id}">
+					<fieldset data-role="controlgroup">
+						<legend><xsl:value-of select="td[@class='tdLabel']/."/></legend>
+						<input type="radio" id="_d2epa44tnk89rno8joukg_" name="fldSpgz" value="_d2epa44tnk89rno8joukg_" onclick="showAndHide('trSelectUser','')" checked="checked"></input>
+						<label for="_d2epa44tnk89rno8joukg_">并发会签</label>
+						<input type="radio" id="_d2f5r64ugu89rno8joukg_" name="fldSpgz" value="_d2f5r64ugu89rno8joukg_" onclick="showAndHide('','trSelectUser')" ></input>
+						<label for="_d2f5r64ugu89rno8joukg_">顺序会签</label>
+					</fieldset>
+				</li>
+			</xsl:when>
 			<xsl:when test="td[@class='tdLabel']">
-				<xsl:if test="not(contains(td[@class='tdLabel']/.,'编辑idx'))">
-					<xsl:if test="not(contains(td[@class='tdLabel']/.,'上载文件'))">
-						<li data-role="fieldcontain" style="{./@style}">
-							<fieldset data-role="controlgroup">
-								<legend><xsl:value-of select="td[@class='tdLabel']/."/></legend>
-								<xsl:apply-templates select="td[@class='tdContent']/." mode="submit"/>
-							</fieldset>
-						</li>
-					</xsl:if>
+			<xsl:if test="not(contains(td[@class='tdLabel']/.,'编辑idx'))">
+				<xsl:if test="not(contains(td[@class='tdLabel']/.,'上载文件'))">
+					<li data-role="fieldcontain" style="{./@style}">
+						<fieldset data-role="controlgroup">
+							<legend><xsl:value-of select="td[@class='tdLabel']/."/></legend>
+							<xsl:apply-templates select="td[@class='tdContent']/." mode="submit"/>
+						</fieldset>
+					</li>
 				</xsl:if>
+			</xsl:if>
 			</xsl:when>
 		</xsl:choose>
-	</xsl:template>
-	<xsl:template match="input" mode="fankuimind">
-		<xsl:if test="@type='radio'">
-			<input type="{@type}" id="{@value}" name="{@name}" value="{@value}" onclick="showorHide(this.id)">
-				<xsl:if test="@checked">
-					<xsl:attribute name="checked">checked</xsl:attribute>
-				</xsl:if>
-			</input>
-			<label for="{@value}"><xsl:value-of select="./following::text()"/></label>
-		</xsl:if>
-	</xsl:template>
-	<xsl:template match="text()" mode="fankuimind">
-		<xsl:if test="not(..//input)">
-			<xsl:value-of select="."/>
-		</xsl:if>
-	</xsl:template>
-	<xsl:template match="br" mode="fankuimind"></xsl:template>
-	<!-- 审批意见 -->
-	<xsl:template match="tr" mode="choosemind">
-				<xsl:variable name="num" select="position()-1"/>
-				<xsl:variable name="choosemindVal" ><xsl:value-of select="//tr[@bgcolor='#F0F0F0'][$num+1]/td[2]/."/>|<xsl:value-of select="substring-before(td[2]/.,'/')"/>|<xsl:value-of select="td[4]/."/></xsl:variable>
-				<input type="checkbox" name="SelectyjNum" id="{$num}" value="{$choosemindVal}"/>
-				<label for="{$num}">
-						<xsl:value-of select="td[1]/."/>:<xsl:value-of select="substring-before(td[2]/.,'/')"/><br/>
-						<xsl:value-of select="td[3]/."/>:<xsl:value-of select="td[4]/."/><br/>
-						<xsl:value-of select="td[5]/."/>:<xsl:value-of select="td[6]/."/><br/>
-						意  见:<xsl:value-of select="//tr[@bgcolor='#F0F0F0'][$num+1]/td[2]/."/>
-				</label>
 	</xsl:template>
 	<xsl:template match="input" mode="submit">
 		<xsl:if test="@type='radio'">
@@ -633,6 +514,4 @@
 		</xsl:if>
 	</xsl:template>
 	<xsl:template match="br" mode="submit"></xsl:template>
-
-	
 </xsl:stylesheet>
