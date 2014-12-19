@@ -4,6 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0"/>
     <link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile-latest/jquery.mobile.min.css"/>
+    <link rel="stylesheet" href="../lib/jquery-mobile/loading.jquery.mobile.min.css"/>
     <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css"/>
     <script src="../lib/jquery/jquery.min.js"></script>
     <script src="../lib/jquery-cookie/jquery.cookie.js"></script>
@@ -45,7 +46,6 @@
     });
 
         function doSearch() {
-			$.hori.loading("show");
             try {
                 var skey = $("#searchKey").val();
                 if(skey == null || skey.length == 0){
@@ -53,6 +53,7 @@
     				 $.hori.loading("hide");
     				return;
     			} 
+			$.hori.loading("show");
                 //skey = encodeURI(skey);
                 var random = new Date().getTime();
                 var cookie_userstore = localStorage.getItem("cookie_userstore");
