@@ -253,6 +253,7 @@ img {
 						a=a.replace(r,'$1');
 						$('.details table:last').html(a);   */
 
+						//将table中的p去掉
 						var objArr = $('.details table');
 						var a, r;
 						$(objArr).each(function(i) {
@@ -299,13 +300,17 @@ img {
 		var widthImg = document.documentElement.clientWidth * 0.8;
 		document.getElementById("divContent").style.display = '';
 		ko.applyBindings(viewModel, document.getElementById("textRich2"));
-		$(".details table img").get(0).onload = function() {
-			mWidth = $(".details table img").get(0).clientWidth;
-			if (mWidth > widthImg) {
-				$(".details table img").css('width', widthImg);
+		if ($(".details table img").get(0)) {
+
+			$(".details table img").get(0).onload = function() {
+				mWidth = $(".details table img").get(0).clientWidth;
+				if (mWidth > widthImg) {
+					//$(".details table").css('display', 'none');
+					$(".details table img").css('width', widthImg);
+				}
+				//$(".details table").css('display', 'block');
 			}
 		}
-
 	}
 	function renderfj(jsonData) {
 		var viewModel2 = ko.mapping.fromJS(jsonData);
