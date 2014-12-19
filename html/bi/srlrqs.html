@@ -53,6 +53,8 @@ a {
 	<div id="main1"></div>
 
 	<script type="text/javascript">
+	var myChart;
+	var myChart1;
 		window.onload = function() {
 			var h = (document.documentElement.clientHeight) / 2;//可见区域高度
 			var w = document.documentElement.clientWidth;//可见区域高度
@@ -69,7 +71,19 @@ a {
 		$(document).ready(function() {
 			$.hori.setHeaderTitle("收入利润趋势");
 			//加载收入利润趋势图表数据
-			loadSrlrqsChart()
+			/* $.hori.registerEvent("case", "caseClosed", function() {
+                if(myChart){
+                	console.log("caseClosed:" + new Date());
+                	myChart.clear();
+                	myChart.dispose();
+                	console.log("caseClosed:" + myChart);
+                }
+                if(myChart1){
+                	myChart1.clear();
+                	myChart1.dispose();
+                }
+            }); */
+			loadSrlrqsChart();
 		});
 		//加载收入利润趋势图表数据
 		function loadSrlrqsChart() {
@@ -136,8 +150,7 @@ a {
 			viewModel = ko.mapping.fromJS(parsedStr);
 			ko.applyBindings(viewModel, document.getElementById('month'));
 		}
-	</script>
-	<script type="text/javascript">
+		
 		function loadSrlrqs(month, seriesname, lastSumData, nowSumData,
 				increaseData, yearBudget) {
 			var option = {
@@ -228,7 +241,7 @@ a {
 					data : yearBudget
 				} ]
 			};
-			var myChart = echarts.init(document.getElementById('main'));
+			myChart = echarts.init(document.getElementById('main'));
 			myChart.setOption(option);
 		}
 	</script>
@@ -318,8 +331,8 @@ a {
 					data : yearBudget2
 				} ]
 			};
-			var myChart = echarts.init(document.getElementById('main1'));
-			myChart.setOption(option);
+			myChart1 = echarts.init(document.getElementById('main1'));
+			myChart1.setOption(option);
 		}
 	</script>
 
