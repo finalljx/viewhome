@@ -83,6 +83,12 @@ img {
 		getWcmNewsData();
 
 	});
+
+	/* function load(){
+		var mWidth= $(".details table img").get(0).clientWidth;
+		alert(mWidth);
+	} */
+
 	//设置标题
 	function setHead() {
 		moreCurrentName = localStorage.getItem("moreCurrentName");
@@ -163,8 +169,7 @@ img {
 						} else {
 							res = res.replace(/CACHEID=.*?\\/g,
 									'data-result=file&data-application='
-											+ $.hori.getconfig().appKey + '\\\" width=\\\"'
-											+ '40px' +'\\');
+											+ $.hori.getconfig().appKey + '\\');
 
 						}
 						console.log('2==' + res);
@@ -225,18 +230,17 @@ img {
 
 						//将width都去掉
 						var objArr = $('.details table');
-							var a, r;
-							$(objArr).each(function(i) {
-								a = $(this).html();
-								var r1 = /width:\s*\d*\.?\d*%;/g;
-								var r2 = /width:\s*\d*\.?\d*pt;/g;
-								//var r3 = /\s+width=\".*?\"/g;
-								var p = a.replace(r1,
-								'width:20px;');
-								p = p.replace(r2, 'width:20px;');
-								//p = p.replace(r3, '');
-								$(this).html(p);
-							});
+						var a, r;
+						$(objArr).each(function(i) {
+							a = $(this).html();
+							var r1 = /width:\s*\d*\.?\d*%;/g;
+							var r2 = /width:\s*\d*\.?\d*pt;/g;
+							//var r3 = /\s+width=\".*?\"/g;
+							var p = a.replace(r1, 'width:20px;');
+							p = p.replace(r2, 'width:20px;');
+							//p = p.replace(r3, '');
+							$(this).html(p);
+						});
 
 						//将table中的p去掉
 						/* var a=$('.details table:first').html();
@@ -258,6 +262,8 @@ img {
 							$(this).html(a);
 							$(this).css('width', widthImg);
 						});
+						/* var i= document.getElementsByTagName('img');
+						alert('--->>>>'+i[0].naturalWidth); */
 
 					},
 					"error" : function(res) {
@@ -287,11 +293,19 @@ img {
 	}
 
 	function render(jsonData) {
+
 		var viewModel = ko.mapping.fromJS(jsonData);
+		var mWidth;
+		var widthImg = document.documentElement.clientWidth * 0.8;
 		document.getElementById("divContent").style.display = '';
 		ko.applyBindings(viewModel, document.getElementById("textRich2"));
-		//$.hori.hideLoading();
-		imagesWidthJudge();
+		$(".details table img").get(0).onload = function() {
+			mWidth = $(".details table img").get(0).clientWidth;
+			if (mWidth > widthImg) {
+				$(".details table img").css('width', widthImg);
+			}
+		}
+
 	}
 	function renderfj(jsonData) {
 		var viewModel2 = ko.mapping.fromJS(jsonData);
