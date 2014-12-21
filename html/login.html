@@ -29,24 +29,19 @@ a {
 		if (!isMobileDevice) { //如果浏览器登陆
 			getCaptcha();
 		}
-		if (localStorage.getItem("data-saveusername") == "true") {
-			var username = localStorage.getItem("username");
-			if (username == null) {
-				username = "用户名";
+		//检查数据擦除状态
+		$.hori.getClientWipeFlag(function(result){
+			if(result && result == 'yes'){
+				$.hori.wipeData();
 			}
-			$("#username").attr("value", username);
-			$('#saveusername').attr("checked", true).checkboxradio("refresh");
-		} else {
-			$("#username").val("用户名");
-			$("#username").css("color", "#9e9e9e");
-			$('#saveusername').removeAttr("checked").checkboxradio("refresh");
-		}
+			initUserName();//初始化用户状态
+		});
 		var hori = $.hori;
 		try {
 			hori.setHeaderTitle("登录");
 			/*隐藏后退按钮*/
 			hori.hideBackBtn();
-			//每次登陆清楚cookie
+			//每次登陆清除cookie
 			hori.registerEvent("case", "casePresented", function() {
 				$.hori.clearCookies(function(res) {
 					var result = JSON.parse(res);
@@ -70,6 +65,22 @@ a {
 		//注销登录
 		loginout();
 	});
+	
+	//初始化用户名状态
+	function initUserName(){
+		if (localStorage.getItem("data-saveusername") == "true") {
+            var username = localStorage.getItem("username");
+            if (username == null) {
+                username = "用户名";
+            }
+            $("#username").attr("value", username);
+            $('#saveusername').attr("checked", true).checkboxradio("refresh");
+        } else {
+            $("#username").val("用户名");
+            $("#username").css("color", "#9e9e9e");
+            $('#saveusername').removeAttr("checked").checkboxradio("refresh");
+        }
+	}
 
 	//验证码加载失败
 	function captchaLoadError() {
@@ -188,6 +199,9 @@ a {
 			"success" : function(res) {
 				var json = JSON.parse(res);
 				if (json.success == true) { //认证通过
+					$.hori.startPushService(username,function(result){
+						//启动推送服务
+					});
 					websealValidation();
 				} else {
 					$.hori.loading("hide");
