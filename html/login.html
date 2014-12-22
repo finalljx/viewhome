@@ -186,7 +186,7 @@ a {
 		try {
 			var random = new Date().getTime();
 			var url = $.hori.getconfig().appServerHost
-					+ "view/ldap/checkLogin/userCheckPW?user_name=" + username
+					+ "view/ldap/checkLogin/userCheckPW?user_name=" + username.toLowerCase()
 					+ "&password=" + password
 					+ "&data-login=true&data-captcha=" + captcha
 					+ "&data-captcha-id=" + captcha_id;
@@ -230,7 +230,7 @@ a {
 			url = url + "?data-random=" + random;
 		} catch (e) {
 		}
-		var data = "username=" + username + "&password=" + password
+		var data = "username=" + username.toLowerCase() + "&password=" + password
 				+ "&login-form-type=pwd&data-userid=" + username
 				+ "&data-password=Password&data-login=true";
 		$.hori.ajax({
