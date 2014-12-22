@@ -23,7 +23,7 @@
                 </properties>
             </component>
 			<component name="previousButton" type="builtin:button">
-				<frame x="18" y="240" width="80" height="35"/>
+				<frame x="4" y="300" width="45" height="20"/>
 				<properties>
 					<property name="text">
 						<string>上一页</string>
@@ -35,12 +35,12 @@
 						<string>192,192,192,1</string>
 					</property>
 					<property name="border-width">
-						<string>2</string>
+						<string>1</string>
 					</property>
 				</properties>
 			</component>
 			<component name="nextButton" type="builtin:button">
-				<frame x="330" y="240" width="80" height="35"/>
+				<frame x="378" y="300" width="45" height="20"/>
 				<properties>
 					<property name="text">
 						<string>下一页</string>
@@ -49,7 +49,7 @@
 						<string>192,192,192,1</string>
 					</property>
 					<property name="border-width">
-						<string>2</string>
+						<string>1</string>
 					</property>
 				</properties>
 			</component>
