@@ -21,14 +21,13 @@
 
 <script>
 	function doSearch() {
-		//$.hori.showLoading();
-		$.hori.loading();
+		$.hori.showLoading();
 		try {
 			var skey = $("#searchKey").val();
 
 			if (skey == null || skey.length == 0) {
 				alert("关键词不能为空");
-				//$.hori.hideLoading();  
+				$.hori.hideLoading();  
 				$.hori.loading("hide");
 				return;
 
@@ -41,6 +40,7 @@
 			url = url + "&data-random=" + random + "&data-result=text";
 		
 		var data = 'key=' + skey;
+		
 		$.hori.ajax({
 			"type" : "post",
 			"url" : url,
@@ -58,15 +58,16 @@
 				} else {
 					alert(dataObj.flagMessage);
 				}
-				//$.hori.hideLoading();
+				$.hori.hideLoading();
 			},
 			"error" : function(res) {
-				//$.hori.hideLoading();
+				$.hori.hideLoading();
 				$.hori.loading("hide");
 			}
 		})
 		} catch (e) {
 			$.hori.loading("hide");
+			$.hori.hideLoading();
 			alert(e.message);
 		}
 	}
