@@ -171,7 +171,7 @@
 											var chooseMindHtml = "<table width=100% border=0><tr><td>"+chooseMindAray[0]+"</td></tr><tr><td align='right'><span class='userName'>"+chooseMindAray[1]+"</span>"+chooseMindAray[2].replace(" ", "&nbsp;")+"</td></tr></table>";
 											selectedYjtocl+=chooseMindHtml;
 										})
-										if(selectedYjtocld!=""){
+										if(selectedYjtocl!=""){
 											//selectedYjtocl= escape(selectedYjtocl);
 											$("#selectedYjtocld").val(selectedYjtocl);
 										}
@@ -258,6 +258,7 @@
 								<script>
 									<![CDATA[
 										//客户端时，cookie_userstore
+										localStorage.setItem("sms","no");
 										if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)||window.navigator.userAgent.match(/android/i)){
 											var cookie_userstore = localStorage.getItem("cookie_userstore");
 											var formAction = $('#form2').attr('action')+"&data-userstore="+cookie_userstore;
@@ -578,12 +579,14 @@
 			<xsl:when test="td[@class='tdLabel']">
 				<xsl:if test="not(contains(td[@class='tdLabel']/.,'编辑idx'))">
 					<xsl:if test="not(contains(td[@class='tdLabel']/.,'上载文件'))">
+						<xsl:if test="not(contains(td[@class='tdLabel']/.,'邮件'))">
 						<li data-role="fieldcontain" style="{./@style}">
 							<fieldset data-role="controlgroup">
 								<legend><xsl:value-of select="td[@class='tdLabel']/."/></legend>
 								<xsl:apply-templates select="td[@class='tdContent']/." mode="submit"/>
 							</fieldset>
 						</li>
+						</xsl:if>
 					</xsl:if>
 				</xsl:if>
 			</xsl:when>

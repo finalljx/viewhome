@@ -163,7 +163,7 @@
 		会签单位：<xsl:value-of select="tr[5]/td/table/tbody/tr/td[3]/table/tbody/tr/td[2]/." />
 		<xsl:value-of select="//textarea[@name='flddanwei']/." />
 		<xsl:value-of select="tr[5]/td/table/tbody/tr/td[3]/span[2]/text()" /><hr/>
-			<xsl:apply-templates select="tr[5]/td/table/tbody/tr/td[4]/table/tbody/tr[2]" mode="yu1"/>
+			<xsl:apply-templates select="tr[5]/td/table/tbody/tr/td[4]/table/tbody" mode="yu1"/>
 			<xsl:apply-templates select="tr[5]/td/table/tbody/tr/td[5]/table/tbody//tr" mode="yu9"/>
 	</xsl:template>
 	<xsl:template match="table" mode="yu7">
@@ -173,9 +173,10 @@
 		　　处理时间：<xsl:value-of select="tbody/tr[2]/td/text()"/><br/><hr/>
 		</div>
 	</xsl:template>
-	<xsl:template match="tr" mode="yu1">	
-		签报人：<xsl:value-of select="substring-before(td/.,'/')"/><hr/>
-		签报时间：<xsl:value-of select="substring-after(td/.,'/genertec')"/><hr/>
+	<xsl:template match="tbody" mode="yu1">	
+		签报意见：<xsl:value-of select="tr[1]/td/."/><hr/>
+		签报人：<xsl:value-of select="substring-before(tr[2]/td/.,'/')"/><hr/>
+		签报时间：<xsl:value-of select="substring-after(tr[2]/td/.,'/genertec')"/><hr/>
 	</xsl:template>
 	<xsl:template match="tr" mode="yu9">
 		<xsl:variable name="trnumber" select="position()"/>
@@ -200,11 +201,11 @@
 				<xsl:when test="$num mod 2!=0">
 					<xsl:value-of select="td[1]/."/>:<xsl:value-of select="substring-before(td[2]/.,'/')"/><br/>
 					<xsl:value-of select="td[3]/."/>:<xsl:value-of select="td[4]/."/><br/>
-					<xsl:value-of select="td[5]/."/>:<xsl:value-of select="td[6]/."/><br/><hr/>
+					<xsl:value-of select="td[5]/."/>:<xsl:value-of select="td[6]/."/><br/>
 				</xsl:when>
-				<!-- <xsl:when test="$num mod 2=0">
+				<xsl:when test="$num mod 2=0">
 					意  见:<xsl:value-of select="td[2]/."/><br/><hr/>
-				</xsl:when> -->
+				</xsl:when>
 				<xsl:otherwise>
 				</xsl:otherwise>
 			</xsl:choose>

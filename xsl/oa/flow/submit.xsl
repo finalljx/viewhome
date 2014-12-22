@@ -250,6 +250,7 @@
 								<script>
 									<![CDATA[
 										$.hori.hideLoading();
+										localStorage.setItem("sms","no");
 										//客户端时，cookie_userstore
 										if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)||window.navigator.userAgent.match(/android/i)){
 											var cookie_userstore = localStorage.getItem("cookie_userstore");
@@ -512,6 +513,7 @@
 			<xsl:when test="td[@class='tdLabel']">
 				<xsl:if test="not(contains(td[@class='tdLabel']/.,'编辑idx'))">
 					<xsl:if test="not(contains(td[@class='tdLabel']/.,'上载文件'))">
+						<xsl:if test="not(contains(td[@class='tdLabel']/.,'邮件'))">
 						<li data-role="fieldcontain" style="{./@style}">
 							<fieldset data-role="controlgroup">
 								<legend><xsl:value-of select="td[@class='tdLabel']/."/></legend>
@@ -519,7 +521,8 @@
 							</fieldset>
 						</li>
 					</xsl:if>
-				</xsl:if>			
+					</xsl:if>
+				</xsl:if>
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
