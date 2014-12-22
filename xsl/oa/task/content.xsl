@@ -51,9 +51,17 @@
 							function querysubmit(value){
 								$.hori.showLoading();
 								if(value=="querysign"){
-									var huiqiandanwei = $("#huiqiandanwei").val();
+									var huiqiandanwei = $("#signdanwei").text();
+									var signSerialNumber = $("#fldFwbh").val();
 									if(huiqiandanwei==""||huiqiandanwei==null){
 										alert("发起内请时没有选择会签流程，手机端不能处理，请到电脑上处理！");
+										$.mobile.hidePageLoadingMsg();
+										$.hori.hideLoading();
+										return false;
+									}else if(signSerialNumber==""||signSerialNumber==null){
+										alert("请填写会签编号！");
+										$.mobile.hidePageLoadingMsg();
+										$.hori.hideLoading();
 										return false;
 									}
 								}
@@ -173,7 +181,7 @@
 										<b><xsl:value-of select="substring-before(//td[@class='rightHei'][3]/.,'：')" />:</b>
 										<br />
 										<br />
-										<font style="font-size:12pt"><xsl:value-of select="//td[@class='rightHei'][3]/table/tbody/tr/td[2]/."/>
+										<font style="font-size:12pt" id="signdanwei"><xsl:value-of select="//td[@class='rightHei'][3]/table/tbody/tr/td[2]/."/>
 										<xsl:value-of select="//textarea[@name='flddanwei']/." />
 										<xsl:value-of select="tr[5]/td/table/tbody/tr/td[3]/span[2]/text()" /></font>
 									</font>
@@ -184,7 +192,9 @@
 										<b><xsl:value-of select="substring-before(//td[@class='rightHei'][4]/.,'：')" />:</b>
 										<br />
 										<br />
-										<font style="font-size:12pt"><xsl:value-of select="substring-after(//td[@class='rightHei'][4]/.,'：')" /></font>
+										<font style="font-size:12pt">
+										<xsl:apply-templates select="//td[@class='rightHei'][4]//table"  mode="sinePerson"/>
+										</font>
 									</font>
 								</td>
 										<td width="31%" valign="top">
@@ -264,14 +274,9 @@
 						</tr>
 					</table>
 					<TABLE class="fjTable" style="width: 90%" id="table2">
-
-						<TR>
-							<td>
 							<xsl:call-template name="attachedFiles">
 								<xsl:with-param name="FileInfosValue" select="//param[@name='FileInfos']/@value"/>
 							</xsl:call-template>
-							</td>
-						</TR>
 					</TABLE>
 				</div>
 				<div class="yjdiv" align="center" style="margin-top: 20px;">
@@ -308,6 +313,19 @@
 </xsl:template>
 <!-- 处理领导审批 -->
 <xsl:template match="table" mode="signMind">
+	<table width="100%" border="0">
+     <tbody>
+      <tr>
+       <td style="font-size:12pt"><xsl:value-of select="tbody/tr[1]/td/text()" /></td>
+      </tr>
+      <tr>
+       <td style="font-size:12pt" align="right"><span class="userName"><xsl:value-of select="tbody/tr[2]/td/span/text()" /></span><xsl:value-of select="tbody/tr[2]/td/text()" /></td>
+      </tr>
+     </tbody>
+    </table>
+</xsl:template>
+<!-- 签报人 -->
+<xsl:template match="table" mode="sinePerson">
 	<table width="100%" border="0">
      <tbody>
       <tr>
@@ -362,11 +380,15 @@ select="substring-before(substring-after($FileInfosValue,'&lt;doc_unid&gt;'),'&l
 <xsl:variable name="type"
 select="translate($filetype, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" />
 <xsl:if test="not(contains($fileunids, $fileunid))">
-
-	<a href="javascript:void(0)"
-		onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/'+$.hori.getconfig().docServer+'/{$dbPath}/0/{$docunid}/$file/{$fileunid}.{$filetype}')">
-		<xsl:value-of select="$file" />
-		</a>
+	<tbody><tr>
+		<td bgcolor="#f0f0f0" width="100%">
+			<a href="javascript:void(0)"
+				onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/'+$.hori.getconfig().docServer+'/{$dbPath}/0/{$docunid}/$file/{$fileunid}.{$filetype}')">
+				<xsl:value-of select="$file" />
+				</a>
+		</td>
+		</tr>
+	</tbody>
 
 </xsl:if>
 <xsl:if
