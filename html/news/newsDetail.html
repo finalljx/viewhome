@@ -28,7 +28,7 @@ p{
 					发布时间：<span data-bind="text: creatTime" ></span>
 				</div>
 				<div style="float: right;">
-					发文来源：<span data-bind="text: newsource" ></span>
+					发文来源：<span data-bind="if:$root.newsource"><span data-bind="text: newsource" ></span></span>
 				</div>
 				<br />
 			</div> 
