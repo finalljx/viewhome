@@ -100,6 +100,7 @@ img {
 							"Authorization" : "Basic d3BzYWRtaW46R1RBZG1pbg=="
 						},
 						"success" : function(res) {
+							console.log('res=='+res);
 							var widthImg = document.documentElement.clientWidth * 0.5;
 
 							var url = $.hori.getconfig().appServerHost2
@@ -289,8 +290,8 @@ img {
 			<div style="float: left;">
 				发布时间：<span data-bind="text: creatTime"></span>
 			</div>
-			<div style="float: right;">
-				发文来源：<span data-bind="text: newsource"></span>
+			<div style="float: right;" >
+				发文来源：<span data-bind="if:$root.newsource"><span data-bind="text: newsource"></span></span>
 			</div>
 			<br />
 			</p>
