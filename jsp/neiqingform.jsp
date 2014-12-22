@@ -25,7 +25,6 @@
 	Document doc = Jsoup.parse(responseXml);
 	Element content1 =doc.getElementById("table1");
 	String content=content1.toString().replaceAll("/genertec", "");
-	System.out.println(content);
 	taskJson.put("content", content);
 	Element agyj1=doc.getElementById("agyj");
 	String agyj=agyj1.toString().replaceAll("/genertec", "");
@@ -39,28 +38,33 @@
 	
 	
 	Elements file_unid = doc.select("file_unid");
+	
+	Elements fileNumber=idSpan.select("param[name=Nodelfiles]");
+	String fileNumberStr = fileNumber.val();
+	String fileNumberStrArr[] = fileNumberStr.split("\\\\");
+	System.out.println(fileNumberStrArr.length-1+"====================");
 	if(file_unid.size()>0){
 	
-	Elements doc_unid = doc.select("doc_unid");
-	String[] strUrl=new String[file_unid.size()];
-	for(int i=0; i<file_unid.size(); i++){
-		String s = toDoString;
-		s+="/0/";
-		s+=doc_unid.get(i).text();
-		s+="/$file/";
-		s+=file_unid.get(i).text();  
-		strUrl[i] = s;
-	}
+		Elements doc_unid = doc.select("doc_unid");
+		String[] strUrl=new String[fileNumberStrArr.length-1];
+		for(int i=0; i<(fileNumberStrArr.length-1); i++){
+			String s = toDoString;
+			s+="/0/";
+			s+=doc_unid.get(i).text();
+			s+="/$file/";
+			s+=file_unid.get(i).text();  
+			strUrl[i] = s;
+		}
 	
-	Elements file_name = doc.select("file_name");
-	String[] nameArr = new String[file_unid.size()];
-	for(int i=0; i<file_unid.size(); i++){
-		nameArr[i] = file_name.get(i).text();
-	}
+		Elements file_name = doc.select("file_name");
+		String[] nameArr = new String[fileNumberStrArr.length-1];
+		for(int i=0; i<(fileNumberStrArr.length-1); i++){
+			nameArr[i] = file_name.get(i).text();
+		}
 	
-	taskJson.put("lianjie", strUrl);
-	System.out.println(strUrl[0]);
-	taskJson.put("fileName", nameArr);
+		taskJson.put("lianjie", strUrl);
+		System.out.println(strUrl[0]);
+		taskJson.put("fileName", nameArr);
 	}
 	
 	out.print(taskJson);
