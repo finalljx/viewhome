@@ -48,9 +48,12 @@
 					json.put("ITCode",ITCode.getStringValue());
 					json.put("userName",userName.getStringValue());
 					json.put("telNumber",telNumber.getStringValue());
+					//在号码前加上tel:前缀
+					json.put("teltelNumber","tel:"+telNumber.getStringValue());
 					json.put("dialNumber",dialNumber.getStringValue());
 					json.put("officeNumber",officeNumber.getStringValue());
-					
+					//在号码前加上tel:前缀
+					json.put("telofficeNumber","tel:"+officeNumber.getStringValue());
 					taskArray.put(json);
 					
 				}
