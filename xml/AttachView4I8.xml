@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene xmlns="http://www.horizonpower.com.cn/hpclient/scene-xml/" xmlns:builtin="http://www.horizonpower.com.cn/hpclient/scene-xml/built-in/">
+<size width="320" height="480" />
+    <component name="root">
+        <componentType>
+			<component name="application" type="builtin:appController"/>
+			<component name="case" type="builtin:caseController">
+				<properties>
+					<property name="title">
+						<string></string>
+					</property>
+					<property name="navBarHidden">
+						<string>0</string>
+					</property>
+					<property name="navBarColor">
+						<string>#FF3398CC</string>
+					</property>
+				</properties>
+			</component>
+            <component name="main" type="builtin:webView">
+                <frame x="0" y="0" width="320" height="450"/>
+                <properties>
+                </properties>
+            </component>
+			<component name="previousButton" type="builtin:button">
+				<frame x="4" y="400" width="45" height="20"/>
+				<properties>
+					<property name="text">
+						<string>上一页</string>
+					</property>
+					<property name="hidden">
+						<string>1</string>
+					</property>
+					<property name="border-color">
+						<string>192,192,192,1</string>
+					</property>
+					<property name="border-width">
+						<string>1</string>
+					</property>
+				</properties>
+			</component>
+			<component name="nextButton" type="builtin:button">
+				<frame x="270" y="400" width="45" height="20"/>
+				<properties>
+					<property name="text">
+						<string>下一页</string>
+					</property>
+					<property name="border-color">
+						<string>192,192,192,1</string>
+					</property>
+					<property name="border-width">
+						<string>1</string>
+					</property>
+				</properties>
+			</component>
+        </componentType>
+    </component>
+   
+</scene>

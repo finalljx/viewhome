@@ -248,9 +248,19 @@ img {
 			type = "iphone";
 		}
 		if (type == "iphone") {
-			$.hori.loadPage($.hori.getconfig().serverBaseUrl
-					+ "viewhome/html/attachmentShowForm4News.html",
-					"viewhome/xml/AttachView4I.xml");
+			var json = $.hori.getDeviceInfo(function(res){
+	            var result = JSON.parse(res);
+	            var version = parseFloat(result["data-device-version"]);
+	            if(version && version >= 8.0){ //版本为ios8以上
+	                $.hori.loadPage($.hori.getconfig().serverBaseUrl
+	                        + "viewhome/html/attachmentShowForm4News.html",
+	                        "viewhome/xml/AttachView4I8.xml");
+	            }else{
+	                $.hori.loadPage($.hori.getconfig().serverBaseUrl
+	                        + "viewhome/html/attachmentShowForm4News.html",
+	                        "viewhome/xml/AttachView4I.xml");
+	            }
+	        });
 		} else if (type == "android") {
 			$.hori.loadPage($.hori.getconfig().serverBaseUrl
 					+ "viewhome/html/attachmentShowForm4News.html",
