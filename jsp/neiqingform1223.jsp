@@ -47,28 +47,19 @@
 	
 		Elements doc_unid = doc.select("doc_unid");
 		String[] strUrl=new String[fileNumberStrArr.length-1];
+		for(int i=0; i<(fileNumberStrArr.length-1); i++){
+			String s = toDoString;
+			s+="/0/";
+			s+=doc_unid.get(i).text();
+			s+="/$file/";
+			s+=file_unid.get(i).text();  
+			strUrl[i] = s;
+		}
+	
 		Elements file_name = doc.select("file_name");
 		String[] nameArr = new String[fileNumberStrArr.length-1];
-		int num=0;
-		for(int i=0; i<file_unid.size(); i++){
-			if(fileNumberStr.indexOf(file_name.get(i).text())!=-1){
-				String s = toDoString;
-				s+="/0/";
-				s+=doc_unid.get(i).text();
-				s+="/$file/";
-				s+=file_unid.get(i).text();  
-				strUrl[num] = s;
-				num=num+1;
-				System.out.println(num+"-----------------------------");
-			}
-			
-		}
-		int num2=0;
-		for(int i=0; i<file_unid.size(); i++){
-			if(fileNumberStr.indexOf(file_name.get(i).text())!=-1){
-				nameArr[num2] = file_name.get(i).text();
-				num2=num2+1;
-			}
+		for(int i=0; i<(fileNumberStrArr.length-1); i++){
+			nameArr[i] = file_name.get(i).text();
 		}
 	
 		taskJson.put("lianjie", strUrl);

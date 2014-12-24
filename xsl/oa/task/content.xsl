@@ -143,8 +143,12 @@
 						请示编号：</font></b></td><td style="width: 90%;"><input name="fldFwbh" data-mini="true" id="fldFwbh" type="text" value="{//input[@name='fldFwbh']/@value}"/></td>
 					</tr>
 					</xsl:if>
-					<tr><td colspan="4" style="border: 1px solid #000000;" class="top" height="120" valign="top"><b><br />
-						<font class="ztDx"><xsl:value-of select="//table[@id='table1']/tbody/tr[3]/." /></font></b></td>
+					<!-- 领导指示 -->
+					<tr>
+						<td colspan="4" style="border:1px solid #000000; " class="top" height="120" valign="top"> 
+							<b><br> <font class="ztDx">领导指示：</font></br></b><b></b>
+							<xsl:apply-templates select="//table[@id='table1']/tbody/tr[3]/td//table" mode="leaderMind"/>
+						</td>
 					</tr>
 					<tr><td colspan="4" class="btmHei"><font class="ztDx"><b><br />
 						<xsl:value-of select="//table[@id='table1']/tbody/tr[4]/." />
@@ -311,7 +315,20 @@
 		</body>
 	</html>
 </xsl:template>
-<!-- 处理领导审批 -->
+<!-- 处理领导指示 -->
+<xsl:template match="table" mode="leaderMind">
+	<table width="100%" border="0">
+	 <tbody>
+	  <tr>
+	   <td style="font-size:12pt"><xsl:value-of select="tbody/tr[1]/td/text()" /></td>
+	  </tr>
+	  <tr>
+	    <td style="font-size:12pt" align="right"><span class="userName"><xsl:value-of select="tbody/tr[2]/td/span/text()" /></span><xsl:value-of select="tbody/tr[2]/td/text()" /></td>
+	  </tr>
+	 </tbody>
+	</table>
+</xsl:template>
+<!-- 处理会签审批 -->
 <xsl:template match="table" mode="signMind">
 	<table width="100%" border="0">
      <tbody>
