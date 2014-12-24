@@ -24,7 +24,8 @@
 		<xsl:variable name="state"><xsl:value-of select="td[6]/."/></xsl:variable>
 		<xsl:variable name="formtime"><xsl:value-of select="td[7]/."/></xsl:variable>
 		<xsl:variable name="taskTitle"><xsl:value-of select="td[3]/."/></xsl:variable>
-		<xsl:if test="$state!='正在起草'">
+		<xsl:if test="contains($type,'请示报告') or contains($type,'会签')">
+			<xsl:if test="$state!='正在起草'">
 				<li name="lilist" href="#" data-icon="false" class="ui-first-child ui-last-child" data-time="{$formtime}">
 					<a href="javascript:void(0)" onclick="loadPageForm(this);" data-title="{$taskTitle}" data-unid="{$unid}"	data-type="{$type}" class="ui-btn">
 						<h3 style="white-space: normal;">
@@ -40,6 +41,7 @@
 						</p>
 					</a>
 				</li>
+			</xsl:if>
 		</xsl:if>
 	</xsl:template>
 </xsl:stylesheet>
