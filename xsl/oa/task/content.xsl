@@ -44,7 +44,12 @@
 								if(window.navigator.userAgent.match(/android/i)){
 									xmlurl ="viewhome/xml/AttachView.xml";
 								}else{
-									xmlurl ="viewhome/xml/AttachView4I.xml";
+									var iosVersion = localStorage.getItem("iosVersion");
+									if(iosVersion=="hight"){
+										xmlurl ="viewhome/xml/AttachView4I8.xml";
+									}else if(iosVersion=="down"){
+										xmlurl ="viewhome/xml/AttachView4I.xml";
+									}
 								}
 								$.hori.loadPage(fileurl,xmlurl);
 							}
