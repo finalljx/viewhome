@@ -350,18 +350,25 @@ a {
 									//return;
 								}
 								resulttoken = resulttoken.replace(/\s+/g, "");
+								var description = window.navigator.userAgent;
+								var resolution = window.screen.height + "*" + window.screen.width;
+								var url = $.hori.getconfig().appServerHost
+                                + "view/oa?data-action=regisdevice&data-device-type="
+                                + type
+                                + "&data-device-token="
+                                + resulttoken
+                                + "&data-device-id="
+                                + resultid
+                                + "&data-device-resolution="
+                                + resolution
+                                + "&data-device-description="
+                                + description
+                                + "&random="
+                                + Math.random();
 								$.hori
 										.ajax({
 											type : "POST",
-											url : $.hori.getconfig().appServerHost
-													+ "view/oa?data-action=regisdevice&data-device-type="
-													+ type
-													+ "&data-device-token="
-													+ resulttoken
-													+ "&data-device-id="
-													+ resultid
-													+ "&random="
-													+ Math.random(),
+											url : url,
 											success : function(response) {
 											},
 											error : function(response) {
