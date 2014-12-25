@@ -102,6 +102,7 @@ img {
 						"success" : function(res) {
 							console.log('res=='+res);
 							var widthImg = document.documentElement.clientWidth * 0.5;
+							var widthImg2 = document.documentElement.clientWidth * 0.97;
 
 							var url = $.hori.getconfig().appServerHost2
 									+ "view/tpxw/file";
@@ -216,7 +217,7 @@ img {
 								r = /<\s*p.*?>(.*)<\s*\/p\s*>/g;
 								a = a.replace(r, '$1');
 								$(this).html(a);
-								$(this).css('width', widthImg);
+								$(this).css('width', widthImg2);
 							});
 
 						},
