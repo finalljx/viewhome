@@ -43,15 +43,20 @@
 								var xmlurl;
 								if(window.navigator.userAgent.match(/android/i)){
 									xmlurl ="viewhome/xml/AttachView.xml";
+									$.hori.loadPage(fileurl,xmlurl);
 								}else{
-									var iosVersion = localStorage.getItem("iosVersion");
-									if(iosVersion=="hight"){
-										xmlurl ="viewhome/xml/AttachView4I8.xml";
-									}else if(iosVersion=="down"){
-										xmlurl ="viewhome/xml/AttachView4I.xml";
-									}
+									var json = $.hori.getDeviceInfo(function(res){
+										var result = JSON.parse(res);
+										var version = parseFloat(result["data-device-version"]);
+										if(version && version >= 8.0){ //版本为ios8以上
+											xmlurl ="viewhome/xml/AttachView4I8.xml";
+											$.hori.loadPage(fileurl,xmlurl);
+										}else{
+											xmlurl ="viewhome/xml/AttachView4I.xml";
+											$.hori.loadPage(fileurl,xmlurl);
+										}
+									  });
 								}
-								$.hori.loadPage(fileurl,xmlurl);
 							}
 							function querysubmit(value){
 								$.hori.showLoading();
