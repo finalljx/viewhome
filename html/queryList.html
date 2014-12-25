@@ -254,6 +254,7 @@
 						$("#querySearch").css("display", "block");
 						$("#signselect").css("display", "none");
 						$("#signSearch").css("display", "none");
+						$("#querysearchKey").val("请输入关键字");
 						$.hori.hideLoading();
 					}
 					//会签
@@ -265,6 +266,7 @@
 						$("#signSearch").css("display", "block");
 						$("#queryselect").css("display", "none");
 						$("#querySearch").css("display", "none");
+						$("#signsearchKey").val("请输入关键字");
 						$.hori.hideLoading();
 					}
 			}})
@@ -327,6 +329,7 @@
 					fiteryear();
 					//临时处理
 					$("#moredata").hide();
+					$("#querysearchKey").val("请输入关键字");
 					$.hori.hideLoading();
 					myScroll.refresh();
 					signLoad=true;
@@ -392,6 +395,7 @@
                     fiteryear();
 					//临时处理
 					$("#moredata").hide();
+					$("#signsearchKey").val("请输入关键字");
 					myScroll.refresh();
 					
 				},
@@ -451,6 +455,9 @@
 			if(searchkey == ''){
 				alert("请输入查询条件");
 				return;
+			}else if(searchkey == '请输入关键字'){
+				alert("请输入查询条件");
+				return;
 			}
 			$.hori.showLoading();
 			localStorage.setItem("searchkey", searchkey);
@@ -501,6 +508,9 @@
 		function signsearchlist(){
 			var searchkey=$("#signsearchKey").val();
 			if(searchkey == ''){
+				alert("请输入查询条件");
+				return;
+			}else if(searchkey == '请输入关键字'){
 				alert("请输入查询条件");
 				return;
 			}
@@ -555,19 +565,29 @@
 		}
 		//搜索框 signsearchKey
 		function clearData2() {
-			$("#signsearchKey").val("");
+			var signsearchKeyVal = $("#signsearchKey").val();
+			$("#signsearchKey").css("color", "#0F0E0E");
+			if (signsearchKeyVal == "请输入关键字"){
+				$("#signsearchKey").val("");
+			} 
 		}
 		function showTips2() {
 			var signsearchKeyVal = $("#signsearchKey").val();
+			$("#signsearchKey").attr("style","color: #ADADAD;");
 			if (signsearchKeyVal == ""||signsearchKeyVal == " "){
 				$("#signsearchKey").val("请输入关键字");
 			} 
 		}
 		function clearData() {
-			$("#querysearchKey").val("");
+			var querysearchKeyVal = $("#querysearchKey").val();
+			$("#querysearchKey").attr("style","color: #0F0E0E;");
+			if (querysearchKeyVal == "请输入关键字"){
+				$("#querysearchKey").val("");
+			} 
 		}
 		function showTips() {
 			var querysearchKeyVal = $("#querysearchKey").val();
+			$("#querysearchKey").attr("style","color: #ADADAD;");
 			if (querysearchKeyVal == ""||querysearchKeyVal == " "){
 				$("#querysearchKey").val("请输入关键字");
 			} 
