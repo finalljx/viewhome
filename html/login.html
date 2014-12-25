@@ -5,6 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
 <link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" />
+
 <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
 <script src="../lib/jquery/jquery.min.js"></script>
 <!-- jQuery扩展，生成uuid -->
@@ -100,8 +101,10 @@ a {
 	function clearLoginInput() {
 		$("#password").val("");
 		$("#captcha").val("");
-		if (!document.getElementById("saveusername").checked) {//未选中状态，清空用户名输入
-			$("#username").val("");
+		//alert('OOOO'+document.getElementById("saveusername").checked);
+		if (localStorage.getItem("data-saveusername") != "true") {//未选中状态，清空用户名输入
+			$("#username").css("color", "#9e9e9e");
+			$("#username").val("用户名");
 		}
 	}
 	function getCaptcha() {
@@ -141,9 +144,9 @@ a {
 	function showTips() {
 		var userName = $.trim($("#username").val());
 		if ($.trim($("#username").val()) == "") {
+			$("#username").val("用户名");
 			$("#username").css("color", "#9e9e9e");
-			$("#username").attr("value", "用户名");
-
+			
 		} else {
 			$("#username").css("color", "#0F0E0E");
 		}
@@ -159,7 +162,7 @@ a {
 		var password = $("#password").val();
 		var captcha = $("#captcha").val();
 		localStorage.setItem("itcodetasklist", "1");
-		if (username == "") {
+		if (username == "用户名" || username == "") {
 			$.hori.loading("hide");
 			alert("请输入用户名!");
 			return;
