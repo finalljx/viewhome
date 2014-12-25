@@ -474,7 +474,7 @@
 			}
 			//
 			var docServer=$.hori.getconfig().docServer;
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+docServer+"/genertec/dep1/qsbg_1.nsf/"+view+"?SearchView&count=30&Query="+searchkey+"&view="+view;
+			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+docServer+"/genertec/dep1/qsbg_1.nsf/"+view+"?SearchView&count=50&Query="+searchkey+"&view="+view;
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
@@ -528,7 +528,7 @@
 				localStorage.setItem("type","searchsignArchvied");
 			}
 			var singdbPath = localStorage.getItem("singdbPath");
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/"+view+"?SearchView&count=30&Query="+searchkey+"&view="+view;
+			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/"+view+"?SearchView&count=50&Query="+searchkey+"&view="+view;
 			//alert(url);
 			$.hori.ajax({
 				"type":"post",
@@ -578,7 +578,7 @@
 			position: fixed;
 			top: 190px;
 			bottom: 48px;
-			width: 97.5%;
+			width: 90%;
 			overflow: scroll;
 		}
 	</style>
