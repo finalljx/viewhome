@@ -269,6 +269,7 @@
 					$("#signselect").css("display", "none");
 					$("#signSearch").css("display", "none");
 					$("#querysearchKey").val("请输入关键字");
+					$("#querysearchKey").attr("style","color: #ADADAD;");
 				}
 				//会签
 				if(tabid=="signList"){
@@ -279,6 +280,7 @@
 					$("#queryselect").css("display", "none");
 					$("#querySearch").css("display", "none");
 					$("#signsearchKey").val("请输入关键字");
+					$("#signsearchKey").attr("style","color: #ADADAD;");
 				}
 		}})
 			var onlist=localStorage.getItem("click4");
@@ -341,6 +343,7 @@
 					fiteryear();
 					$("#moredata").hide();
 					$("#querysearchKey").val("请输入关键字");
+					$("#querysearchKey").attr("style","color: #ADADAD;");
 					myScroll.refresh();
 					signLoad=true;
 					$.hori.hideLoading();
@@ -404,6 +407,7 @@
 					localStorage.setItem("pullUpActionVal","yes");
 					$.hori.hideLoading();
 					$("#signsearchKey").val("请输入关键字");
+					$("#signsearchKey").attr("style","color: #ADADAD;");
                     fiteryear();
 					$("#moredata").hide();
 				},
@@ -581,10 +585,10 @@
 		}
 		function showTips2() {
 			var signsearchKeyVal = $("#signsearchKey").val();
-			$("#signsearchKey").attr("style","color: #ADADAD;");
 			if (signsearchKeyVal == ""||signsearchKeyVal == " "){
 				$("#signsearchKey").val("请输入关键字");
-			} 
+				$("#signsearchKey").attr("style","color: #ADADAD;");
+			}
 		}
 		function clearData() {
 			var querysearchKeyVal = $("#querysearchKey").val();
@@ -595,10 +599,10 @@
 		}
 		function showTips() {
 			var querysearchKeyVal = $("#querysearchKey").val();
-			$("#querysearchKey").attr("style","color: #ADADAD;");
 			if (querysearchKeyVal == ""||querysearchKeyVal == " "){
 				$("#querysearchKey").val("请输入关键字");
-			} 
+				$("#querysearchKey").attr("style","color: #ADADAD;");
+			}
 		}
 	</script>
 		<style>
