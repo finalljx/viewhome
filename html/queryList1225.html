@@ -65,8 +65,6 @@
 				}
 			}
 			function pullUpAction () {
-				//临时禁用加载更多 2014-12-25 武红宇
-				return false;
 				$.hori.showLoading();
 				setTimeout(function () {
 					try{
@@ -321,7 +319,7 @@
 				view="vwDocByArchvied";
 			}
 			$.hori.hideLoading();
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+$.hori.getconfig().docServer+"/genertec/dep1/qsbg_1.nsf/myview?openform&view="+view+"&start=1&count=30";
+			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+$.hori.getconfig().docServer+"/genertec/dep1/qsbg_1.nsf/myview?openform&view="+view+"&start=1&count=10";
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
@@ -337,7 +335,6 @@
 					localStorage.setItem("querydataListHide","querydataList");
 					localStorage.setItem("pullUpActionVal","yes");
 					fiteryear();
-					$("#moredata").hide();
 					myScroll.refresh();
 					signLoad=true;
 					$.hori.hideLoading();
@@ -387,7 +384,7 @@
 				localStorage.setItem("type","signArchvied");
 			}
 			var singdbPath = localStorage.getItem("singdbPath");
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/myview?openform&view="+view+"&start=1&count=30";
+			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/myview?openform&view="+view+"&start=1&count=10";
 			$.hori.hideLoading();
 			$.hori.ajax({
 				"type":"post",
@@ -401,7 +398,6 @@
 					localStorage.setItem("pullUpActionVal","yes");
 					$.hori.hideLoading();
                     fiteryear();
-					$("#moredata").hide();
 				},
 				"error":function(res){
 					alert(res);
@@ -481,7 +477,7 @@
 				template="searchqueryArchvied";
 			}
 			//
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+$.hori.getconfig().docServer+"/genertec/dep1/qsbg_1.nsf/"+view+"?SearchView&count=50&Query="+searchkey+"&view="+view;
+			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+$.hori.getconfig().docServer+"/genertec/dep1/qsbg_1.nsf/"+view+"?SearchView&count=10&Query="+searchkey+"&view="+view;
 			$.hori.ajax({
 				"type":"post",
 				"url":url,
@@ -494,7 +490,6 @@
 					localStorage.setItem("querydataListHide","querydataList");
 					localStorage.setItem("pullUpActionVal","yes");
 					fiteryear();
-					$("#moredata").hide();
 					myScroll.refresh();
 					signLoad=true;
 					$.hori.hideLoading();
@@ -530,7 +525,7 @@
 				localStorage.setItem("type","searchsignArchvied");
 			}
 			var singdbPath = localStorage.getItem("singdbPath");
-			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/"+view+"?SearchView&count=50&Query="+searchkey+"&view="+view;
+			var url=$.hori.getconfig().appServerHost+"view/oa/"+template+"/"+singdbPath+"/"+view+"?SearchView&count=10&Query="+searchkey+"&view="+view;
 			//alert(url);
 			$.hori.ajax({
 				"type":"post",
@@ -543,7 +538,6 @@
 					localStorage.setItem("querydataListHide","signdataList");
 					localStorage.setItem("pullUpActionVal","yes");
 					fiteryear();
-					$("#moredata").hide();
 					$.hori.hideLoading();
 					myScroll.refresh();
 				},
@@ -553,30 +547,11 @@
 				}
 			});
 		}
-		//搜索框 signsearchKey
-		function clearData2() {
-			$("#signsearchKey").val("");
-		}
-		function showTips2() {
-			var signsearchKeyVal = $("#signsearchKey").val();
-			if (signsearchKeyVal == ""||signsearchKeyVal == " "){
-				$("#signsearchKey").val("请输入关键字");
-			} 
-		}
-		function clearData() {
-			$("#querysearchKey").val("");
-		}
-		function showTips() {
-			var querysearchKeyVal = $("#querysearchKey").val();
-			if (querysearchKeyVal == ""||querysearchKeyVal == " "){
-				$("#querysearchKey").val("请输入关键字");
-			} 
-		}
 	</script>
 		<style>
 		#wrapper {
 			position: fixed;
-			top: 190px;
+			top: 170px;
 			bottom: 48px;
 			width: 85%;
 			overflow: scroll;
@@ -607,10 +582,9 @@
 				<div id="querySearch">
 					<table>
 						<tr>
-							<td width="93%" height="20px"><input id="querysearchKey" type="text" value="请输入关键字" style="color: gray;"onfocus="clearData()" onblur="showTips()"/></td>
+							<td width="93%" height="20px"><input id="querysearchKey" type="text" value=""/></td>
 							<td><a href="#" onclick="querysearchlist()" data-role="button" data-mini='true' data-theme="f" class="ui-btn-corner-all ui-btn-up-c ui-btn-up-f ui-btn ui-btn-inline ui-shadow" style="color: white">搜索</a></td>
 						</tr>
-						<tr><td style="color: gray;">列表最多显示近期30个文件，更多请搜索。</td><tr>
 					</table>
 				</div>
 				<div id="signselect" align="center" class="ui-grid-b" style="display:none">
@@ -627,17 +601,16 @@
 				<div id="signSearch" style="display:none">
 					<table>
 						<tr>
-							<td width="93%" height="20px"><input id="signsearchKey" type="text" value="请输入关键字" style="color: gray;"onfocus="clearData2()" onblur="showTips2()"/></td>
+							<td width="93%" height="20px"><input id="signsearchKey" type="text" value=""/></td>
 							<td><a href="#" onclick="signsearchlist()" data-role="button" data-inline="true" data-theme="f" class="ui-btn-corner-all ui-btn-up-c ui-btn-up-f ui-btn ui-btn-inline ui-shadow" style="color: white">搜索</a></td>
 						</tr>
-						<tr><td style="color: gray;">列表最多显示近期30个文件，更多请搜索。</td><tr>
 					</table>
 				</div>
 				<div id="wrapper">
 					<div id="scroller">
 						<div id="pullDown"></div>
 			      <div id="two">
-						<ul id="querydataList"  data-role="listview" data-inset="true" style="margin-top: 1px;">
+						<ul id="querydataList"  data-role="listview" data-inset="true">
 							<li id="moredata" style="display:none"><div id="pullUp" align="center">
 								<span class="pullUpLabel">上划加载更多...</span>
 							</div></li>
@@ -645,7 +618,7 @@
 						<br/>
 			      </div>
 			      <div id="three">
-					   <ul id="signdataList" data-role="listview" data-inset="true" style="margin-top: 1px;">
+					   <ul id="signdataList" data-role="listview" data-inset="true">
 							<li id="moredata" style="display:none"><div id="pullUp" align="center">
 									<span class="pullUpLabel">上划加载更多...</span>
 								</div></li>
