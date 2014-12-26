@@ -29,6 +29,10 @@ p {
 	text-indent: 2em;
 }
 
+table p{
+    text-indent: 0em;
+}
+
 img {
 	display: block;
 	margin: auto;
@@ -258,10 +262,10 @@ img {
 						var objArr = $('.details table');
 						var a, r;
 						$(objArr).each(function(i) {
-							a = $(this).html();
-							r = /<\s*p.*?>(.*)<\s*\/p\s*>/g;
-							a = a.replace(r, '$1');
-							$(this).html(a);
+							//a = $(this).html();
+							//r = /<\s*p.*?>(.*)<\s*\/p\s*>/g;
+							//a = a.replace(r, '$1');
+							//$(this).html(a);
 							$(this).css('width', widthImg2);
 						});
 						/* var i= document.getElementsByTagName('img');
