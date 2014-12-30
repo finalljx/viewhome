@@ -2,12 +2,12 @@
 	hori.getconfig=function(){
 
 		return{
-			"oaServerName":"MSG01/Server/CRSC",
-			"oaMsgServer":"MSG01/Server/CRSC",
-			"oaMobileServer":"MSG01/Server/CRSC",
-			"serverBaseUrl":"http://localhost:90/",
+			"oaServerName": "TESTMSG01/CRSC",
+			"oaMsgServer": "TESTMSG01/CRSC",
+			"oaMobileServer": "TESTMSG01/CRSC",
+			"serverBaseUrl":"http://localhost:8080/",
 			"encryptKey":"horiTech",
-			"appServerHost":"http://localhost:90/",
+			"appServerHost":"http://localhost:8080/",
 			"appKey":"mobiletonghao"
 		};
 	};

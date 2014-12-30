@@ -147,6 +147,7 @@
 									var toflownodeid = "";
 									if($("#toflownodeid").length>0){
 										toflownodeid = $("#toflownodeid").val();
+										toflownodeid =toflownodeid.replace(";","");
 										if(toflownodeid==""){
 											alert("请选择下一环节");
 											return ;
