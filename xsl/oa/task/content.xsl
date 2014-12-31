@@ -39,6 +39,12 @@
 							});
 							//viewfile 附件函数
 							function viewfile(url){
+								//截取附件后缀名
+								var cut =url.substring(url.lastIndexOf("."));
+								if(cut != ".doc" & cut != ".xls"& cut != ".ppt" & cut != ".pdf"& cut != ".txt" & cut != ".docx"){
+									alert("系统不能打开此文件！");
+									return false;
+								}
 								localStorage.setItem("attachmentUrl",url);
 								var fileurl = $.hori.getconfig().appServerHost+"view/html/attachmentShowForm.html?data-application="+$.hori.getconfig().appKey;
 								var xmlurl ="viewhome/xml/AttachView.xml";
