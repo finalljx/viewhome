@@ -48,6 +48,8 @@
         function doSearch() {
             try {
                 var skey = $("#searchKey").val();
+                if(skey == "请输入公司名称、节日或填报人")
+                	skey=null;
                 if(skey == null || skey.length == 0){
     				alert("关键词不能为空！");
     				 $.hori.loading("hide");
@@ -107,6 +109,31 @@
 
 
     </script>
+    
+    <script>
+	function showTips() {
+		if ($.trim($("#searchKey").val()) == "") {
+			$("#searchKey").css("color", "#9e9e9e");
+			$("#searchKey").attr("value", "请输入公司名称、节日或填报人");
+			$("#searchKey").val("请输入公司名称、节日或填报人");
+		} else {
+			$("#searchKey").css("color", "#0F0E0E");
+		}
+		return false;
+	}
+	
+	function clearData() {
+		if ($.trim($("#searchKey").val()) == "请输入公司名称、节日或填报人") {
+			$("#searchKey").val("");
+			$("#searchKey").css("color", "#0F0E0E");
+		} else {
+
+		}
+		return false;
+	}
+    </script>
+    
+    
 </head>
 <body>
 
@@ -116,7 +143,7 @@
         <table>
             <tr>
                 <td width="95%" height="20px"><input id="searchKey"
-                                                     type="text" value=""/></td>
+                                                     type="text" value="请输入公司名称、节日或填报人" style="color: #9e9e9e;" onfocus="clearData()" onblur="showTips()"/></td>
                 <td><a href="#search" data-role="button" data-inline="true"
                        data-rel="dialog" data-corners="true" data-shadow="true"
                        data-iconshadow="true" data-wrapperels="span" data-theme="f"
