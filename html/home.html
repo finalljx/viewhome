@@ -11,8 +11,10 @@
 <script src="../config/web/config.js"></script>
 <script type="text/javascript">
 function openmail(){
-	//$.hori.loadPage("http://mail.crsc.cn/");
-	//window.location.href="http://mail.crsc.cn/";
+	$.hori.openUrl("http://mail.crsc.cn/",function(data){
+		//alert(data);
+		});
+
 }
 //ibmscp://com.ibm.connections/launch
 function loadConnections() {
@@ -148,6 +150,7 @@ var icount=0;
 		createUser();
 		gcount = gcount + 1;
 		localStorage.setItem("taskVal","1");
+		localStorage.setItem("click","1");
 		var targetUrl = $.hori.getconfig().serverBaseUrl
 				+ "viewhome/html/taskList.html"
 		$.hori.loadPage(encodeURI(targetUrl));
@@ -185,6 +188,7 @@ var icount=0;
 			return false;
 		}
 		localStorage.setItem("officialVal","1");
+		localStorage.setItem("click","1");
 		$.hori.showLoading();
 		var targetUrl = $.hori.getconfig().serverBaseUrl+"viewhome/html/officialDocument.html"
 		$.hori.loadPage(encodeURI(targetUrl));
