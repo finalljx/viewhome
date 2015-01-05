@@ -76,6 +76,17 @@
 						getReceivedocList();
 					}
 			}})
+			$.hori.registerEvent("case", "casePresented", function() {
+				var onlist=localStorage.getItem("click");
+				if(onlist=="1"){
+					$("#ui-id-1").click();	
+				}
+
+				if(onlist=="2"){
+					$("#ui-id-2").click();	
+				}
+			});
+
 			//localStorage.setItem("officialVal","1");
 			var onlist=localStorage.getItem("officialVal");
 			if(onlist=="1"){
@@ -86,12 +97,14 @@
 				$("#ui-id-2").click()	
 			}
 			
+			
 		})
 	
 		//发文列表
 		var starNumber=1;
 		function getIssuedocList(){
 			$.hori.showLoading();
+			localStorage.setItem("click","1");
 			localStorage.setItem("getMoreData","issuedoc");
 			var issuedoc = localStorage.getItem("issuedoc");
 			var url = $.hori.getconfig().appServerHost+"view/oa/issuedocList/"+issuedoc+"/AppDoingView?readviewentries?login&start="+starNumber+"&count=10";
@@ -123,6 +136,7 @@
 	
 		//收文列表
 		function getReceivedocList(){
+			localStorage.setItem("click","2");
 			localStorage.setItem("getMoreData","receivedoc");
 			var receivedoc = localStorage.getItem("receivedoc");
 			var url = $.hori.getconfig().appServerHost+"view/oa/receivedocList/"+receivedoc+"/AppDoingView?readviewentries?login&start="+starNumber+"&count=10";
@@ -192,6 +206,7 @@
 	        }
 	    }
 		var docunid = $(str).data("unid");
+		
 		localStorage.setItem("Receivedocdocunid",docunid);
 		var receivedoc = localStorage.getItem("receivedoc");
 		/*if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)||window.navigator.userAgent.match(/android/i)){
@@ -212,7 +227,7 @@
 			overflow: scroll;
 			top: 100px;
 			bottom: 1.5em;
-			width: 98%;
+			width: 100%;
 		}
 		.ui-content .ui-listview-inset, .ui-panel-inner.ui-listview-inset {
 			margin: 0em 0;

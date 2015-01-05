@@ -91,12 +91,23 @@
 				$("#ui-id-2").click()	
 			}
 			
+			$.hori.registerEvent("case", "casePresented", function() {
+				var onlist=localStorage.getItem("click");
+				if(onlist=="1"){
+					$("#ui-id-1").click();	
+				}
+
+				if(onlist=="2"){
+					$("#ui-id-2").click();	
+				}
+			});
 		})
 	</script>
 	<script type="text/javascript">
 		//待办列表
 		function getTodoTaskList(){
 			$.hori.showLoading();
+			localStorage.setItem("click","1");
 			localStorage.setItem("getTaskMoreData","todoList");
 			var url = $.hori.getconfig().appServerHost+'view/oamobile/todosList/Produce/DigiFlowMobile.nsf/agGetMsgViewData?openagent&login&server='+oaMsgServer+'&dbpath=DFMessage/dfmsg_'+itcode+'.nsf&view=vwTaskUnDoneForMobile&thclass=&page='+todoStart+'&count=10';
 			$.hori.showLoading();
@@ -126,6 +137,7 @@
 		//已办列表
 		function getDidTaskList(){
 			$.hori.showLoading();
+			localStorage.setItem("click","2");
 			localStorage.setItem("getTaskMoreData","didList");
 			var url = $.hori.getconfig().appServerHost+'view/oamobile/taskDownList/Produce/DigiFlowMobile.nsf/agGetMsgViewData?openagent&login&server='+oaMsgServer+'&dbpath=DFMessage/dfmsg_'+itcode+'.nsf&view=vwTaskDoneForMobile&thclass=&page='+didStart+'&count=10';
 			$.hori.showLoading();
@@ -224,7 +236,7 @@
 			overflow: scroll;
 			top: 100px;
 			bottom: 1.5em;
-			width: 98%;
+			width: 100%;
 		}
 		.ui-content .ui-listview-inset, .ui-panel-inner.ui-listview-inset {
 			margin: 0em 0;
