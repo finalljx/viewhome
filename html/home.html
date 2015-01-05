@@ -63,12 +63,13 @@ function adjustBubble(){
 	spanTodo.style.position="fixed";
 	//68为图片宽度
 	if(window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)) {
-		spanTodo.style.top=divOneOffset.top-10;
+		spanTodo.style.top=divOneOffset.top;
 		spanTodo.style.left=imgOffset.left+78;
+
 
 	}else if(window.navigator.userAgent.match(/android/i)) {
 
-		spanTodo.style.top=divOneOffset.top-10;
+		spanTodo.style.top=divOneOffset.top;
 		spanTodo.style.left=imgOffset.left+68+10;
 	}else{
 		//alert('other')
@@ -105,7 +106,7 @@ var icount=0;
 			}
 			//ios 隐藏邮件图标
 			if (hori.getMobileType() == "apple") {
-				$("#divMail").hide();
+				//$("#divMail").hide();
 			}
 			//获取公文库
 			getOfficialLibrary();
@@ -130,7 +131,7 @@ var icount=0;
 						}
 
 					} else {
-						alert("获取cookie失败");
+						//alert("获取cookie失败");
 					}
 				} catch (e) {
 					alert(e.message);
@@ -274,7 +275,7 @@ a {
 					<a href="javascript:void(0)" onclick="loadConnections()" class="ui-link"> <img width="80" height="80" src="../assets/home/Connection.png">
 					</a> <br> <span style="color: #434343"><strong>Connection</strong></span>
 				</div>
-				<div class="ui-block-c" id="divMail">
+				<div class="ui-block-c">
 					<a href="javascript:void(0);" onclick="openmail()" class="ui-link"> <img width="80" height="80" src="../assets/home/mail.png">
 					</a> <br> <span style="color: #434343"><strong>个人邮件</strong></span>
 				</div>
