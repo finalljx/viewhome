@@ -167,6 +167,7 @@
 		var t1 = null;//这个设置为全局
 	//发文详情页
 	function loadIssuedocPage(str){
+		localStorage.setItem("officialVal","1");
 		if (t1 == null){
 	        t1 = new Date().getTime();
 	    }else{       
@@ -194,6 +195,7 @@
 	}
 	//收文详情页
 	function loadReceivedocPage(str){
+		localStorage.setItem("officialVal","2");
 		if (t1 == null){
 	        t1 = new Date().getTime();
 	    }else{       
@@ -226,6 +228,7 @@
 			position: fixed;
 			overflow: scroll;
 			top: 100px;
+			left: 0px;
 			bottom: 1.5em;
 			width: 100%;
 		}
