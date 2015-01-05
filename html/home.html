@@ -65,12 +65,12 @@ function adjustBubble(){
 	spanTodo.style.position="fixed";
 	//68为图片宽度
 	if(window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)) {
-		spanTodo.style.top=divOneOffset.top-10;
+		spanTodo.style.top=divOneOffset.top;
 		spanTodo.style.left=imgOffset.left+78;
 
 	}else if(window.navigator.userAgent.match(/android/i)) {
 
-		spanTodo.style.top=divOneOffset.top-10;
+		spanTodo.style.top=divOneOffset.top;
 		spanTodo.style.left=imgOffset.left+68+10;
 	}else{
 		//alert('other')
