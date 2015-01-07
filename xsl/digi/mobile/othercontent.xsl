@@ -72,8 +72,9 @@
 								FlowMindInfo = FlowMindInfo.replace(/\n/g," ");
 								FlowMindInfo = FlowMindInfo.replace(/\r/g," ");
 								localStorage.setItem("FlowMindInfo",FlowMindInfo);
-								FlowMindInfo = encodeURI(escape(FlowMindInfo));
-								//FlowMindInfo = escape(FlowMindInfo);
+								//FlowMindInfo = encodeURI(escape(FlowMindInfo));
+								FlowMindInfo = escape(FlowMindInfo);
+								FlowMindInfo = encodeURI(FlowMindInfo);
 								FlowMindInfo = FlowMindInfo.replace(/%20/g," "); 
 								
 								if(window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)) {
