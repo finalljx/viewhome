@@ -40,7 +40,7 @@
 						
 						var contentHtml=$("#notice").html();
 						localStorage.setItem("oaAppContentHtml",contentHtml);
-						$.hori.loadPage($.hori.getconfig().appServerHost+"view/html/searchPerson.html");
+						$.hori.loadPage($.hori.getconfig().serverBaseUrl+"viewhome/html/searchPerson.html");
 					}
 					
            
@@ -73,8 +73,13 @@
 								FlowMindInfo = FlowMindInfo.replace(/\r/g," ");
 								localStorage.setItem("FlowMindInfo",FlowMindInfo);
 								//FlowMindInfo = encodeURI(escape(FlowMindInfo));
+								if(value=='submit'){
 								FlowMindInfo = escape(FlowMindInfo);
 								FlowMindInfo = encodeURI(FlowMindInfo);
+								}
+								if(value=='reject'){
+								FlowMindInfo = escape(FlowMindInfo);
+								}
 								FlowMindInfo = FlowMindInfo.replace(/%20/g," "); 
 								
 								if(window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)) {
@@ -134,15 +139,7 @@
 										return;
 									}
 								}
-								//提交
-								if(value=="reject"){
-									var question = window.confirm("确定驳回吗?"); 
-								}else{
-									var question = window.confirm("确定提交吗?"); 
-								}
-								alert("公告审批");
 								//确定提交或者驳回时
-								if(question){
 									var toflownodeid = "";
 									if($("#toflownodeid").length>0){
 										toflownodeid = $("#toflownodeid").val();
@@ -155,7 +152,6 @@
 									//存储下一环节到localstorage中
 									localStorage.setItem("oaNextNodeId",toflownodeid);
 									post(value, toflownodeid);
-								}
 							}
 							function advanced(){
 								$( "#popupBasic" ).popup( "open" );
