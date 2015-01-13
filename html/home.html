@@ -18,14 +18,24 @@ function openmail(){
 }
 //ibmscp://com.ibm.connections/launch
 function loadConnections() {
+	if($.hori.getMobileType() == "apple"){
+		$.hori.openUrl("ibmscp://com.ibm.connections/launch",function(data){
+			if (data == "true") {
+				console.log("启动Connections客户端");
+			} else {
+				alert("您没有安装Connections客户端，请安装后再试");
+			}
+			});
+	}else{
 	$.hori.runApp("com.ibm.lotus.connections.mobile","com.ibm.lotus.connections.mobile.pages.LotusConnections",function(res) {
-		alert(res);
+		//alert(res);
 		if (res == "true") {
 			console.log("启动Connections客户端");
 		} else {
 			alert("您没有安装Connections客户端，请安装后再试");
 		}
 	});
+	}
 }
 
 //气泡中待办数量
@@ -107,7 +117,7 @@ var icount=0;
 			}
 			//ios 隐藏邮件图标
 			if (hori.getMobileType() == "apple") {
-				$("#divMail").hide();
+				//$("#divMail").hide();
 			}
 			//获取公文库
 			getOfficialLibrary();
@@ -132,7 +142,7 @@ var icount=0;
 						}
 
 					} else {
-						alert("获取cookie失败");
+						//alert("获取cookie失败");
 					}
 				} catch (e) {
 					alert(e.message);
