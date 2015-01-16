@@ -65,6 +65,8 @@
 			hori.setHeaderTitle("待办列表");
 			$.hori.showLoading();
 			loaded();
+			var tasknumber=localStorage.getItem("tasknumber");
+			$(".tasktodo").html("代办("+tasknumber+")");
 			$("#tabs").tabs({beforeActivate:function(event,ui){
 					//alert(ui.newTab.context.dataset.id);
 					tabid=ui.newTab.context.dataset.id;
@@ -250,7 +252,7 @@
 			<div data-role="tabs" id="tabs">
 		      	<div data-role="navbar">
 					<ul>
-						<li><a href="#two" data-ajax="false" data-id="todoList">待办</a></li>
+						<li><a href="#two" data-ajax="false" data-id="todoList" class="tasktodo">待办</a></li>
 						<li><a href="#three" data-ajax="false" data-id="didList">已办</a></li>
 					</ul>
 				</div>

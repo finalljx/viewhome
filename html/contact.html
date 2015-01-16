@@ -22,13 +22,24 @@
 <script src="../lib/knockout/knockout.js"></script>
 <script src="../lib/knockout/knockout.mapping.js"></script>
 <script src="../lib/app/contact/app.js"></script>
-<script src="../lib/app/contact/contactViewModel.js"></script>
 <script src="../lib/jquery-mobile/jquery.mobile.min.js"></script>
+	<style>
+		#wrapper {
+			position: fixed;
+			overflow: scroll;
+			top: 100px;
+			left: 2%;
+			bottom: 1.5em;
+			width: 96%;
+		}
+		.ui-content .ui-listview-inset, .ui-panel-inner.ui-listview-inset {
+			margin: 0em 0;
+		}
+	</style>
 </head>
-<body>
+<body >
 	<div id="list" data-role="page" class="type-home">
-		<div data-role="content">
-
+		<div data-role="content" align="center">
 			<div style="margin-left: 15px;">
 				<table>
 					<tr>
@@ -40,23 +51,38 @@
 							class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c ui-btn-up-f">
 								<span class="ui-btn-inner" style="width: 45px; height: 20px;"><span
 									class="ui-btn-text" style="color: white"
-									onclick="app.searchContact()">搜索</span></span>
+									onclick="searchContact()">搜索</span></span>
 						</a></td>
 					</tr>
 				</table>
 			</div>
 
 			<div id="divContact">
-				<ul data-bind="foreach: contactlist" data-role="listview"
-					data-inset="true">
-					<li><font>ITCode：<span data-bind="text: ITCode"></span></font><br>
-						<font>用户名：<span data-bind="text: userName"></span></font><br>
-						<font>员工编号:<span data-bind="text: dialNumber"></span></font><br>
-						<font>移动电话：<a  data-bind="attr: {href:teltelNumber}"><span data-bind="text: telNumber"></span></a></font><br>
-						<font>办公电话：<a  data-bind="attr: {href:telofficeNumber}"><span data-bind="text: officeNumber"></span></a></font><br>
+				<div id="wrapper" style="display: none;">
+					<div id="scroller">
+						<div>
+							<br />
+							<ul data-bind="foreach: data" data-role="listview"
+								data-inset="true">
+								<li><font>员工编号：<span data-bind="text: uid"></span></font><br>
+									<font>员工姓名：<span data-bind="text: displayName"></span></font><br>
+									<font>电子邮箱：<span data-bind="text: mail"></span></font><br>
+									<font>所属公司:<span data-bind="text: crscCompanyName"></span></font><br>
+									<font>所属部门:<span data-bind="text: crscDepName"></span></font><br>
+									<font>移动电话：<a data-bind="attr: {href:crscMobileHR}"><span data-bind="text: crscMobileHR"></span></a></font><br> 
+									<font>办公电话：<a data-bind="attr: {href:crscOfficePhoneHR}"><span data-bind="text: crscOfficePhoneHR"></span></a></font><br>
+								</li>
+							</ul>
+						</div>
+						<div id="pullUp" name="nodata" align="center" class="" style="display: none; line-height: 3em; margin-top: -1em;">
+							<span class="pullUpLabel">上拉加载更多...</span>
+						</div>
+						<div>
+							<br />
+						</div>
+					</div>
+				</div>
 
-					</li>
-				</ul>
 			</div>
 		</div>
 
