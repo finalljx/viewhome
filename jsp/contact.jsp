@@ -14,57 +14,15 @@
 <%@ page language="java" import="org.apache.commons.lang.StringEscapeUtils"%>
 
 				<%
-				JSONArray taskArray=new JSONArray();
-				JSONObject taskJson=new JSONObject();	
 				Query q = Query.getInstance(request);
 				String responseXml = q.getContent();
-				System.out.println(responseXml);
-				Document   doc = DocumentHelper.parseText(responseXml);
+				Document  doc = DocumentHelper.parseText(responseXml);
+			      Node contentNode=doc.selectSingleNode("//return");
+			      String content=contentNode.getText();
+			     //System.out.print(content);
+				//System.out.println(responseXml);
+				out.print(content);
 				
-				List contactList=doc.selectNodes("//table[@class='table1']//tr");
-				
-				//第一个tr是标题，所以个数减一是真是数据
-				int contactNumber=contactList.size()-1;  
-				
-				for(int i=1;i<contactList.size();i++){
-					Element contactInfo=(Element)contactList.get(i);
-					JSONObject json=new JSONObject();
-					//ITCode
-					Node ITCode=(Node)contactInfo.selectSingleNode("./td[1]");
-				
-					//System.out.println("userName="+userName.asXML());
-					//System.out.println("userName111="+userName.getText());
-					//用户名
-					Node userName=contactInfo.selectSingleNode("./td[2]");	
-					//员工编号
-					Node dialNumber=contactInfo.selectSingleNode("./td[3]");		
-					//移动电话
-					Node telNumber=contactInfo.selectSingleNode("./td[4]");
-					//办公电话
-					Node officeNumber=contactInfo.selectSingleNode("./td[5]");	
-				
-		
-										
-					json.put("ITCode",ITCode.getStringValue());
-					json.put("userName",userName.getStringValue());
-					json.put("telNumber",telNumber.getStringValue());
-					//在号码前加上tel:前缀
-					json.put("teltelNumber","tel:"+telNumber.getStringValue());
-					json.put("dialNumber",dialNumber.getStringValue());
-					json.put("officeNumber",officeNumber.getStringValue());
-					//在号码前加上tel:前缀
-					json.put("telofficeNumber","tel:"+officeNumber.getStringValue());
-					taskArray.put(json);
-					
-				}
-				taskJson.put("contactNumber", String.valueOf(contactNumber));		
-				taskJson.put("contactlist",taskArray);
-			
-				out.clear();
-
-				out.print(taskJson);
-
-				System.out.println(taskJson);
 				
 				%>
 				

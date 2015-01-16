@@ -23,9 +23,11 @@
 									<xsl:value-of select="//fieldset[@id='Abstract']/h3" />
 								</li>
 								<li data-role="list-divider">基础信息</li>
+								<xsl:if>
 								<xsl:apply-templates
 									select="//fieldset[@id='fieldSet1']/div[@class='row']/descendant::div[@class='input-group']"
 									mode="b" />
+								</xsl:if>
 								<li data-role="list-divider">审批流转意见</li>
 								<xsl:if test="//table[@id='Approval_Tabel']/tbody/tr">
 									<li>
