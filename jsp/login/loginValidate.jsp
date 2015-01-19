@@ -17,7 +17,7 @@
 				Query q = Query.getInstance(request);
 				
 				String responseXml = q.getContent();
-				Document   doc = DocumentHelper.parseText(responseXml);
+				Document doc = DocumentHelper.parseText(responseXml);
 				try{
 					Node actionNode=doc.selectSingleNode("//form//@name");
 					String formAction="";
