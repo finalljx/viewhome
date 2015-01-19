@@ -25,8 +25,8 @@
 				<p style="font-size: 14px;line-height: 2em;">
 					拟稿日期:<font color="#0080FF"><xsl:value-of select="entrydata[2]/."/></font>
 					拟稿单位:<font color="#0080FF"><xsl:value-of select="entrydata[3]/."/></font><br/>
-					当前处理人:<font color="#0080FF"><xsl:value-of select="entrydata[6]/."/></font>
-					当前环节名称:<font color="#0080FF"><xsl:value-of select="entrydata[7]/."/></font>
+					当前处理人:<font color="#0080FF"><xsl:value-of select="entrydata[7]/."/></font>
+					当前环节名称:<font color="#0080FF"><xsl:value-of select="entrydata[8]/."/></font>
 				</p>
 			</a>
 		</li>
