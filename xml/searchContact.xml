@@ -9,9 +9,12 @@
 					<property name="title">
 						<string>通讯录</string>
 					</property>
-					<property name="navButtonText">
+					<!-- <property name="navButtonText">
 						<string>搜索</string>
-					</property>
+					</property> -->
+					<property name="navBarHidden">
+                        <string>0</string>
+                    </property>
 					<property name="navBarColor">
 						<string>#FF3398CC</string>
 					</property>
