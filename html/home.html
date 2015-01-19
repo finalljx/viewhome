@@ -3,12 +3,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0">
 <link rel="stylesheet" href="../assets/home/jquery-mobile-home.css">
+<link rel="stylesheet" href="../lib/swiper/idangerous.swiper.css">
+<link rel="stylesheet" href="../assets/home/swiper/swiper.css">
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/jquery-cookie/jquery.cookie.js"></script>
 <script src="../lib/encrypt/encrypt.js"></script>
 <script src="../lib/json/json2.js"></script>
 <script src="../lib/hori/hori.js?tag=21369"></script>
 <script src="../config/web/config.js"></script>
+<script src="../lib/knockout/knockout.js"></script>
+<script src="../lib/knockout/knockout.mapping.js"></script>
+<script src="../lib/swiper/idangerous.swiper.min.js"></script>
+<script src="../lib/app/home/swiper.js"></script>
 <script type="text/javascript">
 function openmail(){
 	$.hori.openUrl("http://mail.crsc.cn/",function(data){
@@ -86,8 +92,7 @@ function adjustBubble(){
 	}else{
 		//alert('other')
 		spanTodo.style.top=divOneOffset.top;
-		spanTodo.style.left=imgOffset.left+68+10;
-
+		spanTodo.style.left=imgOffset.left+68;
 	}	
 }
 var gcount=1;
@@ -98,6 +103,8 @@ var icount=0;
 			var hori = $.hori;
 			/*设置标题*/
 			hori.setHeaderTitle("首页");
+			//初始化顶部滑动图片
+			initSwiperData();
 			/*隐藏后退按钮*/
 			//hori.hideBackBtn();
 			/*注册注销事件*/
@@ -261,9 +268,28 @@ a {
 }
 </style>
 </head>
-<body class="ui-mobile-viewport ui-overlay-c">
+<body>
+<!-- <body class="ui-mobile-viewport ui-overlay-c"> -->
 	<div data-role="page" id="home" style="background-image: url(../assets/home/bg_empty.jpg); min-height: 100%; background-position: initial initial; background-repeat: repeat repeat;" data-url="home" tabindex="0" class="ui-page ui-body-c ui-page-active">
 		<div data-role="content" align="center" class="ui-content" role="main">
+		      <div class="swiper-container">
+	              <div id="tpxwSwiper" class="swiper-wrapper"
+	                  data-bind="foreach: list">
+	                  <div class="swiper-slide">
+	                      <a data-bind="click:showDetail"> <img
+	                          data-bind="attr:{'src':imgSrc}" class="swiper-image" />
+	                          <!-- <div>
+	                              <span class="title" data-bind="text: contentTitle"></span>
+	                          </div> -->
+	                      </a>
+	                  </div>
+	              </div>
+	              <div class="pagination"></div>
+	              <!-- <div class="more">
+                    <a href="#">more</a>
+                  </div> -->
+             </div>
+             <p></p>
 			<div class="ui-grid-b" id="divOne">
 				<div class="ui-block-a">
 					<a href="javascript:void(0);" onclick="loadTaskList()" class="ui-link"> <img id="imgToDo" width="80" height="80" src="../assets/home/task.png">
