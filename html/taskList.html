@@ -66,7 +66,7 @@
 			$.hori.showLoading();
 			loaded();
 			var tasknumber=localStorage.getItem("tasknumber");
-			$(".tasktodo").html("代办("+tasknumber+")");
+			$(".tasktodo").html("待办("+tasknumber+")");
 			$("#tabs").tabs({beforeActivate:function(event,ui){
 					//alert(ui.newTab.context.dataset.id);
 					tabid=ui.newTab.context.dataset.id;
