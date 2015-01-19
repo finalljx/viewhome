@@ -55,6 +55,7 @@ function inittodos(){
 						$.hori.hideLoading();
 					}else{
 						$("#spanTodo").html(json.number);
+						localStorage.setItem("tasknumber",json.number);
 						icount= gcount;
 						$.hori.hideLoading();
 					}
@@ -271,7 +272,7 @@ a {
 				</div>
 				<div class="ui-block-b">
 					<a href="javascript:void(0);" onclick="officialDocument()" class="ui-link"> <img width="80" height="80" src="../assets/home/official.png">
-					</a> <br> <span style="color: #434343"><strong>公文查阅</strong></span>
+					</a> <br> <span style="color: #434343"><strong>最新公文</strong></span>
 				</div>
 				<div class="ui-block-c">
 					<a href="javascript:void(0)" onclick="loadAnnouceList()" class="ui-link"> <img width="80" height="80" src="../assets/home/Annouce.png">
