@@ -65,8 +65,8 @@
 			hori.setHeaderTitle("待办列表");
 			$.hori.showLoading();
 			loaded();
-			var tasknumber=localStorage.getItem("tasknumber");
-			$(".tasktodo").html("待办("+tasknumber+")");
+			//var tasknumber=localStorage.getItem("tasknumber");
+			//$(".tasktodo").html("待办("+tasknumber+")");
 			$("#tabs").tabs({beforeActivate:function(event,ui){
 					//alert(ui.newTab.context.dataset.id);
 					tabid=ui.newTab.context.dataset.id;
