@@ -255,25 +255,22 @@
 						</table>
 					</li>
 					<li data-role="fieldcontain">
-						<fieldset id="rememberme"  data-role="controlgroup" data-type="horizontal" data-mini="true" style="width:100%;" align="center">
-							<input type="checkbox" name="saveusername" id="saveusername" class="custom" data-mini="true"/>
-							<label for="saveusername" data-mini="true">记住帐号</label>
-							<input type="checkbox" name="savepassword" id="savepassword" class="custom" data-mini="true"/>
-							<label for="savepassword" data-mini="true">记住密码</label>
-						</fieldset>
+					<div class="ui-grid-a">
+                        <div class="ui-block-a">
+							<input type="checkbox" name="saveusername" id="saveusername" data-mini="true"/>
+							<label for="saveusername" data-mini="true">&nbsp;&nbsp;记住帐号</label>
+						</div>
+                    </div>
 					</li>
 				</ul>
 				
 				<div class="ui-grid-a">
-					<div class="ui-block-a">
-						
-						<a href="javascript:void(0)" onclick="login()" data-theme="f" data-role="button" data-icon="check" >&nbsp;登&nbsp;录&nbsp;</a>
-					</div>
-					<div class="ui-block-b">
-						<a href="javascript:void(0)" onclick="cancel()" data-theme="f" data-role="button" data-icon="delete" data-iconpos="right">&nbsp;取&nbsp;消&nbsp;</a>
+					<div class="ui-block-a" style="width: 100%">
+						<a href="javascript:void(0)" onclick="login()" data-theme="f" data-role="button" >&nbsp;登&nbsp;录&nbsp;</a>
 					</div>
 					
 				</div>
+            </div>
 			</div>
 			
 		</div>
