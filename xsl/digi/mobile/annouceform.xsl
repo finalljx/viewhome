@@ -16,7 +16,7 @@
 							select="//input[@name='DF_DbPath']/@value" />
 						<input type="hidden" id="dbpath" value="{$dbpath}" />
 						<div data-role="collapsible" data-collapsed="false"
-							data-theme="f">
+							data-theme="f" data-content-theme="d">
 							<h1>基本信息</h1>
 							<div>
 								<ul data-role="listview" data-inset="true" data-theme="d"
@@ -70,7 +70,7 @@
 								</ul>
 							</div>
 						</div>
-						<div data-role="collapsible" data-collapsed="true" data-theme="f">
+						<div data-role="collapsible" data-collapsed="true" data-theme="f" data-content-theme="d">
 							<h1>正文内容</h1>
 							<div
 								style="font-weight:bold;font-size:20px;height:45px;color:#000066;padding-top:20px;text-align:center;word-break:break-all">

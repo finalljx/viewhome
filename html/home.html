@@ -112,13 +112,13 @@ var icount=0;
 				hori.backPage(1);
 			});
 			//刷新气泡显示代办条数
-			hori.registerEvent("case", "casePresented", function() {
+			/*hori.registerEvent("case", "casePresented", function() {
 				//alert("niubility");
 				// 调用代办条数
 				inittodos();
-			});
+			});*/
 			// 调整气泡位置
-			adjustBubble();
+			//adjustBubble();
 			//如果浏览器调试模式显示气泡数
 			if ($.hori.browerDebug) {
 				inittodos();
@@ -218,7 +218,7 @@ var icount=0;
 			"type" : "post",
 			"url" : url,
 			"success" : function(res) {
-				console.log(res);
+				//console.log(res);
 				var resJson = JSON.parse(res);
 				//当前登录人有公文
 				if(resJson.issue){
@@ -266,6 +266,7 @@ a {
 	padding: .2em .5em;
 	margin-left: -.5em;
 }
+  
 </style>
 </head>
 <body>
@@ -293,7 +294,7 @@ a {
 			<div class="ui-grid-b" id="divOne">
 				<div class="ui-block-a">
 					<a href="javascript:void(0);" onclick="loadTaskList()" class="ui-link"> <img id="imgToDo" width="80" height="80" src="../assets/home/task.png">
-					</a> <span id="spanTodo" class="bubble-count ui-btn-up-c ui-btn-corner-all" style="position: fixed; top: 15px; left: 359.5px;">0</span> <br>
+					</a> <!-- <span id="spanTodo" class="bubble-count ui-btn-up-c ui-btn-corner-all" style="position: fixed; top: 15px; left: 359.5px;">0</span> --> <br>
 					<span style="color: #434343"><strong>待办任务</strong></span>
 				</div>
 				<div class="ui-block-b">
@@ -313,7 +314,7 @@ a {
 				</div>
 				<div class="ui-block-b">
 					<a href="javascript:void(0)" onclick="loadConnections()" class="ui-link"> <img width="80" height="80" src="../assets/home/Connection.png">
-					</a> <br> <span style="color: #434343"><strong>Connection</strong></span>
+					</a> <br> <span style="color: #434343"><strong>社区</strong></span>
 				</div>
 				<div class="ui-block-c" id="divMail">
 					<a href="javascript:void(0);" onclick="openmail()" class="ui-link"> <img width="80" height="80" src="../assets/home/mail.png">

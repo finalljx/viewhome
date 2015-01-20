@@ -26,7 +26,7 @@
 				</h3>
 				<p style="font-size: 14px;">
 					时间:<font color="#0080FF"><xsl:value-of select="entrydata[1]/."/></font>
-					状态:<font color="#0080FF"><xsl:value-of select="entrydata[3]/."/></font>
+					<!--  状态:<font color="#0080FF"><xsl:value-of select="entrydata[3]/."/></font>-->
 				</p>
 			</a>
 		</li>
