@@ -6,7 +6,7 @@
 			<xsl:apply-templates select="//viewentries//viewentry" />
 			<xsl:if test="count(//viewentries//viewentry)=0">
 				<li id="linodata" name="nodata" class="ui-li-static ui-body-inherit ui-first-child ui-last-child">
-					<div align="center"><span>无更多可以加载的内容</span></div>
+					<div align="center"><span>无更多内容</span></div>
 				</li>
 			</xsl:if>
 			<xsl:if test="count(//viewentries//viewentry[position()&gt;1])=10">

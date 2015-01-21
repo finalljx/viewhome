@@ -117,7 +117,7 @@
 				"success":function(res){
 					$("#receivedocDataList").empty();
 					$("#moredata").remove();
-					if(res.indexOf("无更多可以加载的内容")!="-1"){
+					if(res.indexOf("无更多内容")!="-1"){
 						var divs = document.getElementsByName("nodata");
 						for(var i=0; i<divs.length; i++)
 						{
@@ -154,7 +154,7 @@
 				"success":function(res){
 					$("#issuedocDataList").empty();
 					$("#moredata").remove();
-					if(res.indexOf("无更多可以加载的内容")!="-1"){
+					if(res.indexOf("无更多内容")!="-1"){
 						var divs = document.getElementsByName("nodata");
 						for(var i=0; i<divs.length; i++)
 						{
