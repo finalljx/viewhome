@@ -11,6 +11,9 @@
 			<body>
 				<div id="notice" data-role="page">
 					<div data-role="content" align="center">
+					<h2>
+						<xsl:value-of select="//input[@name='StSubject']/@value" />
+					</h2>
 						<!-- 附件隐藏域 -->
 						<xsl:variable name="unid"
 							select="//input[@name='StMaindocUnid_Att']/@value" />
@@ -26,7 +29,7 @@
 								<xsl:apply-templates
 									select="//fieldset[@id='fieldSet1']/div[@class='row']/descendant::div[@class='input-group']"
 									mode="b" />
-								<li data-role="list-divider">审批流转意见</li>
+								<!-- <li data-role="list-divider">审批流转意见</li>
 								<xsl:if test="not(//table[@class='list']/tbody/tr)">
 									<li>无审批流转意见</li>
 								</xsl:if>
@@ -35,7 +38,7 @@
 									<xsl:apply-templates select="//table[@class='list']/tbody/tr"
 										mode='tr' />
 								 </li>
-								</xsl:if>
+								</xsl:if> -->
 
 
 								<li data-role="list-divider">正文内容</li>

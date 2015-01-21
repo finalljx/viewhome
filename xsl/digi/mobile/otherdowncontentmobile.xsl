@@ -199,10 +199,10 @@
 						<xsl:variable name="zhengwen">
 							<xsl:value-of select="substring-before($info, '(')" />
 						</xsl:variable>
-						<xsl:if test="$zhengwen = 'zhengwen.doc'">
-							查看正文
+						<xsl:if test="contains($zhengwen, 'TANGER_OCX_Attachment')">
+							正文.<xsl:value-of select="substring-after($zhengwen,'.')"></xsl:value-of>
 						</xsl:if>
-						<xsl:if test="$zhengwen != 'zhengwen.doc'">
+						<xsl:if test="not(contains($zhengwen, 'TANGER_OCX_Attachment'))">
 							<xsl:value-of select="substring-before($info, '(')" />
 						</xsl:if>
 					</a>
@@ -218,10 +218,10 @@
 						<xsl:variable name="zhengwen">
 							<xsl:value-of select="substring-before($info, '(')" />
 						</xsl:variable>
-						<xsl:if test="$zhengwen = 'zhengwen.doc'">
-							查看正文
+						<xsl:if test="contains($zhengwen, 'TANGER_OCX_Attachment')">
+							正文.<xsl:value-of select="substring-after($zhengwen,'.')"></xsl:value-of>
 						</xsl:if>
-						<xsl:if test="$zhengwen != 'zhengwen.doc'">
+						<xsl:if test="not(contains($zhengwen, 'TANGER_OCX_Attachment'))">
 							<xsl:value-of select="substring-before($info, '(')" />
 						</xsl:if>
 					</a>
@@ -234,10 +234,10 @@
 						<xsl:variable name="zhengwen">
 							<xsl:value-of select="$info" />
 						</xsl:variable>
-						<xsl:if test="$zhengwen = 'zhengwen.doc'">
-							查看正文
+						<xsl:if test="contains($zhengwen, 'TANGER_OCX_Attachment')">
+							正文.<xsl:value-of select="substring-after($zhengwen,'.')"></xsl:value-of>
 						</xsl:if>
-						<xsl:if test="$zhengwen != 'zhengwen.doc'">
+						<xsl:if test="not(contains($zhengwen, 'TANGER_OCX_Attachment'))">
 							<xsl:value-of select="$info" />
 						</xsl:if>
 					</a>

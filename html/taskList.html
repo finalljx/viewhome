@@ -107,8 +107,11 @@
 	</script>
 	<script type="text/javascript">
 		//待办列表
+		var runTodoCount=0;
+		var runDidCount=0;
 		function getTodoTaskList(){
 			$.hori.showLoading();
+			runTodoCount=runTodoCount+1;
 			localStorage.setItem("click","1");
 			localStorage.setItem("getTaskMoreData","todoList");
 			var url = $.hori.getconfig().appServerHost+'view/oamobile/todosList/Produce/DigiFlowMobile.nsf/agGetMsgViewData?openagent&login&server='+oaMsgServer+'&dbpath=DFMessage/dfmsg_'+itcode+'.nsf&view=vwTaskUnDoneForMobile&thclass=&page='+todoStart+'&count=10';
@@ -119,11 +122,14 @@
 				"success":function(res){
 					$("#didDataList").empty();
 					$("#moredata").remove();
-					if(res.indexOf("无内容")!="-1"){
+					if(res.indexOf("无更多可以加载的内容")!="-1"){
 						var divs = document.getElementsByName("nodata");
 						for(var i=0; i<divs.length; i++)
 						{
 							divs[i].style.display='none';
+						}
+						if(runTodoCount==1){
+							res='<li id="linodata" name="nodata" class="ui-li-static ui-body-inherit ui-first-child ui-last-child"><div align="center"><span>无内容</span></div></li>'; 
 						}
 					}
 					$("#todoDataList").append(res).listview("refresh");
@@ -139,6 +145,7 @@
 		//已办列表
 		function getDidTaskList(){
 			$.hori.showLoading();
+			runDidCount=runDidCount+1;
 			localStorage.setItem("click","2");
 			localStorage.setItem("getTaskMoreData","didList");
 			var url = $.hori.getconfig().appServerHost+'view/oamobile/taskDownList/Produce/DigiFlowMobile.nsf/agGetMsgViewData?openagent&login&server='+oaMsgServer+'&dbpath=DFMessage/dfmsg_'+itcode+'.nsf&view=vwTaskDoneForMobile&thclass=&page='+didStart+'&count=10';
@@ -149,11 +156,14 @@
 				"success":function(res){
 					$("#todoDataList").empty();
 					$("#moredata").remove();
-					if(res.indexOf("无内容")!="-1"){
+					if(res.indexOf("无更多可以加载的内容")!="-1"){
 						var divs = document.getElementsByName("nodata");
 						for(var i=0; i<divs.length; i++)
 						{
 							divs[i].style.display='none';
+						}
+						if(runDidCount==1){
+							res='<li id="linodata" name="nodata" class="ui-li-static ui-body-inherit ui-first-child ui-last-child"><div align="center"><span>无内容</span></div></li>'; 
 						}
 					}
 					$("#didDataList").append(res).listview("refresh");
