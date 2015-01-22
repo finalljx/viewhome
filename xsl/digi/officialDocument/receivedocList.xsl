@@ -9,7 +9,7 @@
 					<div align="center"><span>无更多内容</span></div>
 				</li>
 			</xsl:if>
-			<xsl:if test="count(//viewentries//viewentry[position()&gt;1])=10">
+			<xsl:if test="count(//viewentries//viewentry)=10">
 				<li id="moredata"><div id="pullUp" align="center">
 					<span class="pullUpLabel">上划加载更多...</span>
 				</div></li>
