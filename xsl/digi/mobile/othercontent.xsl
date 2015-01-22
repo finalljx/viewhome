@@ -112,7 +112,7 @@
 												return false;
 											}else{
 												alert(result);
-												setTimeout("$.hori.backPage(1)",1000);
+												setTimeout("$.hori.backPage(1)",3000);
 											}
 									},
 									error:function(response){

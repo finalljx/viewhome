@@ -2,13 +2,13 @@
 	hori.getconfig=function(){
 
 		return{
-			"oaServerName": "TESTMSG01/CRSC",
-			"oaMsgServer": "TESTMSG01/CRSC",
-			"oaMobileServer": "TESTMSG01/CRSC",
-			"server" : "oa-a-t.crsc.isc",//调用附件需要的参数server
-			"serverBaseUrl":"http://localhost:8080/",
+			"oaServerName": "MSG01/Server/CRSC",
+			"oaMsgServer": "MSG01/Server/CRSC",
+			"oaMobileServer": "MSG01/Server/CRSC",
+			"serverBaseUrl":"https://m.crsc.cn/",
+			"server" : "oa-a.crsc.isc",//调用附件需要的参数server
 			"encryptKey":"horiTech",
-			"appServerHost":"http://localhost:8080/",
+			"appServerHost":"https://m.crsc.cn/",
 			"appKey":"mobiletonghao"
 		};
 	};

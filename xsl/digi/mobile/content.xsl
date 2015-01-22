@@ -111,7 +111,7 @@
 											}else{
 											    //$.hori.hideLoading();
 												alert(result);
-												setTimeout("$.hori.backPage(1)",1000);
+												setTimeout("$.hori.backPage(1)",3000);
 												
 											}
 									},
@@ -600,22 +600,34 @@
 
 		</xsl:choose>
 
-		<!-- 处理分支 -->
+		<!-- 处理分支 <xsl:if test="$chooseToNodeIdValue!=''">-->
 		<xsl:variable name="chooseToNodeId"><xsl:value-of select="$flownodeid"/>_ToNodeId</xsl:variable>
 		<xsl:if test="contains(@id, $chooseToNodeId)">
 			<xsl:if test="@shownodes=$flownodeid">
 				<font size="3">下一环节不唯一，请选择环节</font>
 				<br />
 				<hr />
-
-				<select id="toflownodeid" name="toflownodeid" onChange=''
+				<xsl:variable name="chooseToNodeIdValue">
+					<xsl:value-of select="value/text/." />
+				</xsl:variable>
+				<xsl:if test="$chooseToNodeIdValue!=''">
+					<select id="toflownodeid" name="toflownodeid" onChange=''
 					data-theme="a">
-					<xsl:call-template name="flownodes">
-						<xsl:with-param name="flows" select="value/text/." />
-						<xsl:with-param name="default" select="value123/." /><!-- 
-							无用 -->
-					</xsl:call-template>
-				</select>
+						<xsl:call-template name="flownodes">
+							<xsl:with-param name="flows" select="value/text/." />
+							<xsl:with-param name="default" select="value123/." />
+						</xsl:call-template>
+					</select>
+				</xsl:if>
+				<xsl:if test="$chooseToNodeIdValue=''">
+					<select id="toflownodeid" name="toflownodeid" onChange=''
+					data-theme="a">
+						<xsl:call-template name="flownodes">
+							<xsl:with-param name="flows" select="text/." />
+							<xsl:with-param name="default" select="value123/." />
+						</xsl:call-template>
+					</select>
+				</xsl:if>
 			</xsl:if>
 		</xsl:if>
 	</xsl:template>
