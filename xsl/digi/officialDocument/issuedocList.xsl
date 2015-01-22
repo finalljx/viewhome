@@ -6,10 +6,10 @@
 			<xsl:apply-templates select="//viewentries//viewentry" />
 			<xsl:if test="count(//viewentries//viewentry)=0">
 				<li id="linodata" name="nodata" class="ui-li-static ui-body-inherit ui-first-child ui-last-child">
-					<div align="center"><h3>无内容</h3></div>
+					<div align="center"><span>无更多内容</span></div>
 				</li>
 			</xsl:if>
-			<xsl:if test="count(//viewentries//viewentry[position()&gt;1])!=0">
+			<xsl:if test="count(//viewentries//viewentry[position()&gt;1])=10">
 				<li id="moredata"><div id="pullUp" align="center">
 					<span class="pullUpLabel">上划加载更多...</span>
 				</div></li>
@@ -25,8 +25,8 @@
 				<p style="font-size: 14px;line-height: 2em;">
 					拟稿日期:<font color="#0080FF"><xsl:value-of select="entrydata[2]/."/></font>
 					拟稿单位:<font color="#0080FF"><xsl:value-of select="entrydata[3]/."/></font><br/>
-					当前处理人:<font color="#0080FF"><xsl:value-of select="entrydata[6]/."/></font>
-					当前环节名称:<font color="#0080FF"><xsl:value-of select="entrydata[7]/."/></font>
+					当前处理人:<font color="#0080FF"><xsl:value-of select="entrydata[7]/."/></font>
+					当前环节名称:<font color="#0080FF"><xsl:value-of select="entrydata[8]/."/></font>
 				</p>
 			</a>
 		</li>

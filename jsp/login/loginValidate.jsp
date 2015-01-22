@@ -15,12 +15,11 @@
 				<%
 				JSONObject json=new JSONObject();			
 				Query q = Query.getInstance(request);
-			
+				
 				String responseXml = q.getContent();
-				System.out.println(responseXml);
-				Document   doc = DocumentHelper.parseText(responseXml);
+				Document doc = DocumentHelper.parseText(responseXml);
 				try{
-					Node actionNode=doc.selectSingleNode("//font//@color");
+					Node actionNode=doc.selectSingleNode("//form//@name");
 					String formAction="";
 					if(actionNode!=null){
 						formAction=actionNode.getStringValue();
@@ -43,13 +42,11 @@
 					}else if(loginCode.equals("9")){
 						json.put("success", false);
 						json.put("msg","服务器超出用户访问数量。");
-					}else if(formAction.contains("red")){
+					}else if(formAction.contains("loginform")){
 						json.put("success", false);
 						json.put("msg","用户名和密码错误！");
 					}else{
-						String itcode=doc.selectSingleNode("//param[@name=\"Username\"]/@value").getStringValue();
 						json.put("success", true);
-						json.put("itcode",itcode);
 						json.put("data-authorize","succeed");
 					}
 				}catch(Exception e){
@@ -57,7 +54,7 @@
 					json.put("success", false);
 					json.put("msg","登陆异常,请联系管理员。");
 					out.clear();
-				out.print(json);
+					out.print(json);
 				}
 
 			

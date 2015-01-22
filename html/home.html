@@ -3,12 +3,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0">
 <link rel="stylesheet" href="../assets/home/jquery-mobile-home.css">
+<link rel="stylesheet" href="../lib/swiper/idangerous.swiper.css">
+<link rel="stylesheet" href="../assets/home/swiper/swiper.css">
 <script src="../lib/jquery/jquery.min.js"></script>
+<script src="../lib/jquery-mobile/jquery.mobile.min.js"></script>
 <script src="../lib/jquery-cookie/jquery.cookie.js"></script>
 <script src="../lib/encrypt/encrypt.js"></script>
 <script src="../lib/json/json2.js"></script>
 <script src="../lib/hori/hori.js?tag=21369"></script>
 <script src="../config/web/config.js"></script>
+<script src="../lib/knockout/knockout.js"></script>
+<script src="../lib/knockout/knockout.mapping.js"></script>
+<script src="../lib/swiper/idangerous.swiper.min.js"></script>
+<script src="../lib/app/home/swiper.js"></script>
 <script type="text/javascript">
 function openmail(){
 	$.hori.openUrl("http://mail.crsc.cn/",function(data){
@@ -55,6 +62,7 @@ function inittodos(){
 						$.hori.hideLoading();
 					}else{
 						$("#spanTodo").html(json.number);
+						localStorage.setItem("tasknumber",json.number);
 						icount= gcount;
 						$.hori.hideLoading();
 					}
@@ -82,12 +90,11 @@ function adjustBubble(){
 	}else if(window.navigator.userAgent.match(/android/i)) {
 
 		spanTodo.style.top=divOneOffset.top;
-		spanTodo.style.left=imgOffset.left+68+10;
+		spanTodo.style.left=imgOffset.left+68;
 	}else{
 		//alert('other')
 		spanTodo.style.top=divOneOffset.top;
-		spanTodo.style.left=imgOffset.left+68+10;
-
+		spanTodo.style.left=imgOffset.left+68;
 	}	
 }
 var gcount=1;
@@ -98,6 +105,8 @@ var icount=0;
 			var hori = $.hori;
 			/*设置标题*/
 			hori.setHeaderTitle("首页");
+			//初始化顶部滑动图片
+			initSwiperData();
 			/*隐藏后退按钮*/
 			//hori.hideBackBtn();
 			/*注册注销事件*/
@@ -105,13 +114,13 @@ var icount=0;
 				hori.backPage(1);
 			});
 			//刷新气泡显示代办条数
-			hori.registerEvent("case", "casePresented", function() {
+			/*hori.registerEvent("case", "casePresented", function() {
 				//alert("niubility");
 				// 调用代办条数
 				inittodos();
-			});
+			});*/
 			// 调整气泡位置
-			adjustBubble();
+			//adjustBubble();
 			//如果浏览器调试模式显示气泡数
 			if ($.hori.browerDebug) {
 				inittodos();
@@ -211,7 +220,7 @@ var icount=0;
 			"type" : "post",
 			"url" : url,
 			"success" : function(res) {
-				console.log(res);
+				//console.log(res);
 				var resJson = JSON.parse(res);
 				//当前登录人有公文
 				if(resJson.issue){
@@ -259,20 +268,40 @@ a {
 	padding: .2em .5em;
 	margin-left: -.5em;
 }
+  
 </style>
 </head>
-<body class="ui-mobile-viewport ui-overlay-c">
-	<div data-role="page" id="home" style="background-image: url(../assets/home/bg_empty.jpg); min-height: 100%; background-position: initial initial; background-repeat: repeat repeat;" data-url="home" tabindex="0" class="ui-page ui-body-c ui-page-active">
+<body >
+<!-- <body class="ui-mobile-viewport ui-overlay-c"> -->
+	<div data-role="page" id="home" data-url="home" tabindex="0" class="ui-page ui-body-c ui-page-active" style="background: #FFF;">
 		<div data-role="content" align="center" class="ui-content" role="main">
+		      <div class="swiper-container">
+	              <div id="tpxwSwiper" class="swiper-wrapper"
+	                  data-bind="foreach: list">
+	                  <div class="swiper-slide">
+	                      <a data-bind="click:showDetail"> <img
+	                          data-bind="attr:{'src':imgSrc}" class="swiper-image" style="border: 1px solid;" />
+	                          <!-- <div>
+	                              <span class="title" data-bind="text: contentTitle"></span>
+	                          </div> -->
+	                      </a>
+	                  </div>
+	              </div>
+	              <div class="pagination"></div>
+	              <!-- <div class="more">
+                    <a href="#">more</a>
+                  </div> -->
+             </div>
+             <br>
 			<div class="ui-grid-b" id="divOne">
 				<div class="ui-block-a">
 					<a href="javascript:void(0);" onclick="loadTaskList()" class="ui-link"> <img id="imgToDo" width="80" height="80" src="../assets/home/task.png">
-					</a> <span id="spanTodo" class="bubble-count ui-btn-up-c ui-btn-corner-all" style="position: fixed; top: 15px; left: 359.5px;">0</span> <br>
+					</a> <!-- <span id="spanTodo" class="bubble-count ui-btn-up-c ui-btn-corner-all" style="position: fixed; top: 15px; left: 359.5px;">0</span> --> <br>
 					<span style="color: #434343"><strong>待办任务</strong></span>
 				</div>
 				<div class="ui-block-b">
 					<a href="javascript:void(0);" onclick="officialDocument()" class="ui-link"> <img width="80" height="80" src="../assets/home/official.png">
-					</a> <br> <span style="color: #434343"><strong>公文查阅</strong></span>
+					</a> <br> <span style="color: #434343"><strong>最新公文</strong></span>
 				</div>
 				<div class="ui-block-c">
 					<a href="javascript:void(0)" onclick="loadAnnouceList()" class="ui-link"> <img width="80" height="80" src="../assets/home/Annouce.png">
@@ -283,11 +312,11 @@ a {
 			<div class="ui-grid-b" id="divOne">
 				<div class="ui-block-a">
 					<a href="javascript:void(0)" onclick="loadContact()" class="ui-link"> <img width="80" height="80" src="../assets/home/tel.png">
-					</a> <br> <span style="color: #434343"><strong>电话查询</strong></span>
+					</a> <br> <span style="color: #434343"><strong>通讯录</strong></span>
 				</div>
 				<div class="ui-block-b">
 					<a href="javascript:void(0)" onclick="loadConnections()" class="ui-link"> <img width="80" height="80" src="../assets/home/Connection.png">
-					</a> <br> <span style="color: #434343"><strong>Connection</strong></span>
+					</a> <br> <span style="color: #434343"><strong>社区</strong></span>
 				</div>
 				<div class="ui-block-c">
 					<a href="javascript:void(0);" onclick="openmail()" class="ui-link"> <img width="80" height="80" src="../assets/home/mail.png">

@@ -5,10 +5,10 @@
 			<xsl:apply-templates select="//viewentries//viewentry" />
 			<xsl:if test="count(//viewentries//viewentry)=0">
 				<li name="nodata" class="ui-li-static ui-body-inherit ui-first-child ui-last-child">
-					<div style="width:100%;" align="center"><h3>无内容</h3></div>
+					<div style="width:100%;" align="center"><span >无更多内容</span></div>
 				</li>
 			</xsl:if>
-			<xsl:if test="count(//viewentries//viewentry)!=0">
+			<xsl:if test="count(//viewentries//viewentry)=10">
 				<li id="moredata"><div id="pullUp" align="center">
 					<span class="pullUpLabel">上划加载更多...</span>
 				</div></li>
