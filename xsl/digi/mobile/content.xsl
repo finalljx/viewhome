@@ -111,7 +111,7 @@
 											}else{
 											    //$.hori.hideLoading();
 												alert(result);
-												setTimeout("$.hori.backPage(1)",1000);
+												setTimeout("$.hori.backPage(1)",3000);
 												
 											}
 									},

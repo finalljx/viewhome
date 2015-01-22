@@ -41,13 +41,7 @@
 					$('#saveusername').removeAttr("checked").checkboxradio("refresh");
 				}
 				if(localStorage.getItem("data-savepassword")=="true"){
-					var password=localStorage.getItem("password");
-					if(password!=null){
-
-						
-						password=decrypt($.hori.getconfig().encryptKey,password);
-					}
-					$("#password").attr("value", password);
+					$("#password").attr("value", "");
 					$('#savepassword').attr("checked", true).checkboxradio("refresh");
 				}else{
 					$("#password").attr("value", "");
@@ -65,7 +59,6 @@
 				
 				
 				
-
 			});
 			function clearData (){			
 				
