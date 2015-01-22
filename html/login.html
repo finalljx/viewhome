@@ -29,7 +29,9 @@
 		<script type="text/javascript">
 			$(document).ready(function(){
 
-				
+				$.hori.registerEvent("case", "navButtonTouchUp", function() {
+					$("#password").attr("value", "");
+				});
 
 				if(localStorage.getItem("data-saveusername")=="true"){
 					var username=localStorage.getItem("itcode");
