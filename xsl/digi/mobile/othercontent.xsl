@@ -75,7 +75,7 @@
 								//FlowMindInfo = encodeURI(escape(FlowMindInfo));
 								if(value=='submit'){
 								FlowMindInfo = escape(FlowMindInfo);
-								FlowMindInfo = encodeURI(FlowMindInfo);
+								//FlowMindInfo = encodeURI(FlowMindInfo);
 								}
 								if(value=='reject'){
 								FlowMindInfo = escape(FlowMindInfo);
