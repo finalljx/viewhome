@@ -111,8 +111,8 @@
 												searchPerson();
 												return false;
 											}else{
-												alert(result);
-												setTimeout("$.hori.backPage(1)",3000);
+												$( "#popupdialogValue").html(result);
+												$( "#popupDialog" ).popup( "open" );
 											}
 									},
 									error:function(response){
@@ -174,7 +174,15 @@
 								</xsl:if>
 							</div>
 						</div>
-
+						<div data-role="popup" id="popupDialog" data-overlay-theme="a" data-theme="c" data-dismissible="false" style="max-width:400px;" class="ui-corner-all">
+							<div data-role="header" data-theme="f" class="ui-corner-top">
+								<h1>操作信息</h1>
+							</div>
+							<div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+								<p id="popupdialogValue" style="line-height:2em;"></p>
+								<a href="#" data-role="button" data-mini='true' data-theme="d" onclick="$.hori.backPage(1)">确　认</a>
+							</div>
+						</div>
 						<!-- 驳回选关 -->
 						<div data-role="popup" id="flowpupups">
 							<fieldset data-role="controlgroup" data-mini="true">
