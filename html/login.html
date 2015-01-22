@@ -36,18 +36,12 @@
 					$("#username").attr("value", username);
 					$('#saveusername').attr("checked", true).checkboxradio("refresh");
 				}else{
-					$("#username").attr("value", "用户名/itcode");
+					$("#username").attr("value", "员工编号");
 					$("#username").css("color", "#9e9e9e");
 					$('#saveusername').removeAttr("checked").checkboxradio("refresh");
 				}
 				if(localStorage.getItem("data-savepassword")=="true"){
-					var password=localStorage.getItem("password");
-					if(password!=null){
-
-						
-						password=decrypt($.hori.getconfig().encryptKey,password);
-					}
-					$("#password").attr("value", password);
+					$("#password").attr("value", "");
 					$('#savepassword').attr("checked", true).checkboxradio("refresh");
 				}else{
 					$("#password").attr("value", "");
@@ -65,11 +59,10 @@
 				
 				
 				
-
 			});
 			function clearData (){			
 				
-				if($.trim($("#username").val())=="用户名/itcode"){					
+				if($.trim($("#username").val())=="员工编号"){					
 					$("#username").val("");
 					$("#username").css("color", "#0F0E0E");
 				}else{
@@ -82,7 +75,7 @@
 				var userName=$.trim($("#username").val());
 				if($.trim($("#username").val())==""){	
 					$("#username").css("color", "#9e9e9e");				
-					$("#username").attr("value", "用户名/itcode");
+					$("#username").attr("value", "员工编号");
 					
 				}else{
 					
