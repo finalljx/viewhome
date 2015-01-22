@@ -18,7 +18,7 @@
 		</view>
 		<!-- 获取公文库 -->
 		<view id="officialDocumentLibrary" template="digi/officialDocument/getLibrary.xsl" encoding="utf-8"/>
-		<!-- 收文列表 -->
+		<!-- 发文列表 -->
 		<view id="issuedocList" template="digi/officialDocument/issuedocList.xsl" encoding="utf-8">
 			<rule mode="replace" regex="&amp;amp;nbsp;" value=" "/>
 		    <rule mode="replace" regex="&amp;nbsp;" value=" "/>
@@ -30,7 +30,7 @@
 			<!-- 在转换的时候双引号 被保留了 替换掉 -->			
 		    <rule mode="replace" regex="&amp;quot;" value=""/>
 		</view>
-		<!-- 发文列表 -->
+		<!-- 收文列表 -->
 		<view id="receivedocList" template="digi/officialDocument/receivedocList.xsl" encoding="utf-8">
 			<rule mode="replace" regex="&amp;amp;nbsp;" value=" "/>
 		    <rule mode="replace" regex="&amp;nbsp;" value=" "/>

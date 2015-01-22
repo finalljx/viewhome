@@ -109,7 +109,7 @@
 			localStorage.setItem("click","1");
 			localStorage.setItem("getMoreData","issuedoc");
 			var issuedoc = localStorage.getItem("issuedoc");
-			var url = $.hori.getconfig().appServerHost+"view/oa/issuedocList/"+issuedoc+"/AppDoingView?readviewentries&login&start="+starNumber+"&count=10";
+			var url = $.hori.getconfig().appServerHost+"view/oa/issuedocList/"+issuedoc+"/AppDoneView?readviewentries&login&start="+starNumber+"&count=10";
 			$.hori.showLoading();
 			$.hori.ajax({
 				"type":"post",
@@ -146,7 +146,7 @@
 			localStorage.setItem("click","2");
 			localStorage.setItem("getMoreData","receivedoc");
 			var receivedoc = localStorage.getItem("receivedoc");
-			var url = $.hori.getconfig().appServerHost+"view/oa/receivedocList/"+receivedoc+"/AppDoingView?readviewentries&login&start="+starNumber+"&count=10";
+			var url = $.hori.getconfig().appServerHost+"view/oa/receivedocList/"+receivedoc+"/AppDoneView?readviewentries&login&start="+starNumber+"&count=10";
 			$.hori.showLoading();
 			$.hori.ajax({
 				"type":"post",
