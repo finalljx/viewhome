@@ -95,9 +95,10 @@
 											<span data-bind="text: name"></span>
 										</a>
 									</li>
-									<li data-role="list-divider">附件信息</li>
+									<!--  <li data-role="list-divider">附件信息</li>
 									<xsl:apply-templates
 										select="//tr[@style='width:100%;display:block']/td/a" mode="a" />
+										-->
 								</ul>
 							</div>
 							<!-- <div align="left" class="message"> <xsl:value-of select="//textarea[@name='Fck_HTML']"></xsl:value-of> 
