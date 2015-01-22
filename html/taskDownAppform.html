@@ -22,25 +22,11 @@
 </head>
 <body>
 
-	<div>
-		<ul  data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
-			<li data-corners="false" data-shadow="false" data-iconshadow="true"
-				data-wrapperels="div" data-icon="arrow-r" data-iconpos="right"
-				data-theme="c"
-				class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-first-child ui-last-child ui-btn-up-c"><div
-					class="ui-btn-inner ui-li">
-					<div class="ui-btn-text">
-						<a class="ui-link-inherit">
-							<h3 data-bind="text: title" class="ui-li-heading">数据加载中…………</h3>
-							<span data-bind="text: taskState"></span>
-						</p>
-						</a>
-					</div>
-					<span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span>
-				</div>
-			</li>
-		</ul>
-	</div>
+	<div  id="divDataLoading" style="width:100%; margin-left:0px; margin-top: 10px; ">
+				<ul  data-role="listview" data-inset="true">
+					<li class="ui-li-static ui-body-inherit ui-first-child ui-last-child" style="width:100%; margin-left:0px;"><h3>数据加载中……</h3></li>
+				</ul>				
+			</div>
 </body>
 	
 
