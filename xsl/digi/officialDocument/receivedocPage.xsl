@@ -44,14 +44,14 @@
 								<li data-role="list-divider">正文内容</li>
 								<li data-bind="foreach: word" id="word">
 									<a data-role="button" data-bind="click:viewfile">
-										<span data-bind="text: name"></span>
+										<span text-align="center" data-bind="text: name"></span>
 									</a>
 								</li>
 
 								<li data-role="list-divider">附件</li>
 								<li data-bind="foreach: attachment" id="attachment">
 									<a data-role="button" data-bind="click:viewfile">
-										<span data-bind="text: name"></span>
+										<span text-align="center" data-bind="text: name"></span>
 									</a>
 								</li>
 							</ul>

@@ -90,9 +90,9 @@
 								<ul data-role="listview" data-inset="true" data-theme="d"
 									style="word-wrap:break-word">
 									<li data-role="list-divider">正文</li>
-									<li id="word" data-bind="foreach: word">
-										<a data-role="button" data-bind="click:viewfile1">
-											<span data-bind="text: name"></span>
+									<li id="word" data-bind="foreach: word" margin-bottom="0px">
+										<a data-role="button" data-bind="click:viewfile1" style="margin-bottom: 0px">
+											<span text-align="center" data-bind="text: name"></span>
 										</a>
 									</li>
 									<!--  <li data-role="list-divider">附件信息</li>

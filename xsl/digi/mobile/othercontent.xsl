@@ -386,7 +386,7 @@
 							<xsl:value-of select="substring-before($info, '(')" />
 						</xsl:variable>
 							<xsl:if test="contains($zhengwen, 'TANGER_OCX_Attachment')">
-							正文
+							<span text-align="center">正文</span>
 						</xsl:if>
 						<xsl:if test="not(contains($zhengwen, 'TANGER_OCX_Attachment'))">
 							<xsl:value-of select="substring-before($info, '(')" />
@@ -405,7 +405,7 @@
 							<xsl:value-of select="substring-before($info, '(')" />
 						</xsl:variable>
 						<xsl:if test="contains($zhengwen, 'TANGER_OCX_Attachment')">
-							正文
+							<span text-align="center">正文</span>
 						</xsl:if>
 						<xsl:if test="not(contains($zhengwen, 'TANGER_OCX_Attachment'))">
 							<xsl:value-of select="substring-before($info, '(')" />
@@ -421,7 +421,7 @@
 							<xsl:value-of select="$info" />
 						</xsl:variable>
 						<xsl:if test="contains($zhengwen, 'TANGER_OCX_Attachment')">
-							正文
+							<span text-align="center">正文</span>
 						</xsl:if>
 						<xsl:if test="not(contains($zhengwen, 'TANGER_OCX_Attachment'))">
 							<xsl:value-of select="$info" />
