@@ -6,9 +6,9 @@
 			"oaMsgServer": "MSG01/Server/CRSC",
 			"oaMobileServer": "MSG01/Server/CRSC",
 			"serverBaseUrl":"http://localhost:8080/",
-			"server" : "oa-a.crsc.isc",//调用附件需要的参数server
+			"server" :"oa-a.crsc.isc",
 			"encryptKey":"horiTech",
-			"appServerHost":"http://localhost:8080/",
+			"appServerHost":"http://localhost:80809/",
 			"appKey":"mobiletonghao"
 		};
 	};
