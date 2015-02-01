@@ -21,11 +21,10 @@
 						<div>
 							<ul data-role="listview" data-inset="true" data-theme="d"
 								style="word-wrap:break-word">
-								<li data-role="list-divider">发文办理单</li>
+								<li data-role="list-divider">基础信息</li>
 								<li>
 									<xsl:value-of select="//fieldset[@id='Abstract']/h3" />
 								</li>
-								<li data-role="list-divider">基础信息</li>
 								<xsl:apply-templates
 									select="//fieldset[@id='fieldSet1']/div[@class='row']/descendant::div[@class='input-group']"
 									mode="b" />
@@ -68,31 +67,10 @@
 		<xsl:choose>
 			<xsl:when test="not(contains($divStyle, 'display:none'))">
 				<li>
-					<xsl:if test="div[@class='DF_MindInfo']">
-						<xsl:value-of select="span[1][@class='input-group-addon']/label" />
-						:
-						<xsl:if test="div[@class='DF_MindInfo']!='' and div[@class='DF_QMInfo']!=''">
-						<xsl:value-of select="div[@class='DF_MindInfo']" />/
-						<xsl:value-of select="div[@class='DF_QMInfo']" />
-						</xsl:if>
-						<xsl:if test="div[@class='DF_MindInfo']='' or div[@class='DF_QMInfo']=''">
-						<xsl:value-of select="div[@class='DF_MindInfo']" />
-						<xsl:value-of select="div[@class='DF_QMInfo']" />
-						</xsl:if>
-						
-					</xsl:if>
-					<xsl:if test="span[@class='input-group-area']/div[@class='DF_MindInfo']">
+					<xsl:if test="span[@class='input-group-area']">
 					<xsl:value-of select="span[1][@class='input-group-addon']/label" />
 						:
-						<xsl:if test="span[@class='input-group-area']/div[@class='DF_MindInfo']!='' and span[@class='input-group-area']/div[@class='DF_QMInfo']!=''">
-						<xsl:value-of select="span[@class='input-group-area']/div[@class='DF_MindInfo']" />/
-						<xsl:value-of select="span[@class='input-group-area']/div[@class='DF_QMInfo']" />
-						</xsl:if>
-						<xsl:if test="span[@class='input-group-area']/div[@class='DF_MindInfo']='' or span[@class='input-group-area']/div[@class='DF_QMInfo']=''">
-						<xsl:value-of select="span[@class='input-group-area']/div[@class='DF_MindInfo']" />
-						<xsl:value-of select="span[@class='input-group-area']/div[@class='DF_QMInfo']" />
-						</xsl:if>
-					
+						<xsl:apply-templates select="span[@class='input-group-area']/div" mode="div"></xsl:apply-templates>
 					</xsl:if>
 					<xsl:if test="not(div[@class='DF_MindInfo'])and not(span[@class='input-group-area']/div[@class='DF_MindInfo'])">
 						<xsl:value-of select="span[1][@class='input-group-addon']/label" />
@@ -112,6 +90,12 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
+	<xsl:template match="div" mode="div">
+		<xsl:value-of select="."></xsl:value-of>
+		<xsl:text> </xsl:text>
+
+	</xsl:template>
+	
 	<!-- 处理审批流转意见 -->
 	<xsl:template match="tr" mode="tr">
 		<xsl:variable name="num" select="position()" />
