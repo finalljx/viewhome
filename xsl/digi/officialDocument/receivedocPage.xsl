@@ -21,11 +21,10 @@
 						<div>
 							<ul data-role="listview" data-inset="true" data-theme="d"
 								style="word-wrap:break-word">
-								<li data-role="list-divider">收文办理单</li>
+								<li data-role="list-divider">基础信息</li>
 								<li>
 									<xsl:value-of select="//fieldset[@id='Abstract']/h3" />
 								</li>
-								<li data-role="list-divider">基础信息</li>
 								<xsl:apply-templates
 									select="//fieldset[@id='fieldSet1']/div[@class='row']/descendant::div[@class='input-group']"
 									mode="b" />
