@@ -158,22 +158,6 @@
 							}
 						]]>
 						</script>
-						<div class="ui-grid-a">
-							<div class="ui-block-a" style="padding-bottom:5px;" align="center">
-								<xsl:if
-									test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
-									<a data-role="button" value="submit" onclick="submit('submit');"
-										data-mini='true' data-theme="f">提 交</a>
-								</xsl:if>
-							</div>
-							<div class="ui-block-b" style="padding-bottom:5px;" align="center">
-								<xsl:if
-									test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'reject')]">
-									<a data-role="button" value="reject" onclick="submit('reject');"
-										data-mini='true' data-theme="f">驳 回</a>
-								</xsl:if>
-							</div>
-						</div>
 						<div data-role="popup" id="popupDialog" data-overlay-theme="a" data-theme="c" data-dismissible="false" style="max-width:400px;" class="ui-corner-all">
 							<div data-role="header" data-theme="f" class="ui-corner-top">
 								<h1>操作信息</h1>
@@ -204,43 +188,6 @@
 						</div>
 						<ul data-role="listview" data-inset="true" data-theme="d"
 							style="word-wrap:break-word">
-
-							<xsl:if
-								test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
-								<li data-role="list-divider">审批意见</li>
-								<li>
-									<xsl:if test="//textarea[@name='FlowMindInfo']">
-										<table style="border:0;padding:0;margin:0;" width="100%"
-											border="0">
-											<tr style="width:100%">
-												<td style="width:70%" align="left">
-
-												</td>
-												<td style="width:30%" align="right">
-													<select onChange='$("#FlowMindInfo").val(this.value);'
-														data-theme="f" data-mini='true' data-icon="gear"
-														data-native-menu="true">
-														<option selected="unselected">常用语</option>
-														<option value="同意！">同意！</option>
-														<option value="不同意！">不同意！</option>
-														<option value="返回再议！">返回再议！</option>
-														<option value="请尽快处理！">请尽快处理！</option>
-														<option value="请修改后重新提交！">请修改后重新提交！</option>
-													</select>
-												</td>
-											</tr>
-											<tr style="width:100%">
-												<td colspan="2" style="width:100%" align="center">
-													<textarea id="FlowMindInfo" name="FlowMindInfo"></textarea>
-												</td>
-											</tr>
-
-										</table>
-									</xsl:if>
-								</li>
-							</xsl:if>
-
-
 
 							<li data-role="list-divider">基本信息</li>
 							<li>
@@ -277,8 +224,16 @@
 								<xsl:value-of select="//input[@name='TFCurNodeAuthorsCN']/@value" />
 								<xsl:value-of select="//input[@id='TFCurNodeOneDo']/@value" />
 							</li>
-							<li data-role="list-divider">流转意见</li>
-							<li>
+							
+						</ul>
+						
+	                    <div data-role="collapsible" data-collapsed="true"
+							data-theme="f" data-content-theme="d">
+							<h1>流转意见</h1>
+							<div>
+								<ul data-role="listview" data-inset="true" data-theme="d"
+									style="word-wrap:break-word">
+									<li>
 								<xsl:if test="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo">
 									<xsl:apply-templates
 										select="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo/mindinfo" />
@@ -288,10 +243,69 @@
 									暂无审批意见
 								</xsl:if>
 							</li>
-						</ul>
-
+									
+									
+								</ul>
+							</div>
+						</div>
+						
 						<xsl:apply-templates select="//input[@type='hidden' or not(@type)]"
 							mode="hidden" />
+							<ul data-role="listview" data-inset="true" data-theme="d"
+							style="word-wrap:break-word">
+
+							<xsl:if
+								test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
+								<li data-role="list-divider">审批意见</li>
+								<li>
+									<xsl:if test="//textarea[@name='FlowMindInfo']">
+										<table style="border:0;padding:0;margin:0;" width="100%"
+											border="0">
+											<tr style="width:100%">
+												<td style="width:70%" align="left">
+
+												</td>
+												<td style="width:30%" align="right">
+													<select onChange='$("#FlowMindInfo").val(this.value);'
+														data-theme="f" data-mini='true' data-icon="gear"
+														data-native-menu="true">
+														<option selected="unselected">常用语</option>
+														<option value="同意！">同意！</option>
+														<option value="不同意！">不同意！</option>
+														<option value="返回再议！">返回再议！</option>
+														<option value="请尽快处理！">请尽快处理！</option>
+														<option value="请修改后重新提交！">请修改后重新提交！</option>
+													</select>
+												</td>
+											</tr>
+											<tr style="width:100%">
+												<td colspan="2" style="width:100%" align="center">
+													<textarea id="FlowMindInfo" name="FlowMindInfo"></textarea>
+												</td>
+											</tr>
+
+										</table>
+									</xsl:if>
+								</li>
+							</xsl:if>
+							</ul>
+							<div class="ui-grid-a">
+							<div class="ui-block-a" style="padding-bottom:5px;" align="center">
+								<xsl:if
+									test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
+									<a data-role="button" value="submit" onclick="submit('submit');"
+										data-mini='true' data-theme="f">提 交</a>
+								</xsl:if>
+							</div>
+							<div class="ui-block-b" style="padding-bottom:5px;" align="center">
+								<xsl:if
+									test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'reject')]">
+									<a data-role="button" value="reject" onclick="submit('reject');"
+										data-mini='true' data-theme="f">驳 回</a>
+								</xsl:if>
+							</div>
+							
+							</div>
 					</div><!-- /content -->
 				</div>
 			</body>
@@ -386,7 +400,7 @@
 							<xsl:value-of select="substring-before($info, '(')" />
 						</xsl:variable>
 							<xsl:if test="contains($zhengwen, 'TANGER_OCX_Attachment')">
-							<span text-align="center">正文</span>
+							<span text-align="center">点击这里查看正文</span>
 						</xsl:if>
 						<xsl:if test="not(contains($zhengwen, 'TANGER_OCX_Attachment'))">
 							<xsl:value-of select="substring-before($info, '(')" />
@@ -405,7 +419,7 @@
 							<xsl:value-of select="substring-before($info, '(')" />
 						</xsl:variable>
 						<xsl:if test="contains($zhengwen, 'TANGER_OCX_Attachment')">
-							<span text-align="center">正文</span>
+							<span text-align="center">点击这里查看正文</span>
 						</xsl:if>
 						<xsl:if test="not(contains($zhengwen, 'TANGER_OCX_Attachment'))">
 							<xsl:value-of select="substring-before($info, '(')" />
@@ -421,7 +435,7 @@
 							<xsl:value-of select="$info" />
 						</xsl:variable>
 						<xsl:if test="contains($zhengwen, 'TANGER_OCX_Attachment')">
-							<span text-align="center">正文</span>
+							<span text-align="center">点击这里查看正文</span>
 						</xsl:if>
 						<xsl:if test="not(contains($zhengwen, 'TANGER_OCX_Attachment'))">
 							<xsl:value-of select="$info" />

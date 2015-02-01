@@ -85,7 +85,7 @@
 								<xsl:text> </xsl:text>
 								<xsl:value-of select="//input[@name='showdeptname']/@value"></xsl:value-of>
 							</div>
-							<li data-role="list-divider">正文</li>
+							<li data-role="list-divider"> 正文</li>
 							<li id="word" data-bind="foreach: word" margin-bottom="0px">
 								<a data-role="button" data-bind="click:viewfile1" style="margin-bottom: 0px">
 									<span text-align="center" data-bind="text: name"></span>

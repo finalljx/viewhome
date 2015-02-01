@@ -70,10 +70,10 @@
 							</li>
 
 							<li data-role="list-divider">附件信息</li>
-							<li data-bind="foreach: attachment" id="attachment">
-								<a data-role="button" data-bind="click:viewfile">
-									<span text-align="center" data-bind="text: name"></span>
-								</a>
+							<li data-bind="foreach: attachment" id="attachment" data-icon="false">
+								<a  data-bind="click:viewfile">
+									<span  data-bind="text: name"></span>
+								</a><hr/>
 							</li>
 							<!-- <li data-role="list-divider">附件信息</li> select="translate(//input[@name='AttachInfo']/@value, 
 								' ', '')"/> <xsl:if test="//input[@name='AttachInfo']/@value =''"> <li> 无附件 
@@ -90,8 +90,16 @@
 								<xsl:value-of select="//input[@name='TFCurNodeAuthorsCN']/@value" />
 								<xsl:value-of select="//input[@id='TFCurNodeOneDo']/@value" />
 							</li>
-							<li data-role="list-divider">流转意见</li>
-							<li>
+						
+
+						</ul>
+						 <div data-role="collapsible" data-collapsed="true"
+							data-theme="f" data-content-theme="d">
+							<h1>流转意见</h1>
+							<div>
+								<ul data-role="listview" data-inset="true" data-theme="d"
+									style="word-wrap:break-word">
+									<li>
 								<xsl:if test="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo">
 									<xsl:apply-templates
 										select="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo/mindinfo" />
@@ -107,8 +115,12 @@
 									暂无审批意见
 								</xsl:if>
 							</li>
-
-						</ul>
+									
+									
+								</ul>
+							</div>
+						</div>
+						
 						<xsl:apply-templates select="//input[@type='hidden' or not(@type)]"
 							mode="hidden" />
 					</div><!-- /content -->

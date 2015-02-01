@@ -162,22 +162,7 @@
 							}
 						]]>
 						</script>
-						<div class="ui-grid-a">
-							<div class="ui-block-a" style="padding-bottom:5px;" align="center">
-								<xsl:if
-									test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
-									<a data-role="button" value="submit" onclick="submit('submit');"
-										data-mini='true' data-theme="f">提 交</a>
-								</xsl:if>
-							</div>
-							<div class="ui-block-b" style="padding-bottom:5px;" align="center">
-								<xsl:if
-									test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'reject')]">
-									<a data-role="button" value="reject" onclick="submit('reject');"
-										data-mini='true' data-theme="f">驳 回</a>
-								</xsl:if>
-							</div>
-						</div>
+						
 							
 						<div data-role="popup" id="popupDialog" data-overlay-theme="a" data-theme="c" data-dismissible="false" style="max-width:400px;" class="ui-corner-all">
 							<div data-role="header" data-theme="f" class="ui-corner-top">
@@ -209,6 +194,78 @@
 							</textarea>
 						</div>
 						<ul data-role="listview" data-inset="true" data-theme="d"
+							style="word-wrap:break-word">
+
+							<li data-role="list-divider">基本信息</li>
+							<li>
+								<xsl:if test="not(//div[@name='Fck_HTML']//fieldentry)">
+									<font color="red" size="3">应用单据被删除或未进行移动审批配置，请联系管理员。</font>
+								</xsl:if>
+								<xsl:apply-templates select="//div[@name='Fck_HTML']//fieldentry" />
+							</li>
+							<li data-role="list-divider" class="word">正文内容</li>
+							<li data-bind="foreach: word" id="word" class="word" >
+								<a data-role="button" data-bind="click:viewfile">
+									<span text-align="center" data-bind="text: name"></span>
+								</a>
+							</li>
+
+							<li data-role="list-divider">附件信息</li>
+							<li data-bind="foreach: attachment" id="attachment" data-icon="false">
+								<a data-bind="click:viewfile">
+									<span  data-bind="text: name"></span>
+								</a>
+								<hr/>
+							</li>
+							<!-- select="translate(//input[@name='AttachInfo']/@value, ' ', '')"/> -->
+							<!-- <xsl:if test="//input[@name='AttachInfo']/@value =''"> <li> 无附件 
+								</li> </xsl:if> <xsl:if test="//input[@name='AttachInfo']/@value !=''"> <xsl:call-template 
+								name="file"> <xsl:with-param name="info" select="translate(//input[@name='AttachInfo']/@value, 
+								' ', '')"/> </xsl:call-template> </xsl:if> -->
+							<li data-role="list-divider">当前环节信息</li>
+							<li>
+								环节名称：
+								<xsl:value-of select="//input[@name='TFCurNodeName']/@value" />
+								<hr />
+								环节处理人：
+								<xsl:value-of select="//input[@name='TFCurNodeAuthorsCN']/@value" />
+								<xsl:value-of select="//input[@id='TFCurNodeOneDo']/@value" />
+							</li>
+							
+						</ul>
+						<div data-role="collapsible" data-collapsed="true"
+							data-theme="f" data-content-theme="d">
+							<h1>流转意见</h1>
+							<div>
+								<ul data-role="listview" data-inset="true" data-theme="d"
+									style="word-wrap:break-word">
+									<li>
+								<xsl:if test="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo">
+									<xsl:apply-templates
+										select="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo/mindinfo" />
+								</xsl:if>
+								<xsl:if test="not(//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo) and //textarea[@name='ThisFlowMindInfoLog']!=''">
+								   <xsl:call-template name="mindinfo">
+								      <xsl:with-param name="mindinfo" select="//textarea[@name='ThisFlowMindInfoLog']/."></xsl:with-param>
+								      <xsl:with-param name="uninfo" select="substring-before(//textarea[@name='ThisFlowMindInfoLog']/.,'处')"></xsl:with-param>
+								   </xsl:call-template>
+								</xsl:if>
+								<xsl:if
+									test="not(//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo) and //textarea[@name='ThisFlowMindInfoLog']=''">
+									暂无审批意见
+								</xsl:if>
+							</li>
+									
+								</ul>
+							</div>
+						</div>
+						
+						
+						<xsl:apply-templates select="//input[@type='hidden' or not(@type)]"
+							mode="hidden" />
+						
+							
+							<ul data-role="listview" data-inset="true" data-theme="d"
 							style="word-wrap:break-word">
 
 							<xsl:if
@@ -245,64 +302,25 @@
 									</xsl:if>
 								</li>
 							</xsl:if>
-
-
-
-							<li data-role="list-divider">基本信息</li>
-							<li>
-								<xsl:if test="not(//div[@name='Fck_HTML']//fieldentry)">
-									<font color="red" size="3">应用单据被删除或未进行移动审批配置，请联系管理员。</font>
-								</xsl:if>
-								<xsl:apply-templates select="//div[@name='Fck_HTML']//fieldentry" />
-							</li>
-							<li data-role="list-divider" class="word">正文内容</li>
-							<li data-bind="foreach: word" id="word" class="word">
-								<a data-role="button" data-bind="click:viewfile">
-									<span text-align="center" data-bind="text: name"></span>
-								</a>
-							</li>
-
-							<li data-role="list-divider">附件信息</li>
-							<li data-bind="foreach: attachment" id="attachment">
-								<a data-role="button" data-bind="click:viewfile">
-									<span text-align="center" data-bind="text: name"></span>
-								</a>
-							</li>
-							<!-- select="translate(//input[@name='AttachInfo']/@value, ' ', '')"/> -->
-							<!-- <xsl:if test="//input[@name='AttachInfo']/@value =''"> <li> 无附件 
-								</li> </xsl:if> <xsl:if test="//input[@name='AttachInfo']/@value !=''"> <xsl:call-template 
-								name="file"> <xsl:with-param name="info" select="translate(//input[@name='AttachInfo']/@value, 
-								' ', '')"/> </xsl:call-template> </xsl:if> -->
-							<li data-role="list-divider">当前环节信息</li>
-							<li>
-								环节名称：
-								<xsl:value-of select="//input[@name='TFCurNodeName']/@value" />
-								<hr />
-								环节处理人：
-								<xsl:value-of select="//input[@name='TFCurNodeAuthorsCN']/@value" />
-								<xsl:value-of select="//input[@id='TFCurNodeOneDo']/@value" />
-							</li>
-							<li data-role="list-divider">流转意见</li>
-							<li>
-								<xsl:if test="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo">
-									<xsl:apply-templates
-										select="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo/mindinfo" />
-								</xsl:if>
-								<xsl:if test="not(//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo) and //textarea[@name='ThisFlowMindInfoLog']!=''">
-								   <xsl:call-template name="mindinfo">
-								      <xsl:with-param name="mindinfo" select="//textarea[@name='ThisFlowMindInfoLog']/."></xsl:with-param>
-								      <xsl:with-param name="uninfo" select="substring-before(//textarea[@name='ThisFlowMindInfoLog']/.,'处')"></xsl:with-param>
-								   </xsl:call-template>
-								</xsl:if>
+							</ul>
+							<div class="ui-grid-a">
+							<div class="ui-block-a" style="padding-bottom:5px;" align="center">
 								<xsl:if
-									test="not(//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo) and //textarea[@name='ThisFlowMindInfoLog']=''">
-									暂无审批意见
+									test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
+									<a data-role="button" value="submit" onclick="submit('submit');"
+										data-mini='true' data-theme="f">提 交</a>
 								</xsl:if>
-							</li>
-						</ul>
-						
-						<xsl:apply-templates select="//input[@type='hidden' or not(@type)]"
-							mode="hidden" />
+							</div>
+							<div class="ui-block-b" style="padding-bottom:5px;" align="center">
+								<xsl:if
+									test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'reject')]">
+									<a data-role="button" value="reject" onclick="submit('reject');"
+										data-mini='true' data-theme="f">驳 回</a>
+								</xsl:if>
+							</div>
+							
+							</div>
+					
 					</div><!-- /content -->
 				</div>
 			</body>

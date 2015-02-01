@@ -104,6 +104,27 @@
 							</li>
 
 						</ul>
+						<div data-role="collapsible" data-collapsed="true"
+							data-theme="f" data-content-theme="d">
+							<h1>流转意见</h1>
+							<div>
+								<ul data-role="listview" data-inset="true" data-theme="d"
+									style="word-wrap:break-word">
+									<li>
+								<xsl:if test="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo">
+									<xsl:apply-templates
+										select="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo/mindinfo" />
+								</xsl:if>
+								<xsl:if
+									test="not(//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo)">
+									暂无审批意见
+								</xsl:if>
+							</li>
+									
+									
+								</ul>
+							</div>
+						</div>
 						<xsl:apply-templates select="//input[@type='hidden' or not(@type)]"
 							mode="hidden" />
 					</div><!-- /content -->
@@ -200,7 +221,7 @@
 							<xsl:value-of select="substring-before($info, '(')" />
 						</xsl:variable>
 						<xsl:if test="contains($zhengwen, 'TANGER_OCX_Attachment')">
-							<span text-align="center">正文</span>
+							<span text-align="center">点击这里查看正文</span>
 						</xsl:if>
 						<xsl:if test="not(contains($zhengwen, 'TANGER_OCX_Attachment'))">
 							<xsl:value-of select="substring-before($info, '(')" />
@@ -219,7 +240,7 @@
 							<xsl:value-of select="substring-before($info, '(')" />
 						</xsl:variable>
 						<xsl:if test="contains($zhengwen, 'TANGER_OCX_Attachment')">
-							<span text-align="center">正文</span>
+							<span text-align="center">点击这里查看正文</span>
 						</xsl:if>
 						<xsl:if test="not(contains($zhengwen, 'TANGER_OCX_Attachment'))">
 							<xsl:value-of select="substring-before($info, '(')" />
@@ -235,7 +256,7 @@
 							<xsl:value-of select="$info" />
 						</xsl:variable>
 						<xsl:if test="contains($zhengwen, 'TANGER_OCX_Attachment')">
-							<span text-align="center">正文</span>
+							<span text-align="center">点击这里查看正文</span>
 						</xsl:if>
 						<xsl:if test="not(contains($zhengwen, 'TANGER_OCX_Attachment'))">
 							<xsl:value-of select="$info" />
