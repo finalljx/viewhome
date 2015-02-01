@@ -24,7 +24,7 @@
 	$(document).ready(function(){
 		var hori=$.hori;
 		//$.hori.showLoading();
-		hori.setHeaderTitle("返回");
+		hori.setHeaderTitle("人员信息");
 	});
 	
 </script>
@@ -35,15 +35,30 @@
 			<div style="margin-left: 0px;">
 				<a data-role="button" data-mini="false" style="line-height: 4em;">李晓磊</a>
 			</div>
-			<div id="divContactCon">
-				<ul data-role="listview" data-inset="true" style="text-indent: 15px;" data-icon="false">
+			<div id="divContactCon" style="margin-left: 0px;">
+				<!-- <ul data-role="listview" data-inset="true" style="text-indent: 15px;" data-icon="false">
 					<li>公司：XXX子公司</li>
 					<li>部门：员工发展部</li>
 					<li>职务：副经理</li>
 					<li><font>电话：<a href="tel:010-12345678"><span>010-12345678</a></span></a></font></li>
 					<li><font>手机：<a href="tel:18910418890"><span>18910418890</a></span></a></font></li>
 					<li><font>邮箱：<a href="mailto:chenguofeng@163.com"><span>chenguofeng@163.com</a></span></a></font></li>
+				</ul> -->
+				<div>
+				<br />
+				<ul data-role="listview" data-inset="false" id="contactList">
+					<li style="line-height: 2em;">
+					<img src="../assets/contact/default_avatar.png" 
+						style="margin-left: 20px; margin-top: 30px; margin-right: 10px;" />
+						<font><span>公司：XXX子公司</span></font><br>
+						<font><span>部门：员工发展部</span></font><br>
+						<font><span>职务：副经理</span></font><br>
+						<font>电话：<a href="tel:010-12345678"><span>010-12345678</a></span></a></font><br>
+						<font>手机：<a href="tel:18910418890"><span>18910418890</a></span></a></font><br> 
+						<font>邮箱：<a href="mailto:chenguofeng@163.com"><span>chenguofeng@163.com</a></span></a></font><br>
+					</li>
 				</ul>
+				</div>
 			</div>
 		</div>
 	</div>
