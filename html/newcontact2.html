@@ -1,7 +1,7 @@
 
 <html>
 <head>
-<title>通讯录</title>
+<title>人员信息</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <meta name="viewport"
@@ -21,13 +21,20 @@
 <script src="../lib/knockout/knockout.js"></script>
 <script src="../lib/knockout/knockout.mapping.js"></script>
 <style type="text/css">
-	ul li a span{ float:right;padding-right:0px;} 
+ul li {
+	line-height: 2.5em;
+}
+
+ul li a span {
+	float: right;
+	padding-right: 0px;
+}
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){
 		var hori=$.hori;
 		//$.hori.showLoading();
-		hori.setHeaderTitle("返回");
+		hori.setHeaderTitle("人员信息");
 	});
 	function loadContact2(){
 		$.hori.showLoading();
