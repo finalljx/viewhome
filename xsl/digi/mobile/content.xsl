@@ -67,16 +67,23 @@
 								var appdocunid = $("#appdocunid").val();
 								var CurUserITCode = $("#CurUserITCode").val();
 								var FlowMindInfo = $("#FlowMindInfo").val();
+								if(FlowMindInfo=="" || FlowMindInfo==null || FlowMindInfo==" "){
+									if(value=='submit'){
+										FlowMindInfo = "同意！";
+									}else{
+										FlowMindInfo = "不同意！";
+									}
+								}
+								
 								localStorage.setItem("FlowMindInfo",FlowMindInfo);
 								//将回车变为换行
 								FlowMindInfo = FlowMindInfo.replace(/\n/g," ");
 								FlowMindInfo = FlowMindInfo.replace(/\r/g," ");
 								if(value=='submit'){
-								FlowMindInfo = escape(FlowMindInfo);
-								//FlowMindInfo = encodeURI(FlowMindInfo);
+									FlowMindInfo = escape(FlowMindInfo);
 								}
 								if(value=='reject'){
-								FlowMindInfo = escape(FlowMindInfo);
+									FlowMindInfo = escape(FlowMindInfo);
 								}
 								FlowMindInfo = FlowMindInfo.replace(/%20/g," ");
 								if(window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)) {
@@ -124,16 +131,10 @@
 								});
 							}
 							function submit(value){
-								//意见不可为空
-								var sel = $("#FlowMindInfo").val();
-								if(sel == null || sel==""){
-									alert('请填写您的意见');
-									return;
-								}
 								//驳回选关
 								if(value=="reject"){
 									var refuse = $("#TFCurNodeRefuseToFlag").val();
-									alert("驳回选关：---"+refuse);
+									//alert("驳回选关：---"+refuse);
 									//如果refuse==yes,当前环节允许驳回选关
 									if(refuse=="yes"){
 										$( "#flowpupups" ).popup( "open" );
@@ -142,18 +143,18 @@
 								}
 								
 								//确定提交或者驳回时
-									var toflownodeid = "";
-									if($("#toflownodeid").length>0){
-										toflownodeid = $("#toflownodeid").val();
-										toflownodeid =toflownodeid.replace(";","");
-										if(toflownodeid==""){
-											alert("请选择下一环节");
-											return ;
-										}
+								var toflownodeid = "";
+								if($("#toflownodeid").length>0){
+									toflownodeid = $("#toflownodeid").val();
+									toflownodeid =toflownodeid.replace(";","");
+									if(toflownodeid==""){
+										alert("请选择下一环节");
+										return ;
 									}
-									//存储下一环节到localstorage中
-									localStorage.setItem("oaNextNodeId",toflownodeid);
-									post(value, toflownodeid);
+								}
+								//存储下一环节到localstorage中
+								localStorage.setItem("oaNextNodeId",toflownodeid);
+								post(value, toflownodeid);
 								
 							}
 							function advanced(){
@@ -223,7 +224,7 @@
 												</td>
 												<td style="width:30%" align="right">
 													<select onChange='$("#FlowMindInfo").val(this.value);'
-														data-theme="a" data-mini='true' data-icon="gear"
+														data-theme="f" data-mini='true' data-icon="gear"
 														data-native-menu="true">
 														<option selected="unselected">常用语</option>
 														<option value="同意！">同意！</option>

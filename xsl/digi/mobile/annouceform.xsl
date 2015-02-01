@@ -70,8 +70,8 @@
 								</ul>
 							</div>
 						</div>
-						<div data-role="collapsible" data-collapsed="false" data-theme="f" data-content-theme="d">
-							<h1>正文内容</h1>
+						<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
+							<li data-role="list-divider">内容</li>
 							<div
 								style="font-weight:bold;font-size:20px;height:45px;color:#000066;padding-top:20px;text-align:center;word-break:break-all">
 								<xsl:value-of
@@ -85,27 +85,14 @@
 								<xsl:text> </xsl:text>
 								<xsl:value-of select="//input[@name='showdeptname']/@value"></xsl:value-of>
 							</div>
-							<br />
-							<div>
-								<ul data-role="listview" data-inset="true" data-theme="d"
-									style="word-wrap:break-word">
-									<li data-role="list-divider">正文</li>
-									<li id="word" data-bind="foreach: word" margin-bottom="0px">
-										<a data-role="button" data-bind="click:viewfile1" style="margin-bottom: 0px">
-											<span text-align="center" data-bind="text: name"></span>
-										</a>
-									</li>
-									<!--  <li data-role="list-divider">附件信息</li>
-									<xsl:apply-templates
-										select="//tr[@style='width:100%;display:block']/td/a" mode="a" />
-										-->
-								</ul>
-							</div>
-							<!-- <div align="left" class="message"> <xsl:value-of select="//textarea[@name='Fck_HTML']"></xsl:value-of> 
-								<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word"> 
-								<li data-role="list-divider">附件信息</li> <xsl:apply-templates select="//tr[@style='width:100%;display:block']/td/a" 
-								mode="a"/> </ul> </div> -->
-						</div>
+							<li data-role="list-divider">正文</li>
+							<li id="word" data-bind="foreach: word" margin-bottom="0px">
+								<a data-role="button" data-bind="click:viewfile1" style="margin-bottom: 0px">
+									<span text-align="center" data-bind="text: name"></span>
+								</a>
+							</li>
+							
+						</ul>
 					</div>
 				</div>
 			</body>
