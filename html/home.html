@@ -3,6 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0">
 <link rel="stylesheet" href="../assets/home/jquery-mobile-home.css">
+<link rel="stylesheet" href="../assets/home/icon.css">
 <link rel="stylesheet" href="../lib/swiper/idangerous.swiper.css">
 <link rel="stylesheet" href="../assets/home/swiper/swiper.css">
 <script src="../lib/jquery/jquery.min.js"></script>
@@ -279,13 +280,13 @@ a {
 <body >
 <!-- <body class="ui-mobile-viewport ui-overlay-c"> -->
 	<div data-role="page" id="home" data-url="home" tabindex="0" class="ui-page ui-body-c ui-page-active" style="background: #FFF;">
-		<div data-role="content" align="center" class="ui-content" role="main">
+		<div data-role="content" align="center" class="ui-content" style="padding: 0px;" role="main">
 		      <div class="swiper-container">
 	              <div id="tpxwSwiper" class="swiper-wrapper"
 	                  data-bind="foreach: list">
 	                  <div class="swiper-slide">
 	                      <a data-bind="click:showDetail"> <img
-	                          data-bind="attr:{'src':imgSrc}" class="swiper-image" style="border: 1px solid;" />
+	                          data-bind="attr:{'src':imgSrc}" class="swiper-image" />
 	                          <!-- <div>
 	                              <span class="title" data-bind="text: contentTitle"></span>
 	                          </div> -->
@@ -300,34 +301,34 @@ a {
              <br>
 			<div class="ui-grid-b" id="divOne">
 				<div class="ui-block-a">
-					<a href="javascript:void(0);" onclick="loadTaskList()" class="ui-link"> <img id="imgToDo" width="80" height="80" src="../assets/home/task.png">
+					<a href="javascript:void(0);" onclick="loadTaskList()" class="ui-link"> <img class="moduleIcon" src="../assets/home/task.png">
 					</a> <!-- <span id="spanTodo" class="bubble-count ui-btn-up-c ui-btn-corner-all" style="position: fixed; top: 15px; left: 359.5px;">0</span> --> <br>
 					<span style="color: #434343"><strong>待办任务</strong></span>
 				</div>
 				<div class="ui-block-b">
-					<a href="javascript:void(0);" onclick="officialDocument()" class="ui-link"> <img width="80" height="80" src="../assets/home/official.png">
+					<a href="javascript:void(0);" onclick="officialDocument()" class="ui-link"> <img class="moduleIcon" src="../assets/home/official.png">
 					</a> <br> <span style="color: #434343"><strong>最新公文</strong></span>
 				</div>
 				<div class="ui-block-c">
-					<a href="javascript:void(0)" onclick="loadAnnouceList()" class="ui-link"> <img width="80" height="80" src="../assets/home/Annouce.png">
+					<a href="javascript:void(0)" onclick="loadAnnouceList()" class="ui-link"> <img class="moduleIcon" src="../assets/home/Annouce.png">
 					</a> <br> <span style="color: #434343"><strong>通知公告</strong></span>
 				</div>
 			</div>
 			<br>
 			<div class="ui-grid-b" id="divOne">
 				<div class="ui-block-a">
-					<a href="javascript:void(0)" onclick="loadContact()" class="ui-link"> <img width="80" height="80" src="../assets/home/tel.png">
+					<a href="javascript:void(0)" onclick="loadContact()" class="ui-link"> <img class="moduleIcon" src="../assets/home/tel.png">
 					</a> <br> <span style="color: #434343"><strong>人员查询</strong></span>
 				</div>
 				<div class="ui-block-b">
-					<a href="javascript:void(0);" onclick="openmail()" class="ui-link"> <img width="80" height="80" src="../assets/home/mail.png">
-					</a> <br> <span style="color: #434343"><strong>个人邮件</strong></span>
-					<!-- <a href="javascript:void(0)" onclick="loadConnections()" class="ui-link"> <img width="80" height="80" src="../assets/home/Connection.png">
-					</a> <br> <span style="color: #434343"><strong>通号社区</strong></span> -->
+					 <a href="javascript:void(0)" onclick="loadNewContact()" class="ui-link"> <img class="moduleIcon" src="../assets/home/Connection.png">
+					</a> <br> <span style="color: #434343"><strong>通号社区</strong></span> 
 				</div>
 				<div class="ui-block-c">
-					 <a href="javascript:void(0)" onclick="loadNewContact()" class="ui-link"> <img width="80" height="80" src="../assets/home/Connection.png">
-					</a> <br> <span style="color: #434343"><strong>新版通讯录</strong></span> 
+					<a href="javascript:void(0);" onclick="openmail()" class="ui-link"> <img class="moduleIcon" src="../assets/home/mail.png">
+					</a> <br> <span style="color: #434343"><strong>个人邮件</strong></span>
+					<!-- <a href="javascript:void(0)" onclick="loadConnections()" class="ui-link"> <img class="moduleIcon" src="../assets/home/Connection.png">
+					</a> <br> <span style="color: #434343"><strong>通号社区</strong></span> -->
 				</div>
 			</div>
 			<br>
