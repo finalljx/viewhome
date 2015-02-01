@@ -42,7 +42,6 @@
 						localStorage.setItem("oaAppContentHtml",contentHtml);
 						$.hori.loadPage($.hori.getconfig().serverBaseUrl+"viewhome/html/searchPerson.html");
 					}
-					
            
   		]]>
 				</script>
@@ -186,8 +185,7 @@
 								<xsl:value-of select="//fieldentry[@id='TravelInfo']/value/." />
 							</textarea>
 						</div>
-						<ul data-role="listview" data-inset="true" data-theme="d"
-							style="word-wrap:break-word">
+						<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word" data-icon="false">
 
 							<li data-role="list-divider">基本信息</li>
 							<li>
@@ -197,7 +195,7 @@
 								<xsl:apply-templates select="//div[@name='Fck_HTML']//fieldentry" />
 							</li>
 
-							<li data-role="list-divider">附件信息</li>
+							<li data-role="list-divider" id="filenews">附件信息</li>
 							<!-- select="translate(//input[@name='AttachInfo']/@value, ' ', '')"/> -->
 							<xsl:if test="//input[@name='AttachInfo']/@value =''">
 								<li>
@@ -390,60 +388,74 @@
 	<!-- 处理 附件（目前前仅支持单个附件） -->
 	<xsl:template name="file">
 		<xsl:param name="info" />
-		<li>
 			<xsl:choose>
 				<xsl:when test="contains($info, ';')">
-					<a href="javascript:void(0)"
-						onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{substring-before($info, '(')}');"
-						data-role="button">
 						<xsl:variable name="zhengwen">
 							<xsl:value-of select="substring-before($info, '(')" />
 						</xsl:variable>
 							<xsl:if test="contains($zhengwen, 'TANGER_OCX_Attachment')">
+							<li data-role="list-divider">正文</li>
+							<a href="javascript:void(0)"
+						onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{substring-before($info, '(')}');"
+						data-role="button">
 							<span text-align="center">点击这里查看正文</span>
+							</a>
 						</xsl:if>
 						<xsl:if test="not(contains($zhengwen, 'TANGER_OCX_Attachment'))">
+						<li id="fileli">
+							<a href="javascript:void(0)"
+						onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{substring-before($info, '(')}');" style="text-align: center;">
 							<xsl:value-of select="substring-before($info, '(')" />
+						</a></li>
 						</xsl:if>
-					</a>
 					<xsl:call-template name="file">
 						<xsl:with-param name="info" select="substring-after($info, ';')" />
 					</xsl:call-template>
 				</xsl:when>
 
 				<xsl:when test="contains($info, '(')">
-					<a href="javascript:void(0)"
-						onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{substring-before($info, '(')}');"
-						data-role="button">
 						<xsl:variable name="zhengwen">
 							<xsl:value-of select="substring-before($info, '(')" />
 						</xsl:variable>
 						<xsl:if test="contains($zhengwen, 'TANGER_OCX_Attachment')">
+							<li data-role="list-divider">正文</li>
+							<a href="javascript:void(0)"
+						onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{substring-before($info, '(')}');"
+						data-role="button">
 							<span text-align="center">点击这里查看正文</span>
+							</a>
 						</xsl:if>
 						<xsl:if test="not(contains($zhengwen, 'TANGER_OCX_Attachment'))">
+						<li id="fileli">
+							<a href="javascript:void(0)"
+						onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{substring-before($info, '(')}');"  style="text-align: center;">
 							<xsl:value-of select="substring-before($info, '(')" />
+							</a>
+						</li>
 						</xsl:if>
-					</a>
+					
 
 				</xsl:when>
 				<xsl:otherwise>
-					<a href="javascript:void(0)"
-						onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{$info}');"
-						data-role="button">
 						<xsl:variable name="zhengwen">
 							<xsl:value-of select="$info" />
 						</xsl:variable>
 						<xsl:if test="contains($zhengwen, 'TANGER_OCX_Attachment')">
+							<li data-role="list-divider">正文</li>
+							<a href="javascript:void(0)"
+						onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{$info}');"
+						data-role="button">
 							<span text-align="center">点击这里查看正文</span>
+							</a>
 						</xsl:if>
 						<xsl:if test="not(contains($zhengwen, 'TANGER_OCX_Attachment'))">
-							<xsl:value-of select="$info" />
+							<li id="fileli"><a href="javascript:void(0)"
+							onclick="viewfile($.hori.getconfig().appServerHost+'view/oa/file/Produce/DigiFlowMobile.nsf/0/{//input[@name='AttachDocUnid']/@value}/$file/{$info}');"  style="text-align: center;">
+								<xsl:value-of select="$info" />
+							</a></li>
 						</xsl:if>
-					</a>
 				</xsl:otherwise>
 			</xsl:choose>
-		</li>
 	</xsl:template>
 
 	<!-- 处理 基本信息 -->
