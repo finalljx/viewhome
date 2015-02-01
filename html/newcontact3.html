@@ -1,0 +1,54 @@
+
+<html>
+<head>
+<title>通讯录</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+
+<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" />
+<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
+<script type="application/javascript" src="../assets/iscroll.js"></script>
+<script src="../lib/jquery/jquery.min.js"></script>
+<script src="../lib/jquery-mobile/jquery.mobile.min.js"></script>
+<script src="../lib/jquery-cookie/jquery.cookie.js"></script>
+<script src="../lib/encrypt/encrypt.js"></script>
+<script src="../lib/json/json2.js"></script>
+<script src="../lib/hori/hori.js?tag=21369"></script>
+<script src="../config/web/config.js"></script>
+
+<script src="../lib/knockout/knockout.js"></script>
+<script src="../lib/knockout/knockout.mapping.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var hori=$.hori;
+		//$.hori.showLoading();
+		hori.setHeaderTitle("返回");
+	});
+	
+</script>
+</head>
+<body>
+	<div id="list" data-role="page">
+		<div data-role="content" align="center">
+			<div style="margin-left: 0px;">
+				<a data-role="button" data-mini="false" style="line-height: 4em;">李晓磊</a>
+			</div>
+			<div id="divContactCon">
+				<ul data-role="listview" data-inset="true" style="text-indent: 15px;" data-icon="false">
+					<li>公司：XXX子公司</li>
+					<li>部门：员工发展部</li>
+					<li>职务：副经理</li>
+					<li><font>电话：<a href="tel:010-12345678"><span>010-12345678</a></span></a></font></li>
+					<li><font>手机：<a href="tel:18910418890"><span>18910418890</a></span></a></font></li>
+					<li><font>邮箱：<a href="mailto:chenguofeng@163.com"><span>chenguofeng@163.com</a></span></a></font></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+
+
+</html>
+
