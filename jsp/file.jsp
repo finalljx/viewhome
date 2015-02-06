@@ -51,7 +51,9 @@
 				}else if(type.indexOf("application/vnd")!=-1 || type.indexOf("application/pdf")!=-1 || type.indexOf("application/msword")!=-1 || type.indexOf("application/octet-stream")!=-1 || type.indexOf("application/vnd.ms-powerpoint")!=-1){
 					ispage = true;
 					path = q.getRequest().getRequestURI() + "?data-page=1&data-userstore="+q.getStoreId();
-				}
+				}else{
+                    path = q.getRequest().getRequestURI() + "?data-page=1&data-userstore="+q.getStoreId();
+                }
 				
 				path=path.replaceAll("^\\S*view","view"); 		
 				total=q.getPageSize();
