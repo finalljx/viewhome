@@ -3,7 +3,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0">
 <link rel="stylesheet" href="../assets/home/jquery-mobile-home.css">
-<link rel="stylesheet" href="../assets/home/icon.css">
 <link rel="stylesheet" href="../lib/swiper/idangerous.swiper.css">
 <link rel="stylesheet" href="../assets/home/items/module-res/swiper/swiper.css">
 <script src="../lib/jquery/jquery.min.js"></script>
@@ -18,11 +17,28 @@
 <script src="../lib/swiper/idangerous.swiper.min.js"></script>
 <script src="../lib/app/home/swiper.js"></script>
 <script type="text/javascript">
-function openmail(){
+/**function openmail(){
 	$.hori.openUrl("http://mail.crsc.cn/",function(data){
 		//alert(data);
 		});
 
+}*/
+function openmail(){
+	if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)) {
+		alert("由于苹果手机平台限制，请直接点击系统自带的邮件应用");
+
+	} else if (window.navigator.userAgent.match(/android/i)) {
+		var runMail=new cherry.bridge.NativeOperation("application", "runTraveler", []).dispatch();
+		var travelerScript = new cherry.bridge.ScriptOperation(function(){
+				var result = runMail.returnValue;
+				if(!result || result==false || result=='false'){
+				alert('请先安装 traveler客户端!');
+				}
+				});
+		travelerScript.addDependency(runMail);
+		travelerScript.dispatch();
+		cherry.bridge.flushOperations();
+	}
 }
 //ibmscp://com.ibm.connections/launch
 function loadConnections() {
@@ -55,8 +71,9 @@ function inittodos(){
 		$.hori.ajax({
 				"type":"post",
 				"url":url,
-				"data":"data-xml=yes^~^app|8|vwTaskUnDoneForMobile|vwTaskUnDoneForMobile^~^msg|5|msgByDateDownUnRdView|msgByDateDownRdView^~^flowinfo|5|FlowUndoView|FlowDoneView",
+				"data":"data-xml=yes^~^app|6|taskByDateDownUnDoneView|taskByDateDownDoneView^~^msg|6|msgByDateDownUnRdView|msgByDateDownRdView^~^flowinfo|6|FlowUndoView|FlowDoneView",
 				"success":function(res){
+					//alert(res);
 					var json = JSON.parse(res);
 					if(json.exception!=""){
 						alert(json.exception);
@@ -115,11 +132,11 @@ var icount=0;
 				hori.backPage(1);
 			});
 			//刷新气泡显示代办条数
-			/*hori.registerEvent("case", "casePresented", function() {
+			hori.registerEvent("case", "casePresented", function() {
 				//alert("niubility");
 				// 调用代办条数
 				inittodos();
-			});*/
+			});
 			// 调整气泡位置
 			//adjustBubble();
 			//如果浏览器调试模式显示气泡数
@@ -274,7 +291,10 @@ a {
 	padding: .2em .5em;
 	margin-left: -.5em;
 }
-  
+.ui-btn-up-c{
+	color: white;
+	background-image: linear-gradient(rgb(228, 55, 55),red);
+}
 </style>
 </head>
 <body >
@@ -302,31 +322,33 @@ a {
              <br>
 			<div class="ui-grid-b" id="divOne">
 				<div class="ui-block-a">
-					<a href="javascript:void(0);" onclick="loadTaskList()" class="ui-link"> <img class="moduleIcon" src="../assets/home/items/module-res/task.png">
-					</a> <!-- <span id="spanTodo" class="bubble-count ui-btn-up-c ui-btn-corner-all" style="position: fixed; top: 15px; left: 359.5px;">0</span> --> <br>
-					<span style="color: #434343"><strong>待办任务</strong></span>
+					<div style="width: 100px;"><a href="javascript:void(0);" onclick="loadTaskList()" class="ui-link" style="display:inline-block;"> 
+					<img id="imgToDo" width="68" height="68" src="../assets/home/items/module-res/task.png">
+					</a><span id="spanTodo" class="bubble-count ui-btn-up-c ui-btn-corner-all" style="float: right; position: absolute; margin-left: -10px;margin-top: -9px;">0</span>
+					<br> <span style="color: #434343"><strong>待办任务</strong></span>
+					</div>
 				</div>
 				<div class="ui-block-b">
-					<a href="javascript:void(0);" onclick="officialDocument()" class="ui-link"> <img class="moduleIcon" src="../assets/home/items/module-res/official.png">
+					<a href="javascript:void(0);" onclick="officialDocument()" class="ui-link"> <img class="moduleIcon" src="../assets/home/items/module-res/official.png" width="68" height="68">
 					</a> <br> <span style="color: #434343"><strong>最新公文</strong></span>
 				</div>
 				<div class="ui-block-c">
-					<a href="javascript:void(0)" onclick="loadAnnouceList()" class="ui-link"> <img class="moduleIcon" src="../assets/home/items/module-res/Annouce.png">
+					<a href="javascript:void(0)" onclick="loadAnnouceList()" class="ui-link"> <img class="moduleIcon" src="../assets/home/items/module-res/Annouce.png" width="68" height="68">
 					</a> <br> <span style="color: #434343"><strong>通知公告</strong></span>
 				</div>
 			</div>
 			<br>
-			<div class="ui-grid-b" id="divOne">
+			<div class="ui-grid-b">
 				<div class="ui-block-a">
-					<a href="javascript:void(0)" onclick="loadContact()" class="ui-link"> <img class="moduleIcon" src="../assets/home/items/module-res/tel.png">
+					<a href="javascript:void(0)" onclick="loadContact()" class="ui-link"> <img class="moduleIcon" src="../assets/home/items/module-res/tel.png" width="68" height="68">
 					</a> <br> <span style="color: #434343"><strong>人员查询</strong></span>
 				</div>
 				<div class="ui-block-b">
-					 <a href="javascript:void(0)" onclick="loadConnections()" class="ui-link"> <img class="moduleIcon" src="../assets/home/items/module-res/Connection.png">
+					 <a href="javascript:void(0)" onclick="loadConnections()" class="ui-link"> <img class="moduleIcon" src="../assets/home/items/module-res/Connection.png" width="68" height="68">
 					</a> <br> <span style="color: #434343"><strong>通号社区</strong></span> 
 				</div>
 				<div class="ui-block-c">
-					<a href="javascript:void(0);" onclick="openmail()" class="ui-link"> <img class="moduleIcon" src="../assets/home/items/module-res/mail.png">
+					<a href="javascript:void(0);" onclick="openmail()" class="ui-link"> <img class="moduleIcon" src="../assets/home/items/module-res/mail.png" width="68" height="68">
 					</a> <br> <span style="color: #434343"><strong>个人邮件</strong></span>
 					<!-- <a href="javascript:void(0)" onclick="loadConnections()" class="ui-link"> <img class="moduleIcon" src="../assets/home/items/module-res/Connection.png">
 					</a> <br> <span style="color: #434343"><strong>通号社区</strong></span> -->

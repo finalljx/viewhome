@@ -24,9 +24,9 @@
 						<xsl:value-of select="entrydata[2]/."/>
 					</span>
 				</h3>
-				<p style="font-size: 14px;">
+				<p style="font-size: 14px;text-indent: 6px;">
 					时间:<font color="#0080FF"><xsl:value-of select="entrydata[1]/."/></font>
-					<!-- 状态:<font color="#0080FF"><xsl:value-of select="entrydata[3]/."/></font> -->
+				    状态:<font color="#0080FF"><xsl:value-of select="entrydata[3]/."/></font>
 				</p>
 			</a>
 		</li>

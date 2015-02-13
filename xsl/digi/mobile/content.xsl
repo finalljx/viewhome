@@ -308,7 +308,7 @@
 								<xsl:if
 									test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
 									<a data-role="button" value="submit" onclick="submit('submit');"
-										data-mini='true' data-theme="f">提 交</a>
+										data-mini='true' data-theme="f">下一步</a>
 								</xsl:if>
 							</div>
 							<div class="ui-block-b" style="padding-bottom:5px;" align="center">
@@ -399,23 +399,21 @@
 
 	<!-- 处理 流转意见 -->
 	<xsl:template match="mindinfo">
-		<div>
+		<div style="line-height: 1.5em;">
 			<div style="width:100%" align="left">
-				<xsl:copy-of select="." />
+				审批意见:<xsl:copy-of select="." />
 			</div>
 			<div style="width:100%" align="left">
 				<label>
-					<xsl:value-of select="translate(@approver, '&quot;', '')" />
+					处理人(环节):<xsl:value-of select="translate(@approver, '&quot;', '')" />
 				</label>
-				<!--<label><xsl:value-of select="@approver"/></label> -->
-				<br />
-				<xsl:value-of select="@flownodename" />
+				(<xsl:value-of select="@flownodename" />)
 				<xsl:if test="@optnameinfo !=''">
-					<xsl:value-of select="@optnameinfo" />
+					(<xsl:value-of select="@optnameinfo" />)
 				</xsl:if>
 
 				<br />
-				<xsl:value-of select="@approvetime" />
+				时间:<xsl:value-of select="@approvetime" />
 			</div>
 		</div>
 		<hr />
