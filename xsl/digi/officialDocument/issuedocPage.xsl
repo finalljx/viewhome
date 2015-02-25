@@ -21,13 +21,21 @@
 						<div>
 							<ul data-role="listview" data-inset="true" data-theme="d"
 								style="word-wrap:break-word">
-								<li data-role="list-divider">基础信息</li>
-								<li>
+								<div data-role="collapsible" data-collapsed="true" data-theme="f" data-content-theme="d">
+								<h1>基本信息</h1>
+								<div>
+									<ul data-role="listview" data-inset="true" data-theme="d"
+									style="word-wrap:break-word">
+								<!-- <li data-role="list-divider"></li> -->
+									<li>
 									<xsl:value-of select="//fieldset[@id='Abstract']/h3" />
-								</li>
+									</li>
 								<xsl:apply-templates
 									select="//fieldset[@id='fieldSet1']/div[@class='row']/descendant::div[@class='input-group']"
 									mode="b" />
+									</ul>
+									</div>
+								</div>
 								<!--  <li data-role="list-divider">审批流转意见</li>
 								<xsl:if test="//table[@id='Approval_Tabel']/tbody/tr">
 									<li>

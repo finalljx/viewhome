@@ -131,6 +131,12 @@
 								});
 							}
 							function submit(value){
+								var chooseNode = $("#toflownodeid").find("option:selected").text();
+								if(chooseNode=="请选择环节"){
+									alert("请选择环节");
+									return false;
+								}
+								
 								//驳回选关
 								if(value=="reject"){
 									var refuse = $("#TFCurNodeRefuseToFlag").val();
@@ -201,7 +207,7 @@
 								<xsl:if test="not(//div[@name='Fck_HTML']//fieldentry)">
 									<font color="red" size="3">应用单据被删除或未进行移动审批配置，请联系管理员。</font>
 								</xsl:if>
-								<xsl:apply-templates select="//div[@name='Fck_HTML']//fieldentry" />
+								<xsl:apply-templates select="//div[@name='Fck_HTML']//fieldentry" mode="basedata"/>
 							</li>
 							<li data-role="list-divider" class="word">正文内容</li>
 							<li data-bind="foreach: word" id="word" class="word" >
@@ -233,16 +239,14 @@
 							</li>
 							
 						</ul>
-						<div data-role="collapsible" data-collapsed="true"
-							data-theme="f" data-content-theme="d">
+						<div data-role="collapsible" data-collapsed="true" data-theme="f" data-content-theme="d">
 							<h1>流转意见</h1>
 							<div>
 								<ul data-role="listview" data-inset="true" data-theme="d"
 									style="word-wrap:break-word">
 									<li>
 								<xsl:if test="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo">
-									<xsl:apply-templates
-										select="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo/mindinfo" />
+									<xsl:apply-templates select="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo/mindinfo" />
 								</xsl:if>
 								<xsl:if test="not(//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo) and //textarea[@name='ThisFlowMindInfoLog']!=''">
 								   <xsl:call-template name="mindinfo">
@@ -267,7 +271,8 @@
 							
 							<ul data-role="listview" data-inset="true" data-theme="d"
 							style="word-wrap:break-word">
-
+							
+							<xsl:apply-templates select="//div[@name='Fck_HTML']//fieldentry" mode="choosedata"/>
 							<xsl:if
 								test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
 								<li data-role="list-divider">审批意见</li>
@@ -308,7 +313,7 @@
 								<xsl:if
 									test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
 									<a data-role="button" value="submit" onclick="submit('submit');"
-										data-mini='true' data-theme="f">提 交</a>
+										data-mini='true' data-theme="f">下一步</a>
 								</xsl:if>
 							</div>
 							<div class="ui-block-b" style="padding-bottom:5px;" align="center">
@@ -399,23 +404,21 @@
 
 	<!-- 处理 流转意见 -->
 	<xsl:template match="mindinfo">
-		<div>
+		<div style="line-height: 1.5em;">
 			<div style="width:100%" align="left">
-				<xsl:copy-of select="." />
+				审批意见:<xsl:copy-of select="." />
 			</div>
 			<div style="width:100%" align="left">
 				<label>
-					<xsl:value-of select="translate(@approver, '&quot;', '')" />
+					处理人(环节):<xsl:value-of select="translate(@approver, '&quot;', '')" />
 				</label>
-				<!--<label><xsl:value-of select="@approver"/></label> -->
-				<br />
-				<xsl:value-of select="@flownodename" />
+				(<xsl:value-of select="@flownodename" />)
 				<xsl:if test="@optnameinfo !=''">
-					<xsl:value-of select="@optnameinfo" />
+					(<xsl:value-of select="@optnameinfo" />)
 				</xsl:if>
 
 				<br />
-				<xsl:value-of select="@approvetime" />
+				时间:<xsl:value-of select="@approvetime" />
 			</div>
 		</div>
 		<hr />
@@ -482,7 +485,7 @@
 	</xsl:template>
 
 	<!-- 处理 基本信息 -->
-	<xsl:template match="fieldentry">
+	<xsl:template match="fieldentry" mode="basedata">
 		<xsl:variable name="sub">
 			rtfmobile
 			<xsl:value-of select="@name" />
@@ -629,20 +632,21 @@
 			</xsl:otherwise>
 
 		</xsl:choose>
-
+	</xsl:template>
+	<xsl:template match="fieldentry" mode="choosedata">
 		<!-- 处理分支 <xsl:if test="$chooseToNodeIdValue!=''">-->
 		<xsl:variable name="chooseToNodeId"><xsl:value-of select="$flownodeid"/>_ToNodeId</xsl:variable>
 		<xsl:if test="contains(@id, $chooseToNodeId)">
 			<xsl:if test="@shownodes=$flownodeid">
-				<font size="3">下一环节不唯一，请选择环节</font>
-				<br />
-				<hr />
+				<li data-role="list-divider">下一环节不唯一，请选择环节</li>
+				<li>
 				<xsl:variable name="chooseToNodeIdValue">
 					<xsl:value-of select="value/text/." />
 				</xsl:variable>
 				<xsl:if test="$chooseToNodeIdValue!=''">
 					<select id="toflownodeid" name="toflownodeid" onChange=''
-					data-theme="a">
+					data-theme="f">
+						<option selected="unselected">请选择环节</option>
 						<xsl:call-template name="flownodes">
 							<xsl:with-param name="flows" select="value/text/." />
 							<xsl:with-param name="default" select="value123/." />
@@ -651,13 +655,15 @@
 				</xsl:if>
 				<xsl:if test="$chooseToNodeIdValue=''">
 					<select id="toflownodeid" name="toflownodeid" onChange=''
-					data-theme="a">
+					data-theme="f">
+					<option selected="unselected">请选择环节</option>
 						<xsl:call-template name="flownodes">
 							<xsl:with-param name="flows" select="text/." />
 							<xsl:with-param name="default" select="value123/." />
 						</xsl:call-template>
 					</select>
 				</xsl:if>
+				</li>
 			</xsl:if>
 		</xsl:if>
 	</xsl:template>
@@ -668,7 +674,7 @@
 			<xsl:choose>
 				<xsl:when
 					test="$default=substring-after(substring-before($flows, ';'), '|')">
-					<option selected="true"
+					<option
 						value="{substring-after(substring-before($flows, ';'), '|')}">
 						<xsl:value-of
 							select="substring-before(substring-before($flows, ';'), '|')" />

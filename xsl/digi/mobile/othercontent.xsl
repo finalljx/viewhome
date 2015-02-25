@@ -192,7 +192,7 @@
 								<xsl:if test="not(//div[@name='Fck_HTML']//fieldentry)">
 									<font color="red" size="3">应用单据被删除或未进行移动审批配置，请联系管理员。</font>
 								</xsl:if>
-								<xsl:apply-templates select="//div[@name='Fck_HTML']//fieldentry" />
+								<xsl:apply-templates select="//div[@name='Fck_HTML']//fieldentry" mode="basedata"/>
 							</li>
 
 							<li data-role="list-divider" id="filenews">附件信息</li>
@@ -251,7 +251,7 @@
 							mode="hidden" />
 							<ul data-role="listview" data-inset="true" data-theme="d"
 							style="word-wrap:break-word">
-
+							<xsl:apply-templates select="//div[@name='Fck_HTML']//fieldentry" mode="choosedata"/>
 							<xsl:if
 								test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
 								<li data-role="list-divider">审批意见</li>
@@ -292,7 +292,7 @@
 								<xsl:if
 									test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
 									<a data-role="button" value="submit" onclick="submit('submit');"
-										data-mini='true' data-theme="f">提 交</a>
+										data-mini='true' data-theme="f">下一步</a>
 								</xsl:if>
 							</div>
 							<div class="ui-block-b" style="padding-bottom:5px;" align="center">
@@ -362,23 +362,21 @@
 
 	<!-- 处理 流转意见 -->
 	<xsl:template match="mindinfo">
-		<div>
+		<div style="line-height: 1.5em;">
 			<div style="width:100%" align="left">
-				<xsl:copy-of select="." />
+				审批意见:<xsl:copy-of select="." />
 			</div>
 			<div style="width:100%" align="left">
 				<label>
-					<xsl:value-of select="translate(@approver, '&quot;', '')" />
+					处理人(环节):<xsl:value-of select="translate(@approver, '&quot;', '')" />
 				</label>
-				<!--<label><xsl:value-of select="@approver"/></label> -->
-				<br />
-				<xsl:value-of select="@flownodename" />
+				(<xsl:value-of select="@flownodename" />)
 				<xsl:if test="@optnameinfo !=''">
-					<xsl:value-of select="@optnameinfo" />
+					(<xsl:value-of select="@optnameinfo" />)
 				</xsl:if>
 
 				<br />
-				<xsl:value-of select="@approvetime" />
+				时间:<xsl:value-of select="@approvetime" />
 			</div>
 		</div>
 		<hr />
@@ -459,7 +457,7 @@
 	</xsl:template>
 
 	<!-- 处理 基本信息 -->
-	<xsl:template match="fieldentry">
+	<xsl:template match="fieldentry" mode="basedata">
 		<xsl:variable name="sub">
 			rtfmobile
 			<xsl:value-of select="@name" />
@@ -606,7 +604,8 @@
 			</xsl:otherwise>
 
 		</xsl:choose>
-
+	</xsl:template>
+	<xsl:template match="fieldentry" mode="choosedata">
 		<!-- 处理分支 -->
 		<xsl:variable name="chooseToNodeId">
 			<xsl:value-of select="$flownodeid" />
@@ -614,7 +613,7 @@
 		</xsl:variable>
 		<xsl:if test="contains(@id, $chooseToNodeId)">
 			<xsl:if test="@shownodes=$flownodeid">
-				<font size="3">下一环节不唯一，请选择环节</font>
+				<!-- <font size="3">下一环节不唯一，请选择环节</font> -->
 				<br />
 				<hr />
 

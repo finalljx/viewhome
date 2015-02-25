@@ -42,13 +42,6 @@
 					$("#username").css("color", "#9e9e9e");
 					$('#saveusername').removeAttr("checked").checkboxradio("refresh");
 				}
-				if(localStorage.getItem("data-savepassword")=="true"){
-					$("#password").attr("value", "");
-					$('#savepassword').attr("checked", true).checkboxradio("refresh");
-				}else{
-					$("#password").attr("value", "");
-					$('#savepassword').removeAttr("checked").checkboxradio("refresh");
-				}
 			
 				var hori=$.hori;
 				try{
@@ -120,7 +113,7 @@
 									//本地存储itcode 和oaServerName
 									localStorage.setItem("oaServerName",$.hori.getconfig().oaServerName)
 									localStorage.setItem("itcode",username);
-									saveUserInfoToLocal(username,password);
+									saveUserInfoToLocal(username);
 									
 									var targetURL= $.hori.getconfig().serverBaseUrl+"viewhome/html/home.html";	
 									var componentURL="";
@@ -166,7 +159,7 @@
 				$("#username").val("");
 				$("#password").val("");
 			}
-			function saveUserInfoToLocal(username,password){
+			function saveUserInfoToLocal(username){
 				try{
 					if(document.getElementById("saveusername").checked){
 						localStorage.setItem("data-saveusername", "true");
@@ -174,13 +167,6 @@
 					}else{
 						localStorage.setItem("data-saveusername", "false");
 						
-					}
-					if(document.getElementById("savepassword").checked){
-						localStorage.setItem("data-savepassword", "true");
-						localStorage.setItem("password", encrypt($.hori.getconfig().encryptKey,password));
-					}else{
-						localStorage.setItem("data-savepassword", "false");
-						localStorage.removeItem("password");
 					}
 				}catch(e){}
 			}
@@ -215,7 +201,14 @@
 			}
 		</script>
 		<style>
-		
+			.ui-corner-all{
+				-webkit-border-radius: 0em;
+				border-radius: 0em;
+			}
+			.ui-btn-corner-all {
+				-webkit-border-radius: 0em;
+				border-radius: 0em;
+			}
 		</style>
 	</head>
 	<body>
