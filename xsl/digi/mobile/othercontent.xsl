@@ -568,6 +568,24 @@
 						select="//div[@name='Fck_HTML']//table[@id='tblListC']" mode="t1" />
 				</li>
 			</xsl:when>
+			<xsl:when test="@id='StKPRQ'">
+				<xsl:if test="contains(@shownodes,$flownodeid)">
+					<xsl:value-of select="@title" />
+					<b>：</b>
+					<xsl:value-of select="value/." />
+					<br />
+					<hr />
+				</xsl:if>
+			</xsl:when>
+			<xsl:when test="@id='StOperator'">
+				<xsl:if test="contains(@shownodes,$flownodeid)">
+					<xsl:value-of select="@title" />
+					<b>：</b>
+					<xsl:value-of select="value/." />
+					<br />
+					<hr />
+				</xsl:if>
+			</xsl:when>
 			<xsl:otherwise>
 				<xsl:if test="contains(@type, 'checkbox')">
 					<xsl:if test="not(value/.='')">

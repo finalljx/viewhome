@@ -28,35 +28,47 @@
 	});
 	
 </script>
+<style type="text/css">
+	.ui-li-has-thumb .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-thumb {
+		min-height: 20px;
+	}
+	.img_span{
+		margin-left: -85px;
+	}
+</style>
 </head>
 <body>
 	<div id="list" data-role="page">
 		<div data-role="content" align="center">
 			<div style="margin-left: 0px;">
-				<a data-role="button" data-mini="false" style="line-height: 4em;">李晓磊</a>
+				<table>
+					<tr>
+						<td><img style="height:110px;" src="../assets/home/items/module-res/contact/default_avatar.png"></td>
+						<td width="100%"><a data-role="button" data-mini="false" style="line-height: 4em;">李晓磊
+						</a></td>
+					</tr>
+				</table>
 			</div>
 			<div id="divContactCon" style="margin-left: 0px;">
-				<!-- <ul data-role="listview" data-inset="true" style="text-indent: 15px;" data-icon="false">
-					<li>公司：XXX子公司</li>
-					<li>部门：员工发展部</li>
-					<li>职务：副经理</li>
-					<li><font>电话：<a href="tel:010-12345678"><span>010-12345678</a></span></a></font></li>
-					<li><font>手机：<a href="tel:18910418890"><span>18910418890</a></span></a></font></li>
-					<li><font>邮箱：<a href="mailto:chenguofeng@163.com"><span>chenguofeng@163.com</a></span></a></font></li>
-				</ul> -->
 				<div>
 				<br />
-				<ul data-role="listview" data-inset="false" id="contactList">
-					<li style="line-height: 2em;">
-					<img src="../assets/contact/default_avatar.png" 
-						style="margin-left: 20px; margin-top: 30px; margin-right: 10px;" />
-						<font><span>公司：XXX子公司</span></font><br>
-						<font><span>部门：员工发展部</span></font><br>
-						<font><span>职务：副经理</span></font><br>
-						<font>电话：<a href="tel:010-12345678"><span>010-12345678</a></span></a></font><br>
-						<font>手机：<a href="tel:18910418890"><span>18910418890</a></span></a></font><br> 
-						<font>邮箱：<a href="mailto:chenguofeng@163.com"><span>chenguofeng@163.com</a></span></a></font><br>
-					</li>
+				<ul data-role="listview" data-inset="false" id="contactList" style="text-indent: 40px;">
+					<li style=""><span>公司：XXX子公司</span></li>
+					<li style=""><span>部门：员工发展部</span></li>
+					<li style=""><span>职务：副经理</span></li>
+					<li style=""><img style="height:40px;width:40px;" src="../assets/home/items/module-res/contact/tel.png">
+					<span class="img_span">电话：<a href="tel:010-12345678"><span>010-12345678</a></span></a></span></li>
+					<li style=""><img style="height:40px;width:40px;" src="../assets/home/items/module-res/contact/tel.png">
+					<span class="img_span">手机：<a href="tel:18910418890"><span>18910418890</a></span></a></span></li>
+					<li style=""><img style="height:40px;width:40px;" src="../assets/home/items/module-res/contact/mail.png">
+					<span class="img_span">邮箱：<a href="mailto:chenguofeng@163.com"><span>chenguofeng@163.com</a></span></a></span></li>
+						<!-- <font><span>公司：XXX子公司</span></font><br>
+						<font><span></span></font><br>
+						<font><span></span></font><br>
+						<font></font><br>
+						<font></font><br> 
+						<font></font><br>
+					</li> -->
 				</ul>
 				</div>
 			</div>
