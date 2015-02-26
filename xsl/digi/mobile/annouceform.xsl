@@ -76,7 +76,7 @@
 							</div>
 						</div>
 						<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
-							<li data-role="list-divider">内容</li>
+							<!-- <li data-role="list-divider">内容</li>
 							
 							<div
 								style="font-size:15px;padding-bottom: 20px;padding-top:20px;text-align:center">
@@ -85,7 +85,7 @@
 								<xsl:value-of select="//input[@name='DraftManCn']/@value"></xsl:value-of>
 								<xsl:text> </xsl:text>
 								<xsl:value-of select="//input[@name='showdeptname']/@value"></xsl:value-of>
-							</div>
+							</div> -->
 							<li data-role="list-divider"> 正文</li>
 							<li id="word" data-bind="foreach: word" margin-bottom="0px">
 								<a data-role="button" data-bind="click:viewfile1" style="margin-bottom: 0px">

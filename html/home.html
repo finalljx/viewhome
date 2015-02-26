@@ -5,6 +5,8 @@
 <link rel="stylesheet" href="../assets/home/jquery-mobile-home.css">
 <link rel="stylesheet" href="../lib/swiper/idangerous.swiper.css">
 <link rel="stylesheet" href="../assets/home/items/module-res/swiper/swiper.css">
+<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" /> 
+<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" /> 
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/jquery-mobile/jquery.mobile.min.js"></script>
 <script src="../lib/jquery-cookie/jquery.cookie.js"></script>
@@ -32,7 +34,9 @@ function openmail(){
 		var travelerScript = new cherry.bridge.ScriptOperation(function(){
 				var result = runMail.returnValue;
 				if(!result || result==false || result=='false'){
-				alert('请先安装 traveler客户端!');
+					//alert('请先安装 traveler客户端!');
+					
+					$( "#mailpopupDialog" ).popup( "open" );
 				}
 				});
 		travelerScript.addDependency(runMail);
@@ -47,7 +51,7 @@ function loadConnections() {
 			if (data == "true") {
 				console.log("启动Connections客户端");
 			} else {
-				alert("您没有安装Connections客户端，请安装后再试");
+				$( "#ConnectionspopupDialog" ).popup( "open" );
 			}
 			});
 	}else{
@@ -56,7 +60,7 @@ function loadConnections() {
 		if (res == "true") {
 			console.log("启动Connections客户端");
 		} else {
-			alert("您没有安装Connections客户端，请安装后再试");
+			$( "#ConnectionspopupDialog" ).popup( "open" );
 		}
 	});
 	}
@@ -223,6 +227,15 @@ var icount=0;
 		$.hori.showLoading();
 		$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/newcontact.html','viewhome/xml/searchContact.xml')
 	}
+	//下载traveler和Connections
+	function loadmaildown(){
+		$.hori.showLoading();
+		$( "#ConnectionspopupDialog" ).popup( "close" );
+		$( "#mailpopupDialog" ).popup( "close" )
+		$.hori.openUrl("https://m.crsc.cn",function(data){
+			//alert(data);
+		});
+	}
 	//公文查阅
 	function officialDocument() {
 		var officialLibrary = localStorage.getItem("officialLibrary");
@@ -321,9 +334,42 @@ a {
                     <a href="#">more</a>
                   </div> -->
              </div>
-			 <span style="float: right;color: rgb(26, 192, 26);line-height: 2em;"><strong id="chName">欢迎您，</strong></span>
+			 <span style="float: right;color: #7b7b7b;;line-height: 2em;"><strong id="chName">欢迎您，</strong></span>
              <br>
-			 
+			 <!--traveler-->
+			 <div data-role="popup" id="mailpopupDialog" data-overlay-theme="a" data-theme="c" data-dismissible="false" style="max-width:400px;" class="ui-corner-all">
+				<div data-role="header" data-theme="f" class="ui-corner-top">
+					<h1>提示信息</h1>
+				</div>
+				<div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+					<p style="line-height:2em;">您当前没有安装traveler客户端,是否打开下载页面？</p>
+					<div class="ui-grid-a">
+							<div class="ui-block-a" style="padding-bottom:5px;" align="center">
+								<a data-role="button" value="submit" onclick="loadmaildown()" data-mini='true' data-theme="f">确　定</a>
+							</div>
+							<div class="ui-block-b" style="padding-bottom:5px;" align="center">
+								<a data-role="button" value="reject" onclick='$( "#mailpopupDialog" ).popup( "close" )' data-mini='true' data-theme="f">取　消</a>
+							</div>
+					</div>
+				</div>
+			</div>
+			<!--Connections  -->
+			 <div data-role="popup" id="ConnectionspopupDialog" data-overlay-theme="a" data-theme="c" data-dismissible="false" style="max-width:400px;" class="ui-corner-all">
+				<div data-role="header" data-theme="f" class="ui-corner-top">
+					<h1>提示信息</h1>
+				</div>
+				<div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+					<p style="line-height:2em;">您当前没有安装Connections客户端,是否打开下载页面？</p>
+					<div class="ui-grid-a">
+							<div class="ui-block-a" style="padding-bottom:5px;" align="center">
+								<a data-role="button" value="submit" onclick="loadmaildown()" data-mini='true' data-theme="f">确　定</a>
+							</div>
+							<div class="ui-block-b" style="padding-bottom:5px;" align="center">
+								<a data-role="button" value="reject" onclick='$( "#ConnectionspopupDialog" ).popup( "close" )' data-mini='true' data-theme="f">取　消</a>
+							</div>
+					</div>
+				</div>
+			</div>
 			<div class="ui-grid-b" id="divOne" style="clear: both;">
 				<div class="ui-block-a">
 					<div style="width: 100px;"><a href="javascript:void(0);" onclick="loadTaskList()" class="ui-link" style="display:inline-block;"> 

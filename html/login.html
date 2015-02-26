@@ -30,7 +30,7 @@
 			$(document).ready(function(){
 
 				$.hori.registerEvent("case", "casePresented", function() {
-					$("#password").attr("value", "");
+					$("#password").val(""); 
 				});
 
 				if(localStorage.getItem("data-saveusername")=="true"){
