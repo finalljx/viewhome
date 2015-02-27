@@ -11,7 +11,7 @@
 				</li>
 			</xsl:if>
 			<xsl:if test="count(//viewentries//viewentry)=10">
-				<li id="moredata"><div id="pullUp" align="center">
+				<li id="moredata" name="nodata"><div id="pullUp" align="center">
 					<span class="pullUpLabel">上划加载更多...</span>
 				</div></li>
 			</xsl:if>

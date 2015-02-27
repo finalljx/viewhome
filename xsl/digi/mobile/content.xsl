@@ -35,18 +35,14 @@
 						localStorage.setItem("oaAppContentHtml",contentHtml);
 						$.hori.loadPage($.hori.getconfig().serverBaseUrl+"view/html/jq.html");
 					}
-
 					function searchPerson(){						
 						
 						var contentHtml=$("#notice").html();
 						localStorage.setItem("oaAppContentHtml",contentHtml);
 						$.hori.loadPage($.hori.getconfig().serverBaseUrl+"viewhome/html/searchPerson.html");
 					}
-					
-           
-  		]]>
+  				]]>
 				</script>
-
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			</head>
 			<body >
@@ -239,12 +235,29 @@
 							</li>
 							
 						</ul>
-						<div data-role="collapsible" data-collapsed="true" data-theme="f" data-content-theme="d">
-							<h1>流转意见</h1>
+						<!-- <div data-role="collapsible" data-collapsed="true" data-theme="f" data-content-theme="d" class="ui-collapsible ui-collapsible-inset ui-corner-all ui-collapsible-themed-content">
+							<h1 class="ui-collapsible-heading">
+								<a href="#" class="ui-collapsible-heading-toggle ui-btn-up-f" style="color: white;">
+									<span class="ui-btn-text">流转意见</span>
+									</a>
+							</h1>
 							<div>
-								<ul data-role="listview" data-inset="true" data-theme="d"
-									style="word-wrap:break-word">
-									<li>
+								<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+								<li class="ui-li ui-li-static ui-btn-up-d ui-first-child ui-last-child">
+											暂无审批意见
+								</li>
+								</ul>
+							</div>
+						</div> -->
+						<div data-role="collapsible" data-collapsed="true" data-theme="f" data-content-theme="d" class="ui-collapsible ui-collapsible-inset ui-corner-all ui-collapsible-themed-content">
+							<h1 class="ui-collapsible-heading">
+								<a href="#" class="ui-collapsible-heading-toggle ui-btn-up-f" style="color: white;">
+									<span class="ui-btn-text">流转意见</span>
+									</a>
+							</h1>
+							<div>
+							<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+								<li class="ui-li ui-li-static ui-btn-up-d ui-first-child ui-last-child">
 								<xsl:if test="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo">
 									<xsl:apply-templates select="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo/mindinfo" />
 								</xsl:if>
@@ -259,10 +272,9 @@
 									暂无审批意见
 								</xsl:if>
 							</li>
-									
-								</ul>
+							</ul>
 							</div>
-						</div>
+						</div> 
 						
 						
 						<xsl:apply-templates select="//input[@type='hidden' or not(@type)]"
@@ -285,7 +297,9 @@
 
 												</td>
 												<td style="width:30%" align="right">
-													<select onChange='$("#FlowMindInfo").val(this.value);'
+												<div class="ui-select">
+												<div data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-icon="gear" data-iconpos="right" data-theme="f" data-mini="true" class="ui-btn ui-shadow ui-btn-corner-all ui-mini ui-btn-icon-right">
+												<select onChange='$("#FlowMindInfo").val(this.value);'
 														data-theme="f" data-mini='true' data-icon="gear"
 														data-native-menu="true">
 														<option selected="unselected">常用语</option>
@@ -295,6 +309,7 @@
 														<option value="请尽快处理！">请尽快处理！</option>
 														<option value="请修改后重新提交！">请修改后重新提交！</option>
 													</select>
+												</div></div>
 												</td>
 											</tr>
 											<tr style="width:100%">

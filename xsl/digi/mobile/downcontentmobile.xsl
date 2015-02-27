@@ -93,13 +93,15 @@
 						
 
 						</ul>
-						 <div data-role="collapsible" data-collapsed="true"
-							data-theme="f" data-content-theme="d">
-							<h1>流转意见</h1>
+						<div data-role="collapsible" data-collapsed="true" data-theme="f" data-content-theme="d" class="ui-collapsible ui-collapsible-inset ui-corner-all ui-collapsible-themed-content">
+							<h1 class="ui-collapsible-heading">
+								<a href="#" class="ui-collapsible-heading-toggle ui-btn-up-f" style="color: white;">
+									<span class="ui-btn-text">流转意见</span>
+									</a>
+							</h1>
 							<div>
-								<ul data-role="listview" data-inset="true" data-theme="d"
-									style="word-wrap:break-word">
-									<li>
+								<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+									<li class="ui-li ui-li-static ui-btn-up-d ui-first-child ui-last-child">
 								<xsl:if test="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo">
 									<xsl:apply-templates
 										select="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo/mindinfo" />

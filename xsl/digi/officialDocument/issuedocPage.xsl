@@ -19,15 +19,17 @@
 							select="//input[@name='StMaindocUnid_Att']/@value" />
 						<input type="hidden" id="unid" value="{$unid}" />
 						<div>
-							<ul data-role="listview" data-inset="true" data-theme="d"
-								style="word-wrap:break-word">
-								<div data-role="collapsible" data-collapsed="true" data-theme="f" data-content-theme="d">
-								<h1>基本信息</h1>
+							<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+								<div data-role="collapsible" data-collapsed="true" data-theme="f" data-content-theme="d" class="ui-collapsible ui-collapsible-inset ui-corner-all ui-collapsible-themed-content">
+							<h1 class="ui-collapsible-heading">
+								<a href="#" class="ui-collapsible-heading-toggle ui-btn-up-f" style="color: white;">
+									<span class="ui-btn-text">基本信息</span>
+									</a>
+							</h1>
 								<div>
-									<ul data-role="listview" data-inset="true" data-theme="d"
-									style="word-wrap:break-word">
+									<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
 								<!-- <li data-role="list-divider"></li> -->
-									<li>
+									<li class="ui-li ui-li-static ui-btn-up-d ui-first-child ui-last-child">
 									<xsl:value-of select="//fieldset[@id='Abstract']/h3" />
 									</li>
 								<xsl:apply-templates

@@ -20,53 +20,55 @@
 								<xsl:value-of
 									select="//div[@style='font-weight:bold;font-size:15pt;height:60px;color:#000066;padding-top:20px;text-align:center;word-break:break-all']/text()" />
 							</div>
-						<div data-role="collapsible" data-collapsed="true"
-							data-theme="f" data-content-theme="d">
-							<h1>基本信息</h1>
+						<div data-role="collapsible" data-collapsed="true" data-theme="f" data-content-theme="d" class="ui-collapsible ui-collapsible-inset ui-corner-all ui-collapsible-themed-content">
+							<h1 class="ui-collapsible-heading">
+								<a href="#" class="ui-collapsible-heading-toggle ui-btn-up-f" style="color: white;">
+									<span class="ui-btn-text">基本信息</span>
+									</a>
+							</h1>
 							<div>
-								<ul data-role="listview" data-inset="true" data-theme="d"
-									style="word-wrap:break-word">
-									<li>
+								<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+									<li class="ui-li ui-li-static ui-btn-up-d ui-first-child ui-last-child">
 										<xsl:value-of select="//label[@for='DraftManCn']" />
 										：
 										<xsl:value-of select="//input[@name='DraftManCn']/@value" />
 									</li>
-									<li>
+									<li class="ui-li ui-li-static ui-btn-up-d ui-first-child ui-last-child">
 										<xsl:value-of select="//label[@for='Dept']" />
 										：
 										<xsl:value-of select="//input[@name='showdeptname']/@value" />
 									</li>
-									<li>
+									<li class="ui-li ui-li-static ui-btn-up-d ui-first-child ui-last-child">
 										<xsl:value-of select="//label[@for='DraftDate']" />
 										：
 										<xsl:value-of select="//input[@name='DraftDate']/@value" />
 									</li>
-									<li>
+									<li class="ui-li ui-li-static ui-btn-up-d ui-first-child ui-last-child">
 										<xsl:value-of select="//label[@for='Import']" />
 										:
 										<xsl:value-of select="//input[@name='Import']/@value" />
 									</li>
-									<li>
+									<li class="ui-li ui-li-static ui-btn-up-d ui-first-child ui-last-child">
 										<xsl:value-of select="//label[@for='PubObject']" />
 										:
 										<xsl:value-of select="//input[@name='PubObject']/@value" />
 									</li>
-									<li>
+									<li class="ui-li ui-li-static ui-btn-up-d ui-first-child ui-last-child">
 										<xsl:value-of select="//label[@for='PubDate']" />
 										:
 										<xsl:value-of select="//input[@name='PubDate']/@value" />
 									</li>
-									<li>
+									<li class="ui-li ui-li-static ui-btn-up-d ui-first-child ui-last-child">
 										<xsl:value-of select="//label[@for='OldDate']" />
 										:
 										<xsl:value-of select="//input[@name='OldDate']/@value" />
 									</li>
-									<li>
+									<li class="ui-li ui-li-static ui-btn-up-d ui-first-child ui-last-child">
 										<xsl:value-of select="//label[@for='ClassName']" />
 										:
 										<xsl:value-of select="//input[@name='ClassName']/@value" />
 									</li>
-									<li>
+									<li class="ui-li ui-li-static ui-btn-up-d ui-first-child ui-last-child">
 										<xsl:value-of select="//label[@for='TopNews']" />
 										:
 										<xsl:value-of select="//input[@name='TopNews']/@value" />
