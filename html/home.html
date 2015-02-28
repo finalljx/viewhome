@@ -246,6 +246,11 @@ var icount=0;
 			//alert(data);
 		});
 	}
+	//统一通讯
+	function loadsamecommunication(){
+		alert("统一通讯系统建设中");
+		return false;
+	}
 	//公文查阅
 	function officialDocument() {
 		var officialLibrary = localStorage.getItem("officialLibrary");
@@ -426,7 +431,8 @@ a {
 					</a> <br> <span style="color: #434343"><strong>新版通讯录</strong></span>
 				</div>
 				<div class="ui-block-b">
-					
+					<a href="javascript:void(0)" onclick="loadsamecommunication()" class="ui-link"> <img class="moduleIcon" src="../assets/home/items/module-res/Annouce.png" width="68" height="68">
+					</a> <br> <span style="color: #434343"><strong>统一通讯</strong></span>
 				</div>
 				<div class="ui-block-c">
 					

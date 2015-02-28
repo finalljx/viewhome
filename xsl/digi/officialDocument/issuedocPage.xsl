@@ -60,7 +60,7 @@
 								<li data-role="list-divider">附件</li>
 								<li data-bind="foreach: attachment" id="attachment" data-icon="false">
 									<a data-bind="click:viewfile">
-										<span  data-bind="text: name"></span>
+										<span  data-bind="text: name" style="white-space: pre-wrap;"></span>
 									</a><hr/>
 								</li>
 							</ul>

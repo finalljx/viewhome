@@ -18,15 +18,17 @@
 		<xsl:variable name="unid"><xsl:value-of select="@unid"/></xsl:variable>
 		<xsl:variable name="dbpath"><xsl:value-of select="entrydata[4]/."/></xsl:variable>
 		<li name="lilist" href="#" data-icon="true" class="ui-first-child ui-last-child">
-			<a href="javascript:void(0)" onclick="loadDidPageForm(this);" data-unid="{$unid}" data-dbpath="{$dbpath}" class="ui-btn">
+			<a href="javascript:void(0)" onclick="loadDidPageForm(this);" data-unid="{$unid}" data-dbpath="{$dbpath}" class="ui-btn" style="line-height: 1em;">
 				<h3 style="white-space: normal;">
 					<span>
 						<xsl:value-of select="entrydata[2]/."/>
 					</span>
 				</h3>
-				<p style="font-size: 14px;text-indent: 6px;">
+				<p style="font-size: 14px;">
 					时间:<font color="#0080FF"><xsl:value-of select="entrydata[1]/."/></font>
-				    状态:<font color="#0080FF"><xsl:value-of select="entrydata[3]/."/></font>
+				</p>
+				<p style="font-size: 14px;">
+					当前环节:<font color="#0080FF"><xsl:value-of select="entrydata[8]/."/></font>
 				</p>
 			</a>
 		</li>
