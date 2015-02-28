@@ -59,28 +59,19 @@
 								</xsl:if>
 								<xsl:apply-templates select="//div[@name='Fck_HTML']//fieldentry" />
 							</li>
+							<li data-role="list-divider" class="word">正文内容</li>
+							<li data-bind="foreach: word" id="word" class="word">
+								<a data-role="button" data-bind="click:viewfile">
+									<span text-align="center" data-bind="text: name"></span>
+								</a>
+							</li>
 
-
-
-							<!-- <li data-role="list-divider" class="word">正文内容</li> <li data-bind="foreach: 
-								word" id="word" class="word"> <a data-role="button" data-bind="click:viewfile"> 
-								<span data-bind="text: name"></span> </a> </li> <li data-role="list-divider">附件信息</li> 
-								<li data-bind="foreach: attachment" id="attachment"> <a data-role="button" 
-								data-bind="click:viewfile"> <span data-bind="text: name"></span> </a> </li> -->
 							<li data-role="list-divider">附件信息</li>
-							<!--  select="translate(//input[@name='AttachInfo']/@value,
-							' ', '')"/>-->
-							<xsl:if test="//input[@name='AttachInfo']/@value =''">
-								<li> 无附件
-								</li>
-							</xsl:if>
-							<xsl:if test="//input[@name='AttachInfo']/@value !=''">
-								<xsl:call-template name="file">
-									<xsl:with-param name="info"
-										select="translate(//input[@name='AttachInfo']/@value, 
-								' ', '')" />
-								</xsl:call-template>
-							</xsl:if>
+							<li data-bind="foreach: attachment" id="attachment" data-icon="false">
+								<a  data-bind="click:viewfile">
+									<span  data-bind="text: name" style="white-space: pre-wrap;"></span>
+								</a><hr/>
+							</li>
 
 							<li data-role="list-divider">当前环节信息</li>
 							<li>
@@ -319,59 +310,41 @@
 
 			<!-- 新加了这个select -->
 			<xsl:when test="@type='select'">
-
 				<xsl:if test="not(contains(@id, 'ToNodeId'))">
-					<xsl:variable name="selectVal">
-						<xsl:value-of select="concat('|',value/.)" />
-					</xsl:variable>
-					<xsl:variable name="selectTxt">
-						<xsl:value-of select="substring-before(text/., $selectVal)" />
-					</xsl:variable>
-
 					<xsl:value-of select="@title" />
 					<b>：</b>
-
-					<xsl:if test="contains($selectTxt, ';')">
-						<xsl:variable name="selectTxt2">
-							<xsl:value-of select="substring-after($selectTxt,';')" />
-						</xsl:variable>
-
-						<xsl:if test="contains($selectTxt2, ';')">
-							<xsl:variable name="selectTxt3">
-								<xsl:value-of select="substring-after($selectTxt2,';')" />
-							</xsl:variable>
-							<xsl:if test="contains($selectTxt3, ';')">
-								<xsl:variable name="selectTxt4">
-									<xsl:value-of select="substring-after($selectTxt3,';')" />
-								</xsl:variable>
-								<xsl:if test="contains($selectTxt4, ';')">
-									<xsl:value-of select="substring-after($selectTxt4,';')" />
-								</xsl:if>
-
-								<xsl:if test="not(contains($selectTxt4, ';'))">
-									<xsl:value-of select="substring-after($selectTxt4,';')" />
-								</xsl:if>
-							</xsl:if>
-
-							<xsl:if test="not(contains($selectTxt3, ';'))">
-								<xsl:value-of select="substring-after($selectTxt3,';')" />
-							</xsl:if>
-						</xsl:if>
-
-						<xsl:if test="not(contains($selectTxt2, ';'))">
-							<xsl:value-of select="$selectTxt2" />
-						</xsl:if>
-					</xsl:if>
-
-					<xsl:if test="not(contains($selectTxt, ';'))">
-						<xsl:value-of select="$selectTxt" />
-					</xsl:if>
-
+					<xsl:value-of select="value/." />
 					<br />
 					<hr />
 				</xsl:if>
 			</xsl:when>
-
+			<xsl:when test="@id='StKPRQ'">
+				<xsl:if test="contains(@shownodes,$flownodeid)">
+					<xsl:value-of select="@title" />
+					<b>：</b>
+					<xsl:value-of select="value/." />
+					<br />
+					<hr />
+				</xsl:if>
+			</xsl:when>
+			<xsl:when test="@id='StOperator'">
+				<xsl:if test="contains(@shownodes,$flownodeid)">
+					<xsl:value-of select="@title" />
+					<b>：</b>
+					<xsl:value-of select="value/." />
+					<br />
+					<hr />
+				</xsl:if>
+			</xsl:when>
+			<xsl:when test="@id='StDocNumber'">
+				<xsl:if test="contains(@shownodes,$flownodeid)">
+					<xsl:value-of select="@title" />
+					<b>：</b>
+					<xsl:value-of select="value/." />
+					<br />
+					<hr />
+				</xsl:if>
+			</xsl:when>
 			<xsl:when test="@id='MTTABLE'">
 				<li data-role="list-divider">
 					<xsl:value-of select="@title" />

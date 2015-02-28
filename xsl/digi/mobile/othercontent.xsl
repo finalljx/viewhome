@@ -194,25 +194,20 @@
 								</xsl:if>
 								<xsl:apply-templates select="//div[@name='Fck_HTML']//fieldentry" mode="basedata"/>
 							</li>
+							<li data-role="list-divider" class="word">正文内容</li>
+							<li data-bind="foreach: word" id="word" class="word" >
+								<a data-role="button" data-bind="click:viewfile">
+									<span text-align="center" data-bind="text: name"></span>
+								</a>
+							</li>
 
-							<li data-role="list-divider" id="filenews">附件信息</li>
-							<!-- select="translate(//input[@name='AttachInfo']/@value, ' ', '')"/> -->
-							<xsl:if test="//input[@name='AttachInfo']/@value =''">
-								<li>
-									无附件
-								</li>
-							</xsl:if>
-							<xsl:if test="//input[@name='AttachInfo']/@value !=''">
-								<xsl:call-template name="file">
-									<xsl:with-param name="info"
-										select="translate(//input[@name='AttachInfo']/@value, ' ', '')" />
-								</xsl:call-template>
-							</xsl:if>
-							<!-- select="translate(//input[@name='AttachInfo']/@value, ' ', '')"/> -->
-							<!-- <xsl:if test="//input[@name='AttachInfo']/@value =''"> <li> 无附件 
-								</li> </xsl:if> <xsl:if test="//input[@name='AttachInfo']/@value !=''"> <xsl:call-template 
-								name="file"> <xsl:with-param name="info" select="translate(//input[@name='AttachInfo']/@value, 
-								' ', '')"/> </xsl:call-template> </xsl:if> -->
+							<li data-role="list-divider">附件信息</li>
+							<li data-bind="foreach: attachment" id="attachment" data-icon="false">
+								<a data-bind="click:viewfile">
+									<span  data-bind="text: name" style="white-space: pre-wrap;"></span>
+								</a>
+								<hr/>
+							</li>
 							<li data-role="list-divider">当前环节信息</li>
 							<li>
 								环节名称：

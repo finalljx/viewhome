@@ -213,7 +213,7 @@
 							<li data-role="list-divider">附件信息</li>
 							<li data-bind="foreach: attachment" id="attachment" data-icon="false">
 								<a data-bind="click:viewfile">
-									<span  data-bind="text: name"></span>
+									<span  data-bind="text: name" style="white-space: pre-wrap;"></span>
 								</a>
 								<hr/>
 							</li>
@@ -476,53 +476,10 @@
 
 			<!-- 新加了这个select -->
 			<xsl:when test="@type='select'">
-
 				<xsl:if test="not(contains(@id, 'ToNodeId'))">
-					<xsl:variable name="selectVal">
-						<xsl:value-of select="concat('|',value/.)" />
-					</xsl:variable>
-					<xsl:variable name="selectTxt">
-						<xsl:value-of select="substring-before(text/., $selectVal)" />
-					</xsl:variable>
-
 					<xsl:value-of select="@title" />
 					<b>：</b>
-
-					<xsl:if test="contains($selectTxt, ';')">
-						<xsl:variable name="selectTxt2">
-							<xsl:value-of select="substring-after($selectTxt,';')" />
-						</xsl:variable>
-
-						<xsl:if test="contains($selectTxt2, ';')">
-							<xsl:variable name="selectTxt3">
-								<xsl:value-of select="substring-after($selectTxt2,';')" />
-							</xsl:variable>
-							<xsl:if test="contains($selectTxt3, ';')">
-								<xsl:variable name="selectTxt4">
-									<xsl:value-of select="substring-after($selectTxt3,';')" />
-								</xsl:variable>
-								<xsl:if test="contains($selectTxt4, ';')">
-									<xsl:value-of select="substring-after($selectTxt4,';')" />
-								</xsl:if>
-
-								<xsl:if test="not(contains($selectTxt4, ';'))">
-									<xsl:value-of select="substring-after($selectTxt4,';')" />
-								</xsl:if>
-							</xsl:if>
-
-							<xsl:if test="not(contains($selectTxt3, ';'))">
-								<xsl:value-of select="substring-after($selectTxt3,';')" />
-							</xsl:if>
-						</xsl:if>
-
-						<xsl:if test="not(contains($selectTxt2, ';'))">
-							<xsl:value-of select="$selectTxt2" />
-						</xsl:if>
-					</xsl:if>
-					<xsl:if test="not(contains($selectTxt, ';'))">
-						<xsl:value-of select="$selectTxt" />
-					</xsl:if>
-
+					<xsl:value-of select="value/." />
 					<br />
 					<hr />
 				</xsl:if>
@@ -555,6 +512,15 @@
 					<hr />
 				</xsl:if>
 			</xsl:when>
+			<xsl:when test="@id='StDocNumber'">
+				<xsl:if test="contains(@shownodes,$flownodeid)">
+					<xsl:value-of select="@title" />
+					<b>：</b>
+					<xsl:value-of select="value/." />
+					<br />
+					<hr />
+				</xsl:if>
+			</xsl:when>
 			<xsl:otherwise>
 				<xsl:if test="contains(@type, 'checkbox')">
 					<xsl:if test="not(value/.='')">
@@ -565,8 +531,6 @@
 						<hr />
 					</xsl:if>
 				</xsl:if>
-				<!--<xsl:if test="not(contains(@type, 'checkbox'))"> <xsl:value-of select="@title" 
-					/> <b>：</b> <xsl:value-of select="value/."/> <br/><hr/> </xsl:if> -->
 				<xsl:if
 					test="not(contains(@type, 'checkbox')) and not(contains(@name,'TravelInfo'))">
 

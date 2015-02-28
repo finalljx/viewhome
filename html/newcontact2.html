@@ -21,15 +21,6 @@
 <script src="../lib/knockout/knockout.js"></script>
 <script src="../lib/knockout/knockout.mapping.js"></script>
 <style type="text/css">
-ul li {
-	line-height: 2.5em;
-}
-
-ul li a font {
-	float: right;
-	padding-right: 0px;
-	font-weight: 500;
-}
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -63,18 +54,22 @@ ul li a font {
 				</table>
 			</div>
 			<div id="divContactCon">
-				<ul data-role="listview" data-inset="true" style="text-indent: 15px;" >
+				<!-- <ul data-role="listview" data-inset="true" style="text-indent: 15px;" >
 				  <li ><a href="#" onclick="loadContact2()" style="line-height: 1em;"><img style="padding-top: 10px;margin-left: -10px;" src="../assets/home/items/module-res/contact/person.png"><font>通号电缆有限公司</font><h3 style="margin-left: -3.5em;padding-top: 1.5em;">张强</h3><font>人力资源部</font>
 				  </a></li>
-				  <li ><a href="#" onclick="loadContact2()" style="line-height: 1em;"><img style="padding-top: 10px;margin-left: -10px;" src="../assets/home/items/module-res/contact/person.png"><font>通号电缆有限公司</font><h3 style="margin-left: -3.5em;padding-top: 1.5em;">李宏杰</h3><font>人力资源部</font>
-				  </a></li>
-				  <li ><a href="#" onclick="loadContact2()" style="line-height: 1em;"><img style="padding-top: 10px;margin-left: -10px;" src="../assets/home/items/module-res/contact/person.png"><font>通号电缆有限公司</font><h3 style="margin-left: -3.5em;padding-top: 1.5em;">王明发</h3><font>人力资源部</font>
-				  </a></li>
-				  <li ><a href="#" onclick="loadContact2()" style="line-height: 1em;"><img style="padding-top: 10px;margin-left: -10px;" src="../assets/home/items/module-res/contact/person.png"><font>通号电缆有限公司</font><h3 style="margin-left: -3.5em;padding-top: 1.5em;">李晓磊</h3><font>人力资源部</font>
-				  </a></li>
-				  <li ><a href="#" onclick="loadContact2()" style="line-height: 1em;"><img style="padding-top: 10px;margin-left: -10px;" src="../assets/home/items/module-res/contact/person.png"><font>通号电缆有限公司</font><h3 style="margin-left: -3.5em;padding-top: 1.5em;">王晓庆</h3><font>人力资源部</font>
-				  </a></li>
-				</ul>
+				</ul> -->
+				<ul data-role="listview" data-theme="c" data-inset="true"  data-icon="false">
+				<li><a href="#" onclick="loadContact2()" style=""><table style="width: 100%;">
+				<tr>
+					<td style="width: 1%;"><img style="width: 60px;" src="../assets/home/items/module-res/contact/person.png"></td>
+					<td style="width: 4%;"><h3>张强</h3></td>
+					<td style="width: 70%;"></td>
+					<td style="width: 10%;line-height: 25px;"><span style="white-space: nowrap;">通号电缆有限公司</span><br/><span style="white-space: nowrap;">人力资源部</span></td>
+					<td>&#160;&#160;></td>
+				</tr>
+				</table></a>
+				</li>
+				</ul> 
 			</div>
 		</div>
 	</div>
