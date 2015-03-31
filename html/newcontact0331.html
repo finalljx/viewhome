@@ -32,7 +32,6 @@
 	.ui-li-has-thumb .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-thumb {
 		min-height: 20px;
 	}
-	
 </style>
 <script id="contactList" type="text/html">
 	<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
@@ -52,17 +51,14 @@
 <script id="contactUsers" type="text/html">
 	<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow" >
 		{{each list as value i}}
-			<li style="" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-first-child ui-btn-up-c">
+			<li style="height: 60px;line-height: 2.5;" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="c" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-first-child ui-btn-up-c">
 				<div class="ui-btn-inner ui-li">
 					<div class="ui-btn-text">
-						<a onclick="loadContact(this)" style="padding: 1px 1px;" class="ui-link-inherit" data-titlename={{value.displayName}} data-orgid={{value.uid}}><table style="">
+						<a onclick="loadContact(this)" class="ui-link-inherit" data-titlename={{value.displayName}} data-orgid={{value.uid}}><table style="width: 100%;margin-top: -8px;margin-left: -100px;">
 						<tbody><tr>
 							<td style=""><img style="width: 50px;" src="../assets/home/items/module-res/contact/person.png"></td>
-							<td style="min-width:50px">
-								<strong>{{value.displayName}}</strong><br/>
-								<span style="color: #434343;font-size: 15px;">{{value.crscCompanyName}}</span><br/>
-								<span style="color: #434343;font-size: 15px;">{{value.crscDepName}}</span>
-							</td>
+							<td style="min-width:50px"><h3 class="ui-li-heading">{{value.displayName}}</h3></td>
+							<td style="line-height: 25px;"><span style="white-space: nowrap;color: #434343;font-size: 15px;font-family: Microsoft YaHei;">{{value.crscCompanyName}}</span><br><span style="white-space: nowrap;color: #434343;font-size: 15px;font-family: Microsoft YaHei;">{{value.crscDepName}}</span></td>
 						</tr></tbody>
 						</table></a>
 					</div>

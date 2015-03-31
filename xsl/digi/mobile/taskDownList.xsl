@@ -17,18 +17,16 @@
 	<xsl:template match="viewentry">
 		<xsl:variable name="unid"><xsl:value-of select="@unid"/></xsl:variable>
 		<xsl:variable name="dbpath"><xsl:value-of select="entrydata[4]/."/></xsl:variable>
-		<li name="lilist" href="#" data-icon="true" class="ui-first-child ui-last-child">
-			<a href="javascript:void(0)" onclick="loadDidPageForm(this);" data-unid="{$unid}" data-dbpath="{$dbpath}" class="ui-btn" style="line-height: 1em;">
+		<li name="lilist" href="#" data-icon="true" class="ui-first-child ui-last-child" style="height: 75px;">
+			<a href="javascript:void(0)" style="line-height: 16px;height: 60px;padding-top: 4px;" onclick="loadDidPageForm(this);" data-unid="{$unid}" data-dbpath="{$dbpath}" class="ui-btn">
 				<h3 style="white-space: normal;">
 					<span>
 						<xsl:value-of select="entrydata[2]/."/>
 					</span>
 				</h3>
 				<p style="font-size: 14px;">
-					时间:<font color="#0080FF"><xsl:value-of select="entrydata[1]/."/></font>
-				</p>
-				<p style="font-size: 14px;">
-					当前环节:<font color="#0080FF"><xsl:value-of select="entrydata[8]/."/></font>
+					时间:<font><xsl:value-of select="substring(entrydata[1]/.,1,10)"/></font>
+					当前环节:<font><xsl:value-of select="entrydata[8]/."/></font>
 				</p>
 			</a>
 		</li>

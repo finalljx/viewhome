@@ -10,6 +10,9 @@
 	<xsl:variable name="flownodeid">
 		<xsl:value-of select="//input[@name='TFCurNodeID']/@value" />
 	</xsl:variable>
+	<xsl:variable name="flownodeidpanduan">
+		<xsl:value-of select="concat(//input[@name='TFCurNodeID']/@value,';')" />
+	</xsl:variable>
 
 	<xsl:output method="html" indent="yes" />
 	<xsl:template match="/">
@@ -35,14 +38,24 @@
 						localStorage.setItem("oaAppContentHtml",contentHtml);
 						$.hori.loadPage($.hori.getconfig().serverBaseUrl+"view/html/jq.html");
 					}
-					function searchPerson(){						
+					function searchPerson(){
 						
-						var contentHtml=$("#notice").html();
-						localStorage.setItem("oaAppContentHtml",contentHtml);
+						//var contentHtml=$("#notice").html();
+						//localStorage.setItem("oaAppContentHtml",contentHtml);
 						$.hori.loadPage($.hori.getconfig().serverBaseUrl+"viewhome/html/searchPerson.html");
 					}
   				]]>
 				</script>
+				<style>
+					.ui-bar-b{border: 0px;background-image: linear-gradient( #c4d9ef , #c4d9ef );}
+					.ui-collapsible-heading-toggle {
+						border: 1px solid #c4d9ef /*{c-bup-border}*/;
+						background-image: linear-gradient( #c4d9ef /*{c-bup-background-start}*/, #c4d9ef /*{c-bup-background-end}*/);
+					}
+					.ui-header .ui-btn-icon-left .ui-icon, .ui-footer .ui-btn-icon-left .ui-icon, .ui-mini.ui-btn-icon-left .ui-icon, .ui-mini .ui-btn-icon-left .ui-icon {
+						left: 7px;
+					}
+				</style>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			</head>
 			<body >
@@ -99,6 +112,7 @@
 								}
 								
                                var soap = "<SOAP-ENV:Envelope xmlns:SOAP-ENV='http://schemas.xmlsoap.org/soap/envelope/' xmlns:SOAP-ENC='http://schemas.xmlsoap.org/soap/encoding/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'><SOAP-ENV:Body><m:bb_dd_GetDataByView xmlns:m='http://sxg.bbdd.org' SOAP-ENV:encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'><db_ServerName xsi:type='xsd:string'>"+appserver+"</db_ServerName><db_DbPath xsi:type='xsd:string'>"+appdbpath+"</db_DbPath><db_DocUID xsi:type='xsd:string'>"+appdocunid+"</db_DocUID><db_UpdInfo xsi:type='xsd:string'></db_UpdInfo><db_OptPsnID xsi:type='xsd:string'>"+CurUserITCode+"</db_OptPsnID><db_TempAuthors xsi:type='xsd:string'></db_TempAuthors><db_MsgTitle xsi:type='xsd:string'></db_MsgTitle><db_ToNodeId xsi:type='xsd:string'>"+toNodeId+"</db_ToNodeId><db_Mind xsi:type='xsd:string'>"+FlowMindInfo+"</db_Mind><db_OptType xsi:type='xsd:string'>"+value+"</db_OptType></m:bb_dd_GetDataByView></SOAP-ENV:Body></SOAP-ENV:Envelope>";
+							   alert(soap);return;
 								var url = $.hori.getconfig().appServerHost+"view/oa/request/Produce/ProInd.nsf/THFlowBackTraceAgent?openagent&login";
 								var data = "data-xml="+soap;
 								$.hori.ajax({
@@ -116,7 +130,6 @@
 												$( "#popupDialog" ).popup( "open" );
 												//alert(result);
 												//setTimeout("$.hori.backPage(1)",3000);
-												
 											}
 									},
 									error:function(response){
@@ -132,7 +145,7 @@
 									alert("请选择环节");
 									return false;
 								}
-								
+								alert(chooseNode);return;
 								//驳回选关
 								if(value=="reject"){
 									var refuse = $("#TFCurNodeRefuseToFlag").val();
@@ -143,7 +156,6 @@
 										return;
 									}
 								}
-								
 								//确定提交或者驳回时
 								var toflownodeid = "";
 								if($("#toflownodeid").length>0){
@@ -159,13 +171,16 @@
 								post(value, toflownodeid);
 								
 							}
-							function advanced(){
-								$( "#popupBasic" ).popup( "open" );
+							function selectVal(val){
+								$("#FlowMindInfo").val(val);
+								$("#selectVal").val(1);
+							}
+							function chooseNode(){
+								$( "#nodedialog" ).popup( "open" );
 							}
 						]]>
 						</script>
-						
-							
+						<!-- 提交成功提示 -->
 						<div data-role="popup" id="popupDialog" data-overlay-theme="a" data-theme="c" data-dismissible="false" style="max-width:400px;" class="ui-corner-all">
 							<div data-role="header" data-theme="f" class="ui-corner-top">
 								<h1>操作信息</h1>
@@ -175,7 +190,10 @@
 								<a href="#" data-role="button" data-mini='true' data-theme="d" onclick="$.hori.backPage(1)">确　认</a>
 							</div>
 						</div>
-						
+						<!-- 选择流程和人员 -->
+						<div data-role="popup" id="nodedialog" data-overlay-theme="a" data-theme="c" data-dismissible="false" style="max-width:400px;" class="ui-corner-all">
+							
+						</div>
 						<!-- 驳回选关 -->
 						<div data-role="popup" id="flowpupups">
 							<fieldset data-role="controlgroup" data-mini="true">
@@ -186,46 +204,38 @@
 								</xsl:call-template>
 							</fieldset>
 						</div>
-
-						<h3>
-							<xsl:value-of select="//title/text()" />
-						</h3>
 						<div style="display:none">
 							<textarea id="jsonv">
 								<xsl:value-of select="//fieldentry[@id='TravelInfo']/value/." />
 							</textarea>
 						</div>
-						<ul data-role="listview" data-inset="true" data-theme="d"
-							style="word-wrap:break-word">
+						<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word">
 
-							<li data-role="list-divider">基本信息</li>
-							<li>
+							<li data-role="list-divider" class="fontdividerstyle">基本信息</li>
+							<li class="fontstyle">
 								<xsl:if test="not(//div[@name='Fck_HTML']//fieldentry)">
 									<font color="red" size="3">应用单据被删除或未进行移动审批配置，请联系管理员。</font>
 								</xsl:if>
+								标题：<xsl:value-of select="//title/text()" /><br/><hr/>
 								<xsl:apply-templates select="//div[@name='Fck_HTML']//fieldentry" mode="basedata"/>
 							</li>
-							<li data-role="list-divider" class="word">正文内容</li>
-							<li data-bind="foreach: word" id="word" class="word" >
+							<li data-role="list-divider" class="word" style="color: black;font-size: 16px;font-family: Microsoft YaHei;text-shadow: none;">正文内容</li>
+							<li data-bind="foreach: word" id="word" class="word">
 								<a data-role="button" data-bind="click:viewfile">
-									<span text-align="center" data-bind="text: name"></span>
+									<span text-align="center" data-bind="text: name" style="color:#265b93;font-size: 15px;font-family: Microsoft YaHei;"></span>
 								</a>
 							</li>
 
-							<li data-role="list-divider">附件信息</li>
-							<li data-bind="foreach: attachment" id="attachment" data-icon="false">
+							<li data-role="list-divider" class="fontdividerstyle">附件信息</li>
+							<li data-bind="foreach: attachment" id="attachment" data-icon="false" style="background: #ffffff;">
 								<a data-bind="click:viewfile">
-									<span  data-bind="text: name" style="white-space: pre-wrap;"></span>
+									<span  data-bind="text: number" style="color:#265b93;font-size: 15px;font-family: Microsoft YaHei;"/>
+									<span id="filenumber" style="color:#265b93;">.</span>
+									<span  data-bind="text: name" style="white-space: pre-wrap;color:#265b93;font-size: 15px;font-family: Microsoft YaHei;"></span>
 								</a>
-								<hr/>
 							</li>
-							<!-- select="translate(//input[@name='AttachInfo']/@value, ' ', '')"/> -->
-							<!-- <xsl:if test="//input[@name='AttachInfo']/@value =''"> <li> 无附件 
-								</li> </xsl:if> <xsl:if test="//input[@name='AttachInfo']/@value !=''"> <xsl:call-template 
-								name="file"> <xsl:with-param name="info" select="translate(//input[@name='AttachInfo']/@value, 
-								' ', '')"/> </xsl:call-template> </xsl:if> -->
-							<li data-role="list-divider">当前环节信息</li>
-							<li>
+							<li data-role="list-divider" class="fontdividerstyle">当前环节信息</li>
+							<li class="fontstyle">
 								环节名称：
 								<xsl:value-of select="//input[@name='TFCurNodeName']/@value" />
 								<hr />
@@ -235,29 +245,15 @@
 							</li>
 							
 						</ul>
-						<!-- <div data-role="collapsible" data-collapsed="true" data-theme="f" data-content-theme="d" class="ui-collapsible ui-collapsible-inset ui-corner-all ui-collapsible-themed-content">
-							<h1 class="ui-collapsible-heading">
-								<a href="#" class="ui-collapsible-heading-toggle ui-btn-up-f" style="color: white;">
-									<span class="ui-btn-text">流转意见</span>
-									</a>
-							</h1>
-							<div>
-								<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
-								<li class="ui-li ui-li-static ui-btn-up-d ui-first-child ui-last-child">
-											暂无审批意见
-								</li>
-								</ul>
-							</div>
-						</div> -->
 						<div data-role="collapsible" data-collapsed="true" data-theme="f" data-content-theme="d" class="ui-collapsible ui-collapsible-inset ui-corner-all ui-collapsible-themed-content">
 							<h1 class="ui-collapsible-heading">
 								<a href="#" class="ui-collapsible-heading-toggle ui-btn-up-f" style="color: white;">
-									<span class="ui-btn-text">流转意见</span>
+									<span class="ui-btn-text" style="color: black;font-size: 17px;font-family: Microsoft YaHei;text-shadow: none;">流转意见</span>
 									</a>
 							</h1>
 							<div>
 							<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
-								<li class="ui-li ui-li-static ui-btn-up-d ui-first-child ui-last-child">
+								<li class="ui-li ui-li-static ui-btn-up-d ui-first-child ui-last-child" style="font-size: 15px;font-family: Microsoft YaHei;">
 								<xsl:if test="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo">
 									<xsl:apply-templates select="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo/mindinfo" />
 								</xsl:if>
@@ -274,35 +270,27 @@
 							</li>
 							</ul>
 							</div>
-						</div> 
-						
-						
+						</div>
 						<xsl:apply-templates select="//input[@type='hidden' or not(@type)]"
 							mode="hidden" />
-						
-							
 							<ul data-role="listview" data-inset="true" data-theme="d"
 							style="word-wrap:break-word">
-							
-							<xsl:apply-templates select="//div[@name='Fck_HTML']//fieldentry" mode="choosedata"/>
 							<xsl:if
 								test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
-								<li data-role="list-divider">审批意见</li>
-								<li>
+								<li data-role="list-divider" class="fontdividerstyle">审批意见</li>
+								<li class="fontstyle">
 									<xsl:if test="//textarea[@name='FlowMindInfo']">
 										<table style="border:0;padding:0;margin:0;" width="100%"
 											border="0">
 											<tr style="width:100%">
-												<td style="width:70%" align="left">
-
+												<td style="width:99%" align="left">
+													<textarea style="height: 80px;" id="FlowMindInfo" name="FlowMindInfo" class="fontstyle"></textarea>
 												</td>
-												<td style="width:30%" align="right">
-												<div class="ui-select">
-												<div data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-icon="gear" data-iconpos="right" data-theme="f" data-mini="true" class="ui-btn ui-shadow ui-btn-corner-all ui-mini ui-btn-icon-right">
-												<select onChange='$("#FlowMindInfo").val(this.value);'
-														data-theme="f" data-mini='true' data-icon="gear"
-														data-native-menu="true">
-														<option selected="unselected">常用语</option>
+												<td style="width:1%" align="right">
+												<div class="ui-select" style="margin-top: -43px;width: 35px;">
+												<div class="ui-btn ui-shadow ui-btn-corner-all ui-mini ui-btn-icon-right">
+												<select onChange='selectVal(this.value);' id="selectVal" data-theme="f" data-mini='true' data-icon="arrow-d" data-iconpos="left" class="fontstyle">
+														<option></option>
 														<option value="同意！">同意！</option>
 														<option value="不同意！">不同意！</option>
 														<option value="返回再议！">返回再议！</option>
@@ -312,35 +300,28 @@
 												</div></div>
 												</td>
 											</tr>
-											<tr style="width:100%">
-												<td colspan="2" style="width:100%" align="center">
-													<textarea id="FlowMindInfo" name="FlowMindInfo"></textarea>
-												</td>
-											</tr>
-
 										</table>
 									</xsl:if>
 								</li>
 							</xsl:if>
 							</ul>
 							<div class="ui-grid-a">
-							<div class="ui-block-a" style="padding-bottom:5px;" align="center">
-								<xsl:if
-									test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
-									<a data-role="button" value="submit" onclick="submit('submit');"
-										data-mini='true' data-theme="f">下一步</a>
-								</xsl:if>
+								<div class="ui-block-a" style="padding-bottom:5px;" align="center">
+									<xsl:if
+										test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'reject')]">
+										<a data-role="button" value="reject" onclick="submit('reject');"
+											data-mini='true' data-theme="f" class="fontstyle">退 回</a>
+									</xsl:if>
+								</div>
+								<div class="ui-block-b" style="padding-bottom:5px;" align="center">
+									<xsl:if
+										test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
+										<a data-role="button" value="submit" onclick="chooseNode();"
+											data-mini='true' data-theme="f" class="fontstyle">下一步</a>
+									</xsl:if>
+								</div>
 							</div>
-							<div class="ui-block-b" style="padding-bottom:5px;" align="center">
-								<xsl:if
-									test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'reject')]">
-									<a data-role="button" value="reject" onclick="submit('reject');"
-										data-mini='true' data-theme="f">驳 回</a>
-								</xsl:if>
-							</div>
-							
-							</div>
-					
+							<br/><br/>
 					</div><!-- /content -->
 				</div>
 			</body>
@@ -569,7 +550,7 @@
 				</li>
 			</xsl:when>
 			<xsl:when test="@id='StKPRQ'">
-				<xsl:if test="contains(@shownodes,$flownodeid)">
+				<xsl:if test="contains(concat(@shownodes,';'),$flownodeidpanduan)">
 					<xsl:value-of select="@title" />
 					<b>：</b>
 					<xsl:value-of select="value/." />
@@ -578,7 +559,7 @@
 				</xsl:if>
 			</xsl:when>
 			<xsl:when test="@id='StOperator'">
-				<xsl:if test="contains(@shownodes,$flownodeid)">
+				<xsl:if test="contains(concat(@shownodes,';'),$flownodeidpanduan)">
 					<xsl:value-of select="@title" />
 					<b>：</b>
 					<xsl:value-of select="value/." />
@@ -587,8 +568,8 @@
 				</xsl:if>
 			</xsl:when>
 			<xsl:when test="@id='StDocNumber'">
-				<xsl:if test="contains(@shownodes,$flownodeid)">
-					<xsl:value-of select="@title" />
+				<xsl:if test="contains(concat(@shownodes,';'),$flownodeidpanduan)">
+					<xsl:value-of select="@title"/>
 					<b>：</b>
 					<xsl:value-of select="value/." />
 					<br />
@@ -605,31 +586,22 @@
 						<hr />
 					</xsl:if>
 				</xsl:if>
-				<!--<xsl:if test="not(contains(@type, 'checkbox'))"> <xsl:value-of select="@title" 
-					/> <b>：</b> <xsl:value-of select="value/."/> <br/><hr/> </xsl:if> -->
-				<xsl:if
-					test="not(contains(@type, 'checkbox')) and not(contains(@name,'TravelInfo'))">
-
+				<xsl:if test="not(contains(@type, 'checkbox')) and not(contains(@name,'TravelInfo'))">
 					<xsl:value-of select="@title" />
 					<b>：</b>
 					<xsl:value-of select="value/." />
 					<br />
 					<hr />
-
 				</xsl:if>
-
 				<xsl:if test="contains(@name,'TravelInfo')">
 					<xsl:value-of select="@title" />
 					<b>：</b>
 					<div id="div_DTblHtml">
 					</div>
-
 					<br />
 					<hr />
 				</xsl:if>
-
 			</xsl:otherwise>
-
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="fieldentry" mode="choosedata">
@@ -637,7 +609,7 @@
 		<xsl:variable name="chooseToNodeId"><xsl:value-of select="$flownodeid"/>_ToNodeId</xsl:variable>
 		<xsl:if test="contains(@id, $chooseToNodeId)">
 			<xsl:if test="@shownodes=$flownodeid">
-				<li data-role="list-divider">下一环节不唯一，请选择环节</li>
+				<li>下一环节不唯一，请选择环节</li>
 				<li>
 				<xsl:variable name="chooseToNodeIdValue">
 					<xsl:value-of select="value/text/." />

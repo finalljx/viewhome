@@ -8,8 +8,8 @@
 	</viewer>
 	<viewer id="contact" type="remote" source="http://10.0.3.3:10050" encoding="gb18030">
 		<!-- 通讯录获取 -->
-		<view id="todosmobile" template="contact.jsp" encoding="utf-8">
-		</view>
+		<view id="todosmobile" template="contact.jsp" encoding="utf-8"></view>
+		<view id="getContactList" template="getcontactList.jsp" encoding="utf-8"></view>
 	</viewer>
 	<viewer id="oa" type="remote" source="http://w3-t.crsc.isc/oa/" 	encoding="gb2312">
 		<!-- 代办条数，气泡显示 -->

@@ -80,7 +80,7 @@ function inittodos(){
 					//alert(res);
 					var json = JSON.parse(res);
 					if(json.exception!=""){
-						alert(json.exception);
+						alert("获取数据超时。");
 						$.hori.hideLoading();
 					}else{
 						if(json.number==0){
@@ -88,8 +88,8 @@ function inittodos(){
 							$("#spanTodo").css({
 								"float":"right",
 								"position":"absolute",
-								"margin-left":"70px",
-								"margin-top":"-80px",
+								"margin-left":"60px",
+								"margin-top":"-60px",
 								"font-size":"13px",
 								"display":"block"
 							});
@@ -161,7 +161,7 @@ var icount=0;
 			}
 			//ios 隐藏邮件图标
 			if (hori.getMobileType() == "apple") {
-				//$("#divMail").hide();
+				$("#divMail").hide();
 			}
 			//获取公文库
 			getOfficialLibrary();
@@ -231,12 +231,14 @@ var icount=0;
 	//通讯录
 	function loadContact() {
 		$.hori.showLoading();
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/contact.html','viewhome/xml/searchContact.xml')
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/contact.html')
 	}
 	//新版通讯录
 	function loadNewContact(){
 		$.hori.showLoading();
-		$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/newcontact.html','viewhome/xml/searchContact.xml')
+		localStorage.setItem("contactorgid","50001000");
+		localStorage.setItem("contacttitle","通讯录");
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/newcontact.html')
 	}
 	//下载traveler和Connections
 	function loadmaildown(){
@@ -245,6 +247,10 @@ var icount=0;
 		$.hori.openUrl("https://m.crsc.cn",function(data){
 			//alert(data);
 		});
+	}
+	function appDown(){
+		$.hori.showLoading();
+		$.hori.loadPage($.hori.getconfig().serverBaseUrl+ 'viewhome/html/app.html')
 	}
 	//统一通讯
 	function loadsamecommunication(){
@@ -330,7 +336,12 @@ a {
 }
 .ui-btn-up-c{
 	color: white;
-	background-image: linear-gradient(rgb(228, 55, 55),red);
+	/**background-image: linear-gradient(rgb(228, 55, 55),red);*/
+	background: red;
+	border: 0px solid red;
+}
+.spanfont{
+	color: #434343;font-size: 15px;font-family: Microsoft YaHei;
 }
 </style>
 </head>
@@ -356,7 +367,7 @@ a {
                     <a href="#">more</a>
                   </div> -->
              </div>
-			 <span style="float: right;color: #7b7b7b;;line-height: 2em;"><strong id="chName">欢迎您，</strong></span>
+			 <span style="float: right;color: #7b7b7b;;line-height: 2em;height: 30px;"><strong id="chName"></strong></span>
              <br>
 			 <!--traveler-->
 			 <div data-role="popup" id="mailpopupDialog" data-overlay-theme="a" data-theme="c" data-dismissible="false" style="max-width:400px;" class="ui-corner-all">
@@ -395,46 +406,45 @@ a {
 			<div class="ui-grid-b" id="divOne" style="clear: both;">
 				<div class="ui-block-a">
 					<div style="width: 100px;"><a href="javascript:void(0);" onclick="loadTaskList()" class="ui-link" style="display:inline-block;"> 
-					<img id="imgToDo" width="68" height="68" src="../assets/home/items/module-res/task.png">
+					<img id="imgToDo" width="58" height="58" src="../assets/home/items/module-res/task.png">
 					</a><span id="spanTodo" class="bubble-count ui-btn-up-c ui-btn-corner-all" style="float: right; position: absolute; margin-left: -10px;margin-top: -9px;font-size: 13px;display: none;">0</span>
-					<br> <span style="color: #434343"><strong>待办任务</strong></span>
+					<br> <span class="spanfont">待办任务</span>
 					</div>
 				</div>
 				<div class="ui-block-b">
-					<a href="javascript:void(0);" onclick="officialDocument()" class="ui-link"> <img class="moduleIcon" src="../assets/home/items/module-res/official.png" width="68" height="68">
-					</a> <br> <span style="color: #434343"><strong>最新公文</strong></span>
+					<a href="javascript:void(0);" onclick="officialDocument()" class="ui-link"> <img class="moduleIcon" src="../assets/home/items/module-res/official.png" width="58" height="58">
+					</a> <br> <span class="spanfont">最新公文</span>
 				</div>
 				<div class="ui-block-c">
-					<a href="javascript:void(0)" onclick="loadAnnouceList()" class="ui-link"> <img class="moduleIcon" src="../assets/home/items/module-res/Annouce.png" width="68" height="68">
-					</a> <br> <span style="color: #434343"><strong>通知公告</strong></span>
+					<a href="javascript:void(0)" onclick="loadAnnouceList()" class="ui-link"> <img class="moduleIcon" src="../assets/home/items/module-res/Annouce.png" width="58" height="58">
+					</a> <br> <span class="spanfont">通知公告</span>
 				</div>
 			</div>
 			<br>
 			<div class="ui-grid-b">
 				<div class="ui-block-a">
-					<a href="javascript:void(0)" onclick="loadContact()" class="ui-link"> <img class="moduleIcon" src="../assets/home/items/module-res/tel.png" width="68" height="68">
-					</a> <br> <span style="color: #434343"><strong>人员查询</strong></span>
+					<a href="javascript:void(0)" onclick="loadNewContact()" class="ui-link"> <img class="moduleIcon" src="../assets/home/items/module-res/tel.png" width="58" height="58">
+					</a> <br> <span class="spanfont">通讯录</span>
 				</div>
 				<div class="ui-block-b">
-					 <a href="javascript:void(0)" onclick="loadConnections()" class="ui-link"> <img class="moduleIcon" src="../assets/home/items/module-res/Connection.png" width="68" height="68">
-					</a> <br> <span style="color: #434343"><strong>通号社区</strong></span> 
+					 <a href="javascript:void(0)" onclick="loadConnections()" class="ui-link"> <img class="moduleIcon" src="../assets/home/items/module-res/Connection.png" width="58" height="58">
+					</a> <br> <span class="spanfont">通号社区</span> 
 				</div>
 				<div class="ui-block-c">
-					<a href="javascript:void(0);" onclick="openmail()" class="ui-link"> <img class="moduleIcon" src="../assets/home/items/module-res/mail.png" width="68" height="68">
-					</a> <br> <span style="color: #434343"><strong>个人邮件</strong></span>
+					<a href="javascript:void(0)" onclick="appDown()" class="ui-link"> <img class="moduleIcon" src="../assets/home/items/module-res/1.png" width="58" height="58">
+					</a> <br> <span class="spanfont">应用下载</span>
 				</div>
 			</div>
 			<br>
 			<div class="ui-grid-b">
 				<div class="ui-block-a">
-					<a href="javascript:void(0)" onclick="loadNewContact()" class="ui-link"> <img class="moduleIcon" src="../assets/home/items/module-res/tel.png" width="68" height="68">
-					</a> <br> <span style="color: #434343"><strong>新版通讯录</strong></span>
+					<a href="javascript:void(0);" onclick="openmail()" class="ui-link"> <img class="moduleIcon" src="../assets/home/items/module-res/mail.png" width="58" height="58">
+					</a> <br> <span class="spanfont">个人邮件</span>
 				</div>
 				<div class="ui-block-b">
-					<a href="javascript:void(0)" onclick="loadsamecommunication()" class="ui-link"> <img class="moduleIcon" src="../assets/home/items/module-res/Annouce.png" width="68" height="68">
-					</a> <br> <span style="color: #434343"><strong>统一通讯</strong></span>
+					
 				</div>
-				<div class="ui-block-c">
+				<div class="ui-block-c" id="divMail">
 					
 				</div>
 			</div>

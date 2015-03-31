@@ -17,16 +17,13 @@
 	</xsl:template>
 	<xsl:template match="viewentry">
 		<xsl:variable name="unid"><xsl:value-of select="@unid"/></xsl:variable>
-		<li name="lilist" href="#" data-icon="true" class="ui-first-child ui-last-child">
-			<a href="javascript:void(0)" onclick="loadReceivedocPage(this);" data-unid="{$unid}" data-endNumber="{$endNumber}" class="ui-btn">
+		<li name="lilist" href="#" data-icon="true" class="ui-first-child ui-last-child" style="height: 75px;">
+			<a href="javascript:void(0)" style="line-height: 16px;height: 60px;padding-top: 4px;" onclick="loadReceivedocPage(this);" data-unid="{$unid}" data-endNumber="{$endNumber}" class="ui-btn">
 				<h3 style="white-space: normal;">
 					<xsl:value-of select="entrydata[4]/."/>
 				</h3>
-				<p style="font-size: 14px;line-height: 2em;">
-					收文日期:<font color="#0080FF"><xsl:value-of select="entrydata[2]/."/></font>
-					来文单位:<font color="#0080FF"><xsl:value-of select="entrydata[3]/."/></font><br/>
-					<!-- 当前处理人:<font color="#0080FF"><xsl:value-of select="entrydata[7]/."/></font>
-					当前环节名称:<font color="#0080FF"><xsl:value-of select="entrydata[8]/."/></font> -->
+				<p style="font-size: 14px;">
+					收文日期:<font ><xsl:value-of select="entrydata[2]/."/></font>
 				</p>
 			</a>
 		</li>

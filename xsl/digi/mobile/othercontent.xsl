@@ -10,13 +10,24 @@
 	<xsl:variable name="flownodeid">
 		<xsl:value-of select="//input[@name='TFCurNodeID']/@value" />
 	</xsl:variable>
-
+	<xsl:variable name="flownodeidpanduan">
+		<xsl:value-of select="concat(//input[@name='TFCurNodeID']/@value,';')" />
+	</xsl:variable>
 	<xsl:output method="html" indent="yes" />
 	<xsl:template match="/">
 		<html lang="zh_cn">
 			<head>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+				<style>
+					.ui-bar-b{border: 0px;background-image: linear-gradient( #c4d9ef , #c4d9ef );}
+					.ui-collapsible-heading-toggle {
+						border: 1px solid #c4d9ef /*{c-bup-border}*/;
+						background-image: linear-gradient( #c4d9ef /*{c-bup-background-start}*/, #c4d9ef /*{c-bup-background-end}*/);
+					}
+					.ui-header .ui-btn-icon-left .ui-icon, .ui-footer .ui-btn-icon-left .ui-icon, .ui-mini.ui-btn-icon-left .ui-icon, .ui-mini .ui-btn-icon-left .ui-icon {
+						left: 7px;
+					}
+				</style>
 				<script>
 				<![CDATA[
 				 
@@ -152,8 +163,9 @@
 									localStorage.setItem("oaNextNodeId",toflownodeid);
 									post(value, toflownodeid);
 							}
-							function advanced(){
-								$( "#popupBasic" ).popup( "open" );
+							function selectVal(val){
+								$("#FlowMindInfo").val(val);
+								$("#selectVal").val(1);
 							}
 						]]>
 						</script>
@@ -177,9 +189,9 @@
 							</fieldset>
 						</div>
 
-						<h3>
+						<!-- <h3>
 							<xsl:value-of select="//title/text()" />
-						</h3>
+						</h3> -->
 						<div style="display:none">
 							<textarea id="jsonv">
 								<xsl:value-of select="//fieldentry[@id='TravelInfo']/value/." />
@@ -187,29 +199,31 @@
 						</div>
 						<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word" data-icon="false">
 
-							<li data-role="list-divider">基本信息</li>
-							<li>
+							<li data-role="list-divider" class="fontdividerstyle">基本信息</li>
+							<li class="fontstyle">
 								<xsl:if test="not(//div[@name='Fck_HTML']//fieldentry)">
 									<font color="red" size="3">应用单据被删除或未进行移动审批配置，请联系管理员。</font>
 								</xsl:if>
+								标题：<xsl:value-of select="//title/text()" /><br/><hr/>
 								<xsl:apply-templates select="//div[@name='Fck_HTML']//fieldentry" mode="basedata"/>
 							</li>
-							<li data-role="list-divider" class="word">正文内容</li>
+							<li data-role="list-divider" class="word" style="color: black;font-size: 16px;font-family: Microsoft YaHei;text-shadow: none;">正文内容</li>
 							<li data-bind="foreach: word" id="word" class="word" >
 								<a data-role="button" data-bind="click:viewfile">
-									<span text-align="center" data-bind="text: name"></span>
+									<span text-align="center" data-bind="text: name" style="color:#265b93;font-size: 15px;font-family: Microsoft YaHei;"></span>
 								</a>
 							</li>
 
-							<li data-role="list-divider">附件信息</li>
-							<li data-bind="foreach: attachment" id="attachment" data-icon="false">
+							<li data-role="list-divider" class="fontdividerstyle">附件信息</li>
+							<li data-bind="foreach: attachment" id="attachment" data-icon="false" style="background: #ffffff;">
 								<a data-bind="click:viewfile">
-									<span  data-bind="text: name" style="white-space: pre-wrap;"></span>
+									<span  data-bind="text: number" style="color:#265b93;font-size: 15px;font-family: Microsoft YaHei;"/>
+									<span id="filenumber" style="color:#265b93;">.</span>
+									<span  data-bind="text: name" style="white-space: pre-wrap;color:#265b93;font-size: 15px;font-family: Microsoft YaHei;"></span>
 								</a>
-								<hr/>
 							</li>
-							<li data-role="list-divider">当前环节信息</li>
-							<li>
+							<li data-role="list-divider" class="fontdividerstyle">当前环节信息</li>
+							<li class="fontstyle">
 								环节名称：
 								<xsl:value-of select="//input[@name='TFCurNodeName']/@value" />
 								<hr />
@@ -223,13 +237,13 @@
 	                   <div data-role="collapsible" data-collapsed="true" data-theme="f" data-content-theme="d" class="ui-collapsible ui-collapsible-inset ui-corner-all ui-collapsible-themed-content">
 							<h1 class="ui-collapsible-heading">
 								<a href="#" class="ui-collapsible-heading-toggle ui-btn-up-f" style="color: white;">
-									<span class="ui-btn-text">流转意见</span>
+									<span class="ui-btn-text"  style="color: black;font-size: 16px;font-family: Microsoft YaHei;text-shadow: none;">流转意见</span>
 									</a>
 							</h1>
 							<div>
 								<ul data-role="listview" data-inset="true" data-theme="d"
 									style="word-wrap:break-word">
-									<li>
+									<li class="fontstyle">
 								<xsl:if test="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo">
 									<xsl:apply-templates
 										select="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo/mindinfo" />
@@ -252,56 +266,51 @@
 							<xsl:apply-templates select="//div[@name='Fck_HTML']//fieldentry" mode="choosedata"/>
 							<xsl:if
 								test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
-								<li data-role="list-divider">审批意见</li>
-								<li>
+								<li data-role="list-divider" class="fontdividerstyle">审批意见</li>
+								<li class="fontstyle">
 									<xsl:if test="//textarea[@name='FlowMindInfo']">
 										<table style="border:0;padding:0;margin:0;" width="100%"
 											border="0">
 											<tr style="width:100%">
-												<td style="width:70%" align="left">
-
+												<td style="width:99%" align="left">
+													<textarea style="height: 80px;" id="FlowMindInfo" name="FlowMindInfo" class="fontstyle"></textarea>
 												</td>
-												<td style="width:30%" align="right">
-													<select onChange='$("#FlowMindInfo").val(this.value);'
-														data-theme="f" data-mini='true' data-icon="gear"
-														data-native-menu="true">
-														<option selected="unselected">常用语</option>
+												<td style="width:1%" align="right">
+												<div class="ui-select" style="margin-top: -43px;width: 35px;">
+												<div class="ui-btn ui-shadow ui-btn-corner-all ui-mini ui-btn-icon-right">
+												<select onChange='selectVal(this.value);' id="selectVal" data-theme="f" data-mini='true' data-icon="gear" data-native-menu="true" class="fontstyle">
+														<option></option>
 														<option value="同意！">同意！</option>
 														<option value="不同意！">不同意！</option>
 														<option value="返回再议！">返回再议！</option>
 														<option value="请尽快处理！">请尽快处理！</option>
 														<option value="请修改后重新提交！">请修改后重新提交！</option>
 													</select>
+												</div></div>
 												</td>
 											</tr>
-											<tr style="width:100%">
-												<td colspan="2" style="width:100%" align="center">
-													<textarea id="FlowMindInfo" name="FlowMindInfo"></textarea>
-												</td>
-											</tr>
-
 										</table>
 									</xsl:if>
 								</li>
 							</xsl:if>
 							</ul>
 							<div class="ui-grid-a">
-							<div class="ui-block-a" style="padding-bottom:5px;" align="center">
-								<xsl:if
-									test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
-									<a data-role="button" value="submit" onclick="submit('submit');"
-										data-mini='true' data-theme="f">下一步</a>
-								</xsl:if>
+								<div class="ui-block-a" style="padding-bottom:5px;" align="center">
+									<xsl:if
+										test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'reject')]">
+										<a data-role="button" value="reject" onclick="submit('reject');"
+											data-mini='true' data-theme="f" class="fontstyle">退 回</a>
+									</xsl:if>
+								</div>
+								<div class="ui-block-b" style="padding-bottom:5px;" align="center">
+									<xsl:if
+										test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
+										<a data-role="button" value="submit" onclick="chooseNode();"
+											data-mini='true' data-theme="f" class="fontstyle">下一步</a>
+									</xsl:if>
+								</div>
 							</div>
-							<div class="ui-block-b" style="padding-bottom:5px;" align="center">
-								<xsl:if
-									test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'reject')]">
-									<a data-role="button" value="reject" onclick="submit('reject');"
-										data-mini='true' data-theme="f">驳 回</a>
-								</xsl:if>
-							</div>
-							
-							</div>
+							<br/><br/>
 					</div><!-- /content -->
 				</div>
 			</body>
@@ -567,7 +576,7 @@
 				</li>
 			</xsl:when>
 			<xsl:when test="@id='StKPRQ'">
-				<xsl:if test="contains(@shownodes,$flownodeid)">
+				<xsl:if test="contains(concat(@shownodes,';'),$flownodeidpanduan)">
 					<xsl:value-of select="@title" />
 					<b>：</b>
 					<xsl:value-of select="value/." />
@@ -576,8 +585,17 @@
 				</xsl:if>
 			</xsl:when>
 			<xsl:when test="@id='StOperator'">
-				<xsl:if test="contains(@shownodes,$flownodeid)">
+				<xsl:if test="contains(concat(@shownodes,';'),$flownodeidpanduan)">
 					<xsl:value-of select="@title" />
+					<b>：</b>
+					<xsl:value-of select="value/." />
+					<br />
+					<hr />
+				</xsl:if>
+			</xsl:when>
+			<xsl:when test="@id='StDocNumber'">
+				<xsl:if test="contains(concat(@shownodes,';'),$flownodeidpanduan)">
+					<xsl:value-of select="@title"/>
 					<b>：</b>
 					<xsl:value-of select="value/." />
 					<br />

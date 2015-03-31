@@ -10,7 +10,9 @@
 	<xsl:variable name="flownodeid">
 		<xsl:value-of select="//input[@name='TFCurNodeID']/@value" />
 	</xsl:variable>
-
+	<xsl:variable name="flownodeidpanduan">
+		<xsl:value-of select="concat(//input[@name='TFCurNodeID']/@value,';')" />
+	</xsl:variable>
 	<xsl:output method="html" indent="yes" />
 	<xsl:template match="/">
 		<html lang="zh_cn">
@@ -24,6 +26,13 @@
 			
   		]]>
 				</script>
+				<style>
+					.ui-bar-b{border: 0px;background-image: linear-gradient( #c4d9ef , #c4d9ef );}
+					.ui-collapsible-heading-toggle {
+						border: 1px solid #c4d9ef /*{c-bup-border}*/;
+						background-image: linear-gradient( #c4d9ef /*{c-bup-background-start}*/, #c4d9ef /*{c-bup-background-end}*/);
+					}
+				</style>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			</head>
 			<body>
@@ -40,9 +49,9 @@
 							]]>
 						</script>
 
-						<h3>
+						<!-- <h3>
 							<xsl:value-of select="//title/text()" />
-						</h3>
+						</h3> -->
 						<div style="display:none">
 							<textarea id="jsonv">
 								<xsl:value-of select="//fieldentry[@id='TravelInfo']/value/." />
@@ -52,29 +61,32 @@
 							data-mini='true' data-theme="f">选人</a></div> -->
 						<ul data-role="listview" data-inset="true" data-theme="d"
 							style="word-wrap:break-word">
-							<li data-role="list-divider">基本信息</li>
-							<li>
+							<li data-role="list-divider" class="fontdividerstyle">基本信息</li>
+							<li class="fontstyle">
 								<xsl:if test="not(//div[@name='Fck_HTML']//fieldentry)">
 									<font color="red" size="3">应用单据被删除或未进行移动审批配置，请联系管理员。</font>
 								</xsl:if>
+								标题：<xsl:value-of select="//title/text()" /><br/><hr/>
 								<xsl:apply-templates select="//div[@name='Fck_HTML']//fieldentry" />
 							</li>
-							<li data-role="list-divider" class="word">正文内容</li>
+							<li data-role="list-divider" class="word" style="color: black;font-size: 16px;font-family: Microsoft YaHei;text-shadow: none;">正文内容</li>
 							<li data-bind="foreach: word" id="word" class="word">
 								<a data-role="button" data-bind="click:viewfile">
-									<span text-align="center" data-bind="text: name"></span>
+									<span text-align="center" data-bind="text: name" style="color:#265b93;font-size: 15px;font-family: Microsoft YaHei;"></span>
 								</a>
 							</li>
 
-							<li data-role="list-divider">附件信息</li>
-							<li data-bind="foreach: attachment" id="attachment" data-icon="false">
-								<a  data-bind="click:viewfile">
-									<span  data-bind="text: name" style="white-space: pre-wrap;"></span>
-								</a><hr/>
+							<li data-role="list-divider" class="fontdividerstyle">附件信息</li>
+							<li data-bind="foreach: attachment" id="attachment" data-icon="false" style="background: #ffffff;">
+								<a data-bind="click:viewfile">
+									<span  data-bind="text: number" style="color:#265b93;font-size: 15px;font-family: Microsoft YaHei;"/>
+									<span id="filenumber" style="color:#265b93;">.</span>
+									<span  data-bind="text: name" style="white-space: pre-wrap;color:#265b93;font-size: 15px;font-family: Microsoft YaHei;"></span>
+								</a>
 							</li>
 
-							<li data-role="list-divider">当前环节信息</li>
-							<li>
+							<li data-role="list-divider" class="fontdividerstyle">当前环节信息</li>
+							<li class="fontstyle">
 								环节名称：
 								<xsl:value-of select="//input[@name='TFCurNodeName']/@value" />
 								<hr />
@@ -82,8 +94,8 @@
 								<xsl:value-of select="//input[@name='TFCurNodeAuthorsCN']/@value" />
 								<xsl:value-of select="//input[@id='TFCurNodeOneDo']/@value" />
 							</li>
-							<li data-role="list-divider">流转意见</li>
-							<li>
+							<li data-role="list-divider" class="fontdividerstyle">流转意见</li>
+							<li class="fontstyle">
 								<xsl:if test="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo">
 									<xsl:apply-templates
 										select="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo/mindinfo" />
@@ -98,12 +110,12 @@
 						<div data-role="collapsible" data-collapsed="true" data-theme="f" data-content-theme="d" class="ui-collapsible ui-collapsible-inset ui-corner-all ui-collapsible-themed-content">
 							<h1 class="ui-collapsible-heading">
 								<a href="#" class="ui-collapsible-heading-toggle ui-btn-up-f" style="color: white;">
-									<span class="ui-btn-text">流转意见</span>
+									<span class="ui-btn-text" style="color: black;font-size: 16px;font-family: Microsoft YaHei;text-shadow: none;">流转意见</span>
 									</a>
 							</h1>
 							<div>
 								<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
-									<li class="ui-li ui-li-static ui-btn-up-d ui-first-child ui-last-child">
+									<li class="ui-li ui-li-static ui-btn-up-d ui-first-child ui-last-child" style="font-size: 15px;font-family: Microsoft YaHei;">
 								<xsl:if test="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo">
 									<xsl:apply-templates
 										select="//textarea[@name='ThisFlowMindInfoLog']/flowmindinfo/mindinfo" />
@@ -319,7 +331,7 @@
 				</xsl:if>
 			</xsl:when>
 			<xsl:when test="@id='StKPRQ'">
-				<xsl:if test="contains(@shownodes,$flownodeid)">
+				<xsl:if test="contains(concat(@shownodes,';'),$flownodeidpanduan)">
 					<xsl:value-of select="@title" />
 					<b>：</b>
 					<xsl:value-of select="value/." />
@@ -328,7 +340,7 @@
 				</xsl:if>
 			</xsl:when>
 			<xsl:when test="@id='StOperator'">
-				<xsl:if test="contains(@shownodes,$flownodeid)">
+				<xsl:if test="contains(concat(@shownodes,';'),$flownodeidpanduan)">
 					<xsl:value-of select="@title" />
 					<b>：</b>
 					<xsl:value-of select="value/." />
@@ -337,8 +349,8 @@
 				</xsl:if>
 			</xsl:when>
 			<xsl:when test="@id='StDocNumber'">
-				<xsl:if test="contains(@shownodes,$flownodeid)">
-					<xsl:value-of select="@title" />
+				<xsl:if test="contains(concat(@shownodes,';'),$flownodeidpanduan)">
+					<xsl:value-of select="@title"/>
 					<b>：</b>
 					<xsl:value-of select="value/." />
 					<br />
@@ -390,24 +402,6 @@
 			</xsl:otherwise>
 
 		</xsl:choose>
-
-		<!-- 处理分支 -->
-		<xsl:if test="contains(@id, 'ToNodeId')">
-			<xsl:if test="@shownodes=$flownodeid">
-				<font size="3">下一环节不唯一，请选择环节</font>
-				<br />
-				<hr />
-
-				<select id="toflownodeid" name="toflownodeid" onChange=''
-					data-theme="a">
-					<xsl:call-template name="flownodes">
-						<xsl:with-param name="flows" select="value/text/." />
-						<xsl:with-param name="default" select="value123/." /><!-- 
-							无用 -->
-					</xsl:call-template>
-				</select>
-			</xsl:if>
-		</xsl:if>
 	</xsl:template>
 	<xsl:template name="flownodes">
 		<xsl:param name="flows" />

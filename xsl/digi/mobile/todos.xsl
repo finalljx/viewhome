@@ -19,21 +19,20 @@
 		<xsl:variable name="dbpath"><xsl:value-of select="entrydata[5]/."/></xsl:variable>
 		<xsl:variable name="mobile"><xsl:value-of select="entrydata[7]/."/></xsl:variable>
 		<li name="lilist" href="#" data-icon="true" class="ui-first-child ui-last-child">
-			<a href="javascript:void(0)" onclick="loadTodoPageForm(this);" data-unid="{$unid}" data-mobile="{$mobile}" data-dbpath="{$dbpath}" class="ui-btn" style="line-height: 1em;">
+			<a href="javascript:void(0)" onclick="loadTodoPageForm(this);" data-unid="{$unid}" data-mobile="{$mobile}" data-dbpath="{$dbpath}" class="ui-btn" style="line-height: 14px;">
 				<xsl:if test="$mobile='yes'">
-					<img style="margin-left: 10px; margin-top: 25px;width: 30px;height: 30px;" src="../assets/home/items/module-res/phone.png"/>
+					<img style="width: 50px;height: 50px;margin-top: 3px;" src="../assets/home/items/module-res/phone.png"/>
 				</xsl:if>
 				<xsl:if test="$mobile!='yes'">
-					<img style="margin-left: 10px; margin-top: 25px;width: 30px;height: 30px;" src="../assets/home/items/module-res/PC.png"/>
+					<img style="width: 50px;height: 50px;margin-top: 3px;" src="../assets/home/items/module-res/PC.png"/>
 				</xsl:if>
-				<h3 style="white-space: normal;margin-left: -3em;">
+				<h3 style="white-space: normal;margin-left: -3.5em;">
 					<span>
 						<xsl:value-of select="entrydata[2]/."/>
 					</span>
 				</h3>
-				<p style="font-size: 14px;margin-left: -3.3em;">
-					时间:<font color="#0080FF"><xsl:value-of select="entrydata[1]/."/></font>
-					<!-- 状态:<font color="#0080FF"><xsl:value-of select="entrydata[3]/."/></font> -->
+				<p style="font-size: 14px;margin-left:-3.5em;">
+					时间:<font><xsl:value-of select="entrydata[1]/."/></font>
 				</p>
 			</a>
 		</li>

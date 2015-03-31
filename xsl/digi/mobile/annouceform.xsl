@@ -7,7 +7,13 @@
 			<head>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 				
-  
+			<style>
+					.ui-bar-b{border: 0px;background-image: linear-gradient( #c4d9ef , #c4d9ef );}
+					.ui-collapsible-heading-toggle {
+						border: 1px solid #c4d9ef /*{c-bup-border}*/;
+						background-image: linear-gradient( #c4d9ef /*{c-bup-background-start}*/, #c4d9ef /*{c-bup-background-end}*/);
+					}
+				</style>
 			</head>
 			<body >
 				<div id="notice" data-role="page">
@@ -15,19 +21,24 @@
 						<xsl:variable name="dbpath"
 							select="//input[@name='DF_DbPath']/@value" />
 						<input type="hidden" id="dbpath" value="{$dbpath}" />
-						<div
-								style="font-weight:bold;font-size:20px;height:45px;text-align:center;word-break:break-all">
-								<xsl:value-of
-									select="//div[@style='font-weight:bold;font-size:15pt;height:60px;color:#000066;padding-top:20px;text-align:center;word-break:break-all']/text()" />
-							</div>
+						<!-- <div style="font-weight:bold;font-size:20px;height:45px;text-align:center;word-break:break-all">
+							<xsl:value-of
+								select="//div[@style='font-weight:bold;font-size:15pt;height:60px;color:#000066;padding-top:20px;text-align:center;word-break:break-all']/text()" />
+						</div> -->
 						<div data-role="collapsible" data-collapsed="true" data-theme="f" data-content-theme="d" class="ui-collapsible ui-collapsible-inset ui-corner-all ui-collapsible-themed-content">
 							<h1 class="ui-collapsible-heading">
 								<a href="#" class="ui-collapsible-heading-toggle ui-btn-up-f" style="color: white;">
-									<span class="ui-btn-text">基本信息</span>
+									<span class="ui-btn-text" style="color: black;font-size: 16px;font-family: Microsoft YaHei;text-shadow: none;">基本信息</span>
 									</a>
 							</h1>
 							<div>
-								<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+								<ul data-role="listview" data-inset="true" data-theme="d" style="word-wrap:break-word;font-size: 15px;font-family: Microsoft YaHei;" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+									<li class="ui-li ui-li-static ui-btn-up-d ui-first-child ui-last-child">
+										标题
+										：
+										<xsl:value-of
+								select="//div[@style='font-weight:bold;font-size:15pt;height:60px;color:#000066;padding-top:20px;text-align:center;word-break:break-all']/text()" />
+									</li>
 									<li class="ui-li ui-li-static ui-btn-up-d ui-first-child ui-last-child">
 										<xsl:value-of select="//label[@for='DraftManCn']" />
 										：
@@ -88,10 +99,10 @@
 								<xsl:text> </xsl:text>
 								<xsl:value-of select="//input[@name='showdeptname']/@value"></xsl:value-of>
 							</div> -->
-							<li data-role="list-divider"> 正文</li>
-							<li id="word" data-bind="foreach: word" margin-bottom="0px">
+							<li data-role="list-divider" class="fontdividerstyle"> 正文</li>
+							<li id="word" data-bind="foreach: word" margin-bottom="0px" class="fontstyle">
 								<a data-role="button" data-bind="click:viewfile1" style="margin-bottom: 0px">
-									<span text-align="center" data-bind="text: name"></span>
+									<span text-align="center" data-bind="text: name" style="color:#265b93;"></span>
 								</a>
 							</li>
 							

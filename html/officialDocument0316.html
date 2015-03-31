@@ -193,6 +193,11 @@
 		var docunid = $(str).data("unid");
 		localStorage.setItem("Issuedocdocunid",docunid);
 		var issuedoc = localStorage.getItem("issuedoc");
+		/*if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)||window.navigator.userAgent.match(/android/i)){
+			var oaurl =$.hori.getconfig().appServerHost+"view/oa/issuedocPage/"+issuedoc+"/AppDoingView/"+docunid+"?opendocument&login"+'?editdocument&data-application=' + $.hori.getconfig().appKey + "&data-userstore=" + localStorage.getItem("cookie_userstore");
+		}else{
+			var oaurl =$.hori.getconfig().appServerHost+"view/oa/issuedocPage/"+issuedoc+"/AppDoingView/"+docunid+"?opendocument&login";
+		}*/
 		var oaurl=issuedoc+"/AppDoingView/"+docunid+"?opendocument&login";
  		localStorage.setItem("oaDataSource",oaurl);
 		var targetURL= $.hori.getconfig().serverBaseUrl+"viewhome/html/issuedocPage.html";
@@ -217,6 +222,11 @@
 		
 		localStorage.setItem("Receivedocdocunid",docunid);
 		var receivedoc = localStorage.getItem("receivedoc");
+		/*if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)||window.navigator.userAgent.match(/android/i)){
+			var oaurl = $.hori.getconfig().appServerHost+"view/oa/receivedocPage/"+receivedoc+"/AppDoingView/"+docunid+"?opendocument&login"+'?editdocument&data-application=' + $.hori.getconfig().appKey + "&data-userstore=" + localStorage.getItem("cookie_userstore");
+		}else{
+			var oaurl = $.hori.getconfig().appServerHost+"view/oa/receivedocPage/"+receivedoc+"/AppDoingView/"+docunid+"?opendocument&login";
+		}*/
 		var oaurl=receivedoc+"/AppDoingView/"+docunid+"?opendocument&login";
 		localStorage.setItem("oaDataSource",oaurl);
 		var targetURL= $.hori.getconfig().serverBaseUrl+"viewhome/html/receivedocPage.html";
@@ -228,7 +238,7 @@
 		#wrapper {
 			position: fixed;
 			overflow: scroll;
-			top: 65px;
+			top: 80px;
 			left: 0px;
 			bottom: 1.5em;
 			width: 100%;
@@ -244,8 +254,8 @@
 			<div data-role="tabs" id="tabs">
 		      	<div data-role="navbar" style="margin-bottom: 0px; padding: 0px;" >
 					<ul>
-						<li><a href="#two" data-ajax="false" data-id="issuedocList" style="box-shadow:none ;">发文</a></li>
-						<li><a href="#three" data-ajax="false" data-id="receivedocList" style="box-shadow:none ;">收文</a></li>
+						<li><a href="#two" data-ajax="false" data-id="issuedocList">发文</a></li>
+						<li><a href="#three" data-ajax="false" data-id="receivedocList">收文</a></li>
 					</ul>
 				</div>
 				<div id="wrapper" style="margin-top:0px;">

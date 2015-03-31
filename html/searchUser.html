@@ -1,0 +1,72 @@
+<html>
+<head>
+<title>人员信息</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+
+<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" />
+<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
+<script type="application/javascript" src="../assets/iscroll.js"></script>
+<script src="../lib/jquery/jquery.min.js"></script>
+<script src="../lib/jquery-mobile/jquery.mobile.min.js"></script>
+<script src="../lib/jquery-cookie/jquery.cookie.js"></script>
+<script src="../lib/encrypt/encrypt.js"></script>
+<script src="../lib/json/json2.js"></script>
+<script src="../lib/hori/hori.js?tag=21369"></script>
+<script src="../config/web/config.js"></script>
+<script src="../lib/arttemplate/template.js"></script>
+<script src="../lib/app/contact/appuser.js"></script>
+<style type="text/css">
+	.img_span{
+		margin-left: -55px;
+	}
+	.img_spanuser{
+		margin-left: -85px;
+	}
+	.ui-btn-icon-left>.ui-btn-inner>.ui-icon, .ui-btn-icon-right>.ui-btn-inner>.ui-icon {
+		position: absolute;
+		top: 40%;
+		margin-top: -9px;
+	}
+	.ui-li-has-thumb .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-thumb {
+		min-height: 20px;
+	}
+</style>
+<script id="contactUser" type="text/html">
+	{{each list as value i}}
+	<table>
+	<tbody><tr>
+		<td><img style="height:110px;" src="../assets/home/items/module-res/contact/default_avatar.png"></td>
+		<td width="100%"><a data-role="button" data-mini="false" style="line-height: 4em;" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-btn ui-shadow ui-btn-corner-all ui-fullsize ui-btn-up-c"><span class="ui-btn-inner"><span class="ui-btn-text">{{value.displayName}}
+		</span></span></a></td>
+	</tr>
+	</tbody></table>
+	<br>
+	<ul data-role="listview" data-inset="false" id="contactList" style="text-indent: 40px;" class="ui-listview">
+		<li style="" class="ui-li ui-li-static ui-btn-up-c ui-first-child"><span>公司：{{value.crscCompanyName}}</span></li>
+		<li style="" class="ui-li ui-li-static ui-btn-up-c"><span>部门：{{value.crscDepName}}</span></li>
+		<li style="" class="ui-li ui-li-static ui-btn-up-c"><span>职务：{{value.crscJobName}}</span></li>
+		<li style="" class="ui-li ui-li-static ui-btn-up-c ui-li-has-thumb"><img style="height:40px;width:40px;" src="../assets/home/items/module-res/contact/tel.png" class="ui-li-thumb">
+		<span class="img_spanuser">电话：<a href=tel:{{value.crscOfficePhoneHR}} class="ui-link"><span>{{value.crscOfficePhoneHR}}</span></a></span></li>
+		<li style="" class="ui-li ui-li-static ui-btn-up-c ui-li-has-thumb"><img style="height:40px;width:40px;" src="../assets/home/items/module-res/contact/tel.png" class="ui-li-thumb">
+		<span class="img_spanuser">手机：<a href=tel:{{value.crscMobileHR}} class="ui-link"><span>{{value.crscMobileHR}}</span></a></span></li>
+		<li style="" class="ui-li ui-li-static ui-btn-up-c ui-li-has-thumb ui-last-child"><img style="height:40px;width:40px;" src="../assets/home/items/module-res/contact/mail.png" class="ui-li-thumb">
+		<span class="img_spanuser">邮箱：<a href=mailto:{{value.mail}} class="ui-link"><span>{{value.mail}}</span></a></span></li>
+	</ul>
+	{{/each}}
+</script>
+</head>
+<body>
+	<div id="list" data-role="page">
+		<div data-role="content" align="center">
+			<div id="divContactCon">
+			</div>
+		</div>
+	</div>
+</body>
+
+
+</html>
+

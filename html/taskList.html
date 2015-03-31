@@ -196,11 +196,6 @@
 			var docunid = $(str).data("unid");
 			var dbpath = $(str).data("dbpath");
 			var mobile = $(str).data("mobile");
-			/*if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)||window.navigator.userAgent.match(/android/i)){
-				var oaurl =$.hori.getconfig().appServerHost+"view/oamobile/contentmobile/Produce/DigiFlowMobile.nsf/showform?openform&login&apptype=msg&appserver="+oaMsgServer+"&appdbpath=DFMessage/dfmsg_"+itcode+".nsf&appdocunid="+docunid+'?editdocument&data-application=' + $.hori.getconfig().appKey + "&data-userstore=" + localStorage.getItem("cookie_userstore");
-			}else{
-				var oaurl =$.hori.getconfig().appServerHost+"view/oamobile/contentmobile/Produce/DigiFlowMobile.nsf/showform?openform&login&apptype=msg&appserver="+oaMsgServer+"&appdbpath=DFMessage/dfmsg_"+itcode+".nsf&appdocunid="+docunid;
-			}*/
 			var oaurl = "/Produce/DigiFlowMobile.nsf/showform?openform&login&apptype=msg&appserver="+oaMsgServer+"&appdbpath=DFMessage/dfmsg_"+itcode+".nsf&appdocunid="+docunid;
 			localStorage.setItem("oaDataSource",oaurl);
 			if(mobile=="yes"){
@@ -238,11 +233,6 @@
 			var docunid = $(str).data("unid");
 			var dbpath = $(str).data("dbpath");
 			var oaurl="/Produce/DigiFlowMobile.nsf/showform?openform&login&apptype=msg&appserver="+oaMsgServer+"&appdbpath=DFMessage/dfmsg_"+itcode+".nsf&appdocunid="+docunid;
-			/*if (window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i) || window.navigator.userAgent.match(/iPod/i)||window.navigator.userAgent.match(/android/i)){
-				var oaurl =$.hori.getconfig().appServerHost+"view/oamobile/downcontentmobile/Produce/DigiFlowMobile.nsf/showform?openform&login&apptype=msg&appserver="+oaMsgServer+"&appdbpath=DFMessage/dfmsg_"+itcode+".nsf&appdocunid="+docunid+'?editdocument&data-application=' + $.hori.getconfig().appKey + "&data-userstore=" + localStorage.getItem("cookie_userstore");
-			}else{
-				var oaurl =$.hori.getconfig().appServerHost+"view/oamobile/downcontentmobile/Produce/DigiFlowMobile.nsf/showform?openform&login&apptype=msg&appserver="+oaMsgServer+"&appdbpath=DFMessage/dfmsg_"+itcode+".nsf&appdocunid="+docunid;
-			}*/
 			localStorage.setItem("oaDataSource",oaurl);
 			if(dbpath=="application/digiflowinfopublish.nsf"){
 				var targetURL=$.hori.getconfig().serverBaseUrl+"viewhome/html/annouceTaskDownForm.html";
@@ -257,7 +247,7 @@
 		#wrapper {
 			position: fixed;
 			overflow: scroll;
-			top: 80px;
+			top: 65px;
 			left: 0px;
 			bottom: 1.5em;
 			width: 100%;
@@ -265,6 +255,11 @@
 		}
 		.ui-content .ui-listview-inset, .ui-panel-inner.ui-listview-inset {
 			margin: 0em 0;
+		}
+		.ui-listview>.ui-li-has-thumb>.ui-btn, .ui-listview>.ui-li-static.ui-li-has-thumb {
+			 min-height: 40px;
+			 max-height: 60px;
+			padding-left: 6.25em;
 		}
 	</style>
 </head>
@@ -274,8 +269,8 @@
 			<div data-role="tabs" id="tabs">
 		      	<div data-role="navbar">
 					<ul>
-						<li><a href="#two" data-ajax="false" data-id="todoList" class="tasktodo">待办</a></li>
-						<li><a href="#three" data-ajax="false" data-id="didList">已办</a></li>
+						<li><a href="#two" data-ajax="false" data-id="todoList" class="tasktodo" style="box-shadow:none ;">待办</a></li>
+						<li><a href="#three" data-ajax="false" data-id="didList" style="box-shadow:none ;">已办</a></li>
 					</ul>
 				</div>
 				<div id="wrapper">

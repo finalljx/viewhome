@@ -20,7 +20,7 @@
 	width: 8.333333333333334%;
 }
 .container_12 .grid_2 {
-	width: 16.666666666666668%;
+	width: 20.666666666666668%;
 }
 .container_12 .grid_3 {
 	width: 25%;
@@ -41,7 +41,8 @@
 	width: 66.66666666666667%;
 }
 .container_12 .grid_9 {
-	width: 75%;
+	width: 55%;
+	margin-left: 15px;
 }
 .container_12 .grid_10 {
 	width: 83.33333333333334%;

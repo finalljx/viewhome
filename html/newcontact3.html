@@ -1,33 +1,17 @@
-
 <html>
 <head>
-<title>通讯录</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
-
+<title>test</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
 <link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" />
 <link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
-<script type="application/javascript" src="../assets/iscroll.js"></script>
 <script src="../lib/jquery/jquery.min.js"></script>
+<script src="../lib/arttemplate/template.js"></script>
+<script src="../lib/app/appform/apptest.js"></script>
 <script src="../lib/jquery-mobile/jquery.mobile.min.js"></script>
-<script src="../lib/jquery-cookie/jquery.cookie.js"></script>
-<script src="../lib/encrypt/encrypt.js"></script>
 <script src="../lib/json/json2.js"></script>
 <script src="../lib/hori/hori.js?tag=21369"></script>
 <script src="../config/web/config.js"></script>
-
-<script src="../lib/knockout/knockout.js"></script>
-<script src="../lib/knockout/knockout.mapping.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		var hori=$.hori;
-		//$.hori.showLoading();
-		hori.setHeaderTitle("人员信息");
-	});
-	
-</script>
 <style type="text/css">
 	.ui-li-has-thumb .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-thumb {
 		min-height: 20px;
@@ -35,47 +19,130 @@
 	.img_span{
 		margin-left: -85px;
 	}
+	.ui-btn-inner {
+		border-top: none;
+		border-color: none;
+	}
 </style>
-</head>
-<body>
-	<div id="list" data-role="page">
-		<div data-role="content" align="center">
-			<div style="margin-left: 0px;">
-				<table>
-					<tr>
-						<td><img style="height:110px;" src="../assets/home/items/module-res/contact/default_avatar.png"></td>
-						<td width="100%"><a data-role="button" data-mini="false" style="line-height: 4em;">李晓磊
-						</a></td>
-					</tr>
-				</table>
-			</div>
-			<div id="divContactCon" style="margin-left: 0px;">
-				<div>
-				<br />
-				<ul data-role="listview" data-inset="false" id="contactList" style="text-indent: 40px;">
-					<li style=""><span>公司：XXX子公司</span></li>
-					<li style=""><span>部门：员工发展部</span></li>
-					<li style=""><span>职务：副经理</span></li>
-					<li style=""><img style="height:40px;width:40px;" src="../assets/home/items/module-res/contact/tel.png">
-					<span class="img_span">电话：<a href="tel:010-12345678"><span>010-12345678</a></span></a></span></li>
-					<li style=""><img style="height:40px;width:40px;" src="../assets/home/items/module-res/contact/tel.png">
-					<span class="img_span">手机：<a href="tel:18910418890"><span>18910418890</a></span></a></span></li>
-					<li style=""><img style="height:40px;width:40px;" src="../assets/home/items/module-res/contact/mail.png">
-					<span class="img_span">邮箱：<a href="mailto:chenguofeng@163.com"><span>chenguofeng@163.com</a></span></a></span></li>
-						<!-- <font><span>公司：XXX子公司</span></font><br>
-						<font><span></span></font><br>
-						<font><span></span></font><br>
-						<font></font><br>
-						<font></font><br> 
-						<font></font><br>
-					</li> -->
-				</ul>
-				</div>
-			</div>
+<!-- 下一环节和处理人都确定 -->
+<script id="allSure" type="text/html">
+	<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+			<li data-role="list-divider" class="fontdividerstyle ui-li ui-li-divider ui-bar-b ui-first-child" style="text-align:center;" role="heading">下一步</li>
+			<li class="fontstyle ui-li ui-li-static ui-btn-up-d">下一环节：{{nodeslist}}</li>
+			<li class="fontstyle ui-li ui-li-static ui-btn-up-d">环节审批人</li>
+			<li class="fontstyle ui-li ui-li-static ui-btn-up-d" style="line-height: 20px;background: #E5E3E3;">
+				{{each personlist as value i}}
+					<font style="border:none;background:#E5E3E3;background-image: none;">{{value.name}}</font><br>
+				{{/each}}
+			</li>
+	</ul>
+	<div class="ui-grid-a">
+		<div class="ui-block-a" style="padding-bottom:5px;" align="center">
+			<a href="#" data-role="button" data-mini="true" data-theme="d" onclick="$('#chooseNodeDialog').popup( 'close' );" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-mini ui-btn-up-d"><span class="ui-btn-inner"><span class="ui-btn-text">取　消</span></span></a>
+		</div>
+		<div class="ui-block-b" style="padding-bottom:5px;" align="center">
+			<a href="#" data-role="button" data-mini="true" data-theme="d" onclick="submit('submit')" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-btn-up-d ui-shadow ui-btn-corner-all ui-mini"><span class="ui-btn-inner"><span class="ui-btn-text">确　认</span></span></a>
 		</div>
 	</div>
+</script>
+<!-- 下一环节不确定，处理人确定 -->
+<script id="personSure" type="text/html">
+	<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+			<li data-role="list-divider" class="fontdividerstyle ui-li ui-li-divider ui-bar-b ui-first-child" style="text-align:center;" role="heading">下一步</li>
+			<li class="ui-li ui-li-static ui-btn-up-d">
+				<table width="100%">
+				<tbody><tr>
+					<td width="20%" height="20px">
+						环节
+					</td>
+					<td width="80%" height="20px">
+						<select id="toflownodeid" name="toflownodeid" onchange="personchange()">
+							{{each nodeslist as value i}}
+								<option value={{value.nodevalue}} number="{{value.number}}">{{value.nodech}}</option>
+							{{/each}}
+						</select>
+					</td>
+				</tr></tbody>
+				</table>
+			</li>
+			<li class="fontstyle ui-li ui-li-static ui-btn-up-d">环节审批人</li>
+			<li id="personli" class="fontstyle ui-li ui-li-static ui-btn-up-d" style="line-height: 20px;background: #E5E3E3;">
+				{{each personlist as value i}}
+					<font style="border:none;background:#E5E3E3;background-image: none;">{{value.name}}</font><br>
+				{{/each}}
+			</li>
+	</ul>
+</script>
+<!-- 下一环节不确定，处理人确定,替换处理人 -->
+<script id="personreplace" type="text/html">
+	{{each personlist as value i}}
+		<font style="border:none;background:#E5E3E3;background-image: none;">{{value.name}}</font><br>
+	{{/each}}
+</script>
+<!-- 下一环节不确定，处理人也不确定 -->
+<script id="allNotSure" type="text/html">
+	<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+		<li data-role="list-divider" class="fontdividerstyle ui-li ui-li-divider ui-bar-b ui-first-child" style="text-align:center;" role="heading">下一步</li>
+		<li class="ui-li ui-li-static ui-btn-up-d">
+			<table width="100%">
+				<tbody><tr>
+					<td min-width="20%">环节</td>
+					<td width="60%" height="20px">
+						<select id="toflownodeid" name="toflownodeid" onchange="personchange()">
+							{{each nodeslist as value i}}
+								<option value={{value.nodevalue}} number="{{value.number}}">{{value.nodech}}</option>
+							{{/each}}
+						</select>
+					<td min-width="20%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				</tr>
+			</tbody></table>
+		</li>
+		<li class="ui-li ui-li-static ui-btn-up-d">
+			<table width="100%">
+				<tbody><tr>
+					<td min-width="20%">搜索</td>
+					<td width="60%" height="20px">
+						<input id="phonenumber" name="phonenumber" type="text" value="" class="ui-input-text ui-body-d"></td>
+					<td min-width="20%"><a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c ui-btn-up-f">
+							<span class="ui-btn-inner" style="color: #E5E3E3;" onclick="searchPerson()">搜索</span>
+					</a></td>
+				</tr>
+			</tbody></table>
+		</li>
+		<li name="choosePersonLi" class="fontstyle ui-li ui-li-static ui-btn-up-d" style="display:none;">选人员：</li>
+		<li name="choosePersonLi" id="choosePersonLi" class="fontstyle ui-li ui-li-static ui-btn-up-d" style="line-height: 30px;background: #E5E3E3;display:none;">
+			
+		</li>
+		<li name="choosePersonLi" class="fontstyle ui-li ui-li-static ui-btn-up-d" style="display:none;">环节审批人：</li>
+		<li name="choosePersonLi" class="ui-li ui-li-static ui-btn-up-d ui-last-child" style="display:none;">
+			<table width="100%">
+			<tbody><tr>
+				<td width="71%" height="20px">
+					<input id="namechshow" name="namechshow" type="text" value="" class="ui-input-text ui-body-d"></td>
+				<td min-width="20%"><a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c ui-btn-up-f">
+						<span class="ui-btn-inner" style="color: #E5E3E3;" onclick="searchPerson()">清空</span>
+				</a></td>
+			</tr>
+		</tbody></table>
+		</li>
+		<input id="itcodeshow" name="itcodeshow" type="text" value="" class="ui-input-text ui-body-d">
+		<a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c ui-btn-up-f">
+			<span class="ui-btn-inner" style="width: 45px; height: 20px;color: #E5E3E3;" onclick="test()">重新赋值person</span>
+		</a>
+	</ul>
+</script>
+<!-- 搜索选择处理人 -->
+<script id="searchpersonreplace" type="text/html">
+	{{each personlist as value i}}
+		<label onclick="getchooseperson()"><input type="checkbox" name="chooseperson" namech={{value.nameCh}} value="{{value.itcode}}" />{{value.nameCh}}</label><br/>
+	{{/each}}
+</script>
+</head>
+<body>
+	<div id="nodedialog" data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+		
+	</div>
+	<a onclick="getnodedialogData()">test</a>
 </body>
-
-
 </html>
 

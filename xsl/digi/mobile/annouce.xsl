@@ -18,16 +18,14 @@
 	</xsl:template>
 	<xsl:template match="viewentry">
 		<xsl:variable name="unid"><xsl:value-of select="@unid"/></xsl:variable>
-		<li name="lilist" href="#" data-icon="true" class="ui-first-child ui-last-child">
-			<a href="javascript:void(0)" onclick="loadPageForm(this);" data-unid="{$unid}" data-startNumber="{$startNumber}" data-endNumber="{$endNumber}" class="ui-btn">
+		<li name="lilist" href="#" data-icon="true" class="ui-first-child ui-last-child" style="height: 75px;">
+			<a href="javascript:void(0)" style="line-height: 16px;height: 60px;padding-top: 4px;" onclick="loadPageForm(this);" data-unid="{$unid}" data-startNumber="{$startNumber}" data-endNumber="{$endNumber}" class="ui-btn">
 				<h3 style="white-space: normal;">
-					<span>
 						<xsl:value-of select="entrydata[4]/."/>
-					</span>
 				</h3>
 				<p style="font-size: 14px;">
-					时间:<font color="#0080FF"><xsl:value-of select="entrydata[1]/."/></font>
-					起草人:<font color="#0080FF"><xsl:value-of select="entrydata[6]/."/></font>
+					发布日期:<font ><xsl:value-of select="substring(entrydata[1]/.,1,10)"/></font>
+					起草人:<font><xsl:value-of select="entrydata[6]/."/></font>
 				</p>
 			</a>
 		</li>

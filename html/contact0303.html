@@ -1,0 +1,129 @@
+
+<html>
+<head>
+<title>通讯录</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+
+<link rel="stylesheet" href="../lib/jquery-mobile/jquery.mobile.min.css" />
+<link rel="stylesheet" href="../assets/jquery.mobile-sugon.css" />
+<script type="application/javascript" src="../assets/iscroll.js"></script>
+<script src="../lib/jquery/jquery.min.js"></script>
+<script src="../lib/jquery-mobile/jquery.mobile.min.js"></script>
+<script src="../lib/jquery-cookie/jquery.cookie.js"></script>
+<script src="../lib/encrypt/encrypt.js"></script>
+<script src="../lib/json/json2.js"></script>
+<script src="../lib/hori/hori.js?tag=21369"></script>
+<script src="../config/web/config.js"></script>
+
+<script src="../lib/knockout/knockout.js"></script>
+<script src="../lib/knockout/knockout.mapping.js"></script>
+<script src="../lib/app/contact/app.js"></script>
+<style type="text/css">
+	#wrapper {
+		position: fixed;
+		overflow: scroll;
+		top: 80px;
+		left: 1px;
+		bottom: 1.5em;
+		width: 100%;
+	}
+	#divContact{
+	    background-image: url('../assets/home/contact.png');
+	    background-repeat: no-repeat;
+	    background-position: center;
+	}
+	.ui-li-thumb, .ui-listview .ui-li-icon {
+		max-height: 300px;
+		max-width: 120px;
+    }
+    
+    .ui-listview>.ui-li.ui-last-child .ui-li-thumb:not(.ui-li-icon) {
+		-webkit-border-bottom-left-radius: initial;
+		border-bottom-left-radius: initial;
+	}
+	
+	.ui-listview>.ui-li.ui-first-child .ui-li-thumb:not(.ui-li-icon) {
+		-webkit-border-top-left-radius: initial;
+		border-top-left-radius: initial;
+	}
+	.ui-li-has-thumb .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-thumb {
+	   min-height: 59px;
+	   padding-left: 130px;
+	}
+	.ui-corner-all{
+		-webkit-border-radius: 0em;
+		border-radius: 0em;
+	}
+	.ui-btn-corner-all {
+		-webkit-border-radius: 0em;
+		border-radius: 0em;
+	}
+</style>
+</head>
+<body>
+	<div id="list" data-role="page">
+		<div data-role="content" align="center">
+			<div style="margin-left: 0px;">
+				<table>
+					<tr>
+						<td width="95%" height="20px"><input id="phonenumber"
+							name="phonenumber" type="text" value="" /></td>
+						<td><a href="#search" data-role="button" data-inline="true"
+							data-rel="dialog" data-corners="true" data-shadow="true"
+							data-iconshadow="true" data-wrapperels="span" data-theme="f"
+							class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c ui-btn-up-f">
+								<span class="ui-btn-inner" style="width: 45px; height: 20px;"><span
+									class="ui-btn-text" style="color: white"
+									onclick="searchContact()">搜索</span></span>
+						</a></td>
+					</tr>
+				</table>
+			</div>
+
+			<div id="divContact">
+				<div id="wrapper" style="display: none; ">
+					<div id="scroller">
+						<div style="margin-top:30px;">
+							<br />
+							<ul data-bind="foreach: data" data-role="listview"
+								data-inset="false" id="contactList">
+								<li>
+								<img src="../assets/home/items/module-res/contact/default_avatar.png" 
+                                    style="margin-left: 20px; margin-top: 10px; margin-right: 10px; vertical-align: middle;" />
+								    <!-- <font>员工编号：><span data-bind="text: uid"></span></font><br> -->
+									<font><!-- 员工姓名： --><span data-bind="text: displayName"></span></font><br>
+									<font><!-- 电子邮箱： --><span data-bind="text: mail"></span></font><br>
+									<font><!-- 所属公司： --><span data-bind="text: crscCompanyName"></span></font><br>
+									<font><!-- 所属部门： --><span data-bind="text: crscDepName"></span></font><br>
+									<font>移动电话：<a data-bind="attr: {href: telcrscMobileHR}"><span data-bind="text: crscMobileHR"></span></a></font><br> 
+									<font>办公电话：<a data-bind="attr: {href: telcrscOfficePhoneHR}"><span data-bind="text: crscOfficePhoneHR"></span></a></font><br>
+								</li>
+							</ul>
+						</div>
+						<div id="pullUp" name="nodata" align="center" class="" style="display: none; line-height: 1.25em; margin-top:10px;">
+							<span class="pullUpLabel">
+                            </span>
+						</div>
+						<div>
+							<br />
+						</div>
+					</div>
+				</div>
+				
+
+			</div>
+		</div>
+          <div id="empty_bg" style="width: 100%; padding: 0px; margin: 0px;">
+              <img style="width: 100%; height: auto;" src="../assets/home/items/module-res/contact/contact_bg.jpg" >
+          </div>
+	</div>
+
+
+</body>
+
+
+</html>
+

@@ -17,16 +17,13 @@
 	</xsl:template>
 	<xsl:template match="viewentry">
 		<xsl:variable name="unid"><xsl:value-of select="@unid"/></xsl:variable>
-		<li name="lilist" href="#" data-icon="true" class="ui-first-child ui-last-child">
-			<a href="javascript:void(0)" onclick="loadIssuedocPage(this);" data-unid="{$unid}" data-endNumber="{$endNumber}" class="ui-btn">
+		<li name="lilist" href="#" data-icon="true" class="ui-first-child ui-last-child" style="height: 75px;">
+			<a href="javascript:void(0)" style="line-height: 16px;height: 60px;padding-top: 4px;" onclick="loadIssuedocPage(this);" data-unid="{$unid}" data-endNumber="{$endNumber}" class="ui-btn">
 				<h3 style="white-space: normal;">
 						<xsl:value-of select="entrydata[4]/."/>
 				</h3>
-				<p style="font-size: 14px;line-height: 2em;">
-					拟稿日期:<font color="#0080FF"><xsl:value-of select="entrydata[2]/."/></font>
-					拟稿单位:<font color="#0080FF"><xsl:value-of select="entrydata[3]/."/></font><br/>
-					发文字号:<font color="#0080FF"><xsl:value-of select="entrydata[5]/."/></font>
-					<!-- 当前环节名称:<font color="#0080FF"><xsl:value-of select="entrydata[8]/."/></font> -->
+				<p style="font-size: 14px;">
+					发布日期:<font><xsl:value-of select="substring(entrydata[7]/.,1,11)"/></font>
 				</p>
 			</a>
 		</li>
