@@ -248,7 +248,7 @@
 						<div data-role="collapsible" data-collapsed="true" data-theme="f" data-content-theme="d" class="ui-collapsible ui-collapsible-inset ui-corner-all ui-collapsible-themed-content">
 							<h1 class="ui-collapsible-heading">
 								<a href="#" class="ui-collapsible-heading-toggle ui-btn-up-f" style="color: white;">
-									<span class="ui-btn-text" style="color: black;font-size: 17px;font-family: Microsoft YaHei;text-shadow: none;">流转意见</span>
+									<span class="ui-btn-text" style="color: black;font-size: 16px;font-family: Microsoft YaHei;text-shadow: none;">流转意见</span>
 									</a>
 							</h1>
 							<div>
