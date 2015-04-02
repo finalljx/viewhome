@@ -13,15 +13,16 @@
 <script src="../lib/hori/hori.js?tag=21369"></script>
 <script src="../config/web/config.js"></script>
 <style type="text/css">
-	.ui-li-has-thumb .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-thumb {
-		min-height: 20px;
-	}
-	.img_span{
-		margin-left: -85px;
-	}
 	.ui-btn-inner {
 		border-top: none;
 		border-color: none;
+	}
+	.ui-btn {
+	  display: block;
+	  text-align: center;
+	  cursor: pointer;
+	  position: relative;
+	  margin: 0 0;
 	}
 </style>
 <!-- 下一环节和处理人都确定 -->
@@ -134,13 +135,86 @@
 <!-- 搜索选择处理人 -->
 <script id="searchpersonreplace" type="text/html">
 	{{each personlist as value i}}
-		<label onclick="getchooseperson()"><input type="checkbox" name="chooseperson" namech={{value.nameCh}} value="{{value.itcode}}" />{{value.nameCh}}</label><br/>
+		<input onclick="getchooseperson()" type="checkbox" namech={{value.name}} value={{value.itcode}} id={{value.itcode}}  name="chooseperson" /><label for={{value.itcode}} style="border:none;background:#E5E3E3;background-image: none;">{{value.name}}</label><br/>
+	{{/each}}
+</script>
+<!-- 环节 -->
+<script id="nodetemplate" type="text/html">
+	<li class="ui-li ui-li-static ui-btn-up-d">
+		<table width="100%">
+			<tbody><tr>
+				<td min-width="20%">环节</td>
+				<td width="60%" height="20px">
+					<select id="toflownodeid" name="toflownodeid" onchange="personchange()">
+						{{each nodeslist as value i}}
+							<option value={{value.nodevalue}} number={{value.number}}>{{value.nodech}}</option>
+						{{/each}}
+					</select>
+				<td min-width="20%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			</tr>
+		</tbody></table>
+	</li>
+</script>
+<!-- 处理人 -->
+<script id="choosePerson" type="text/html">
+	{{each personlist as value i}}
+		<input onclick="getchooseperson()" type="checkbox" namech={{value.name}} value={{value.itcode}} id={{value.itcode}}  name="chooseperson" /><label for={{value.itcode}} style="border:none;background:#E5E3E3;background-image: none;">{{value.name}}</label><br/>
+	{{/each}}
+</script>
+</script>
+<!-- 处理人 -->
+<script id="siglePerson" type="text/html">
+	{{each personlist as value i}}
+		<font style="border:none;background:#E5E3E3;background-image: none;">{{value.name}}</font>
 	{{/each}}
 </script>
 </head>
 <body>
 	<div id="nodedialog" data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
-		
+		<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+			<li id="nextnode" class="fontdividerstyle ui-li ui-li-divider ui-bar-b ui-first-child" style="text-align:center;">下一步</li>
+			<li id="searchPersonli" class="ui-li ui-li-static ui-btn-up-d" style="display:none;">
+				<table width="100%">
+					<tbody><tr>
+						<td min-width="20%">搜索&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						<td width="75%" height="20px">
+							<input id="searchPerson" name="searchPerson" type="text" value="" class="ui-input-text ui-body-d"></td>
+						<td min-width="5%"><a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c ui-btn-up-f">
+							<span class="ui-btn-inner" style="color: #E5E3E3;" onclick="searchPerson()">搜索</span>
+						</a></td>
+					</tr>
+				</tbody></table>
+			</li>
+			<li name="PersonLi" class="fontstyle ui-li ui-li-static ui-btn-up-d" style="display:none;">环节审批人：</li>
+			<li name="PersonLi" id="PersonLi" class="fontstyle ui-li ui-li-static ui-btn-up-d" style="line-height:20px;background: #E5E3E3;display:none;">
+				
+			</li>
+			<li name="choosePersonLi" class="fontstyle ui-li ui-li-static ui-btn-up-d" style="display:none;">选人员：</li>
+			<li name="choosePersonLi" id="choosePersonLi" class="fontstyle ui-li ui-li-static ui-btn-up-d" style="line-height: 5px;background: #E5E3E3;display:none;">
+				
+			</li>
+			<li name="choosePersonLi" class="fontstyle ui-li ui-li-static ui-btn-up-d" style="display:none;">环节审批人：</li>
+			<li name="choosePersonLi" class="ui-li ui-li-static ui-btn-up-d ui-last-child" style="display:none;">
+				<table width="100%">
+				<tbody><tr>
+					<td width="90%" height="20px">
+						<input id="namechshow" name="namechshow" type="text" value="" class="ui-input-text ui-body-d"></td>
+					<td min-width="10%"><a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c ui-btn-up-f">
+							<span class="ui-btn-inner" style="color: #E5E3E3;" onclick="searchPerson()">清空</span>
+					</a></td>
+				</tr>
+			</tbody></table>
+			</li>
+			<input id="itcodeshow" name="itcodeshow" type="text" value="" class="ui-input-text ui-body-d">
+		</ul>
+		<div class="ui-grid-a">
+			<div class="ui-block-a" style="padding-bottom:5px;" align="center">
+				<a href="#" data-role="button" data-mini="true" data-theme="d" onclick="$('#chooseNodeDialog').popup( 'close' );" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-mini ui-btn-up-d"><span class="ui-btn-inner"><span class="ui-btn-text">取　消</span></span></a>
+			</div>
+			<div class="ui-block-b" style="padding-bottom:5px;" align="center">
+				<a href="#" data-role="button" data-mini="true" data-theme="d" onclick="submit('submit')" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-btn-up-d ui-shadow ui-btn-corner-all ui-mini"><span class="ui-btn-inner"><span class="ui-btn-text">确　认</span></span></a>
+			</div>
+		</div>
 	</div>
 	<a onclick="getnodedialogData()">test</a>
 </body>

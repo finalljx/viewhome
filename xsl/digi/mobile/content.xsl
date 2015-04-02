@@ -38,12 +38,6 @@
 						localStorage.setItem("oaAppContentHtml",contentHtml);
 						$.hori.loadPage($.hori.getconfig().serverBaseUrl+"view/html/jq.html");
 					}
-					function searchPerson(){
-						
-						//var contentHtml=$("#notice").html();
-						//localStorage.setItem("oaAppContentHtml",contentHtml);
-						$.hori.loadPage($.hori.getconfig().serverBaseUrl+"viewhome/html/searchPerson.html");
-					}
   				]]>
 				</script>
 				<style>
@@ -64,18 +58,13 @@
 					<div data-role="content" align="center">
 						<script>
 							<![CDATA[
-							//viewfile 附件函数
-						 //function viewfile(url){ 
- 								//localStorage.setItem("attachmentUrl",url);
-								//$.hori.loadPage( $.hori.getconfig().serverBaseUrl+"viewhome/html/attachmentShowForm.html", $.hori.getconfig().serverBaseUrl+"viewhome/xml/AttachView.xml"); 
-							//} 
-							
 							function post(value, flowid, confirmflag, confirmstr){
 								var appserver = $("#appserver").val();
 								var appdbpath = $("#appdbpath").val();
 								var appdocunid = $("#appdocunid").val();
 								var CurUserITCode = $("#CurUserITCode").val();
 								var FlowMindInfo = $("#FlowMindInfo").val();
+								var selectPsn = $("#itcodeshow").val();
 								if(FlowMindInfo=="" || FlowMindInfo==null || FlowMindInfo==" "){
 									if(value=='submit'){
 										FlowMindInfo = "同意！";
@@ -111,7 +100,7 @@
 									$( "#flowpupups" ).popup( "close");
 								}
 								
-                               var soap = "<SOAP-ENV:Envelope xmlns:SOAP-ENV='http://schemas.xmlsoap.org/soap/envelope/' xmlns:SOAP-ENC='http://schemas.xmlsoap.org/soap/encoding/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'><SOAP-ENV:Body><m:bb_dd_GetDataByView xmlns:m='http://sxg.bbdd.org' SOAP-ENV:encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'><db_ServerName xsi:type='xsd:string'>"+appserver+"</db_ServerName><db_DbPath xsi:type='xsd:string'>"+appdbpath+"</db_DbPath><db_DocUID xsi:type='xsd:string'>"+appdocunid+"</db_DocUID><db_UpdInfo xsi:type='xsd:string'></db_UpdInfo><db_OptPsnID xsi:type='xsd:string'>"+CurUserITCode+"</db_OptPsnID><db_TempAuthors xsi:type='xsd:string'></db_TempAuthors><db_MsgTitle xsi:type='xsd:string'></db_MsgTitle><db_ToNodeId xsi:type='xsd:string'>"+toNodeId+"</db_ToNodeId><db_Mind xsi:type='xsd:string'>"+FlowMindInfo+"</db_Mind><db_OptType xsi:type='xsd:string'>"+value+"</db_OptType></m:bb_dd_GetDataByView></SOAP-ENV:Body></SOAP-ENV:Envelope>";
+                               var soap = "<SOAP-ENV:Envelope xmlns:SOAP-ENV='http://schemas.xmlsoap.org/soap/envelope/' xmlns:SOAP-ENC='http://schemas.xmlsoap.org/soap/encoding/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'><SOAP-ENV:Body><m:bb_dd_GetDataByView xmlns:m='http://sxg.bbdd.org' SOAP-ENV:encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'><db_Flag xsi:type='xsd:string'>fromMobile</db_Flag><db_ServerName xsi:type='xsd:string'>"+appserver+"</db_ServerName><db_DbPath xsi:type='xsd:string'>"+appdbpath+"</db_DbPath><db_DocUID xsi:type='xsd:string'>"+appdocunid+"</db_DocUID><db_UpdInfo xsi:type='xsd:string'></db_UpdInfo><db_OptPsnID xsi:type='xsd:string'>"+CurUserITCode+"</db_OptPsnID><db_TempAuthors xsi:type='xsd:string'></db_TempAuthors><db_MsgTitle xsi:type='xsd:string'></db_MsgTitle><db_ToNodeId xsi:type='xsd:string'>"+toNodeId+"</db_ToNodeId><db_Mind xsi:type='xsd:string'>"+FlowMindInfo+"</db_Mind><db_OptType xsi:type='xsd:string'>"+value+"</db_OptType><db_SelectPsn xsi:type='xsd:string'>"+selectPsn+"</db_SelectPsn></m:bb_dd_GetDataByView></SOAP-ENV:Body></SOAP-ENV:Envelope>";
 							   alert(soap);return;
 								var url = $.hori.getconfig().appServerHost+"view/oa/request/Produce/ProInd.nsf/THFlowBackTraceAgent?openagent&login";
 								var data = "data-xml="+soap;
@@ -123,7 +112,6 @@
 											//下一环节处理人为空时，需要选择处理人
 											if(result.indexOf("环节处理人为空")>=0){
 												localStorage.setItem("value",value);
-												searchPerson();
 												return false;
 											}else{
 											    $( "#popupdialogValue").html(result);
@@ -140,12 +128,6 @@
 								});
 							}
 							function submit(value){
-								var chooseNode = $("#toflownodeid").find("option:selected").text();
-								if(chooseNode=="请选择环节"){
-									alert("请选择环节");
-									return false;
-								}
-								alert(chooseNode);return;
 								//驳回选关
 								if(value=="reject"){
 									var refuse = $("#TFCurNodeRefuseToFlag").val();
@@ -175,8 +157,8 @@
 								$("#FlowMindInfo").val(val);
 								$("#selectVal").val(1);
 							}
-							function chooseNode(){
-								$( "#nodedialog" ).popup( "open" );
+							function chooseNode(val){
+								getnodedialogData(val);
 							}
 						]]>
 						</script>
@@ -192,7 +174,51 @@
 						</div>
 						<!-- 选择流程和人员 -->
 						<div data-role="popup" id="nodedialog" data-overlay-theme="a" data-theme="c" data-dismissible="false" style="max-width:400px;" class="ui-corner-all">
-							
+							<ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+								<li class="fontdividerstyle ui-li ui-li-divider ui-bar-b ui-first-child" style="text-align:center;">下一步</li>
+								<li class="ui-li ui-li-static ui-btn-up-d" id="nextnode"></li>
+								<li id="searchPersonli" class="ui-li ui-li-static ui-btn-up-d" style="display:none;">
+									<table width="100%">
+										<tbody><tr>
+											<td min-width="35%">搜索</td>
+											<td width="60%" height="20px">
+												<input id="searchPersonKey" name="searchPersonKey" type="text" class="ui-input-text ui-body-d"/></td>
+											<td min-width="5%"><a class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c ui-btn-up-f">
+												<span class="ui-btn-inner" style="color: #E5E3E3;" onclick="searchPerson()">搜索</span>
+											</a></td>
+										</tr>
+									</tbody></table>
+								</li>
+								<li name="PersonLi" class="fontstyle ui-li ui-li-static ui-btn-up-d" style="display:none;">环节审批人：</li>
+								<li name="PersonLi" id="PersonLi" class="fontstyle ui-li ui-li-static ui-btn-up-d" style="line-height:20px;background: #E5E3E3;display:none;">
+									
+								</li>
+								<li name="choosePersonLi" class="fontstyle ui-li ui-li-static ui-btn-up-d" style="display:none;">选人员：</li>
+								<li name="choosePersonLi" id="choosePersonLi" class="fontstyle ui-li ui-li-static ui-btn-up-d" style="line-height: 25px;background: #E5E3E3;display:none;">
+									
+								</li>
+								<li name="choosePersonLi" class="fontstyle ui-li ui-li-static ui-btn-up-d" style="display:none;">环节审批人：</li>
+								<li name="choosePersonLi" class="ui-li ui-li-static ui-btn-up-d ui-last-child" style="display:none;">
+									<table width="100%">
+									<tbody><tr>
+										<td width="90%" height="20px">
+											<input id="namechshow" name="namechshow" type="text" value="" class="ui-input-text ui-body-d"/></td>
+										<td min-width="10%"><a onclick="clearPerson()" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-up-c ui-btn-up-f">
+												<span class="ui-btn-inner" style="color: #E5E3E3;">清空</span>
+										</a></td>
+									</tr>
+								</tbody></table>
+								</li>
+								<input id="itcodeshow" name="itcodeshow" type="text" value="" class="ui-input-text ui-body-d"/>
+							</ul>
+							<div class="ui-grid-a">
+								<div class="ui-block-a" style="padding-bottom:5px;" align="center">
+									<a href="#" data-role="button" data-mini="true" data-theme="d" onclick="$('#nodedialog').popup( 'close' );" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-mini ui-btn-up-d"><span class="ui-btn-inner"><span class="ui-btn-text">取　消</span></span></a>
+								</div>
+								<div class="ui-block-b" style="padding-bottom:5px;" align="center">
+									<a href="#" data-role="button" data-mini="true" data-theme="d" onclick="submit('submit')" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" class="ui-btn ui-btn-up-d ui-shadow ui-btn-corner-all ui-mini"><span class="ui-btn-inner"><span class="ui-btn-text">确　认</span></span></a>
+								</div>
+							</div><br/><br/>
 						</div>
 						<!-- 驳回选关 -->
 						<div data-role="popup" id="flowpupups">
@@ -316,7 +342,7 @@
 								<div class="ui-block-b" style="padding-bottom:5px;" align="center">
 									<xsl:if
 										test="//td[@class='DB_SET_TD' and not(contains(@style, 'none'))]/a[contains(@href, 'submit')]">
-										<a data-role="button" value="submit" onclick="chooseNode();"
+										<a data-role="button" value="submit" onclick="chooseNode('submit');"
 											data-mini='true' data-theme="f" class="fontstyle">下一步</a>
 									</xsl:if>
 								</div>
